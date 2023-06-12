@@ -16,7 +16,7 @@ const User = () => {
 
   return (
     <>
-      <h1 className="text-4xl">TESTING</h1>
+      <h1 className="text-4xl">TESTING DEV</h1>
 
       {users.map((user) => (
         <div key={user._id}>
