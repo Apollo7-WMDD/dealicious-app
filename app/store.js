@@ -6,6 +6,8 @@ const store = (set) => ({
     setFilter: (filter) => set((state)=> ({...state, filter})),
     user: [],
     setUser: (user) => set((state)=> ({...state, user})),
+
+    // ADD NEW STATE HERE
     
 });
     
