@@ -6,7 +6,11 @@ const User = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const res = await fetch("/api/users");
+      const res = await fetch("/api/users", {
+        cache: "no-store",
+      });
+      if (!res.ok) throw new Error("Something went wrong...");
+
       const data = await res.json();
       setUsers(data);
       console.log(data);
