@@ -6,10 +6,10 @@ const UserSchema = new Schema({
     unique: [true, "Email already exists!"],
     required: [true, "Email is required!"],
   },
-  username: {
+  name: {
     type: String,
-    unique: [true, "Username already exists!"],
-    required: [true, "Username is required!"],
+    unique: [true, "Name already exists!"],
+    required: [true, "Name is required!"],
   },
   phone: {
     type: Number,
