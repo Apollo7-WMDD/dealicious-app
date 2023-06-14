@@ -11,19 +11,20 @@ const User = () => {
   const user = useStore((state) => state.user);
   const setUser = useStore((state) => state.setUser);
 
-  // useEffect(() => {
-  //   const fetchUsers = async () => {
-  //     const res = await fetch("/api/users", {
-  //       cache: "no-store",
-  //     });
-  //     if (!res.ok) throw new Error("Something went wrong...");
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const res = await fetch("/api/users", {
+        cache: "no-store",
+      });
+      if (!res.ok) throw new Error("Something went wrong...");
 
-  //     const data = await res.json();
-  //     setUser(data);
-  //   };
-  //   fetchUsers();
-  // }, []);
+      const data = await res.json();
+      setUser(data);
+    };
+    fetchUsers();
+  }, []);
 
+  // TODO: ADD USER TO THE DATABASE
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
 
@@ -88,12 +89,9 @@ const User = () => {
         </button>
       </form> */}
       <h1 className="text-4xl">TESTING DEV</h1>
-      {console.log(user)}
-
       <InputText filter={filter} />
 
       <div>
-        {console.log(filter)}
         <h1>{filter}</h1>
 
         <List userProp={user} />
