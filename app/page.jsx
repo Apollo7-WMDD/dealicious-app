@@ -1,9 +1,12 @@
-import Image from "next/image";
+import Image from 'next/image'
+import Link from 'next/link';
 
 export default function Home() {
   return (
     <main>
-      <h1 className="text-3xl">Home</h1>
+      {/* <h1>Home</h1>
+      <p>Random Text...</p> */}
+      <Link href="/users" className='text-red-500'>Users</Link>
     </main>
-  );
+  )
 }
