@@ -38,6 +38,8 @@ export const POST = async (request) => {
       phone: restaurantInfo.phone,
       website: restaurantInfo.website,
       businessHours: restaurantInfo.businessHours,
+      superCustomerIdArray: restaurantInfo.superCustomerIdArray,
+      superCustomerPoints: restaurantInfo.superCustomerPoints,
       menu: restaurantInfo.menu,
       logo: restaurantInfo.logo,
     });

@@ -31,11 +31,9 @@ export const POST = async (request) => {
       throw new Error("Email already exists! Try another one. Please");
 
     const superCustomerNew = await new SuperCustomer({
-      firstName: superCustomerInfo.firstName,
-      lastName: superCustomerInfo.lastName,
       birthdate: superCustomerInfo.birthdate,
       phone: superCustomerInfo.phone,
-      address: superCustomerInfo.address,
+      restaurantId: superCustomerInfo.restaurantId,
       url: superCustomerInfo.url,
     });
 

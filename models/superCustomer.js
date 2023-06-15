@@ -1,14 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
 const SuperCustomerSchema = new Schema({
-  firstName: {
-    type: String,
-    required: [true, "First Name is required!"],
-  },
-  lastName: {
-    type: String,
-    required: [true, "Last Name is required!"],
-  },
   birthDate: {
     type: Date,
     required: [true, "Birth Date is required!"],
@@ -18,9 +10,12 @@ const SuperCustomerSchema = new Schema({
     unique: [true, "Phone already exists!"],
     required: [true, "Phone is required!"],
   },
+  restaurantIdArray: {
+    type: [Schema.Types.ObjectId],
+    ref: "RestaurantArray",
+  },
   address: {
     type: String,
-    required: [true, "Address is required!"],
   },
   url: {
     type: String,

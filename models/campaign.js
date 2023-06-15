@@ -15,7 +15,7 @@ const CampaignSchema = new Schema({
     unique: [true, "Name already exists!"],
     required: [true, "Name is required!"],
   },
-  campaginStatus: {
+  status: {
     type: String,
     enum: ["active", "inactive"],
     default: "active",
@@ -49,6 +49,10 @@ const CampaignSchema = new Schema({
     type: Number,
     default: 0,
   },
+  state: {
+    type: Boolean,
+    default: true,
+  },
   startDate: {
     type: Date,
     required: [true, "Start Date is required!"],
@@ -68,6 +72,9 @@ const CampaignSchema = new Schema({
   favorite: {
     type: Boolean,
     default: false,
+  },
+  autoDescription: {
+    type: String,
   },
 });
 
