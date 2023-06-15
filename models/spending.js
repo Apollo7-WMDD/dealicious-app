@@ -25,6 +25,31 @@ const SpendingSchema = new Schema({
     type: Number,
     required: [true, "Bill Amount is required!"],
   },
+  suggestion: {
+    type: {
+      foodQuality: {
+        type: Boolean,
+        default: false,
+      },
+      foodQuantity: {
+        type: Boolean,
+        default: false,
+      },
+      service: {
+        type: Boolean,
+        default: false,
+      },
+      place: {
+        type: Boolean,
+        default: false,
+      },
+      other: {
+        type: Boolean,
+        default: false,
+      },
+      required: [true, "Suggestion is required!"],
+    },
+  },
 });
 
 const Spending = models.Spending || model("Spending", SpendingSchema);
