@@ -20,7 +20,7 @@ export const GET = async (request) => {
 };
 
 export const POST = async (request) => {
-  const { email, username, phone } = await request.json();
+  const { email, firstname, lastname, phone } = await request.json();
 
   try {
     const user = await mongoose.connection.db
@@ -31,7 +31,8 @@ export const POST = async (request) => {
 
     const userNew = await new User({
       email: email,
-      username: username,
+      firstname: firstname,
+      lastname: lastname,
       phone: phone,
     });
 
