@@ -31,18 +31,23 @@ export const POST = async (request) => {
 
     const campaignNew = await new Campaign({
       restaurantId: campaignInfo.restaurantId,
+      superCustomerIdArray: campaignInfo.superCustomerIdArray,
       name: campaignInfo.name,
-      campaignStatus: campaignInfo.campaignStatus,
+      status: campaignInfo.status,
       type: campaignInfo.type,
       offer: campaignInfo.offer,
       allowSuperCustomer: campaignInfo.allowSuperCustomer,
       allowNewCustomer: campaignInfo.allowNewCustomer,
       expiredByNumber: campaignInfo.expiredByNumber,
       availableCodes: campaignInfo.availableCodes,
+      superCustomerPoints: campaignInfo.superCustomerPoints,
+      state: campaignInfo.state,
       startDate: campaignInfo.startDate,
       endDate: campaignInfo.endDate,
       media: campaignInfo.media,
       description: campaignInfo.description,
+      favorite: campaignInfo.favorite,
+      autoDescription: campaignInfo.autoDescription,
     });
 
     await campaignNew.save();
