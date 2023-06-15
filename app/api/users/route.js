@@ -30,10 +30,10 @@ export const POST = async (request) => {
     if (user) throw new Error("Email already exists! Try another one. Please");
 
     const userNew = await new User({
-      email: email,
-      firstname: firstname,
-      lastname: lastname,
-      phone: phone,
+      email,
+      firstname,
+      lastname,
+      phone,
     });
 
     await userNew.save();
