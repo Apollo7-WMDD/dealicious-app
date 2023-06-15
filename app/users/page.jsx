@@ -10,6 +10,8 @@ const User = () => {
   const setFilter = useStore((state) => state.setFilter);
   const user = useStore((state) => state.user);
   const setUser = useStore((state) => state.setUser);
+  const addNewUser = useStore((state) => state.addNewUser);
+  const setAddNewUser = useStore((state) => state.setAddNewUser);
 
   useEffect(() => {
     const fetchUsers = async () => {
