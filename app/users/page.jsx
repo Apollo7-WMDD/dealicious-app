@@ -26,7 +26,7 @@ const User = () => {
     fetchUsers();
   }, []);
 
-  // TODO: ADD USER TO THE DATABASE
+  // ADD USER TO THE DATABASE
   const handleSubmit = async function (e) {
     e.preventDefault();
 
@@ -53,6 +53,7 @@ const User = () => {
       } else {
         const data = await res.json();
         console.log("Success! ", data);
+        setUser([...user, data]);
       }
     } catch (error) {
       console.log(error);
@@ -61,14 +62,14 @@ const User = () => {
   };
 
   return (
-    <>
-      <h1 className="text-4xl mb-5">Adding/Showing Users</h1>
-      <InputText filter={filter} />
-
+    <div className="grid grid-cols-2">
       <div>
-        <h1>{filter}</h1>
+        <h1 className="text-4xl mb-5">Adding/Showing Users</h1>
+        <InputText filter={filter} />
+        <h5>{filter}</h5>
         <List userProp={user} />
       </div>
+     
       <form
         onSubmit={handleSubmit}
         className="flex items-center flex-col gap-5"
@@ -108,7 +109,7 @@ const User = () => {
           Submit
         </button>
       </form>
-    </>
+    </div>
   );
 };
 
