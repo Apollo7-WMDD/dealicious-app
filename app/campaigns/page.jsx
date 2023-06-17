@@ -1,5 +1,4 @@
 "use client";
-import { set } from "mongoose";
 import { useEffect, useState } from "react";
 
 const Campaigns = () => {
@@ -15,7 +14,6 @@ const Campaigns = () => {
 
       const data = await res.json();
       setCampaigns(data);
-      console.log(data);
     };
     fetchCampaigns();
   }, []);
