@@ -1,118 +1,39 @@
-"use client";
-import { useEffect } from "react";
-import { useStore } from "../store";
+// import { useStore } from "../store";
 import List from "../components/List";
-import InputText from "../components/InputText";
+// import InputText from "../components/InputText";
+import FormUsers from "../components/FormUsers";
 
-const User = () => {
+// featch all users from the database
+const fetchUsers = async () => {
+  const res = await fetch("http://localhost:3000/api/users", {
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Error("Something went wrong...");
+
+  return await res.json();
+};
+
+const User = async () => {
   // IMPORT HOOK FROM STATE MANAGEMENT STORE
-  const filter = useStore((state) => state.filter);
-  const setFilter = useStore((state) => state.setFilter);
-  const user = useStore((state) => state.user);
-  const setUser = useStore((state) => state.setUser);
-  const addNewUser = useStore((state) => state.addNewUser);
-  const setAddNewUser = useStore((state) => state.setAddNewUser);
+  // const filter = useStore((state) => state.filter);
+  // const user = useStore((state) => state.user);
+  // const setUser = useStore((state) => state.setUser);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const res = await fetch("/api/users", {
-        cache: "no-store",
-      });
-      if (!res.ok) throw new Error("Something went wrong...");
-
-      const data = await res.json();
-      setUser(data);
-    };
-    fetchUsers();
-  }, []);
-
-  // ADD USER TO THE DATABASE
-  const handleSubmit = async function (e) {
-    e.preventDefault();
-
-    // get the form data
-    const formData = {
-      email: e.target.email.value,
-      firstname: e.target.firstname.value,
-      lastname: e.target.lastname.value,
-      phone: e.target.phone.value,
-    };
-
-    // send the form data to the server
-    try {
-      const res = await fetch("/api/users", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      if (!res.ok) {
-        const data = await res.text();
-        throw new Error(data);
-      } else {
-        const data = await res.json();
-        console.log("Success! ", data);
-        setUser([...user, data]);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    e.target.reset();
-  };
+  const allUsers = await fetchUsers();
 
   return (
     <div className="grid grid-cols-2 gap-16">
       <div>
         <h1 className="text-4xl mb-5">Showing Users</h1>
-        <InputText filter={filter} />
-        <h5>{filter}</h5>
-        <List userProp={user} />
-      </div>
-     
-      <div>
-      <h1 className="text-4xl mb-5">Adding Users</h1>
-      <form
-        onSubmit={handleSubmit}
-        className="flex items-center flex-col gap-5"
-      >
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          className="border-solid border-green-700 border-2 rounded-md"
-        />
-        <label htmlFor="firstname">First Name</label>
-        <input
-          type="text"
-          name="firstname"
-          id="firstname"
-          className="border-solid border-green-700 border-2 rounded-md"
-        />
-        <label htmlFor="lastname">Last Name</label>
-        <input
-          type="text"
-          name="lastname"
-          id="lastname"
-          className="border-solid border-green-700 border-2 rounded-md"
-        />
-        <label htmlFor="phone">Phone</label>
-        <input
-          type="text"
-          name="phone"
-          id="phone"
-          className="border-solid border-green-700 border-2 rounded-md"
-        />
-        <button
-          type="submit"
-          className=" mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white"
-        >
-          Submit
-        </button>
-      </form>
+        {/* <InputText filter={filter} /> */}
+        {/* <h5>{filter}</h5> */}
+        <List userProp={allUsers} />
       </div>
 
+      <div>
+        <h1 className="text-4xl mb-5">Adding Users</h1>
+        <FormUsers />
+      </div>
     </div>
   );
 };
