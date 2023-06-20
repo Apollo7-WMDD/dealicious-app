@@ -21,7 +21,6 @@ export const GET = async (request) => {
 
 export const POST = async (request) => {
   const restaurantInfo = await request.json();
-
   try {
     const restaurant = await mongoose.connection.db
       .collection("restaurants")

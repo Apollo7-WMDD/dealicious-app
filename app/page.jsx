@@ -8,6 +8,8 @@ export default function Home() {
       <p>Random Text...</p> */}
       <Link href="/users" className='text-red-500'>Users</Link>
       <Link href="/campaigns" className='text-red-500'>Campaigns</Link>
+      <Link href="/restaurant" className='text-red-500'>Restaurant</Link>
+      <Link href="/points" className='text-red-500'>Points</Link>
     </main>
   )
 }
