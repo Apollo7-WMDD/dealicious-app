@@ -6,6 +6,7 @@ import SuperCustomer from "@/models/superCustomer";
 export const GET = async (request) => {
   try {
     await connect();
+
     // get the collection of movies without a Schema
     const superCustomer = await mongoose.connection.db
       .collection("supercustomers")
@@ -24,6 +25,7 @@ export const POST = async (request) => {
   
   try {
     await connect();
+
     const superCustomer = await mongoose.connection.db
       .collection("supercustomers")
       .findOne({ phone: superCustomerInfo.phone });

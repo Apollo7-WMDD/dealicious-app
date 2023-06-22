@@ -21,6 +21,7 @@ export const GET = async (request) => {
 
 export const POST = async (request) => {
   const campaignInfo = await request.json();
+  const restaurantId = new mongoose.Types.ObjectId();
 
   try {
     const campaign = await mongoose.connection.db
@@ -30,24 +31,24 @@ export const POST = async (request) => {
     if (campaign) throw new Error("Campaign already exists!");
 
     const campaignNew = await new Campaign({
-      restaurantId: campaignInfo.restaurantId,
-      superCustomerIdArray: campaignInfo.superCustomerIdArray,
+      restaurantId,
+      // superCustomerIdArray: campaignInfo.superCustomerIdArray,
       name: campaignInfo.name,
-      status: campaignInfo.status,
-      type: campaignInfo.type,
-      offer: campaignInfo.offer,
-      allowSuperCustomer: campaignInfo.allowSuperCustomer,
-      allowNewCustomer: campaignInfo.allowNewCustomer,
-      expiredByNumber: campaignInfo.expiredByNumber,
+      // status: campaignInfo.status,
+      // type: campaignInfo.type,
+      // offer: campaignInfo.offer,
+      // allowSuperCustomer: campaignInfo.allowSuperCustomer,
+      // allowNewCustomer: campaignInfo.allowNewCustomer,
+      // expiredByNumber: campaignInfo.expiredByNumber,
       availableCodes: campaignInfo.availableCodes,
-      superCustomerPoints: campaignInfo.superCustomerPoints,
-      state: campaignInfo.state,
+      // superCustomerPoints: campaignInfo.superCustomerPoints,
+      // state: campaignInfo.state,
       startDate: campaignInfo.startDate,
       endDate: campaignInfo.endDate,
-      media: campaignInfo.media,
-      description: campaignInfo.description,
-      favorite: campaignInfo.favorite,
-      autoDescription: campaignInfo.autoDescription,
+      // media: campaignInfo.media,
+      // description: campaignInfo.description,
+      // favorite: campaignInfo.favorite,
+      // autoDescription: campaignInfo.autoDescription,
     });
 
     await campaignNew.save();
