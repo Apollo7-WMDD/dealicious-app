@@ -2,6 +2,7 @@ name: Issue Report
 description: File a issue report
 title: "[Bug]: "
 labels: ["bug"]
+Projects: ["Apollo7 issue tracking"]
 body:
   - type: markdown
     attributes:
@@ -26,6 +27,8 @@ body:
         - Restaurant
         - Super Customer
         - NC
+    validations:
+      required: true
   - type: checkboxes
     id: terms
     attributes:
