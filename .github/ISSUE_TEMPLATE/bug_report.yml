@@ -2,7 +2,7 @@ name: Issue Report
 description: File a issue report
 title: "[Bug]: "
 labels: ["bug"]
-projects: ["Apollo7 issue tracking"]
+project: ["Apollo7 issue tracking"]
 body:
   - type: markdown
     attributes:
