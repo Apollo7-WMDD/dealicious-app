@@ -6,7 +6,9 @@ import FormUsers from "../components/FormUsers";
 // featch all users from the database
 const fetchUsers = async () => {
   const res = await fetch("http://localhost:3000/api/users", {
-    cache: "no-store",
+    next: {
+      cache: "no-store",
+    },
   });
   if (!res.ok) throw new Error("Something went wrong...");
 

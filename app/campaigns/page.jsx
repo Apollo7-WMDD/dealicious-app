@@ -1,11 +1,10 @@
-// pages/Campaigns.js
 "use client";
-import { useState, useEffect } from 'react';
-import List from '../components/List';
+import { useState, useEffect } from "react";
+import List from "../components/List";
 
 const Campaigns = () => {
   const [campaigns, setCampaigns] = useState([]);
-  const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,28 +25,28 @@ const Campaigns = () => {
     };
 
     // Posting data to server
-    fetch('/api/campaigns', {
-      method: 'POST',
+    fetch("/api/campaigns", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(campaignData),
     })
-    .then(response => {
-      if (!response.ok) {
-        return response.text().then(text => {
-          throw new Error(`Server error: ${text}`);
-        });
-      }
-      return response.json();
-    })
-    .then(data => {
-      setCampaigns(prevCampaigns => [...prevCampaigns, data]);
-    })
-    .catch(error => console.error('Error creating campaign:', error));    
+      .then(async (response) => {
+        if (!response.ok) {
+          return response.text().then((text) => {
+            throw new Error(`Server error: ${text}`);
+          });
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setCampaigns((prevCampaigns) => [...prevCampaigns, data]);
+      })
+      .catch((error) => console.error("Error creating campaign:", error));
   };
 
-  // Fetching campaigns 
+  // Fetching campaigns
   useEffect(() => {
     const fetchCampaigns = async () => {
       const res = await fetch("/api/campaigns", {
@@ -56,6 +55,7 @@ const Campaigns = () => {
       if (!res.ok) throw new Error("Something went wrong...");
 
       const data = await res.json();
+      console.log(data);
       setCampaigns(data);
     };
     fetchCampaigns();
@@ -67,15 +67,28 @@ const Campaigns = () => {
 
       <form onSubmit={handleSubmit}>
         <input name="name" type="text" placeholder="Campaign name" />
-        <input name="description" type="text" placeholder="Campaign description" />
+        <input
+          name="description"
+          type="text"
+          placeholder="Campaign description"
+        />
         <input name="type" type="text" placeholder="Type (comma separated)" />
         <input name="offer" type="text" placeholder="Offer" />
-        <input name="availableCodes" type="number" placeholder="Available Codes" />
+        <input
+          name="availableCodes"
+          type="number"
+          placeholder="Available Codes"
+        />
         <input name="startDate" type="date" />
         <input name="endDate" type="date" />
-        <input name="media" type="text" placeholder="Media URLs (comma separated)" />
+        <input
+          name="media"
+          type="text"
+          placeholder="Media URLs (comma separated)"
+        />
         <label>
-          <input name="allowSuperCustomer" type="checkbox" /> Allow Super Customer
+          <input name="allowSuperCustomer" type="checkbox" /> Allow Super
+          Customer
         </label>
         <label>
           <input name="allowNewCustomer" type="checkbox" /> Allow New Customer
@@ -86,8 +99,7 @@ const Campaigns = () => {
         <button type="submit">Create Campaign</button>
       </form>
 
-
-      <List campaigns={campaigns} filter={filter} />
+      <List userProp={campaigns} />
     </div>
   );
 };
