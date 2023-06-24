@@ -6,9 +6,10 @@ import SuperCustomer from "@/models/superCustomer";
 export const GET = async (request) => {
   try {
     await connect();
+
     // get the collection of movies without a Schema
     const superCustomer = await mongoose.connection.db
-      .collection("superCustomer")
+      .collection("supercustomers")
       .find({})
       .toArray();
 
@@ -21,23 +22,25 @@ export const GET = async (request) => {
 
 export const POST = async (request) => {
   const superCustomerInfo = await request.json();
-
+  
   try {
+    await connect();
+
     const superCustomer = await mongoose.connection.db
-      .collection("superCustomer")
+      .collection("supercustomers")
       .findOne({ phone: superCustomerInfo.phone });
 
     if (superCustomer)
       throw new Error("Email already exists! Try another one. Please");
 
     const superCustomerNew = await new SuperCustomer({
-      birthdate: superCustomerInfo.birthdate,
+      birthDate: superCustomerInfo.birthDate,
       phone: superCustomerInfo.phone,
-      restaurantId: superCustomerInfo.restaurantId,
+      //restaurantId: superCustomerInfo.restaurantId,
       url: superCustomerInfo.url,
     });
 
-    await userNew.save();
+    await superCustomerNew.save();
     return new NextResponse(JSON.stringify(superCustomerNew), { status: 200 });
   } catch (err) {
     console.log(err.message);

@@ -9,6 +9,7 @@ const CampaignSchema = new Schema({
   superCustomerIdArray: {
     type: [Schema.Types.ObjectId],
     ref: "SuperCustomerArray",
+    default: [],
   },
   name: {
     type: String,
@@ -23,11 +24,13 @@ const CampaignSchema = new Schema({
   type: {
     type: Array,
     of: String,
-    required: [true, "Type is required!"],
+    default: ["Type is REQUIRED!"],
+    // required: [true, "Type is required!"],
   },
   offer: {
     type: String,
-    required: [true, "Offer is required!"],
+    default: "Offer is REQUIRED!",
+    // required: [true, "Offer is required!"],
   },
   allowSuperCustomer: {
     type: Boolean,
@@ -67,7 +70,8 @@ const CampaignSchema = new Schema({
   },
   description: {
     type: String,
-    required: [true, "Description is required!"],
+    default: "Restaurant description REQUIRED",
+    // required: [true, "Description is required!"],
   },
   favorite: {
     type: Boolean,
