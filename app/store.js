@@ -8,6 +8,10 @@ const store = (set) => ({
 
   // ADD NEW STATE HERE
 
+    //new state for campaign
+    campaigns: [],
+    setCampaigns: (campaigns) => set((state) => ({ ...state, campaigns })),
+    addCampaign: (campaign) => set((state) => ({ ...state, campaigns: [...state.campaigns, campaign] })),
 //   addNewUser: "",
 //   setAddNewUser: (addNewUser) => set((state) => ({ ...state, addNewUser })),
 });

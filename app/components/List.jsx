@@ -2,7 +2,7 @@
 
 import { useStore } from "../store";
 
-function List({ userProp }) {
+function List({ userProp, campaigns = [] }) {
   const filter = useStore((state) => state.filter);
   return (
     <>
