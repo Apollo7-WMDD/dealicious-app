@@ -1,29 +1,42 @@
-"use client";
-import { useState, useEffect } from "react";
+// import { useStore } from "../store";
+import List from "../components/List";
+// import InputText from "../components/InputText";
+import FormUsers from "../components/FormUsers";
 
-const User = () => {
-  const [users, setUsers] = useState([]);
+// featch all users from the database
+const fetchUsers = async () => {
+  const res = await fetch("http://localhost:3000/api/users", {
+    next: {
+      cache: "no-store",
+    },
+  });
+  if (!res.ok) throw new Error("Something went wrong...");
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const res = await fetch("/api/users");
-      const data = await res.json();
-      setUsers(data);
-      console.log(data);
-    };
-    fetchUsers();
-  }, []);
+  return await res.json();
+};
+
+const User = async () => {
+  // IMPORT HOOK FROM STATE MANAGEMENT STORE
+  // const filter = useStore((state) => state.filter);
+  // const user = useStore((state) => state.user);
+  // const setUser = useStore((state) => state.setUser);
+
+  const allUsers = await fetchUsers();
 
   return (
-    <>
-      <h1 className="text-4xl">TESTING DEV</h1>
+    <div className="grid grid-cols-2 gap-16">
+      <div>
+        <h1 className="text-4xl mb-5">Showing Users</h1>
+        {/* <InputText filter={filter} /> */}
+        {/* <h5>{filter}</h5> */}
+        <List userProp={allUsers} />
+      </div>
 
-      {users.map((user) => (
-        <div key={user._id}>
-          <h2 className="text-2xl text-red-700 m-5">{user.name}</h2>
-        </div>
-      ))}
-    </>
+      <div>
+        <h1 className="text-4xl mb-5">Adding Users</h1>
+        <FormUsers />
+      </div>
+    </div>
   );
 };
 
