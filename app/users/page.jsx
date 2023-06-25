@@ -1,6 +1,4 @@
-// import { useStore } from "../store";
 import List from "../components/List";
-// import InputText from "../components/InputText";
 import FormUsers from "../components/FormUsers";
 
 // featch all users from the database
