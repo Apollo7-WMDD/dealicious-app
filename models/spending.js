@@ -3,27 +3,45 @@ import { Schema, model, models } from "mongoose";
 const SpendingSchema = new Schema({
   phone: {
     type: Number,
-    unique: [true, "Phone already exists!"],
-    required: [true, "Phone is required!"],
+    unique: [true, "Phone already exists"],
+    required: [true, "Phone is required"],
+    validate: {
+      validator: function (value) {
+        // Custom validation logic for phone number format
+        const phoneNumberRegex = /^[0-9]{10}$/; // Example: 10-digit phone number
+        return phoneNumberRegex.test(value);
+      },
+      message: "Phone number should be a 10-digit number.",
+    },
   },
-  superCustomerId: {
-    type: Schema.Types.ObjectId,
-    ref: "SuperCustomer",
-    required: [true, "Super Customer ID is required!"],
+  name: {
+    type: String,
+    required: [true, "Name is required"],
+    trim: true,
   },
   restaurantId: {
     type: Schema.Types.ObjectId,
     ref: "Restaurant",
-    required: [true, "Restaurant ID is required!"],
+    required: [true, "Restaurant ID is required"],
   },
   campaignId: {
     type: Schema.Types.ObjectId,
     ref: "Campaign",
-    required: [true, "Campaign ID is required!"],
+    required: [true, "Campaign ID is required"],
   },
   billamount: {
     type: Number,
-    required: [true, "Bill Amount is required!"],
+    required: [true, "Bill Amount is required"],
+    min: [1, "Bill Amount cannot be negative and must be greater than 0"],
+  },
+  isSuperCustomer: {
+    type: Boolean,
+    default: false,
+  },
+  dateRedeemed: {
+    type: Date,
+    default: Date.now,
+    immutable: true,
   },
   suggestion: {
     type: {
@@ -47,7 +65,14 @@ const SpendingSchema = new Schema({
         type: Boolean,
         default: false,
       },
-      required: [true, "Suggestion is required!"],
+    },
+    validate: {
+      validator: function (value) {
+        // Custom validation logic for suggestion
+        const keys = Object.keys(value);
+        return keys.some((key) => value[key]);
+      },
+      message: "At least one suggestion category should be selected",
     },
   },
 });

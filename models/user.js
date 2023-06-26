@@ -3,26 +3,30 @@ import { Schema, model, models } from "mongoose";
 const UserSchema = new Schema({
   email: {
     type: String,
-    unique: [true, "Email already exists!"],
-    required: [true, "Email is required!"],
-  },
-  password: {
-    type: String,
-    default: "123456",
+    lowercase: true,
+    unique: [true, "Email already exists"],
+    required: [true, "Email is required"],
   },
   firstname: {
     type: String,
-    unique: [true, "Name already exists!"],
-    // required: [true, "Name is required!"],
+    required: [true, "First Name is required"],
   },
   lastname: {
     type: String,
-    unique: [true, "Name already exists!"],
+    required: [true, "Last Name is required"],
   },
   phone: {
     type: Number,
     unique: [true, "Phone already exists!"],
     required: [true, "Phone is required!"],
+    validate: {
+      validator: function (value) {
+        // Custom validation logic for phone number format
+        const phoneNumberRegex = /^[0-9]{10}$/; // Example: 10-digit phone number
+        return phoneNumberRegex.test(value);
+      },
+      message: "Phone number should be a 10-digit number.",
+    },
   },
 });
 

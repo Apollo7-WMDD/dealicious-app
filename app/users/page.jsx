@@ -3,10 +3,13 @@ import FormUsers from "../components/FormUsers";
 
 // featch all users from the database
 const fetchUsers = async () => {
-  const res = await fetch("http://localhost:3000/api/users", {
-    next: {
-      cache: "no-store",
-    },
+  const isProduction = process.env.NODE_ENV === "production";
+  const serverUrl = isProduction
+    ? process.env.NEXT_PUBLIC_SERVER_URL
+    : "http://localhost:3000";
+
+  const res = await fetch(`${serverUrl}/api/users`, {
+    cache: "no-store",
   });
   if (!res.ok) throw new Error("Something went wrong...");
 
@@ -14,11 +17,6 @@ const fetchUsers = async () => {
 };
 
 const User = async () => {
-  // IMPORT HOOK FROM STATE MANAGEMENT STORE
-  // const filter = useStore((state) => state.filter);
-  // const user = useStore((state) => state.user);
-  // const setUser = useStore((state) => state.setUser);
-
   const allUsers = await fetchUsers();
 
   return (
