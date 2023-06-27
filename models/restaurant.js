@@ -109,6 +109,10 @@ const RestaurantSchema = new Schema({
   logo: {
     type: String, //store the URL of the image (cloudinary)
   },
+  qrCode: {
+    type: String,
+    required: [true, "QR Code is required"], //validation pending
+  },
 });
 
 const Restaurant = models.Restaurant || model("Restaurant", RestaurantSchema);
