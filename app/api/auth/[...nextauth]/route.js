@@ -42,6 +42,31 @@ const handlerAuth = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    async session({ session }) {
+      const sessionUser = await User.findOne({ email: session.user.email });
+      session.user.id = sessionUser._id.toString();
+      return session;
+    },
+    async signIn({ profile }) {
+      try {
+        await connect();
+        const userExists = await User.findOne({ email: profile.email });
+
+        if (!userExists) {
+          await User.create({
+            email: profile.email,
+            firstname: profile.name.split(" ")[0],
+            lastname: profile.name.split(" ")[1],
+            phone: 1234567891,
+          });
+        }
+        return true;
+      } catch (error) {
+        return false;
+      }
+    },
+  },
   pages: {
     error: "/login",
   },
