@@ -37,7 +37,6 @@ const Login = () => {
 
   useEffect(() => {
     if (status === "authenticated") {
-      console.log("this is the session: ", session.user.id);
       router.push(`/campaigns/active/${session.user.id}`);
     }
   }, [session]);
@@ -54,8 +53,8 @@ const Login = () => {
 
   return (
     <>
-      {status === "loading" || status === "authenticated" ? (
-        <div>Loading...</div>
+      {status === "authenticated" ? (
+        <div>Authenticated!</div>
       ) : (
         <>
           <h1 className="text-3xl text-center font-bold my-4">Login</h1>
