@@ -3,6 +3,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 
 import Link from "next/link";
 
+
 export default function Home() {
   const { data: session, status } = useSession();
   console.log(session, status);
@@ -12,7 +13,9 @@ export default function Home() {
   const restaurantId = "vsvererv223r55555f";
 
   return (
+    
     <main style={{ marginTop: "2rem" }}>
+    
       <Link
         href={`/newCustomer/${restaurantId}/${superCustomerId}`}
         className=" mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white"

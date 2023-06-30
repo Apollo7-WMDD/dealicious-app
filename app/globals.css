@@ -15,6 +15,6 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  color: rgb(var(--foreground-rgb));
-  background-color: rgb(var(--background-start-rgb));
+  /* color: rgb(var(--foreground-rgb));
+  background-color: rgb(var(--background-start-rgb)); */
 }
