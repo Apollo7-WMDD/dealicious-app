@@ -1,44 +1,30 @@
+
 // color design tokens export
 export const tokensDark = {
-  grey: {
-    0: "#ffffff", // manually adjusted
-    10: "#f6f6f6", // manually adjusted
-    50: "#f0f0f0", // manually adjusted
-    100: "#e0e0e0",
-    200: "#c2c2c2",
-    300: "#a3a3a3",
-    400: "#858585",
-    500: "#666666",
-    600: "#525252",
-    700: "#3d3d3d",
-    800: "#292929",
-    900: "#141414",
-    1000: "#000000", // manually adjusted
+  base: {
+      20: "#FFFFFF",
+      40: "#F8F8F8",
+      60: "#9B9B9B",
+      80: "#454545",
+      100: "#181818",
   },
   primary: {
     // RED
-    100: "#ffded7",
-    200: "#ffbdaf",
-    300: "#ff9b88",
-    400: "#ff7a60",
-    500: "#ff5938",
-    600: "#cc472d",
-    700: "#993522",
-    800: "#662416",
-    900: "#33120b",
+    20: "#FFD8C8",
+    40: "#FDB89A",
+    60: "#FF7A60",
+    80: "#FF5938",
+    100: "#CC472D",
+    120: "#952822",
+    140: "#780101",
   },
   secondary: {
-    // yellow
-    50: "#f0f0f0", // manually adjusted
-    100: "#fff6e0",
-    200: "#ffedc2",
-    300: "#ffe3a3",
-    400: "#ffda85",
-    500: "#ffd166",
-    600: "#cca752",
-    700: "#997d3d",
-    800: "#665429",
-    900: "#332a14",
+    // Green
+      20: "#BFE1CB", 
+      40: "#99CEAB",
+      60: "#7FC296",
+      80: "#F6CF3E",
+     100: "#334E3C",  
   },
 };
 
@@ -69,61 +55,61 @@ export const themeSettings = (mode) => {
             // palette values for dark mode
             primary: {
               ...tokensDark.primary,
-              main: tokensDark.primary[400],
-              light: tokensDark.primary[400],
+              main: tokensDark.primary[80],
+              light: tokensDark.primary[40],
             },
             secondary: {
               ...tokensDark.secondary,
-              main: tokensDark.secondary[300],
+              main: tokensDark.secondary[60],
             },
             neutral: {
-              ...tokensDark.grey,
-              main: tokensDark.grey[500],
+              ...tokensDark.base,
+              main: tokensDark.base[60],
             },
             background: {
-              default: tokensDark.primary[600],
-              alt: tokensDark.primary[500],
+              default: tokensDark.base[100],
+              alt: tokensDark.base[80],
             },
           }
         : {
             // palette values for light mode
             primary: {
               ...tokensLight.primary,
-              main: tokensDark.grey[50],
-              light: tokensDark.grey[100],
+              main: tokensDark.base[100],
+              light: tokensDark.base[60],
             },
             secondary: {
               ...tokensLight.secondary,
-              main: tokensDark.secondary[600],
-              light: tokensDark.secondary[700],
+              main: tokensDark.secondary[80],
+              light: tokensDark.secondary[100],
             },
             neutral: {
-              ...tokensLight.grey,
-              main: tokensDark.grey[500],
+              ...tokensLight.base,
+              main: tokensDark.base[60],
             },
             background: {
-              default: tokensDark.grey[0],
-              alt: tokensDark.grey[50],
+              default: tokensDark.base[20],
+              alt: tokensDark.base[40],
             },
           }),
     },
     typography: {
-      fontFamily: ["Inter", "sans-serif"].join(","),
-      fontSize: 12,
+      fontFamily: ["Mukta", "sans-serif"].join(","),
+      fontSize: 16,
       h1: {
-        fontFamily: ["Inter", "sans-serif"].join(","),
-        fontSize: 40,
+        fontFamily: ["Ubuntu", "sans-serif"].join(","),
+        fontSize: 64,
       },
       h2: {
-        fontFamily: ["Inter", "sans-serif"].join(","),
+        fontFamily: ["Ubuntu", "sans-serif"].join(","),
         fontSize: 32,
       },
       h3: {
-        fontFamily: ["Inter", "sans-serif"].join(","),
-        fontSize: 24,
+        fontFamily: ["Ubuntu", "sans-serif"].join(","),
+        fontSize: 28,
       },
       h4: {
-        fontFamily: ["Inter", "sans-serif"].join(","),
+        fontFamily: ["Ubuntu", "sans-serif"].join(","),
         fontSize: 20,
       },
       h5: {
@@ -131,7 +117,7 @@ export const themeSettings = (mode) => {
         fontSize: 16,
       },
       h6: {
-        fontFamily: ["Inter", "sans-serif"].join(","),
+        fontFamily: ["Ubuntu", "sans-serif"].join(","),
         fontSize: 14,
       },
     },
