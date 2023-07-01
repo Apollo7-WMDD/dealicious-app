@@ -2,12 +2,15 @@ import "./globals.css";
 import Provider from "./components/Provider";
 import Link from "next/link";
 
+import ThemeWrapper from "./components/ThemeWrapper";
+
 export const metadata = {
   title: "Dealicious",
   description: "Best App for Deals",
 };
 
 export default function RootLayout({ children }) {
+  
   return (
     <html lang="en">
       <head>
@@ -17,13 +20,14 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <Provider>
-          <Link
-            href={`/`}
-            className=" mr-auto mt-5 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white"
-          >
-            <button className="">HOME</button>
-          </Link>
-
+          <ThemeWrapper>
+            {/* <Link
+              href={`/`}
+              className=" mr-auto mt-5 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white"
+            >
+              <button className="">HOME</button>
+            </Link> */}
+          </ThemeWrapper>
           {children}
         </Provider>
       </body>
