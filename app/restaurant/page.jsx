@@ -1,5 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
+import InputText from "../components/Profile/InputText";
+import Form from "../components/Profile/Form";
+import SubHeader from "../components/Profile/SubHeader";
+import InputDropdown from "../components/Profile/InputDropdown";
+import InputButton from "../components/Profile/InputButton";
 
 const Restaurant = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -8,15 +13,52 @@ const Restaurant = () => {
     name: "",
     manager: "",
     email: "",
-    address: "",
     phone: "",
     website: "",
+    category: "",
+    address: {
+      street: "",
+      postalCode: "",
+      city: "",
+      province: "",
+      country: "",
+    },
+    businessHours: {
+      monday: { open: "", close: "" },
+      tuesday: { open: "", close: "" },
+      wednesday: { open: "", close: "" },
+      thursday: { open: "", close: "" },
+      friday: { open: "", close: "" },
+      saturday: { open: "", close: "" },
+      sunday: { open: "", close: "" },
+    },
+    menu: "",
+    logo: "",
+    qrCode: "",
   });
+
 
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleAddressChange = (e) => {
+    setFormData({
+      ...formData,
+      address: { ...formData.address, [e.target.name]: e.target.value },
+    });
+  };
+
+  const handleBusinessHoursChange = (day, field, value) => {
+    setFormData({
+      ...formData,
+      businessHours: {
+        ...formData.businessHours,
+        [day]: { ...formData.businessHours[day], [field]: value },
+      },
     });
   };
 
@@ -45,9 +87,27 @@ const Restaurant = () => {
           name: "",
           manager: "",
           email: "",
-          address: "",
           phone: "",
           website: "",
+          address: {
+            street: "",
+            postalCode: "",
+            city: "",
+            province: "",
+            country: "",
+          },
+          businessHours: {
+            monday: { open: "", close: "" },
+            tuesday: { open: "", close: "" },
+            wednesday: { open: "", close: "" },
+            thursday: { open: "", close: "" },
+            friday: { open: "", close: "" },
+            saturday: { open: "", close: "" },
+            sunday: { open: "", close: "" },
+          },
+          menu: "",
+          logo: "",
+          qrCode: "",
         });
       })
       .catch((error) => console.error("Error creating restaurant:", error));
@@ -67,89 +127,186 @@ const Restaurant = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-2 gap-16">
+    <div className="">
       <div>
-        <h1 className="text-4xl mb-5">Restaurants</h1>
-        {restaurants.map((restaurant) => (
-          <div key={restaurant._id}>
-            <h2>{restaurant.name}</h2>
-            <p>Manager: {restaurant.manager}</p>
-          </div>
-        ))}
-      </div>
-      <div>
-        <h2 className="text-4xl mb-5 text-center">Add a Restaurant</h2>
-        <form onSubmit={handleSubmit} className="flex items-center flex-col gap-2">
-          <label htmlFor="userId">User ID</label>
+        <h2 className="text-4xl mb-5 text-center">Edit Profile</h2>
+          <form onSubmit={handleSubmit} className="">
+            <Form>
+              <SubHeader>Business Information</SubHeader>
+                <InputText
+                  label="Business Name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  name="name"
+                  id="name"
+                  placeholder="Business Name"
+                />
+                <InputText
+                  label="Business Category"
+                  value={formData.category}
+                  onChange={handleInputChange}
+                  name="category"
+                  id="category"
+                  placeholder="Ex:Japanese,Indian,Brunch"
+                />
+                <InputText
+                  label="Manager"
+                  name="manager"
+                  id="manager"
+                  value={formData.manager}
+                  onChange={handleInputChange}
+                  placeholder="Manager"
+                />
+                <InputText
+                  label="Website"
+                  name="website"
+                  id="website"
+                  value={formData.website}
+                  onChange={handleInputChange}
+                  placeholder="Website"
+                />
+                <InputText
+                  label="Business Email Address"
+                  type="email"
+                  name="email"
+                  id="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="Business Email Address"
+                />
+                <InputText
+                  label="Postal Code"
+                  name="postalCode"
+                  id="postalCode"
+                  value={formData.address.postalCode}
+                  onChange={handleAddressChange}
+                  placeholder="Postal Code"
+                />
+                <InputText
+                  label="Business Phone Number"
+                  type="tel"
+                  name="phone"
+                  id="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  placeholder="Business Phone Number"
+                />
+                <InputText
+                  label="Street Address"
+                  name="street"
+                  id="street"
+                  value={formData.address.street}
+                  onChange={handleAddressChange}
+                  placeholder="Street Address"
+                />
+                <InputText
+                  label="City"
+                  name="city"
+                  id="city"
+                  value={formData.address.city}
+                  onChange={handleAddressChange}
+                  placeholder="City"
+                />
+                <InputText
+                  label="Province/State"
+                  name="province"
+                  id="province"
+                  value={formData.address.province}
+                  onChange={handleAddressChange}
+                  placeholder="Province/State"
+                />
+                <InputDropdown
+                  label="Country"
+                  value={formData.address.country}
+                  onChange={handleAddressChange}
+                  name="country"
+                  id="country"
+                  placeholder="Country"
+                  options={[
+                    { value: 'Canada', label: 'Canada' },
+                    { value: 'USA', label: 'USA' },
+                  ]}
+                />
+
+            </Form>
+            <Form>
+              <SubHeader>Business Hours</SubHeader>
+              <label htmlFor="monday">Monday</label>
+              <label htmlFor="mondayopenclose">Closed</label>
+              <input
+                type="checkbox"
+                name="monday"
+                id="monday"
+                onChange={(e) => handleMondayClosedChange(e.target.checked)}
+                checked={!formData.businessHours.monday.open}
+              />
+
+              {/* <label htmlFor="monday">Open at:</label> */}
+              <select
+                name="monday"
+                id="monday"
+                value={formData.businessHours.monday.open}
+                onChange={(e) => handleBusinessHoursChange("monday", "open", e.target.value)}
+                disabled={!formData.businessHours.monday.open}
+              >
+                <option value="">Open at</option>
+                <option value="07:00">07:00 AM</option>
+                <option value="08:00">08:00 AM</option>
+                <option value="09:00">09:00 AM</option>
+                <option value="10:00">10:00 AM</option>
+                <option value="11:00">11:00 AM</option>
+                {/* ... more options */}
+              </select>
+
+              {/* <label htmlFor="mondayClose">Close at:</label> */}
+              <select
+                name="close"
+                id="mondayClose"
+                value={formData.businessHours.monday.close}
+                onChange={(e) => handleBusinessHoursChange("monday", "close", e.target.value)}
+                disabled={!formData.businessHours.monday.open}
+                placeholder="Close at"
+              >
+                <option value="">Close at</option>
+                <option value="17:00">05:00 PM</option>
+                <option value="18:00">06:00 PM</option>
+                <option value="19:00">07:00 PM</option>
+              </select>
+            </Form>
+          
+          
+          <label htmlFor="menu">Menu</label>
           <input
-            className="border-solid border-green-700 border-2 rounded-md"
             type="text"
-            name="userId"
-            id="userId"
-            value={formData.userId}
+            name="menu"
+            id="menu"
+            value={formData.menu}
             onChange={handleInputChange}
           />
-          <label htmlFor="name">Name</label>
+          
+          <label htmlFor="logo">Logo</label>
           <input
-            className="border-solid border-green-700 border-2 rounded-md"
-            type="text"
-            name="name"
-            id="name"
-            value={formData.name}
+            type="file"
+            name="logo"
+            id="logo"
             onChange={handleInputChange}
           />
-          <label htmlFor="manager">Manager</label>
+
+          <label htmlFor="qrCode">QR Code</label>
           <input
-            className="border-solid border-green-700 border-2 rounded-md"
-            type="text"
-            name="manager"
-            id="manager"
-            value={formData.manager}
+            type="file"
+            name="qrCode"
+            id="qrCode"
             onChange={handleInputChange}
           />
-          <label htmlFor="email">Email</label>
-          <input
-            className="border-solid border-green-700 border-2 rounded-md"
-            type="            email"
-            name="email"
-            id="email"
-            value={formData.email}
-            onChange={handleInputChange}
+
+          <InputButton
+            onFirstButtonClick={() => console.log('Cancel')}
+            onSecondButtonClick={() => console.log('Save profile')}
+            firstButtonText="Cancel"
+            secondButtonText="Save Profile"
           />
-          <label htmlFor="phone">Phone</label>
-          <input
-            className="border-solid border-green-700 border-2 rounded-md"
-            type="text"
-            name="phone"
-            id="phone"
-            value={formData.phone}
-            onChange={handleInputChange}
-          />
-          <label htmlFor="address">Address</label>
-          <input
-            className="border-solid border-green-700 border-2 rounded-md"
-            type="text"
-            name="address"
-            id="address"
-            value={formData.address}
-            onChange={handleInputChange}
-          />
-          <label htmlFor="website">Website</label>
-          <input
-            className="border-solid border-green-700 border-2 rounded-md"
-            type="text"
-            name="website"
-            id="website"
-            value={formData.website}
-            onChange={handleInputChange}
-          />
-          <button
-            type="submit"
-            className="mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white"
-          >
-            Submit
-          </button>
-        </form>
+          </form>
       </div>
     </div>
   );

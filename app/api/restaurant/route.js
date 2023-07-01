@@ -31,6 +31,7 @@ export const POST = async (request) => {
     const restaurantNew = await new Restaurant({
       userId: restaurantInfo.userId,
       name: restaurantInfo.name,
+      category: restaurantInfo.category,
       manager: restaurantInfo.manager,
       email: restaurantInfo.email,
       address: restaurantInfo.address,

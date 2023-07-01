@@ -36,6 +36,10 @@ const RestaurantSchema = new Schema({
     unique: [true, "Name already exists"],
     required: [true, "Name is required"],
   },
+  category: {
+    type: String,
+    required: [true, "Category is required"],
+  },
   manager: {
     type: String,
     required: [true, "Manager is required"],
@@ -93,6 +97,7 @@ const RestaurantSchema = new Schema({
     friday: DaySchema,
     saturday: DaySchema,
     sunday: DaySchema,
+    holiday: DaySchema
   },
   superCustomerIdArray: {
     type: [Schema.Types.ObjectId],
@@ -107,7 +112,8 @@ const RestaurantSchema = new Schema({
     required: [true, "Menu is required"],
   },
   logo: {
-    type: String, //store the URL of the image (cloudinary)
+    type: String,
+    required: [true, "Logo is required"],
   },
   qrCode: {
     type: String,
