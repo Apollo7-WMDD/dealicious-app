@@ -27,8 +27,9 @@ export default function RootLayout({ children }) {
             >
               <button className="">HOME</button>
             </Link> */}
-          </ThemeWrapper>
           {children}
+          </ThemeWrapper>
+          
         </Provider>
       </body>
     </html>
