@@ -12,20 +12,12 @@ const PointsSchema = new Schema({
     required: [true, "Super Customer ID is required"],
   },
   points: {
-    type: {
-      type: Number,
-      required: [true, "Points is required"],
-      min: [0, "Points cannot be negative"],
-    },
-    default: 0,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    immutable: true,
+    type: Number,
+    required: [true, "Points is required"],
+    min: [0, "Points must be greater than 0"],
   },
 });
 
-const Points = models.Points || model("Points", PointsSchema);
+const Point = models.Point || model("Point", PointsSchema);
 
-export default Points;
+export default Point;

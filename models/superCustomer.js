@@ -1,6 +1,12 @@
 import { Schema, model, models } from "mongoose";
 
 const SuperCustomerSchema = new Schema({
+  firstname: {
+    type: String,
+  },
+  lastname: {
+    type: String,
+  },
   birthDate: {
     type: Date,
     required: [true, "Birth Date is required"],
@@ -23,8 +29,14 @@ const SuperCustomerSchema = new Schema({
     ref: "RestaurantArray",
   },
   url: {
-    type: String,
-    required: [true, "URL is required"],
+    type: [String],
+    default: [],
+    validate: {
+      validator: function (value) {
+        return value.length > 0; // Ensure at least one type is provided
+      },
+      message: "At least one url is required!",
+    },
   },
 });
 
