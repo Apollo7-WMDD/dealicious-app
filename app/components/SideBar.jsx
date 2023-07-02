@@ -4,29 +4,18 @@ import { useMemo  } from 'react';
 import Image from "next/image";
 import {
   Box,
-  List,
   Drawer,
-  ListItemIcon,
-  ListItemText,
-  ListItem,
-  ListItemButton,
   Typography,
 } from "@mui/material";
-import { CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material";
-import { themeSettings } from "../theme.js";
-import { createTheme } from "@mui/material/styles";
+import { useMediaQuery } from "@mui/material";
 import { useStore } from "../store.js";
-
 import SideBarItem from "./SideBarItem.jsx";
-
 import { useTheme } from "@mui/material";
 
 function SideBar(
-    // {theme}
     ) {
   
   const {  isSidebarOpen } = useStore();
-//   const theme = useMemo(() => createTheme(themeSettings(mode), [mode]));
   const theme = useTheme();
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const shadowColor = `${theme.palette.neutral[20]}1f`;
@@ -57,7 +46,7 @@ function SideBar(
               minHeight: "100vh",
               boxShadow: `4px 4px 20px ${shadowColor}`,
               "& .MuiDrawer-paper": {
-                // boxShadow: "4px 4px 20px theme.palette.neutral[20]",
+                
                 padding: "2rem 0",
                 color: theme.palette.neutral[20],
                 background: theme.palette.background.alt,
@@ -118,7 +107,7 @@ function SideBar(
             </Box>
           </Drawer>
         )}
-        {/* {children}     */}
+        
       </Box>
     </>
   );
