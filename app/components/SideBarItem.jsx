@@ -12,24 +12,28 @@ import { useTheme } from "@mui/material";
 //   Groups2Outlined,
 //   GraphicEqOutlined,
 // } from "@mui/icons-material";
+import HomeOutlined from '@mui/icons-material/HomeOutlined';
+import ShoppingCartOutlined from '@mui/icons-material/ShoppingCartOutlined';
+import Groups2Outlined from '@mui/icons-material/Groups2Outlined';
+import GraphicEqOutlined from '@mui/icons-material/GraphicEqOutlined';
 import { useRouter } from "next/navigation";
 
 const navItems = [
   {
     text: "Campaigns",
-    // icon: <HomeOutlined />,
+    icon: <HomeOutlined />,
   },
   {
     text: "Client Facing",
-    // icon: <GraphicEqOutlined />,
+    icon: <GraphicEqOutlined />,
   },
   {
     text: "Products",
-    // icon: <ShoppingCartOutlined />,
+    icon: <ShoppingCartOutlined />,
   },
   {
     text: "Customers",
-    // icon: <Groups2Outlined />,
+    icon: <Groups2Outlined />,
   },
 ];
 
@@ -47,7 +51,7 @@ function SideBarItem() {
         }}
       >
         <Box>ddddddddd</Box>
-        {navItems.map(({text, /*icon*/}) => {
+        {navItems.map(({text, icon}) => {
           const lcText = text.toLowerCase();
           return (
             <ListItem disablePadding key={text}>
@@ -81,7 +85,7 @@ function SideBarItem() {
                     // theme.palette.primary[80],
                   }}
                 >
-                  {/* {icon} */}
+                  {icon}
                 </ListItemIcon>
                 <ListItemText
                   disableTypography

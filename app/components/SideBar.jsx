@@ -21,14 +21,7 @@ function SideBar(
   const shadowColor = `${theme.palette.neutral[20]}1f`;
   return (
     <>
-      <Box
-        sx={{
-          // position: "static",
-          background: "none",
-          boxShadow: "none",
-          display: "flex",
-        }}
-      >
+     
         {isNonMobile && (
           <Drawer
             open={isSidebarOpen}
@@ -108,7 +101,7 @@ function SideBar(
           </Drawer>
         )}
         
-      </Box>
+    
     </>
   );
 }

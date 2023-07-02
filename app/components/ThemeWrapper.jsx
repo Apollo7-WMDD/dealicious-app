@@ -7,23 +7,25 @@ import { CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material";
 import SideBar from "./SideBar.jsx";
 import { createTheme } from "@mui/material/styles";
 import { useStore } from "../store.js";
+import { Box } from "@mui/system";
 
-function ThemeWrapper(
-  {children}
-  ) {
-    
-    const { mode, isSidebarOpen } = useStore();
+function ThemeWrapper({ children }) {
+  const { mode, isSidebarOpen } = useStore();
   const theme = useMemo(() => createTheme(themeSettings(mode), [mode]));
-  
+
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-
-        {children}
-        
+        <Box
+          sx={{
+            display: "flex",
+          }}
+        >
+          <SideBar />
+          {children}
+        </Box>
       </ThemeProvider>
-      
     </>
   );
 }
