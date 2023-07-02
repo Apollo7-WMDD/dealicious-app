@@ -26,7 +26,7 @@ export default function Home() {
   return (
     
     <main style={{ marginTop: "2rem" }}>
-    {/* <SideBar /> */}
+    <SideBar />
       <Link
         href={`/newCustomer/${restaurantId}/${superCustomerId}`}
         className=" mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white"
