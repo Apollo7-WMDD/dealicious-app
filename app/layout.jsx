@@ -1,7 +1,10 @@
 import "./globals.css";
 import Provider from "./components/Provider";
+// 
+
 import ThemeWrapper from "./components/ThemeWrapper";
 import { UserTypeProvider } from "./context/UserTypeContext";
+
 
 export const metadata = {
   title: "Dealicious",
