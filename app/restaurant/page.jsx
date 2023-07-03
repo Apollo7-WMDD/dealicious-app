@@ -53,6 +53,10 @@ const Restaurant = () => {
       .catch((error) => console.error("Error creating restaurant:", error));
   };
 
+  const CheckedAction = () => {
+    console.log("Closed is checked");
+  };
+
   useEffect(() => {
     const fetchRestaurants = async () => {
       const res = await fetch("/api/restaurant", {
