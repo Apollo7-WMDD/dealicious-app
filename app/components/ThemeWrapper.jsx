@@ -29,5 +29,4 @@ function ThemeWrapper({ children }) {
     </>
   );
 }
-
 export default ThemeWrapper;
