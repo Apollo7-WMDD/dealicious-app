@@ -1,10 +1,8 @@
-
 import "./globals.css";
 import Provider from "./components/Provider";
-// 
+//
 
 import ThemeWrapper from "./components/ThemeWrapper";
-
 
 export const metadata = {
   title: "Dealicious",
@@ -21,11 +19,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <Provider>
-          <ThemeWrapper 
-          children={children}
-          >          
-           {children}
-          </ThemeWrapper>
+          <ThemeWrapper>{children}</ThemeWrapper>
         </Provider>
       </body>
     </html>

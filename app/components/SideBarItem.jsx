@@ -1,5 +1,6 @@
 import {
-  List,Box,
+  List,
+  Box,
   ListItem,
   ListItemButton,
   ListItemIcon,
@@ -12,10 +13,10 @@ import { useTheme } from "@mui/material";
 //   Groups2Outlined,
 //   GraphicEqOutlined,
 // } from "@mui/icons-material";
-import HomeOutlined from '@mui/icons-material/HomeOutlined';
-import ShoppingCartOutlined from '@mui/icons-material/ShoppingCartOutlined';
-import Groups2Outlined from '@mui/icons-material/Groups2Outlined';
-import GraphicEqOutlined from '@mui/icons-material/GraphicEqOutlined';
+import HomeOutlined from "@mui/icons-material/HomeOutlined";
+import ShoppingCartOutlined from "@mui/icons-material/ShoppingCartOutlined";
+import Groups2Outlined from "@mui/icons-material/Groups2Outlined";
+import GraphicEqOutlined from "@mui/icons-material/GraphicEqOutlined";
 import { useRouter } from "next/navigation";
 
 const navItems = [
@@ -51,7 +52,7 @@ function SideBarItem() {
         }}
       >
         <Box>ddddddddd</Box>
-        {navItems.map(({text, icon}) => {
+        {navItems.map(({ text, icon }) => {
           const lcText = text.toLowerCase();
           return (
             <ListItem disablePadding key={text}>
@@ -61,28 +62,13 @@ function SideBarItem() {
                   // setActive(lcText);
                 }}
                 sx={{
-                  backgroundColor:
-                    // active === lcText
-                    //   ? theme.palette.secondary[300]
-                    //   : "transparent",
-                    theme.palette.background.alt,
-                  // color:
-                  // active === lcText
-                  //   ? theme.palette.primary[600]
-                  //   : theme.palette.secondary[100],
-                  // theme.palette.primary[80],
-
+                  backgroundColor: theme.palette.background.alt,
                   fontFamily: "Ubuntu",
                 }}
               >
                 <ListItemIcon
                   sx={{
                     ml: "2rem",
-                    // color:
-                    // active === lcText
-                    //   ? theme.palette.primary[600]
-                    //   : theme.palette.secondary[200],
-                    // theme.palette.primary[80],
                   }}
                 >
                   {icon}
@@ -93,11 +79,7 @@ function SideBarItem() {
                   sx={{
                     typography: "h4",
                   }}
-                >
-                  {/* {active === lcText && (
-                  <ChevronRightOutlined sx={{ ml: "auto" }} />
-                  )} */}
-                </ListItemText> 
+                ></ListItemText>
               </ListItemButton>
             </ListItem>
           );
