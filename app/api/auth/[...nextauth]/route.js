@@ -45,6 +45,8 @@ const handlerAuth = NextAuth({
   ],
   callbacks: {
     async session({ session }) {
+      if (!session.user) return session;
+
       const sessionUser = await User.findOne({ email: session.user.email });
       session.user.id = sessionUser._id.toString();
       return session;
@@ -58,22 +60,12 @@ const handlerAuth = NextAuth({
         if (!userExists) {
           await User.create({
             email: profile.email,
-            firstname: profile.name.split(" ")[0],
-            lastname: profile.name.split(" ")[1],
+            firstname: profile.name?.split(" ")[0],
+            lastname: profile.name?.split(" ")[1],
             phone: Math.floor(1000000000 + Math.random() * 9000000000),
           });
           console.log("User created successfully!");
         }
-
-        // else {
-        //   // retrieve the restaurant id using the user id
-        //   const restaurant = await Restaurant.findOne({
-        //     userId: userExists._id,
-        //   }).select({ _id: 1 });
-
-        //   console.log("This is the restaurant: ", restaurant);
-        //   return restaurant;
-        // }
         return true;
       } catch (error) {
         return false;
