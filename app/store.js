@@ -2,8 +2,17 @@ import { create } from "zustand";
 
 const store = (set) => ({
   // DARK / LIGHT MODE
-  mode: "dark",
+  mode: "light",
   setMode: (mode) => set((state) => ({ ...state, mode })),
+
+  // SIDEBAR
+  sideBarLinkActive: "",
+  setSideBarLinkActive: (sideBarLinkActive) => set((state) => ({ ...state, sideBarLinkActive })),
+  // MOBILE SIZE
+  isSidebarOpen : true,
+  setIsSidebarOpen: (isSidebarOpen) => set((state) => ({ ...state, isSidebarOpen })),
+
+  
 
   //new state for campaign
   campaigns: [],
