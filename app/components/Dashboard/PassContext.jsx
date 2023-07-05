@@ -2,10 +2,10 @@
 
 // user context
 import { useContext, useEffect } from "react";
-import { DashBoardContext } from "@/app/dashboard/context/DashboardContext";
+import { UserTypeContext } from "@/app/context/UserTypeContext";
 
 const PassContext = ({ restaurantOwnerId, restaurantId }) => {
-  const { updateuser } = useContext(DashBoardContext);
+  const { updateuser } = useContext(UserTypeContext);
 
   useEffect(() => {
     updateuser(restaurantOwnerId, restaurantId);

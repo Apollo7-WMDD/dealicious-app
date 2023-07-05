@@ -19,7 +19,7 @@ const fetchCustomerInsights = async (restaurantId) => {
 
 const Page = async ({ params }) => {
   const { restaurantOwnerId, restaurantId } = params;
-  const { results } = await fetchCustomerInsights(restaurantId);
+  const results = await fetchCustomerInsights(restaurantId);
   const { spending, superCustomers, points, redeemedPoints } = results;
 
   return (

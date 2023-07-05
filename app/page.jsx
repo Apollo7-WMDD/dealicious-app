@@ -10,11 +10,12 @@ import Link from "next/link";
 import Navbar from "./components/LandingPage/Navbar";
 
 const Page = () => {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
+  console.log("status", status);
+  console.log("data", session?.user);
 
   return (
     <>
-      <Navbar />
       <div>Landing Page</div>
       <div>
         {status === "loading" ? (

@@ -10,7 +10,7 @@ const handleInputData = async function (e) {
       "60db68a679ecb4b7c8a85c25",
       "60db68a679ecb4b7c8a85c24",
     ],
-    name: "Coffee bags",
+    name: "Test Index Campaign",
     status: "active",
     type: ["discount", "coffee"],
     offer: "Get your coffee bags with 50% discount!",

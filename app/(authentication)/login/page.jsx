@@ -36,8 +36,8 @@ const Login = () => {
   const { data: session, status } = useSession();
 
   useEffect(() => {
-    if (status === "authenticated") {
-      router.push(`/dashboard/campaigns/active/${session.user.id}`);
+    if (session) {
+      window.history.go(-3);
     }
   }, [session]);
 

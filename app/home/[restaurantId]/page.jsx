@@ -1,37 +1,40 @@
+"use client";
+
 // NEXTjs imports
 import Link from "next/link";
+
+// session imports
+import { useSession } from "next-auth/react";
+
+// react import
+import { useEffect, useState } from "react";
 
 //  component imports
 import Navbar from "@/app/components/LandingPage/Navbar";
 import Footer from "@/app/components/Footer";
 
-const fetchRestaurant = async (restaurantId) => {
-  const isProduction = process.env.NODE_ENV === "production";
-  const serverUrl = isProduction
-    ? process.env.NEXT_PUBLIC_SERVER_URL
-    : "http://localhost:3000";
+const Page = ({ params }) => {
+  const { data: session, status } = useSession();
 
-  const res = await fetch(
-    `${serverUrl}/api/restaurant/${restaurantId}`
-    // {
-    //   cache: "no-store",
-    // }
-  );
+  console.log(session?.user);
 
-  if (!res.ok) throw new Error(res.text());
-
-  const data = await res.json();
-  return data;
-};
-
-const Page = async ({ params }) => {
+  const [results, setResults] = useState({});
   const { restaurantId } = params;
-  const results = await fetchRestaurant(restaurantId);
-  const { name, address, phone, logo, menu } = results;
+  const { name, address, phone, logo, menu } = results.restaurant || {};
+
+  useEffect(() => {
+    const fetchRestaurant = async (restaurantId) => {
+      const res = await fetch(`/api/restaurant/${restaurantId}`);
+      if (!res.ok) throw new Error(await res.text());
+      const data = await res.json();
+      setResults(data);
+    };
+    fetchRestaurant(restaurantId);
+  }, []);
 
   return (
     <>
-      <Navbar />
+      <Navbar restaurantId={restaurantId} />
       <h1>Restaurant Home Page for Super Customers to Login or Sign Up</h1>
       <div>
         <>
@@ -50,16 +53,12 @@ const Page = async ({ params }) => {
         </>
         <h1>Name: {name}</h1>
         <h1>
-          Address:{" "}
-          {address.street +
-            ", " +
-            address.city +
-            ", " +
-            address.province +
-            " " +
-            address.postalCode +
-            ", " +
-            address.country}
+          {address && (
+            <span>
+              Address: {address.street}, {address.city}, {address.province}{" "}
+              {address.postalCode}, {address.country}
+            </span>
+          )}
         </h1>
         <h1>Phone: {phone}</h1>
         <h1>Logo: {logo}</h1>

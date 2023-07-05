@@ -1,6 +1,6 @@
-import React from "react";
+"use client";
 
-const Navbar = () => {
+const Navbar = ({ restaurantId }) => {
   return <div>This is the NavBar only for landing page</div>;
 };
 

@@ -11,31 +11,62 @@ export const GET = async (request) => {
   try {
     await connect();
 
-    // 2. retrieve all the active campaigns for the restaurant but only the name and the id
-    const campaigns = await Campaign.find({
-      restaurantId: new mongoose.Types.ObjectId(restaurantId),
-    }).select({
-      _id: 1,
-      name: 1,
-      startDate: 1,
-      endDate: 1,
-      favorite: 1,
+    const campaigns = await Campaign.aggregate([
+      {
+        $match: {
+          restaurantId: new mongoose.Types.ObjectId(restaurantId),
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          name: 1,
+          startDate: 1,
+          endDate: 1,
+          favorite: 1,
+        },
+      },
+    ]);
+
+    const campaignIds = campaigns.map((campaign) => campaign._id);
+
+    const spending = await Spending.aggregate([
+      {
+        $match: {
+          restaurantId: new mongoose.Types.ObjectId(restaurantId),
+          campaignId: { $in: campaignIds },
+        },
+      },
+      {
+        $group: {
+          _id: "$campaignId",
+          totalSpending: { $sum: "$billamount" },
+        },
+      },
+    ]);
+
+    const campaignMap = new Map();
+    campaigns.forEach((campaign) => {
+      campaignMap.set(campaign._id.toString(), campaign);
     });
 
-    const spending = await Spending.find({
-      restaurantId: new mongoose.Types.ObjectId(restaurantId),
-    }).select({
-      billamount: 1,
-      campaignId: 1,
+    const result = spending.map((spendingItem) => {
+      const campaignId = spendingItem._id.toString();
+      const campaign = campaignMap.get(campaignId);
+
+      const billamount = spendingItem.totalSpending || 0;
+
+      return {
+        _id: campaignId,
+        name: campaign.name,
+        startDate: campaign.startDate,
+        endDate: campaign.endDate,
+        favorite: campaign.favorite,
+        billamount,
+      };
     });
 
-    if (!campaigns)
-      return new NextResponse("Campaigns not found", { status: 200 });
-
-    // 3. return the campaigns and the restaurant id
-    return new NextResponse(JSON.stringify({ campaigns, spending }), {
-      status: 200,
-    });
+    return new NextResponse(JSON.stringify(result), { status: 200 });
   } catch (err) {
     console.log(err.message);
     return new NextResponse("Database Error", { status: 500 });

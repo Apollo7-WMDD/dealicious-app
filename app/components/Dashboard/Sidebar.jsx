@@ -6,11 +6,12 @@ import { useSession } from "next-auth/react";
 
 // user context
 import { useContext } from "react";
-import { DashBoardContext } from "@/app/dashboard/context/DashboardContext";
 
 const Sidebar = () => {
   const { data: session } = useSession();
-  const { user } = useContext(DashBoardContext);
+  const user = {
+    restaurantId: "649be44234ccc8cbad46d38c",
+  };
 
   return (
     // create a simple sidebar with a list of links with tailwindcss
