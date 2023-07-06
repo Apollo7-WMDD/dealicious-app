@@ -1,8 +1,6 @@
 
 import "./globals.css";
 import Provider from "./components/Provider";
-// 
-
 import ThemeWrapper from "./components/ThemeWrapper";
 
 
@@ -21,11 +19,21 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <Provider>
+        <div  style={{
+            display: "flex",
+            
+          }}>
+          
           <ThemeWrapper 
-          children={children}
+          // children={children}
           >          
-           {children}
+           
           </ThemeWrapper>
+          <div style={{margin: "2rem 2%"}}>
+          {children}
+          </div>
+          
+          </div>
         </Provider>
       </body>
     </html>

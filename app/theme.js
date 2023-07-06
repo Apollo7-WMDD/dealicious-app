@@ -56,7 +56,7 @@ export const themeSettings = (mode) => {
             primary: {
               ...tokensDark.primary,
               main: tokensDark.primary[80],
-              light: tokensDark.primary[40],
+              light: tokensDark.primary[80],
             },
             secondary: {
               ...tokensDark.secondary,
@@ -67,21 +67,21 @@ export const themeSettings = (mode) => {
               main: tokensDark.base[60],
             },
             background: {
-              default: tokensDark.base[100],
-              alt: tokensDark.base[80],
+              default: tokensDark.base[80],
+              alt: tokensDark.base[20],
             },
           }
         : {
             // palette values for light mode
             primary: {
               ...tokensLight.primary,
-              main: tokensDark.base[100],
-              light: tokensDark.base[60],
+              main: tokensDark.base[80],
+              light: tokensDark.base[80],
             },
             secondary: {
               ...tokensLight.secondary,
-              main: tokensDark.secondary[80],
-              light: tokensDark.secondary[100],
+              main: tokensDark.secondary[60],
+              light: tokensDark.secondary[60],
             },
             neutral: {
               ...tokensLight.base,
@@ -89,7 +89,7 @@ export const themeSettings = (mode) => {
             },
             background: {
               default: tokensDark.base[20],
-              alt: tokensDark.base[40],
+              alt: tokensDark.base[100],
             },
           }),
     },
@@ -99,26 +99,33 @@ export const themeSettings = (mode) => {
       h1: {
         fontFamily: ["Ubuntu", "sans-serif"].join(","),
         fontSize: 64,
+        fontWeight: 700,
       },
       h2: {
         fontFamily: ["Ubuntu", "sans-serif"].join(","),
         fontSize: 32,
+        fontWeight: 700,
       },
       h3: {
         fontFamily: ["Ubuntu", "sans-serif"].join(","),
         fontSize: 28,
+        fontWeight: 700,
       },
       h4: {
         fontFamily: ["Ubuntu", "sans-serif"].join(","),
         fontSize: 20,
+        fontWeight: 700,
+        
       },
       h5: {
         fontFamily: ["Inter", "sans-serif"].join(","),
         fontSize: 16,
+        
       },
       h6: {
         fontFamily: ["Ubuntu", "sans-serif"].join(","),
         fontSize: 14,
+        
       },
     },
   };
