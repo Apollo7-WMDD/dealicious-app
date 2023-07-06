@@ -11,17 +11,15 @@ const RedeemedPointsSchema = new Schema({
     ref: "SuperCustomer",
     required: [true, "Super Customer ID is required"],
   },
-  points: {
-    type: {
-      type: Number,
-      required: [true, "Points is required"],
-      min: [0, "Points cannot be negative"],
-    },
-  },
-  spendingBill: {
+  spendingBillId: {
     type: Schema.Types.ObjectId,
-    ref: "SpendingBill",
+    ref: "spendingBillId",
     required: [true, "Spending Bill ID is required"],
+  },
+  points: {
+    type: Number,
+    required: [true, "Points is required"],
+    min: [0, "Points must be greater than 0"],
   },
 });
 

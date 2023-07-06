@@ -4,7 +4,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import connect from "@/utils/database";
 import mongoose from "mongoose";
 import User from "@/models/user";
-import Restaurant from "@/models/restaurant";
 import bcrypt from "bcryptjs";
 
 const handlerAuth = NextAuth({
@@ -45,6 +44,8 @@ const handlerAuth = NextAuth({
   ],
   callbacks: {
     async session({ session }) {
+      if (!session) return null;
+
       const sessionUser = await User.findOne({ email: session.user.email });
       session.user.id = sessionUser._id.toString();
       return session;
@@ -58,22 +59,13 @@ const handlerAuth = NextAuth({
         if (!userExists) {
           await User.create({
             email: profile.email,
-            firstname: profile.name.split(" ")[0],
-            lastname: profile.name.split(" ")[1],
+            firstname: profile.name?.split(" ")[0],
+            lastname: profile.name?.split(" ")[1],
             phone: Math.floor(1000000000 + Math.random() * 9000000000),
           });
+
           console.log("User created successfully!");
         }
-
-        // else {
-        //   // retrieve the restaurant id using the user id
-        //   const restaurant = await Restaurant.findOne({
-        //     userId: userExists._id,
-        //   }).select({ _id: 1 });
-
-        //   console.log("This is the restaurant: ", restaurant);
-        //   return restaurant;
-        // }
         return true;
       } catch (error) {
         return false;
