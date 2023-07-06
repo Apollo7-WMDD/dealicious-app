@@ -4,7 +4,7 @@ import { useMemo } from "react";
 
 import { themeSettings } from "../theme.js";
 import { CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material";
-import SideBar from "./SideBar.jsx";
+import SideBar from "./sidebar/SideBar.jsx";
 import { createTheme } from "@mui/material/styles";
 import { useStore } from "../store.js";
 import { Box } from "@mui/system";
@@ -17,14 +17,17 @@ function ThemeWrapper({ children }) {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
           }}
-        >
+        > */}
           <SideBar />
-          {children}
-        </Box>
+          {/* <Box style={{ margin: "2rem 2%" }}> */}
+          {/* {children } */}
+          {/* </Box> */}
+          
+        {/* </Box> */}
       </ThemeProvider>
     </>
   );

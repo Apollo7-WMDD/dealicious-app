@@ -20,6 +20,20 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
+<<<<<<< HEAD
+        <UserTypeProvider>
+          <Provider>
+            <div
+              style={{
+                display: "flex",
+              }}
+            >
+              <ThemeWrapper />
+              <div style={{ margin: "2rem 2%" }}>{children}</div>
+            </div>
+          </Provider>
+        </UserTypeProvider>
+=======
         <Provider>
           <ThemeWrapper>
             {/* <Link
@@ -31,6 +45,7 @@ export default function RootLayout({ children }) {
           </ThemeWrapper>
           {children}
         </Provider>
+>>>>>>> c8b5d6b97c5f2d750f2252ab66a02042812e86de
       </body>
     </html>
   );
