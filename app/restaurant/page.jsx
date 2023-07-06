@@ -1,10 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
-import InputText from "../components/Profile/InputText";
-import Form from "../components/Profile/Form";
-import SubHeader from "../components/Profile/SubHeader";
-import InputDropdown from "../components/Profile/InputDropdown";
-import InputButton from "../components/Profile/InputButton";
+import InputText from "../components/Input/InputText";
+import Form from "../components/Card/Form";
+import SubHeader from "../components/Header/SubHeader";
+import InputDropdown from "../components/Input/InputDropdown";
+import InputButton from "../components/Button/InputButton";
 
 const Restaurant = () => {
   const [restaurants, setRestaurants] = useState([]);
