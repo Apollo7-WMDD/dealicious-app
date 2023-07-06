@@ -20,7 +20,6 @@ const Page = ({ params }) => {
 
   const [results, setResults] = useState({});
   const { restaurantId } = params;
-  const { name, address, phone, logo, menu } = results.restaurant || {};
 
   useEffect(() => {
     const fetchRestaurant = async (restaurantId) => {
@@ -39,7 +38,7 @@ const Page = ({ params }) => {
       <div>
         <>
           <Link
-            href={`/login`}
+            href={`/login/superCustomer`}
             className="mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white"
           >
             <button>Login</button>
@@ -50,20 +49,12 @@ const Page = ({ params }) => {
           >
             <button>Sign Up!</button>
           </Link>
+          <Link href={`/superCustomer/restaurants/${session?.user.id}`}>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+              Dashboard SC
+            </button>
+          </Link>
         </>
-        <h1>Name: {name}</h1>
-        <h1>
-          {address && (
-            <span>
-              Address: {address.street}, {address.city}, {address.province}{" "}
-              {address.postalCode}, {address.country}
-            </span>
-          )}
-        </h1>
-        <h1>Phone: {phone}</h1>
-        <h1>Logo: {logo}</h1>
-        <h1>Menu: {menu}</h1>
-
         <Footer />
       </div>
     </>

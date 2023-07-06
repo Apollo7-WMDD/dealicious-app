@@ -19,31 +19,34 @@ const fetchCampaigns = async (restaurantId) => {
 const Page = async ({ params }) => {
   const { restaurantOwnerId, restaurantId } = params;
   const campaignsData = await fetchCampaigns(restaurantId);
-  const campaigns = campaignsData.campaigns;
-  const spendings = campaignsData.spending;
+
+  console.log(campaignsData);
+  const campaignSingleId = campaignsData[0]._id;
 
   return (
     <>
       <h1>Insights of every Campaign (as a list)</h1>
-      {campaigns.map((campaign) => {
-        const campaignSpendings = spendings.filter(
-          (spending) => spending.campaignId === campaign._id
-        );
-
-        return (
-          <div key={campaign._id}>
-            <Link
-              href={`/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId}/${campaign._id}`}
-              style={{ display: "block" }}
-            >
-              <button>{campaign.name}</button>
-            </Link>
-            {campaignSpendings.map((spending) => (
-              <h1 key={spending._id}>{spending.billamount}</h1>
-            ))}
-          </div>
-        );
-      })}
+      <Link
+        href={`/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId}/${campaignSingleId}`}
+      >
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+          Insights - Single Campaign (example)
+        </button>
+      </Link>
+      <Link
+        href={`/dashboard/insights/overview/${restaurantOwnerId}/${restaurantId}`}
+      >
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+          Insights - Overview
+        </button>
+      </Link>
+      <Link
+        href={`/dashboard/insights/overview/${restaurantOwnerId}/${restaurantId}`}
+      >
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+          Insights - Customers
+        </button>
+      </Link>
     </>
   );
 };

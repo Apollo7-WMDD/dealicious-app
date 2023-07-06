@@ -4,9 +4,6 @@ import Link from "next/link";
 import React from "react";
 import { useSession } from "next-auth/react";
 
-// user context
-import { useContext } from "react";
-
 const Sidebar = () => {
   const { data: session } = useSession();
   const user = {

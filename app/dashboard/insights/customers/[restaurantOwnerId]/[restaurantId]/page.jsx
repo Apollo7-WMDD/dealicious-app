@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const fetchCustomerInsights = async (restaurantId) => {
   const isProduction = process.env.NODE_ENV === "production";
   const serverUrl = isProduction
@@ -19,43 +21,27 @@ const fetchCustomerInsights = async (restaurantId) => {
 
 const Page = async ({ params }) => {
   const { restaurantOwnerId, restaurantId } = params;
-  const results = await fetchCustomerInsights(restaurantId);
-  const { spending, superCustomers, points, redeemedPoints } = results;
+  const insightsCustomers = await fetchCustomerInsights(restaurantId);
+  console.log(insightsCustomers);
 
   return (
     <>
       <div className="block m-4">
-        <h1 className="text-2xl font-bold">Spending</h1>
-        {spending.map((customer) => (
-          <div key={customer._id}>
-            <p>{customer.name}</p>
-            <p>{customer.billamount}</p>
-            <p>{customer.isSuperCustomer.toString()}</p>
-          </div>
-        ))}
-      </div>
-      <div className="block m-4">
-        <h1 className="text-2xl font-bold">SuperCustomers - Birthdates</h1>
-        {superCustomers.map((customer) => (
-          <div key={customer._id}>
-            <p>{customer.birthDate}</p>
-          </div>
-        ))}
-      </div>
-      <div className="block m-4">
-        <h1 className="text-2xl font-bold">Points</h1>
-        {points.map((customer) => (
-          <div key={customer._id}>
-            <p>{customer.points}</p>
-          </div>
-        ))}
-      </div>
-      <div className="block m-4">
-        {redeemedPoints.map((customer) => (
-          <div key={customer._id}>
-            <p>{customer.points}</p>
-          </div>
-        ))}
+        <h1 className="text-2xl font-bold">Insights - Customers</h1>
+        <Link
+          href={`/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId}`}
+        >
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+            Insights - Campaigns
+          </button>
+        </Link>
+        <Link
+          href={`/dashboard/insights/overview/${restaurantOwnerId}/${restaurantId}`}
+        >
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+            Insights - Overview
+          </button>
+        </Link>
       </div>
     </>
   );

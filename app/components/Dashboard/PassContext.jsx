@@ -11,7 +11,7 @@ const PassContext = ({ restaurantOwnerId, restaurantId }) => {
     updateuser(restaurantOwnerId, restaurantId);
   }, []);
 
-  return <div>PassContext</div>;
+  return null;
 };
 
 export default PassContext;

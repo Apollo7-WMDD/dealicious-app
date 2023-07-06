@@ -11,24 +11,53 @@ export const GET = async (request) => {
   try {
     await connect();
 
-    // 1. Find the superCustomer by id
-    const user = await User.findById(
-      new mongoose.Types.ObjectId(superCustomerId)
-    ).select({
-      firstname: 1,
-      lastname: 1,
-      phone: 1,
-    });
+    const result = await User.aggregate([
+      { $match: { _id: new mongoose.Types.ObjectId(superCustomerId) } },
+      {
+        $lookup: {
+          from: "supercustomers",
+          localField: "phone",
+          foreignField: "phone",
+          as: "superCustomer",
+        },
+      },
+      {
+        $addFields: {
+          superCustomer: { $arrayElemAt: ["$superCustomer", 0] },
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          firstname: 1,
+          lastname: 1,
+          phone: 1,
+          birthDate: "$superCustomer.birthDate",
+        },
+      },
+    ]);
 
-    // 2. If not found, return 404
-    if (!user) {
-      return new NextResponse("User not found", { status: 404 });
+    if (result.length === 0) {
+      return new NextResponse(JSON.stringify({ error: "User not found" }), {
+        status: 404,
+      });
     }
 
-    // Return the combined result
-    return new NextResponse(JSON.stringify({ user }), {
-      status: 200,
-    });
+    const user = result[0];
+
+    // Construct the response object
+    const response = {
+      user: {
+        _id: user._id,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        phone: user.phone,
+        birthDate: user.birthDate,
+      },
+    };
+
+    // Return the nicely formatted JSON object
+    return new NextResponse(JSON.stringify(response, null, 2), { status: 200 });
   } catch (err) {
     console.log(err.message);
     return new NextResponse("Database Error", { status: 500 });

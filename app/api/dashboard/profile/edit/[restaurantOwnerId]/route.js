@@ -6,7 +6,7 @@ import Campaign from "@/models/campaign";
 
 export const GET = async (request) => {
   const url = new URL(request.url);
-  const restaurantOwnerId = url.pathname.split("/")[4];
+  const restaurantOwnerId = url.pathname.split("/")[5];
 
   try {
     await connect();

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const fetchCampaign = async (campaignId) => {
   const isProduction = process.env.NODE_ENV === "production";
   const serverUrl = isProduction
@@ -15,19 +17,20 @@ const fetchCampaign = async (campaignId) => {
 };
 
 const Page = async ({ params }) => {
-  const { campaignId } = params;
+  const { restaurantOwnerId, restaurantId, campaignId } = params;
   const campaignData = await fetchCampaign(campaignId);
-  const campaign = campaignData.singleCampaign;
-  const spendingTotal = campaign.spendings.reduce((accumulator, spending) => {
-    return accumulator + spending.billamount;
-  }, 0);
+  console.log(campaignData);
 
   return (
     <div>
-      <h1>Campaign: {campaign.name}</h1>
-      <h2>Start Date: {campaign.startDate}</h2>
-      <h2>End Date: {campaign.endDate}</h2>
-      <h2>Total Spendings: {spendingTotal}</h2>
+      <h1>Single Campaign Data</h1>
+      <Link
+        href={`/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId}`}
+      >
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+          Insights - Campaigns
+        </button>
+      </Link>
     </div>
   );
 };

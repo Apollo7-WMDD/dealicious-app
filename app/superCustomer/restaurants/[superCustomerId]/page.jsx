@@ -22,6 +22,7 @@ const fetchRestaurants = async (superCustomerId) => {
 const Page = async ({ params }) => {
   const { superCustomerId, restaurantId } = params;
   const restaurantData = await fetchRestaurants(superCustomerId);
+  console.log(restaurantData);
 
   return (
     <>
@@ -30,18 +31,15 @@ const Page = async ({ params }) => {
       <Link
         href={`/superCustomer/restaurants/${superCustomerId}/${restaurantId}`}
       >
-        <button>Click individual Restaurant Card</button>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+          Restaurant Card
+        </button>
       </Link>
       <Link href={`/superCustomer/profile/${superCustomerId}`}>
-        <button>Profile Super Customer</button>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+          Profile Super Customer
+        </button>
       </Link>
-      {restaurantData.map((data) => (
-        <div key={data._id}>
-          <h1>{data.restaurant.name}</h1>
-          <h2>{data.restaurant.logo}</h2>
-          <h2>{data.campaignCount}</h2>
-        </div>
-      ))}
     </>
   );
 };

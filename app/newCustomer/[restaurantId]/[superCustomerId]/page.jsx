@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const fetchRestaurant = async (restaurantId, superCustomerId) => {
   const isProduction = process.env.NODE_ENV === "production";
   const serverUrl = isProduction
@@ -20,9 +22,7 @@ const fetchRestaurant = async (restaurantId, superCustomerId) => {
 const Page = async ({ params }) => {
   const { restaurantId, superCustomerId } = params;
   const restaurantData = await fetchRestaurant(restaurantId, superCustomerId);
-  const { restaurant, campaigns } = restaurantData;
-  console.log(restaurant);
-  console.log(campaigns);
+  console.log(restaurantData);
 
   return (
     <>
@@ -31,29 +31,11 @@ const Page = async ({ params }) => {
         Super Customer shared his special link with you from that specific
         restaurant
       </h1>
-      <h2>{restaurantId}</h2>
-      <h2>{superCustomerId}</h2>
-      {
-        <div className="m-10">
-          <h3>Restaurant Info:</h3>
-          <p>{restaurant.name}</p>
-          <p>{restaurant.phone}</p>
-          <p>{restaurant.menu}</p>
-          <p>{restaurant.address.street}</p>
-          <p>{restaurant.address.city}</p>
-          <p>{restaurant.address.state}</p>
-        </div>
-      }
-      <div className="m-10">
-        {campaigns.map((campaign) => (
-          <div key={campaign._id} className="m-10">
-            <h3>Campaign Info:</h3>
-            <p>{campaign.name}</p>
-            <p>{campaign.offer}</p>
-            <p>{campaign.endDate}</p>
-          </div>
-        ))}
-      </div>
+      <Link href={`/home/${restaurantId}`}>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+          Home - Restaurant
+        </button>
+      </Link>
     </>
   );
 };

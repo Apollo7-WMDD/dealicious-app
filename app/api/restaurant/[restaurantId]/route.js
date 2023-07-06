@@ -10,25 +10,39 @@ export const GET = async (request) => {
   try {
     await connect();
 
-    // 1. retrieve the restaurant id using the user id
+    // Retrieve the restaurant using the provided ID
     const restaurant = await Restaurant.findOne({
       _id: new mongoose.Types.ObjectId(restaurantId),
-    }).select({
-      name: 1,
-      logo: 1,
-      menu: 1,
-      address: 1,
-      phone: 1,
-      website: 1,
-    });
+    })
+      .select({
+        name: 1,
+        logo: 1,
+        menu: 1,
+        address: 1,
+        phone: 1,
+        website: 1,
+      })
+      .lean();
 
-    if (!restaurant)
-      return new NextResponse("Restaurant not found", { status: 200 });
+    if (!restaurant) {
+      return new NextResponse(
+        JSON.stringify({ error: "Restaurant not found" }),
+        { status: 200 }
+      );
+    }
 
-    return new NextResponse(JSON.stringify({ restaurant }), { status: 200 });
+    // Construct the response object with the restaurant information
+    const response = {
+      restaurant,
+    };
+
+    // Return the response as a nicely formatted JSON object
+    return new NextResponse(JSON.stringify(response, null, 2), { status: 200 });
   } catch (err) {
     console.log(err.message);
-    return new NextResponse("Database Error", { status: 500 });
+    return new NextResponse(JSON.stringify({ error: "Database Error" }), {
+      status: 500,
+    });
   }
 };
 

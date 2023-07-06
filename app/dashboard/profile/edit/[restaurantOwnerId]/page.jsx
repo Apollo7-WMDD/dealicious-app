@@ -21,7 +21,8 @@ const fetchOwnerInfo = async (restaurantOwnerId) => {
 
 const Page = async ({ params }) => {
   const { restaurantOwnerId } = params;
-  const ownerData = await fetchOwnerInfo(restaurantOwnerId);
+  const restaurantData = await fetchOwnerInfo(restaurantOwnerId);
+  console.log(restaurantData);
 
   return (
     <>
@@ -32,22 +33,6 @@ const Page = async ({ params }) => {
           Save or Add Profile
         </button>
       </Link>
-      {ownerData && (
-        <div
-          style={{ margin: "1rem", border: "1px solid black" }}
-          key={ownerData._id}
-        >
-          <h1>{ownerData.restaurantInfo.name}</h1>
-          <h2>{ownerData.restaurantInfo.email}</h2>
-          <h2>{ownerData.restaurantInfo.website}</h2>
-          <h2>{ownerData.restaurantInfo.qrCode}</h2>
-          <h3>{ownerData.restaurantInfo.address.street}</h3>
-          <h3>{ownerData.restaurantInfo.address.postalCode}</h3>
-          <h3>{ownerData.restaurantInfo.address.city}</h3>
-          <h3>{ownerData.restaurantInfo.address.province}</h3>
-          <h3>{ownerData.restaurantInfo.address.country}</h3>
-        </div>
-      )}
     </>
   );
 };

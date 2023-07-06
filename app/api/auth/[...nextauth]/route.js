@@ -4,7 +4,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import connect from "@/utils/database";
 import mongoose from "mongoose";
 import User from "@/models/user";
-import Restaurant from "@/models/restaurant";
 import bcrypt from "bcryptjs";
 
 const handlerAuth = NextAuth({
@@ -64,6 +63,7 @@ const handlerAuth = NextAuth({
             lastname: profile.name?.split(" ")[1],
             phone: Math.floor(1000000000 + Math.random() * 9000000000),
           });
+
           console.log("User created successfully!");
         }
         return true;

@@ -11,10 +11,8 @@ export const GET = async (request) => {
   try {
     await connect();
 
-    const promises = [
-      Restaurant.findOne({
-        _id: restaurantId,
-      })
+    const [restaurant, campaigns] = await Promise.all([
+      Restaurant.findOne({ _id: restaurantId })
         .select({
           name: 1,
           _id: 1,
@@ -26,23 +24,21 @@ export const GET = async (request) => {
         })
         .lean(),
 
-      Campaign.find({
-        restaurantId,
-        state: true,
-      })
+      Campaign.find({ restaurantId, state: true })
         .select({
           name: 1,
           offer: 1,
           endDate: 1,
         })
         .lean(),
-    ];
+    ]);
 
-    const [restaurant, campaigns] = await Promise.all(promises);
+    const result = {
+      restaurant,
+      campaigns,
+    };
 
-    const result = { restaurant, campaigns };
-
-    return new NextResponse(JSON.stringify(result), {
+    return new NextResponse(JSON.stringify(result, null, 2), {
       status: 200,
     });
   } catch (err) {

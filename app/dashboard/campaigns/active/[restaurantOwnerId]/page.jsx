@@ -23,36 +23,48 @@ const fetchRestaurants = async (restaurantOwnerId) => {
 const Page = async ({ params }) => {
   const { restaurantOwnerId } = params;
   const restaurantData = await fetchRestaurants(restaurantOwnerId);
-  const restaurantId = restaurantData.restaId;
+  const restaurantId = restaurantData.restaurantId;
+  console.log(restaurantData);
+  console.log(restaurantId);
 
   return (
-    <>
+    <div>
       <PassContext
         restaurantOwnerId={restaurantOwnerId}
         restaurantId={restaurantId}
       />
-      <div>Restaurant Owner - Active Campaigns </div>
-      {<span>{"This is the restaurant ID: " + restaurantId}</span>}
-      <h1>{"This is the restaurantOwner ID: " + restaurantOwnerId}</h1>
-
-      <Link href={`/dashboard/campaigns/createNew/${restaurantOwnerId}`}>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Create a campaign
+      <h1>CAMPAIGNS ACTIVE</h1>
+      <Link href={`/`}>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+          Home Page
         </button>
       </Link>
-      {restaurantData.campaigns.map((campaign) => (
-        <div
-          style={{ margin: "1rem", border: "1px solid black" }}
-          key={campaign.campaignId}
-        >
-          <h1>{campaign.name}</h1>
-          <h2>{campaign._id}</h2>
-          <h2>{campaign.status}</h2>
-          <h2>{campaign.startDate}</h2>
-          <h2>{campaign.endDate}</h2>
-        </div>
-      ))}
-    </>
+      <Link href={`/dashboard/campaigns/createNew/${restaurantOwnerId}`}>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+          Create campaign
+        </button>
+      </Link>
+
+      <Link href={`/dashboard/profile/${restaurantOwnerId}`}>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+          Profile
+        </button>
+      </Link>
+
+      <Link
+        href={`/dashboard/insights/overview/${restaurantOwnerId}/${restaurantId}`}
+      >
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+          Insights - Overview
+        </button>
+      </Link>
+
+      <Link href={`/dashboard/burnCode/${restaurantOwnerId}`}>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+          Burn Code
+        </button>
+      </Link>
+    </div>
   );
 };
 

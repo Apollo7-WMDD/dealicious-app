@@ -14,9 +14,7 @@ export const GET = async (request) => {
     await connect();
 
     const promises = [
-      Restaurant.findOne({
-        _id: restaurantId,
-      })
+      Restaurant.findOne({ _id: restaurantId })
         .select({
           name: 1,
           _id: 1,
@@ -28,10 +26,7 @@ export const GET = async (request) => {
         })
         .lean(),
 
-      Campaign.find({
-        restaurantId,
-        state: true,
-      })
+      Campaign.find({ restaurantId, state: true })
         .select({
           name: 1,
           offer: 1,
@@ -58,14 +53,18 @@ export const GET = async (request) => {
             totalPoints: 1,
           },
         },
-      ]),
+      ]).exec(),
     ];
 
     const [restaurant, campaigns, points] = await Promise.all(promises);
 
-    const result = { restaurant, campaigns, points: points[0] };
+    const result = {
+      restaurant,
+      campaigns,
+      points: points.length > 0 ? points[0].totalPoints : 0,
+    };
 
-    return new NextResponse(JSON.stringify(result), {
+    return new NextResponse(JSON.stringify(result, null, 2), {
       status: 200,
     });
   } catch (err) {

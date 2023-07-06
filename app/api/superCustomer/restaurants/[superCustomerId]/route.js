@@ -11,29 +11,46 @@ export const GET = async (request) => {
   try {
     await connect();
 
-    const restaurants = await Restaurant.find({
-      superCustomerIdArray: {
-        $in: [new mongoose.Types.ObjectId(superCustomerId)],
+    const restaurants = await Restaurant.aggregate([
+      {
+        $match: {
+          superCustomerIdArray: {
+            $in: [new mongoose.Types.ObjectId(superCustomerId)],
+          },
+        },
       },
-    }).select({
-      name: 1,
-      _id: 1,
-      logo: 1,
-    });
+      {
+        $lookup: {
+          from: "campaigns",
+          localField: "_id",
+          foreignField: "restaurantId",
+          as: "campaigns",
+        },
+      },
+      {
+        $addFields: {
+          campaignCount: { $size: "$campaigns" },
+        },
+      },
+      {
+        $project: {
+          name: 1,
+          _id: 1,
+          logo: 1,
+          campaignCount: 1,
+        },
+      },
+    ]);
 
-    // Find the number of campaigns for each restaurant
-    const promises = restaurants.map(async (restaurant) => {
-      const campaignCount = await Campaign.countDocuments({
-        restaurantId: new mongoose.Types.ObjectId(restaurant._id),
-      });
-      return { restaurant, campaignCount };
-    });
+    const formattedRestaurants = restaurants.map((restaurant) => ({
+      name: restaurant.name,
+      _id: restaurant._id,
+      logo: restaurant.logo,
+      campaignCount: restaurant.campaignCount,
+    }));
 
-    // Execute the promises concurrently
-    const results = await Promise.all(promises);
-
-    // Return the combined result
-    return new NextResponse(JSON.stringify(results), {
+    // Return the nicely formatted JSON object
+    return new NextResponse(JSON.stringify(formattedRestaurants, null, 2), {
       status: 200,
     });
   } catch (err) {

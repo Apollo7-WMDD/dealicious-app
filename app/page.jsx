@@ -21,25 +21,30 @@ const Page = () => {
         {status === "loading" ? (
           <div>Loading...</div>
         ) : status === "authenticated" ? (
-          <>
+          <div className="flex flex-col items-center justify-center">
+            <Link href={`/dashboard/campaigns/active/${session?.user.id}`}>
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+                Dashboard
+              </button>
+            </Link>
             <button
-              className="mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4"
               onClick={signOut}
             >
               Sign Out
             </button>
-          </>
+          </div>
         ) : (
           <>
             <Link
-              href={`/login`}
-              className="mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white"
+              href={`/login/owner`}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4"
             >
               <button>Login</button>
             </Link>
             <Link
               href={`/register`}
-              className="mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4"
             >
               <button>Sign Up!</button>
             </Link>

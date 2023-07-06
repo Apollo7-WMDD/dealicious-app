@@ -32,7 +32,6 @@ const styles = {
 };
 
 const Login = () => {
-  const router = useRouter();
   const { data: session, status } = useSession();
 
   useEffect(() => {

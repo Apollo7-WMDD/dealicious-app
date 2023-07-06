@@ -28,19 +28,16 @@ const Page = async ({ params }) => {
     <>
       <h1>Profile of the Super Customer</h1>
       <h2>{superCustomerId}</h2>
-      <button className=" mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white">
-        Save Changes
-      </button>
       <Link href={`/superCustomer/restaurants/${superCustomerId}`}>
-        <button className=" mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white">
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+          Save Changes
+        </button>
+      </Link>
+      <Link href={`/superCustomer/restaurants/${superCustomerId}`}>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
           Cancel
         </button>
       </Link>
-      <div className="m-10">
-        <h1>{firstname}</h1>
-        <h1>{lastname}</h1>
-        <h1>{phone}</h1>
-      </div>
     </>
   );
 };
