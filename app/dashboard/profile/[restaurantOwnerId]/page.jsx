@@ -22,7 +22,7 @@ const fetchOwnerInfo = async (restaurantOwnerId) => {
 const Page = async ({ params }) => {
   const { restaurantOwnerId } = params;
   const ownerData = await fetchOwnerInfo(restaurantOwnerId);
-  console.log(ownerData);
+  console.log("owner data: ", ownerData);
 
   return (
     <>
