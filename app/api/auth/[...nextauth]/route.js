@@ -42,6 +42,7 @@ const handlerAuth = NextAuth({
       },
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async session({ session }) {
       if (!session) return null;

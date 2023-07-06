@@ -5,14 +5,17 @@ import { useSession, signOut } from "next-auth/react";
 
 // NEXTjs imports
 import Link from "next/link";
+import { useStore } from "./store.js";
+import { Box, useTheme } from "@mui/material";
 
 const Page = () => {
   const { data: session, status } = useSession();
   console.log("status", status);
   console.log("data", session?.user);
-
+  const theme = useTheme();
+  console.log(session, status);
   return (
-    <>
+    <main>
       <div>Landing Page</div>
       <div>
         {status === "loading" ? (
@@ -48,7 +51,7 @@ const Page = () => {
           </>
         )}
       </div>
-    </>
+    </main>
   );
 };
 
