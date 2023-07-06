@@ -105,6 +105,5 @@ const navItems = [
       </List>
     </>
   );
-}
 
 // export default SideBarItem;
