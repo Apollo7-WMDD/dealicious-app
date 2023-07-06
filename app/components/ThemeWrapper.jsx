@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useMemo } from "react";
@@ -33,4 +32,5 @@ function ThemeWrapper({ children }) {
     </>
   );
 }
+
 export default ThemeWrapper;
