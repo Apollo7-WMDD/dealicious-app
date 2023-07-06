@@ -39,7 +39,7 @@ export const GET = async (request) => {
 
     if (result.length === 0) {
       return new NextResponse(JSON.stringify({ error: "User not found" }), {
-        status: 404,
+        status: 200,
       });
     }
 
@@ -60,6 +60,6 @@ export const GET = async (request) => {
     return new NextResponse(JSON.stringify(response, null, 2), { status: 200 });
   } catch (err) {
     console.log(err.message);
-    return new NextResponse("Database Error", { status: 500 });
+    return new NextResponse(JSON.stringify({ data: null }), { status: 200 });
   }
 };

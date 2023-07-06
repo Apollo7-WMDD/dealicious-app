@@ -19,7 +19,8 @@ export const GET = async (request) => {
     ).lean();
 
     if (!restaurant) {
-      return new NextResponse("Restaurant not found", { status: 404 });
+      // Return empty response if no restaurant info is found
+      return new NextResponse(JSON.stringify({ data: null }), { status: 200 });
     }
 
     // Find campaigns for the restaurant

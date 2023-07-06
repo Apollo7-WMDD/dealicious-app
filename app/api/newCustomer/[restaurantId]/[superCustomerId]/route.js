@@ -7,9 +7,22 @@ import Campaign from "@/models/campaign";
 export const GET = async (request) => {
   const url = new URL(request.url);
   const restaurantId = url.pathname.split("/")[3];
+  const superCustomerId = url.pathname.split("/")[4];
 
   try {
     await connect();
+
+    // check if the super Customer is inside an array of super Customer Ids in restaurant
+    const isSuperCustomer = await Restaurant.findOne({
+      _id: restaurantId,
+      superCustomerIdArray: {
+        $in: [new mongoose.Types.ObjectId(superCustomerId)],
+      },
+    }).lean();
+
+    if (!isSuperCustomer) {
+      return new NextResponse(JSON.stringify({ data: null }), { status: 200 });
+    }
 
     const [restaurant, campaigns] = await Promise.all([
       Restaurant.findOne({ _id: restaurantId })
@@ -43,6 +56,6 @@ export const GET = async (request) => {
     });
   } catch (err) {
     console.log(err.message);
-    return new NextResponse("Database Error", { status: 500 });
+    return new NextResponse({ data: null }, { status: 200 });
   }
 };

@@ -25,10 +25,7 @@ export const GET = async (request) => {
       .lean();
 
     if (!restaurant) {
-      return new NextResponse(
-        JSON.stringify({ error: "Restaurant not found" }),
-        { status: 200 }
-      );
+      return new NextResponse(JSON.stringify({ data: null }), { status: 200 });
     }
 
     // Construct the response object with the restaurant information

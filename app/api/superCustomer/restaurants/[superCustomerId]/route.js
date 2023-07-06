@@ -55,6 +55,6 @@ export const GET = async (request) => {
     });
   } catch (err) {
     console.log(err.message);
-    return new NextResponse("Database Error", { status: 500 });
+    return new NextResponse(JSON.stringify({ data: null }), { status: 200 });
   }
 };

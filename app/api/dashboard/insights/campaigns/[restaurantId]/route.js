@@ -58,10 +58,10 @@ export const GET = async (request) => {
 
       return {
         _id: campaignId,
-        name: campaign.name,
-        startDate: campaign.startDate,
-        endDate: campaign.endDate,
-        favorite: campaign.favorite,
+        name: campaign ? campaign.name : "",
+        startDate: campaign ? campaign.startDate : "",
+        endDate: campaign ? campaign.endDate : "",
+        favorite: campaign ? campaign.favorite : "",
         billamount,
       };
     });

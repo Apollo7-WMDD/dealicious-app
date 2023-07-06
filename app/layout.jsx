@@ -2,7 +2,6 @@ import "./globals.css";
 import Provider from "./components/Provider";
 //
 
-import ThemeWrapper from "./components/ThemeWrapper";
 import { UserTypeProvider } from "./context/UserTypeContext";
 
 export const metadata = {
@@ -26,7 +25,6 @@ export default function RootLayout({ children }) {
                 display: "flex",
               }}
             >
-              <ThemeWrapper />
               <div style={{ margin: "2rem 2%" }}>{children}</div>
             </div>
           </Provider>

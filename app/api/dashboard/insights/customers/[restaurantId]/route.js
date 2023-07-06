@@ -114,19 +114,16 @@ export const GET = async (request) => {
     const results = await Promise.all(promises);
 
     const costumerData = {
-      totalRevenue: results[0][0].totalRevenue,
-      superCustomerBirthdate: results[1],
+      totalRevenue: results[0][0]?.totalRevenue || 0,
+      superCustomerBirthdate: results[1] || [],
       numberCustomer: {
         superCustomerCount: 0,
         newCustomerCount: 0,
       },
-      top10SuperCustomers:
-        results[3].map((result) => {
-          return result._id;
-        }) || [],
+      top10SuperCustomers: results[3]?.map((result) => result._id) || [],
       totalPoints: {
-        EarnedPoints: results[4][0].totalPoints,
-        RedeemedPoints: results[5][0].totalRedeemedPoints,
+        EarnedPoints: results[4][0]?.totalPoints || 0,
+        RedeemedPoints: results[5][0]?.totalRedeemedPoints || 0,
       },
     };
 
@@ -143,6 +140,6 @@ export const GET = async (request) => {
     });
   } catch (err) {
     console.log(err.message);
-    return new NextResponse("Database Error", { status: 500 });
+    return new NextResponse(JSON.stringify({}), { status: 200 });
   }
 };
