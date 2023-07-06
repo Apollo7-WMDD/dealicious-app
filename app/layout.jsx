@@ -17,16 +17,18 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
-        <Provider>
-          <div
-            style={{
-              display: "flex",
-            }}
-          >
-            <ThemeWrapper />
-            <div style={{ margin: "2rem 2%" }}>{children}</div>
-          </div>
-        </Provider>
+        <UserTypeProvider>
+          <Provider>
+            <div
+              style={{
+                display: "flex",
+              }}
+            >
+              <ThemeWrapper />
+              <div style={{ margin: "2rem 2%" }}>{children}</div>
+            </div>
+          </Provider>
+        </UserTypeProvider>
       </body>
     </html>
   );
