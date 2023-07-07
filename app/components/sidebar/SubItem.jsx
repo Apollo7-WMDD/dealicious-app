@@ -21,28 +21,34 @@ function SubItem({ list }) {
           // const activeLink = pathname.substring(1);
           // const activeLink = pathname.substring(1)+`/`+`${link}`.substring(1);
           // const activeLink =`${link}`.substring(1);
-          const activeLink =`campaigns${link}`;
-          console.log("activeLink=", activeLink);
-          console.log("text=", text);
+
+          // const activeLink =`campaigns${link}`;
+          
+          const activeLink = `${link}`.substring("1");
+          const activeLinkSplit = activeLink.split("/");
+          const currentURL = pathname.split("/");
+          console.log("currentURL=", currentURL[3]);
+          // console.log("activeLink=", activeLink);
+          console.log("activeLinkSplit=", activeLinkSplit[2]);console.log("activeLink=", activeLink);
+          console.log("text=", text.toLowerCase());
 
           return (
-            <ListItem key={text} sx={{ padding: "0.25rem 0 0 0" }}>
+            <ListItem key={text} sx={{ padding: "0.25rem 0 0 0" }}>  
+            { currentURL[3] == text.toLowerCase()&& console.log("sssssssss")}
               <ListItemButton
                 onClick={() => {
                   router.push(`${link}`.substring(1));
                   setSideBarSubItemActive(activeLink);
                 }}
+              
                 sx={{
-                  // borderBottom: 
-                  //     sideBarSubItemActive === text
-                  //     && "3px solid theme.palette.primary[80]",
-                      
-                  
-                  
-                  backgroundColor:
-                    sideBarSubItemActive === `campaigns${link}`
-                      ? theme.palette.secondary[80]
-                      : "transparent",
+                  borderBottom: 
+                  currentURL[3] == text.toLowerCase()
+                      ? `.25rem solid ${theme.palette.primary[80]}` : "none",
+                  // backgroundColor:
+                  // currentURL[3] == text.toLowerCase()
+                  //     ? theme.palette.secondary[80]
+                  //     : "transparent",
                   // "transparent"
                   // theme.palette.background.alt,
                   // color:

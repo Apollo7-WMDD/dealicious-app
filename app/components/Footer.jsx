@@ -1,11 +1,22 @@
-import React from "react";
+"use client";
+import { Box, useTheme } from "@mui/material";
 
 const Footer = () => {
+  const theme = useTheme();
   return (
     // create simple footer with tailwind no links
-    <div className="bg-gray-800 text-gray-100 flex justify-center items-center h-16 border-t border-gray-700 w-screen">
-      <span className="text-sm">Dealicious &copy; 2023</span>
-    </div>
+    <Box
+      sx={{
+        position: "absolute",
+        bottom: "0",
+        background: theme.palette.secondary[100],
+        width: "inherit",
+        fontSize: "1rem",
+        padding: "1rem 2%",
+      }}
+    >
+      Dealicious &copy; 2023{" "}
+    </Box>
   );
 };
 
