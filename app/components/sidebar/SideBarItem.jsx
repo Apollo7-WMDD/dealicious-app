@@ -86,7 +86,7 @@ function SideBarItem() {
   useEffect(() => {
     setSideBarItemActive(pathname.substring(1));
   }, [pathname]);
-  console.log("sideBarItemActive=", sideBarItemActive);
+  // console.log("sideBarItemActive=", sideBarItemActive);
   return (
     <>
       {/* <PassContext
@@ -102,9 +102,9 @@ function SideBarItem() {
           const activeLink = `${link}`.substring("1");
           const activeLinkSplit = activeLink.split("/");
           const currentURL = pathname.split("/");
-          console.log("currentURL=", currentURL[2]);
-          console.log("activeLink=", activeLink);
-          console.log("activeLinkSplit=", activeLinkSplit[1]);
+          // console.log("currentURL=", currentURL[2]);
+          // console.log("activeLink=", activeLink);
+          // console.log("activeLinkSplit=", activeLinkSplit[1]);
 
           return (
             <ListItem key={text} style={{ display: "block" }}>
@@ -112,7 +112,7 @@ function SideBarItem() {
                 onClick={() => {
                   router.push(`${link}`);
                   setSideBarItemActive(activeLink);
-                  console.log("activeLink=", activeLink);
+                  // console.log("activeLink=", activeLink);
                 }}
                 sx={{
                   backgroundColor:

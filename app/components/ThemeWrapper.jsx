@@ -18,11 +18,6 @@ function ThemeWrapper({ children }) {
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        {/* <Box
-          sx={{
-            display: "flex",
-          }}
-        > */}
         <SideBar />
         <Box
           sx={{
@@ -35,8 +30,6 @@ function ThemeWrapper({ children }) {
 
           <Footer />
         </Box>
-
-        {/* </Box> */}
       </ThemeProvider>
     </>
   );
