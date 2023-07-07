@@ -5,12 +5,12 @@ const handleInputData = async function (e) {
 
   // get the restauran data
   const restaurantData = {
-    userId: "649be69a34ccc8cbad46d3b1",
-    name: "JJ Bean Coffe Roasters",
-    manager: "Bruce Banner",
+    userId: "64a735418ff9fb2c44c58a75",
+    name: "Tony sushi",
+    manager: "Mark Cuban",
     email: "jjcoffee@hotmail.com",
     address: {
-      street: "789 Science World Street",
+      street: "999 Quebec street",
       postalCode: "V5K 0A1",
       city: "Langley",
       province: "BC",

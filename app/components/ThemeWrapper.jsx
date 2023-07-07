@@ -8,6 +8,7 @@ import SideBar from "./sidebar/SideBar.jsx";
 import { createTheme } from "@mui/material/styles";
 import { useStore } from "../store.js";
 import { Box } from "@mui/system";
+import Footer from "./Footer.jsx";
 
 function ThemeWrapper({ children }) {
   const { mode, isSidebarOpen } = useStore();
@@ -22,11 +23,19 @@ function ThemeWrapper({ children }) {
             display: "flex",
           }}
         > */}
-          <SideBar />
-          {/* <Box style={{ margin: "2rem 2%" }}> */}
-          {/* {children } */}
-          {/* </Box> */}
-          
+        <SideBar />
+        <Box
+          sx={{
+            margin: "2rem 0",
+            width: "calc(100% - 250px)",
+            minHeight: "100%",
+          }}
+        >
+          <Box sx={{ padding: "0 2%" }}>{children}</Box>
+
+          <Footer />
+        </Box>
+
         {/* </Box> */}
       </ThemeProvider>
     </>

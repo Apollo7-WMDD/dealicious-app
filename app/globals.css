@@ -1,8 +1,8 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
 
-@import url("https://fonts.googleapis.com/css2?family=Mukta:wght@300;600&family=Ubuntu:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bacasime+Antique&family=Mukta:wght@300;600&family=Ubuntu:wght@700&display=swap");
 
 :root {
   /* --foreground-rgb: 0, 0, 0;
@@ -21,4 +21,10 @@ body {
   flex-direction: column;
   color: rgb(var(--foreground-rgb));
   background-color: rgb(var(--background-start-rgb)); */
+}
+
+img {
+max-width: 100%;
+height:auto;
+display: block;
 }

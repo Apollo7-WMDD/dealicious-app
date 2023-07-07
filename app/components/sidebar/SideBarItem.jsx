@@ -17,57 +17,68 @@ import { useTheme } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-
-const navItems = [
-  {
-    text: "Campaigns",
-    icon: <DealIcon />,
-    link: "/campaigns/active",
-  },
-  {
-    text: "Insights",
-    icon: <InsightIcon />,
-    link: "/insights",
-  },
-  {
-    text: "Burn a Code",
-    icon: <BurnCodeIcon />,
-    link: "/burnCode",
-  },
-  {
-    text: "Profile",
-    icon: <ProfileIcon />,
-    link: "/profile",
-  },
-];
-
-const campaignSubItems = [
-  {
-    text: "Ongoing",
-    link: "/active",
-  },
-  {
-    text: "Upcoming",
-    link: "/upcoming",
-  },
-];
-
-const insightSubItems = [
-  {
-    text: "Overview",
-    link: "/overview",
-  },
-  {
-    text: "Campaigns",
-    link: "/campaigns",
-  },
-  {
-    text: "Customers",
-    link: "/customers",
-  },
-];
-
+import { useSession, signIn, signOut } from "next-auth/react";
+import PassContext from "@/app/components/Dashboard/PassContext";
 function SideBarItem() {
+  const { data: session, status } = useSession();
+  // const restaurantOwnerId = session?.user.id;
+  // const restaurantData = await fetchRestaurants(session?.user.id);
+  // const restaurantId = restaurantData.restaurantId;
+  // console.log(restaurantData);
+  // console.log(restaurantId);
+  // console.log(restaurantOwnerId);
+
+  const navItems = [
+    {
+      text: "Campaigns",
+      icon: <DealIcon />,
+      link: `/dashboard/campaigns/active/${session?.user.id}`,
+    },
+    {
+      text: "Insights",
+      icon: <InsightIcon />,
+      // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
+      link: `/dashboard/insights/overview/${session?.user.id}`
+    },
+    {
+      text: "Burn a Code",
+      icon: <BurnCodeIcon />,
+      link: "/burnCode",
+    },
+    {
+      text: "Profile",
+      icon: <ProfileIcon />,
+      link: "/profile",
+    },
+  ];
+
+  const campaignSubItems = [
+    {
+      text: "Ongoing",
+      link: `/dashboard/campaigns/active/${session?.user.id}`,
+    },
+    {
+      text: "Upcoming",
+      link: `/dashboard/campaigns/upcoming/${session?.user.id}`,
+    },
+  ];
+
+  const insightSubItems = [
+    {
+      text: "Overview",
+      link: `dashboard/insights/overview/${session?.user.id}`,
+    },
+    {
+      text: "Campaigns",
+      // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
+      link: `/dashboard/insights/campaigns/${session?.user.id}`
+    },
+    {
+      text: "Customers",
+       // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
+       link: `/dashboard/insights/customers/${session?.user.id}`
+    },
+  ];
   const theme = useTheme();
   const { sideBarItemActive, setSideBarItemActive } = useStore();
   const router = useRouter();
@@ -78,13 +89,22 @@ function SideBarItem() {
   console.log("sideBarItemActive=", sideBarItemActive);
   return (
     <>
+      {/* <PassContext
+        restaurantOwnerId={restaurantOwnerId}
+        restaurantId={restaurantId}
+      /> */}
       <List
         sx={{
           padding: "0",
         }}
       >
         {navItems.map(({ text, icon, link }) => {
-          const activeLink = `${link}`.substring(1);
+          const activeLink = `${link}`.substring("1");
+          const activeLinkSplit = activeLink.split("/");
+          const currentURL = pathname.split("/");
+          console.log("currentURL=", currentURL[2]);
+          console.log("activeLink=", activeLink);
+          console.log("activeLinkSplit=", activeLinkSplit[1]);
 
           return (
             <ListItem key={text} style={{ display: "block" }}>
@@ -96,7 +116,7 @@ function SideBarItem() {
                 }}
                 sx={{
                   backgroundColor:
-                    sideBarItemActive === activeLink
+                  currentURL[2] === activeLinkSplit[1]
                       ? theme.palette.primary[120]
                       : "transparent",
                   // "transparent"
@@ -139,16 +159,16 @@ function SideBarItem() {
                   )} */}
                 </ListItemText>
               </ListItemButton>
-              {(sideBarItemActive === activeLink &&
-                (activeLink == `campaigns/active`) && (
+              {currentURL[2] === activeLinkSplit[1] &&
+                currentURL[2] == `campaigns` && (
                   <SubItem list={campaignSubItems}></SubItem>
-                ))}
-              {(sideBarItemActive === activeLink &&
+                )}
+              {/* {(sideBarItemActive === activeLink &&
                 (activeLink == `campaigns/upcoming`) && (
                   <SubItem list={campaignSubItems}></SubItem>
-                ))}
-              {sideBarItemActive === activeLink &&
-                activeLink === "insights" && (
+                ))} */}
+              {currentURL[2] === activeLinkSplit[1] &&
+                currentURL[2] == `insights` && (
                   <SubItem list={insightSubItems}></SubItem>
                 )}
             </ListItem>

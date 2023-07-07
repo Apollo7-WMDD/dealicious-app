@@ -19,15 +19,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <UserTypeProvider>
-          <Provider>
-            <div
-              style={{
-                display: "flex",
-              }}
-            >
-              <div style={{ margin: "2rem 2%" }}>{children}</div>
-            </div>
-          </Provider>
+          <Provider>{children}</Provider>
         </UserTypeProvider>
       </body>
     </html>

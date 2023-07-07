@@ -1,12 +1,11 @@
-
 // color design tokens export
 export const tokensDark = {
   base: {
-      20: "#FFFFFF",
-      40: "#F8F8F8",
-      60: "#9B9B9B",
-      80: "#454545",
-      100: "#181818",
+    20: "#FFFFFF",
+    40: "#F8F8F8",
+    60: "#9B9B9B",
+    80: "#454545",
+    100: "#181818",
   },
   primary: {
     // RED
@@ -20,11 +19,11 @@ export const tokensDark = {
   },
   secondary: {
     // Green
-      20: "#BFE1CB", 
-      40: "#99CEAB",
-      60: "#7FC296",
-      80: "#F6CF3E",
-     100: "#334E3C",  
+    20: "#BFE1CB",
+    40: "#99CEAB",
+    60: "#7FC296",
+    80: "#F6CF3E",
+    100: "#334E3C",
   },
 };
 
@@ -100,32 +99,48 @@ export const themeSettings = (mode) => {
         fontFamily: ["Ubuntu", "sans-serif"].join(","),
         fontSize: 64,
         fontWeight: 700,
+        lineHeight: 1.2,
       },
       h2: {
         fontFamily: ["Ubuntu", "sans-serif"].join(","),
         fontSize: 32,
         fontWeight: 700,
+        lineHeight: 1.2,
       },
       h3: {
         fontFamily: ["Ubuntu", "sans-serif"].join(","),
         fontSize: 28,
         fontWeight: 700,
+        lineHeight: 1.2,
       },
       h4: {
         fontFamily: ["Ubuntu", "sans-serif"].join(","),
         fontSize: 20,
         fontWeight: 700,
-        
+        lineHeight: 1.2,
       },
       h5: {
-        fontFamily: ["Inter", "sans-serif"].join(","),
+        fontFamily: ["Mukta", "sans-serif"].join(","),
         fontSize: 16,
-        
       },
       h6: {
         fontFamily: ["Ubuntu", "sans-serif"].join(","),
         fontSize: 14,
-        
+      },
+      a: {
+        fontFamily: ["Mukta", "sans-serif"].join(","),
+      },
+      button: {
+        fontFamily: ["Ubuntu", "sans-serif"].join(","),
+        fontSize: 24,
+        fontWeight: 700,
+
+      },
+    },
+    button: {
+      background: {
+        main: tokensDark.primary[80],
+         
       },
     },
   };
