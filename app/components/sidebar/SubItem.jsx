@@ -27,6 +27,7 @@ function SubItem({ list }) {
           const activeLink = `${link}`.substring("1");
           const activeLinkSplit = activeLink.split("/");
           const currentURL = pathname.split("/");
+
           // console.log("currentURL=", currentURL[3]);
           // console.log("activeLink=", activeLink);
           // console.log("activeLinkSplit=", activeLinkSplit[2]);console.log("activeLink=", activeLink);
@@ -35,6 +36,7 @@ function SubItem({ list }) {
           return (
             <ListItem key={text} sx={{ padding: "0.25rem 0 0 0" }}>  
             
+
               <ListItemButton
                 onClick={() => {
                   router.push(`${link}`.substring(1));
@@ -43,8 +45,10 @@ function SubItem({ list }) {
               
                 sx={{
                   borderBottom: 
+
                   // currentURL[3] == text.toLowerCase()
                   currentURL[3] == activeLinkSplit[2]
+
                       ? `.25rem solid ${theme.palette.primary[80]}` : "none",
                   // backgroundColor:
                   // currentURL[3] == text.toLowerCase()

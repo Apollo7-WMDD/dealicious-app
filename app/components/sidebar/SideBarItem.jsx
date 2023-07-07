@@ -102,9 +102,11 @@ function SideBarItem() {
           const activeLink = `${link}`.substring("1");
           const activeLinkSplit = activeLink.split("/");
           const currentURL = pathname.split("/");
+
           // console.log("currentURL=", currentURL[2]);
           // console.log("activeLink=", activeLink);
           // console.log("activeLinkSplit=", activeLinkSplit[1]);
+
 
           return (
             <ListItem key={text} style={{ display: "block" }}>

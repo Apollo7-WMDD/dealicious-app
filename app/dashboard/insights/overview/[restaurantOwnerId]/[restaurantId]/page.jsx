@@ -2,13 +2,14 @@
 import Link from "next/link";
 import Header from "../../../../../components/Header/Header";
 import SubHeader from "../../../../../components/Header/SubHeader";
+
 import ChartCard from "../../../../../components/ChartCard";
 import MainGrid from "../../../../../components/MainGrid";
 import { Box, useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 import { useMemo, useEffect, useState } from "react";
 
-// import * as d3 from "d3";
+
 
 const fetchInsightsOverview = async (restaurantOwnerId, restaurantId) => {
   const isProduction = process.env.NODE_ENV === "production";
@@ -134,6 +135,7 @@ const Page = async ({ params }) => {
       <Header props={"Insights"} />
       {/* CHANGE THIS COMPONENT TO DROWDOWN WITH ALL CAMPAIGN AND PINNED CAMPAIGN ON TOP */}
       <SubHeader props={"Campaing Data Overview(All)"} />
+
 
       {/*====== SET GRID ======*/}
       <MainGrid>
@@ -331,6 +333,7 @@ const Page = async ({ params }) => {
         </Box>
       </Box> */}
       {/* <ChartCard content={{toBarData}} gridColumn={"span 3"} /> */}
+
 
       <Box sx={{ height: "400px" }}></Box>
       <Link href={`/dashboard/campaigns/active/${restaurantOwnerId}`}>
