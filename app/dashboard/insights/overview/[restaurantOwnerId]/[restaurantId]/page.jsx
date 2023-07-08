@@ -234,65 +234,47 @@ const Page = async ({ params }) => {
             e.id + ": " + e.formattedValue + " in country: " + e.indexValue
           }
         /> */}
-        
-        {/* <Box>{toBarData.averageBillSize}</Box> */}
-        {/* <Box>{dataToArray[0].opportunity}</Box>
-        <Box>{dataToArray[0].spendings}</Box> */}
-        {/* <Box>{toBarData[0].opportunity}</Box>
-        <Box>{toBarData[0].spendings}</Box>
-        <Box>{toBarData[1].opportunity}</Box>
-        <Box>{toBarData[1].spendings}</Box>
-        <Box>{toBarData[2].opportunity}</Box>
-        <Box>{toBarData[2].spendings}</Box>
-        <Box>{toBarData[3].opportunity}</Box>
-        <Box>{toBarData[3].spendings}</Box>
-        <Box>{toBarData[4].opportunity}</Box>
-        <Box>{toBarData[4].spendings}</Box> */}
-        <ChartCard gridColumn={"span 2"}>
-        averageBillSize
+
+        <ChartCard gridColumn={"span 2"} >
+          averageBillSize
           {spendingsData.averageBillSize}
         </ChartCard>
         <ChartCard gridColumn={"span 1"}>
-        totalRevenue
+          totalRevenue
           {spendingsData.totalRevenue}
         </ChartCard>
         <ChartCard gridColumn={"span 1"}>
-        nonSuperCustomers
-          {spendingsData.customerCount.nonSuperCustomers}<br/>
-        superCustomers
+          nonSuperCustomers
+          {spendingsData.customerCount.nonSuperCustomers}
+          <br />
+          superCustomers
           {spendingsData.customerCount.superCustomers}
         </ChartCard>
-        
-        <ChartCard
-          gridColumn={"span 1"}
-          
-        >foodQualityCount
-          {spendingsData.opportunities.foodQualityCount}<br/>
-          foodQuantityCount
-          {spendingsData.opportunities.foodQuantityCount}<br/>
-          placeCount
-          {spendingsData.opportunities.placeCount} <br/>
-          serviceCount
-          {spendingsData.opportunities.serviceCount}<br/>
-          
-          
-          </ChartCard>
 
-          <ChartCard gridColumn={"span 2"}>
+        <ChartCard gridColumn={"span 1"}>
+          foodQualityCount
+          {spendingsData.opportunities.foodQualityCount}
+          <br />
+          foodQuantityCount
+          {spendingsData.opportunities.foodQuantityCount}
+          <br />
+          placeCount
+          {spendingsData.opportunities.placeCount} <br />
+          serviceCount
+          {spendingsData.opportunities.serviceCount}
+          <br />
+        </ChartCard>
+
+        <ChartCard gridColumn={"span 2"}>
           nonSuperCustomers
-          {spendingsData.customerSpendings.nonSuperCustomers}<br/>
+          {spendingsData.customerSpendings.nonSuperCustomers}
+          <br />
           superCustomers
           {spendingsData.customerSpendings.superCustomers}
         </ChartCard>
-        {/* <ChartCard gridColumn={"span 1"}>
-        topCampaigns
-          {spendingsData.topCampaigns}
-        </ChartCard> */}
         {spendingsData.topCampaigns.map((item) => (
-           <ChartCard gridColumn={"span 1"}>
-           {item.campaignName}
-          </ChartCard>
-        ))}       
+          <ChartCard gridColumn={"span 1"}>{item.campaignName}</ChartCard>
+        ))}
       </MainGrid>
       {/* <Box
         sx={{

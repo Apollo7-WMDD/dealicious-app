@@ -23,10 +23,10 @@ function ThemeWrapper({ children }) {
           sx={{
             margin: "2rem 0",
             width: "calc(100% - 250px)",
-            minHeight: "100%",
+            // minHeight: "100%",
           }}
         >
-          <Box sx={{ padding: "0 2%" }}>{children}</Box>
+          <Box sx={{ padding: "0 2%" ,minHeight: "100vh",}}>{children}</Box>
 
           <Footer />
         </Box>
