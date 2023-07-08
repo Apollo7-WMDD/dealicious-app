@@ -28,19 +28,24 @@ function SubItem({ list }) {
           const activeLinkSplit = activeLink.split("/");
           const currentURL = pathname.split("/");
 
+
           return (
             <ListItem key={text} sx={{ padding: "0.25rem 0 0 0" }}>
+
+
               <ListItemButton
                 onClick={() => {
                   router.push(`${link}`.substring(1));
                   setSideBarSubItemActive(activeLink);
                 }}
                 sx={{
+
                   borderBottom:
                     // currentURL[3] == text.toLowerCase()
                     currentURL[3] == activeLinkSplit[2]
                       ? `.15rem solid ${theme.palette.primary[80]}`
                       : "none",
+
                   padding: "0",
                 }}
               >

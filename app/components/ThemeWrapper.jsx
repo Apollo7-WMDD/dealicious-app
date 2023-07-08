@@ -25,11 +25,13 @@ function ThemeWrapper({ children }) {
             width: "calc(100% - 250px)",
             // minHeight: "100%",
           }}
+
         >
           <Box sx={{ padding: "0 2%" ,minHeight: "100vh",}}>{children}</Box>
 
           <Footer />
         </Box>
+
       </ThemeProvider>
     </>
   );
