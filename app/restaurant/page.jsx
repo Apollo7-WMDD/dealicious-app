@@ -255,7 +255,6 @@ const Restaurant = () => {
                 <option value="09:00">09:00 AM</option>
                 <option value="10:00">10:00 AM</option>
                 <option value="11:00">11:00 AM</option>
-                {/* ... more options */}
               </select>
 
               {/* <label htmlFor="mondayClose">Close at:</label> */}

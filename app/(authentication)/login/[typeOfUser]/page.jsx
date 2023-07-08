@@ -1,5 +1,6 @@
 "use client";
 
+import LoginComponent from "@/app/components/Login/Login";
 import { signIn, useSession } from "next-auth/react";
 import { useEffect } from "react";
 
@@ -55,6 +56,7 @@ const Login = () => {
         <div>Authenticated!</div>
       ) : (
         <>
+          <LoginComponent></LoginComponent>
           <h1 className="text-3xl text-center font-bold my-4">Login</h1>
           <form onSubmit={handleSubmit} style={styles.form}>
             <label style={styles.input} htmlFor="email">
