@@ -97,7 +97,7 @@ export const themeSettings = (mode) => {
       fontSize: 16,
       h1: {
         fontFamily: ["Ubuntu", "sans-serif"].join(","),
-        fontSize: 64,
+        fontSize: 60,
         fontWeight: 700,
         lineHeight: 1.2,
       },
