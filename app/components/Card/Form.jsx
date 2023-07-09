@@ -9,6 +9,12 @@ const Form = ({ children, ...props }) => {
         borderRadius: '8px',
         background: '#FEFEFE',
         boxShadow: '0px 4px 20px 0px rgba(0, 0, 0, 0.25)',
+        flexDirection: "column",
+        justifyContent: "space-between",
+        alignItems: "center",
+        flexShrink: 0,
+        display: "flex",
+        padding: "1rem 1.5rem"
       }}
       {...props}
     >
