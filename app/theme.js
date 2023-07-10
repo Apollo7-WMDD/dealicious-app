@@ -121,11 +121,13 @@ export const themeSettings = (mode) => {
       },
       h5: {
         fontFamily: ["Mukta", "sans-serif"].join(","),
-        fontSize: 16,
+        fontSize: 20,
+        fontWeight: 600,
       },
       h6: {
         fontFamily: ["Ubuntu", "sans-serif"].join(","),
-        fontSize: 14,
+        fontSize: 16,
+        fontWeight: 600,
       },
       a: {
         fontFamily: ["Mukta", "sans-serif"].join(","),

@@ -66,32 +66,36 @@ function SideBar() {
                   borderRadius: "1rem 1rem 1rem 1rem",
                   textAlign: "center",
                   margin: "1rem 2rem",
-                  padding: "2rem 0",
+                  padding: "1rem 0",
                 }}
               >
                 <Typography
-                  variant="h3"
+                  variant="h5"
                   sx={{
                     fontWeight: "bold",
+                    color:theme.palette.secondary[20]
                   }}
                 >
                   Today
                 </Typography>
                 <br />
-                <Typography variant="h5">Revenue</Typography>
+                <Typography variant="h5" sx={{fontWeight:"300", color:theme.palette.secondary[20]}}>Revenue</Typography>
                 <Typography
                   variant="h3"
                   sx={{
                     fontWeight: "bold",
+                    color:theme.palette.secondary[20]
                   }}
                 >
                   $$$
                 </Typography>
-                <Typography variant="h5">Customers</Typography>
+                <br/>
+                <Typography variant="h5" sx={{fontWeight:"300",color:theme.palette.secondary[20]}}>Customers</Typography>
                 <Typography
                   variant="h3"
                   sx={{
                     fontWeight: "bold",
+                    color:theme.palette.secondary[20]
                   }}
                 >
                   $$$

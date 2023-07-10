@@ -19,7 +19,7 @@ const InputButton = ({ onFirstButtonClick, onSecondButtonClick, firstButtonText,
     >
       <Button
         variant="contained"
-        disableElevation
+        // disableElevation
         onClick={onFirstButtonClick}
         sx={{
           display: 'flex',
@@ -33,10 +33,10 @@ const InputButton = ({ onFirstButtonClick, onSecondButtonClick, firstButtonText,
           border: '3px solid #454545 !important',
           color: '#454545',
           fontSize: '24px',
-          fontFamily: 'Ubuntu',
-          fontStyle: 'normal',
-          fontWeight: 700,
-          lineHeight: '29px',
+          // fontFamily: 'Ubuntu',
+          // fontStyle: 'normal',
+          // fontWeight: 700,
+          // lineHeight: '29px',
           letterSpacing: '-0.12px',
           '&:hover': {
             backgroundColor: '#FEFEFE !important',

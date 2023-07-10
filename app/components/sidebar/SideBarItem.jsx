@@ -12,6 +12,7 @@ import DealIcon from "../svg/dealIcon.svg";
 import InsightIcon from "../svg/insighticon.svg";
 import BurnCodeIcon from "../svg/burnCode.svg";
 import ProfileIcon from "../svg/profileIcon.svg";
+import SideBarSelect from "../svg/sideBarSelect.svg";
 import { useStore } from "../../store.js";
 import { useTheme } from "@mui/material";
 import { useRouter } from "next/navigation";
@@ -43,12 +44,13 @@ function SideBarItem() {
     {
       text: "Burn a Code",
       icon: <BurnCodeIcon />,
-      link: "/burnCode",
+      link: `/dashboard/burnCode/${session?.user.id}`
+      
     },
     {
       text: "Profile",
       icon: <ProfileIcon />,
-      link: "/profile",
+      link: `/dashboard/profile/${session?.user.id}`
     },
   ];
 
@@ -114,37 +116,38 @@ function SideBarItem() {
                 onClick={() => {
                   router.push(`${link}`);
                   setSideBarItemActive(activeLink);
-                  // console.log("activeLink=", activeLink);
                 }}
                 sx={{
-                  backgroundColor:
-                  currentURL[2] === activeLinkSplit[1]
-                      ? theme.palette.primary[120]
-                      : "transparent",
-                  // "transparent"
-                  // theme.palette.background.alt,
-                  // color:
-                  // active === lcText
-                  //   ? theme.palette.primary[600]
-                  //   : theme.palette.secondary[100],
-                  // theme.palette.primary[80],
-
+                  // backgroundColor:
+                  // currentURL[2] === activeLinkSplit[1]
+                  //     ? theme.palette.primary[120]
+                  //     : "transparent",
                   padding: "0 2rem",
+                  // position: "relative",
                 }}
               >
+                {  currentURL[2] === activeLinkSplit[1] &&
+                <SideBarSelect 
+                style={{
+                  position: "absolute",
+                left: "12%",
+              
+              }}
+                // sx={{
+                //   position: "absolute",
+                //   // justifyContent: "center",
+                //   left: "40%",
+                //   zIndex: "1",
+                // }}
+                >
+                </SideBarSelect>}
                 <ListItemIcon
                   sx={{
                     marginRight: ".5rem",
                     color:
-                      // active === lcText
-                      //   ? theme.palette.primary[600]
-                      //   : theme.palette.secondary[200],
                       theme.palette.background.alt,
-                    // theme.palette.primary[80],
                     minWidth: "auto",
-                    // width: "auto",
                     fontSize: "1.5rem",
-                    // overflow: "clip"
                   }}
                 >
                   {icon}
@@ -153,7 +156,7 @@ function SideBarItem() {
                   disableTypography
                   primary={text}
                   sx={{
-                    typography: "h4",
+                    typography: "h5",
                   }}
                 >
                   {/* {active === lcText && (
