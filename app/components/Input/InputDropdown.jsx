@@ -1,13 +1,13 @@
 import React from 'react';
 import { Select, MenuItem, InputLabel, Box, IconButton } from '@mui/material';
-import { KeyboardArrowDown } from '@mui/icons-material';
+import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 
 const InputDropdown = ({ label, value, onChange, name, id, placeholder, options, ...props }) => {
   return (
     <Box
       sx={{
         display: 'flex',
-        width: '326px',
+        width: '260px',
         flexDirection: 'column',
         alignItems: 'flex-start',
         flexShrink: 0,

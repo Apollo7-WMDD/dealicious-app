@@ -8,10 +8,12 @@ const InputText = ({ label, value, onChange, name, id, placeholder, type = 'text
     <Box
       sx={{
         display: 'flex',
-        width: '326px',
+        width: '260px',
         flexDirection: 'column',
         alignItems: 'flex-start',
         flexShrink: 0,
+        marginBottom: '8px',
+        marginTop: '8px',
       }}
     >
       <Box

@@ -7,6 +7,7 @@ const InputButton = ({ onFirstButtonClick, onSecondButtonClick, firstButtonText,
       sx={{
         display: 'flex',
         gap: '24px 30px',
+        margin: '20px',
         alignItems: 'center',
         justifyContent: 'flex-end',
         flexWrap: 'wrap',
@@ -23,7 +24,7 @@ const InputButton = ({ onFirstButtonClick, onSecondButtonClick, firstButtonText,
         onClick={onFirstButtonClick}
         sx={{
           display: 'flex',
-          height: '66px',
+          height: '44px',
           padding: '12px 24px',
           justifyContent: 'center',
           alignItems: 'center',
@@ -32,15 +33,18 @@ const InputButton = ({ onFirstButtonClick, onSecondButtonClick, firstButtonText,
           backgroundColor: '#FEFEFE !important',
           border: '3px solid #454545 !important',
           color: '#454545',
-          fontSize: '24px',
+          fontSize: '20px',
           fontFamily: 'Ubuntu',
           fontStyle: 'normal',
           fontWeight: 700,
-          lineHeight: '29px',
+          lineHeight: '24px',
           letterSpacing: '-0.12px',
           '&:hover': {
             backgroundColor: '#FEFEFE !important',
             borderColor: '#454545 !important',
+          },
+          '@media (max-width: 500px)': {
+            width: '100%'
           },
         }}
       >
@@ -52,7 +56,7 @@ const InputButton = ({ onFirstButtonClick, onSecondButtonClick, firstButtonText,
         onClick={onSecondButtonClick}
         sx={{
           display: 'flex',
-          height: '66px',
+          height: '44px',
           padding: '12px 24px',
           justifyContent: 'center',
           alignItems: 'center',
@@ -60,15 +64,18 @@ const InputButton = ({ onFirstButtonClick, onSecondButtonClick, firstButtonText,
           borderRadius: '8px',
           backgroundColor: '#FF5938 !important',
           color: '#FEFEFE',
-          fontSize: '24px',
+          fontSize: '20px',
           fontFamily: 'Ubuntu',
           fontStyle: 'normal',
           fontWeight: 700,
-          lineHeight: '29px',
+          lineHeight: '24px',
           letterSpacing: '-0.12px',
           '&:hover': {
             backgroundColor: '#FF5938 !important',
             borderColor: '#454545 !important',
+          },
+          '@media (max-width: 500px)': {
+            width: '100%'
           },
         }}
       >
