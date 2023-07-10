@@ -32,6 +32,11 @@ const Page = () => {
             >
               Sign Out
             </button>
+            <Link href={`/superCustomer/restaurants/${session?.user.id}`}>
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+                Dashboard Super Customer (Temporal-Testing)
+              </button>
+            </Link>
           </div>
         ) : (
           <>
