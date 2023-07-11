@@ -4,13 +4,13 @@ import Image from "next/image";
 import { Box, Drawer, Typography, Divider } from "@mui/material";
 
 import { useMediaQuery } from "@mui/material";
-import { useStore } from "../../store.js";
+import { useStore } from "../../../lib/context/sidebar_context/store.js";
 import SideBarItem from "./SideBarItem.jsx";
 import SideBarUtilButton from "./SideBarUtilButton.jsx";
 import { useTheme } from "@mui/material";
 
 function SideBar() {
-  const { isSidebarOpen, mode, setMode } = useStore();
+  const { isSidebarOpen } = useStore();
   const theme = useTheme();
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const shadowColor = `${theme.palette.neutral[20]}1f`;
@@ -66,32 +66,46 @@ function SideBar() {
                   borderRadius: "1rem 1rem 1rem 1rem",
                   textAlign: "center",
                   margin: "1rem 2rem",
-                  padding: "2rem 0",
+                  padding: "1rem 0",
                 }}
               >
                 <Typography
-                  variant="h3"
+                  variant="h5"
                   sx={{
                     fontWeight: "bold",
+                    color: theme.palette.secondary[20],
                   }}
                 >
                   Today
                 </Typography>
                 <br />
-                <Typography variant="h5">Revenue</Typography>
+                <Typography
+                  variant="h5"
+                  sx={{ fontWeight: "300", color: theme.palette.secondary[20] }}
+                >
+                  Revenue
+                </Typography>
                 <Typography
                   variant="h3"
                   sx={{
                     fontWeight: "bold",
+                    color: theme.palette.secondary[20],
                   }}
                 >
                   $$$
                 </Typography>
-                <Typography variant="h5">Customers</Typography>
+                <br />
+                <Typography
+                  variant="h5"
+                  sx={{ fontWeight: "300", color: theme.palette.secondary[20] }}
+                >
+                  Customers
+                </Typography>
                 <Typography
                   variant="h3"
                   sx={{
                     fontWeight: "bold",
+                    color: theme.palette.secondary[20],
                   }}
                 >
                   $$$

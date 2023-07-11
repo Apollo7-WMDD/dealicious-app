@@ -1,6 +1,6 @@
 "use client";
 
-import { useStore } from "../store";
+import { useStore } from "../../lib/context/sidebar_context/store";
 
 function List({ userProp }) {
   return (

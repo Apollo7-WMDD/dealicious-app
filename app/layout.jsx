@@ -2,7 +2,7 @@ import "./globals.css";
 import Provider from "./components/Provider";
 //
 
-import { UserTypeProvider } from "./context/UserTypeContext";
+import ThemeWrapper from "./components/Theme/ThemeWrapper";
 
 export const metadata = {
   title: "Dealicious",
@@ -18,9 +18,9 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
-        <UserTypeProvider>
+        <ThemeWrapper>
           <Provider>{children}</Provider>
-        </UserTypeProvider>
+        </ThemeWrapper>
       </body>
     </html>
   );

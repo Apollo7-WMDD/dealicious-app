@@ -1,3 +1,5 @@
+"use client";
+import Header from "../../../components/Header/Header";
 import Link from "next/link";
 
 const fetchOwnerInfo = async (restaurantOwnerId) => {
@@ -26,6 +28,7 @@ const Page = async ({ params }) => {
 
   return (
     <>
+      <Header props={"Profile"}></Header>
       <div>Profile of the Restaurant Owner</div>
       <h1>{restaurantOwnerId}</h1>
       <Link href={`/dashboard/profile/edit/${restaurantOwnerId}`}>

@@ -23,6 +23,7 @@ const SpendingSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Restaurant",
     required: [true, "Restaurant ID is required"],
+    index: true,
   },
   campaignId: {
     type: Schema.Types.ObjectId,

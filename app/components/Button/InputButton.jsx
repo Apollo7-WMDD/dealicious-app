@@ -20,7 +20,7 @@ const InputButton = ({ onFirstButtonClick, onSecondButtonClick, firstButtonText,
     >
       <Button
         variant="contained"
-        disableElevation
+        // disableElevation
         onClick={onFirstButtonClick}
         sx={{
           display: 'flex',

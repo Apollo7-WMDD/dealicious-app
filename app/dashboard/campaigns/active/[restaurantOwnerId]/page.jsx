@@ -1,10 +1,16 @@
 "use client";
-import PassContext from "@/app/components/Dashboard/PassContext";
+
+import { useEffect } from "react";
+
 import Link from "next/link";
 import { Button, Box } from "@mui/material";
-import CreateNewCampaign from "../../../../components/Dashboard/CreateNewCampaign";
-import Header from "../../../../components/Header/Header";
-import SubHeader from "../../../../components/Header/SubHeader";
+
+import CreateNewCampaign from "@/app/components/Dashboard/CreateNewCampaign";
+import Header from "@/app/components/Header/Header";
+import SubHeader from "@/app/components/Header/SubHeader";
+
+// user context
+import { useStore } from "@/lib/context/user_context/store";
 
 const fetchRestaurants = async (restaurantOwnerId) => {
   const isProduction = process.env.NODE_ENV === "production";
@@ -14,9 +20,6 @@ const fetchRestaurants = async (restaurantOwnerId) => {
 
   const res = await fetch(
     `${serverUrl}/api/dashboard/campaigns/active/${restaurantOwnerId}`
-    // {
-    //   cache: "no-store",
-    // }
   );
 
   if (!res.ok) throw new Error("Something went wrong...");
@@ -25,22 +28,19 @@ const fetchRestaurants = async (restaurantOwnerId) => {
   return data;
 };
 
-const Page = async ({ params }) => {
-  const { restaurantOwnerId } = params;
-  const restaurantData = await fetchRestaurants(restaurantOwnerId);
-  const restaurantId = restaurantData.restaurantId;
-  console.log(restaurantData);
-  console.log(restaurantId);
+const Page = async () => {
+  const { restaurantOwnerId, restaurantId, setRestaurantId } = useStore();
+
+  useEffect(() => {
+    const getRestaurantId = async () => {
+      const data = await fetchRestaurants(restaurantOwnerId);
+      setRestaurantId(data.restaurantId);
+    };
+    getRestaurantId();
+  }, [restaurantOwnerId]);
 
   return (
-    <div 
-    // style={{ padding: "0 2%" }}
-    >
-      <PassContext
-        restaurantOwnerId={restaurantOwnerId}
-        restaurantId={restaurantId}
-      />
-
+    <div>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <div>
           <Header props={"Campaigns"} />

@@ -1,8 +1,8 @@
-import { useTheme } from "@mui/material";
+// import { useTheme } from "@mui/material";
 import { Typography } from "@mui/material";
 
 function Header({ children, props }) {
-  const theme = useTheme();
+  // const theme = useTheme();
   return (
     <Typography variant="h1">
       {props}

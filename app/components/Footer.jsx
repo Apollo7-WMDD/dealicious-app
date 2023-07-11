@@ -7,10 +7,10 @@ const Footer = () => {
     // create simple footer with tailwind no links
     <Box
       sx={{
-        position: "absolute",
-        bottom: "0",
+        // position: "absolute",
+        // bottom: "0",
         background: theme.palette.secondary[100],
-        width: "inherit",
+        // width: "inherit",
         fontSize: "1rem",
         padding: "1rem 2%",
       }}

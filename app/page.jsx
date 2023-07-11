@@ -1,33 +1,39 @@
 "use client";
-import { useSession, signIn, signOut } from "next-auth/react";
-import { useMemo } from "react";
-import { createTheme } from "@mui/material/styles";
-import { themeSettings } from "./theme.js";
+
+// import next-auth hooks
+import { useSession, signOut } from "next-auth/react";
+import { useStore } from "@/lib/context/user_context/store";
+
+// nextjs components
 import Link from "next/link";
-import { useStore } from "./store.js";
-import { Box, useTheme } from "@mui/material";
+import { useEffect } from "react";
 
 const Page = () => {
   const { data: session, status } = useSession();
-  console.log("status", status);
-  console.log("data", session?.user);
-  const theme = useTheme();
-  console.log(session, status);
+  const { setRestaurantOwner, restaurantOwnerId } = useStore();
+  console.log("This is the restaurantOwnerId: ", restaurantOwnerId);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      setRestaurantOwner(session?.user.id);
+    }
+  }, [status]);
+
   return (
     <main>
-      <div>Landing Page</div>
+      <h1 className="text-4xl font-bold text-blue-600">Landing Page</h1>
       <div>
         {status === "loading" ? (
           <div>Loading...</div>
         ) : status === "authenticated" ? (
           <div className="flex flex-col items-center justify-center">
             <Link href={`/dashboard/campaigns/active/${session?.user.id}`}>
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+              <button className="bg-blue-500 hover:bg-blue-700 text-white text-center font-bold py-2 px-4 rounded block m-4">
                 Dashboard
               </button>
             </Link>
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4"
+              className="bg-blue-500 hover:bg-blue-700 text-white text-center font-bold py-2 px-4 rounded block m-4"
               onClick={signOut}
             >
               Sign Out
