@@ -5,7 +5,7 @@ import {
   ListItemText,
   useTheme,
 } from "@mui/material";
-import { useStore } from "../../../lib/context/store";
+import { useStore } from "../../../lib/context/sidebar_context/store";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
@@ -19,7 +19,6 @@ function SubItem({ list }) {
     setSideBarSubItemActive(pathname.substring(1));
   }, [pathname]);
   const theme = useTheme();
-  // console.log("sideBarSubItemActive=", sideBarSubItemActive);
   return (
     <>
       <List sx={{ display: "block", margin: "0 4rem 0", padding: "0" }}>

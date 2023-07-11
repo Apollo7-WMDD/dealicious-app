@@ -13,80 +13,79 @@ import InsightIcon from "../svg/insighticon.svg";
 import BurnCodeIcon from "../svg/burnCode.svg";
 import ProfileIcon from "../svg/profileIcon.svg";
 import SideBarSelect from "../svg/sideBarSelect.svg";
-import { useStore } from "../../../lib/context/store.js";
+import { useStore } from "@/lib/context/sidebar_context/store.js";
+import { useStore as useStoreOwner } from "@/lib/context/user_context/store.js";
 import { useTheme } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
+
 function SideBarItem() {
-  const { data: session, status } = useSession();
-  // const restaurantOwnerId = session?.user.id;
-  // const restaurantData = await fetchRestaurants(session?.user.id);
-  // const restaurantId = restaurantData.restaurantId;
-  // console.log(restaurantData);
-  // console.log(restaurantId);
-  // console.log(restaurantOwnerId);
+  // const { data: session, status } = useSession();
+
+  const theme = useTheme();
+  const { sideBarItemActive, setSideBarItemActive } = useStore();
+  const { restaurantOwnerId, restaurantId } = useStoreOwner();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const navItems = [
     {
       text: "Campaigns",
       icon: <DealIcon />,
-      link: `/dashboard/campaigns/active/${session?.user.id}`,
+      link: `/dashboard/campaigns/active/${restaurantOwnerId}`,
     },
     {
       text: "Insights",
       icon: <InsightIcon />,
       // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-      link: `/dashboard/insights/overview/${session?.user.id}`,
+      link: `/dashboard/insights/overview/${restaurantOwnerId}/${restaurantId}`,
     },
     {
       text: "Burn a Code",
       icon: <BurnCodeIcon />,
-      link: `/dashboard/burnCode/${session?.user.id}`,
+      link: `/dashboard/burnCode/${restaurantOwnerId}`,
     },
     {
       text: "Profile",
       icon: <ProfileIcon />,
-      link: `/dashboard/profile/${session?.user.id}`,
+      link: `/dashboard/profile/${restaurantOwnerId}`,
     },
   ];
 
   const campaignSubItems = [
     {
       text: "Ongoing",
-      link: `/dashboard/campaigns/active/${session?.user.id}`,
+      link: `/dashboard/campaigns/active/${restaurantOwnerId}`,
     },
     {
       text: "Upcoming",
-      link: `/dashboard/campaigns/upcoming/${session?.user.id}`,
+      link: `/dashboard/campaigns/upcoming/${restaurantOwnerId}`,
     },
   ];
 
   const insightSubItems = [
     {
       text: "Overview",
-      link: `dashboard/insights/overview/${session?.user.id}`,
+      link: `/dashboard/insights/overview/${restaurantOwnerId}`,
     },
     {
       text: "Campaigns",
       // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-      link: `/dashboard/insights/campaigns/${session?.user.id}`,
+      link: `/dashboard/insights/campaigns/${restaurantOwnerId}`,
     },
     {
       text: "Customers",
       // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-      link: `/dashboard/insights/customers/${session?.user.id}`,
+      link: `/dashboard/insights/customers/${restaurantOwnerId}`,
     },
   ];
-  const theme = useTheme();
-  const { sideBarItemActive, setSideBarItemActive } = useStore();
-  const router = useRouter();
-  const pathname = usePathname();
+
   useEffect(() => {
     setSideBarItemActive(pathname.substring(1));
   }, [pathname]);
-  // console.log("sideBarItemActive=", sideBarItemActive);
+
   return (
     <>
       <List
@@ -98,11 +97,6 @@ function SideBarItem() {
           const activeLink = `${link}`.substring("1");
           const activeLinkSplit = activeLink.split("/");
           const currentURL = pathname.split("/");
-
-          // console.log("currentURL=", currentURL[2]);
-          // console.log("activeLink=", activeLink);
-          // console.log("activeLinkSplit=", activeLinkSplit[1]);
-
           return (
             <ListItem key={text} style={{ display: "block" }}>
               <ListItemButton

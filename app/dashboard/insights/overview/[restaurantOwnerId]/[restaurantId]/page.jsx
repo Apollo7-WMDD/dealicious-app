@@ -1,12 +1,14 @@
 "use client";
 import Link from "next/link";
-import Header from "../../../../../components/Header/Header";
-import SubHeader from "../../../../../components/Header/SubHeader";
+import Header from "@/app/components/Header/Header";
+import SubHeader from "@/app/components/Header/SubHeader";
 
-import ChartCard from "../../../../../components/ChartCard";
-import MainGrid from "../../../../../components/MainGrid";
-import { Box, useTheme } from "@mui/material";
-import { useMemo, useEffect, useState } from "react";
+import ChartCard from "@/app/components/ChartCard";
+import MainGrid from "@/app/components/MainGrid";
+import { Box } from "@mui/material";
+
+// user context
+import { useStore } from "@/lib/context/user_context/store";
 
 const fetchInsightsOverview = async (restaurantOwnerId, restaurantId) => {
   const isProduction = process.env.NODE_ENV === "production";
@@ -28,104 +30,18 @@ const fetchInsightsOverview = async (restaurantOwnerId, restaurantId) => {
   return data;
 };
 
-const Page = async ({ params }) => {
-  const theme = useTheme();
-  const { restaurantOwnerId, restaurantId } = params;
+const Page = async () => {
+  const { restaurantOwnerId, restaurantId } = useStore();
+
+  console.log("This is the restaurantOwnerId: ", restaurantOwnerId);
+
+  console.log("This is the restaurantId: ", restaurantId);
 
   const spendingsData = await fetchInsightsOverview(
     restaurantOwnerId,
     restaurantId
   );
   console.log(spendingsData);
-  // const [toBarData, setToBarData] = useState([]);
-  // const [formattedData, setFormattedData] = useState([]);
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const spendingsData = await fetchInsightsOverview(
-  //       restaurantOwnerId,
-  //       restaurantId
-  //     );
-  //     setToBarData(spendingsData);
-  //     // cleanData()
-  //   };
-  //   getData();
-  // }, []);
-
-  // useEffect(() => {
-  //   const cleanData = () => {
-  //     console.log("toBarData.opportunities");
-  //     console.log(toBarData.opportunities);
-  //     for (let key in toBarData.opportunities) {
-  //       dataToArray.push({
-  //         opportunity: key,
-  //         spendings: toBarData.opportunities[key],
-  //       });
-  //     }
-  //     console.log("dataToArray");
-  //     console.log(dataToArray);
-  //     setFormattedData(dataToArray);
-  //   };
-  //   cleanData();
-  // }, []);
-
-  // const dataToArray = [];
-  // const cleanData = () => {
-  //   console.log("toBarData.opportunities");
-  //   console.log(toBarData.opportunities);
-  //   for (let key in toBarData.opportunities) {
-  //     dataToArray.push({
-  //       opportunity: key,
-  //       spendings: toBarData.opportunities[key],
-  //     });
-  //   }
-  //   console.log("dataToArray");
-  //   console.log(dataToArray);
-  //   // setToBarData(dataToArray);
-  // };
-  // cleanData();
-  // console.log("toBarData");
-  // console.log(toBarData);
-  // console.log("formattedData");
-  // console.log(formattedData);
-  // console.log("Object.values(toBarData)[6] ");
-  // console.log(Object.values(toBarData)[6]);
-
-  //   const [formattedData] = useMemo(() => {
-  //     if (!spendingsData) return [];
-
-  //     // const { opportunities } = spendingsData;
-  //     const totalSalesLine = {
-  //       id: "totalSales",
-  //       color: theme.palette.secondary.main,
-  //       data: [],
-  //     };
-  //     // const totalUnitsLine = {
-  //     //   id: "totalUnits",
-  //     //   color: theme.palette.secondary[600],
-  //     //   data: [],
-  //     // };
-
-  //     Object.values(spendingsData).forEach(({  opportunities}) => {
-
-  //         totalSalesLine.data = [
-  //           ...totalSalesLine.data,
-  //           { x: splitDate, y: totalSales },
-  //         ];
-  //         // totalUnitsLine.data = [
-  //         //   ...totalUnitsLine.data,
-  //         //   { x: opportunities},
-  //         // ];
-
-  //     });
-
-  //     const formattedData = [totalSalesLine,
-  //       //  totalUnitsLine
-  //     ];
-  //     return [formattedData];
-  //   }, [spendingsData]);
-
-  // console.log("formattedData");
-  // console.log(formattedData);
 
   return (
     <>

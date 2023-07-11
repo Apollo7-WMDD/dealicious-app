@@ -1,12 +1,16 @@
 "use client";
 
+import { useEffect } from "react";
+
 import Link from "next/link";
 import { Button, Box } from "@mui/material";
 
 import CreateNewCampaign from "@/app/components/Dashboard/CreateNewCampaign";
 import Header from "@/app/components/Header/Header";
 import SubHeader from "@/app/components/Header/SubHeader";
-import InputButton from "@/app/components/Button/InputButton";
+
+// user context
+import { useStore } from "@/lib/context/user_context/store";
 
 const fetchRestaurants = async (restaurantOwnerId) => {
   const isProduction = process.env.NODE_ENV === "production";
@@ -24,12 +28,16 @@ const fetchRestaurants = async (restaurantOwnerId) => {
   return data;
 };
 
-const Page = async ({ params }) => {
-  const { restaurantOwnerId } = params;
-  const restaurantData = await fetchRestaurants(restaurantOwnerId);
-  const restaurantId = restaurantData.restaurantId;
-  console.log(restaurantData);
-  console.log(restaurantId);
+const Page = async () => {
+  const { restaurantOwnerId, restaurantId, setRestaurantId } = useStore();
+
+  useEffect(() => {
+    const getRestaurantId = async () => {
+      const data = await fetchRestaurants(restaurantOwnerId);
+      setRestaurantId(data.restaurantId);
+    };
+    getRestaurantId();
+  }, [restaurantOwnerId]);
 
   return (
     <div>

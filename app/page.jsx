@@ -2,12 +2,22 @@
 
 // import next-auth hooks
 import { useSession, signOut } from "next-auth/react";
+import { useStore } from "@/lib/context/user_context/store";
 
 // nextjs components
 import Link from "next/link";
+import { useEffect } from "react";
 
 const Page = () => {
   const { data: session, status } = useSession();
+  const { setRestaurantOwner, restaurantOwnerId } = useStore();
+  console.log("This is the restaurantOwnerId: ", restaurantOwnerId);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      setRestaurantOwner(session?.user.id);
+    }
+  }, [status]);
 
   return (
     <main>

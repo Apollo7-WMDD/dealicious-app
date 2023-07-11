@@ -1,5 +1,5 @@
 import { Box, Drawer, Typography, Divider, IconButton } from "@mui/material";
-import { useStore } from "../../../lib/context/store.js";
+import { useStore } from "../../../lib/context/sidebar_context/store.js";
 import { useTheme } from "@mui/material";
 import LightModeOutlined from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlined from "@mui/icons-material/DarkModeOutlined";
