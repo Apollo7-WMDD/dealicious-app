@@ -13,13 +13,12 @@ import InsightIcon from "../svg/insighticon.svg";
 import BurnCodeIcon from "../svg/burnCode.svg";
 import ProfileIcon from "../svg/profileIcon.svg";
 import SideBarSelect from "../svg/sideBarSelect.svg";
-import { useStore } from "../../store.js";
+import { useStore } from "../../../lib/context/store.js";
 import { useTheme } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import PassContext from "@/app/components/Dashboard/PassContext";
 function SideBarItem() {
   const { data: session, status } = useSession();
   // const restaurantOwnerId = session?.user.id;
@@ -39,18 +38,17 @@ function SideBarItem() {
       text: "Insights",
       icon: <InsightIcon />,
       // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-      link: `/dashboard/insights/overview/${session?.user.id}`
+      link: `/dashboard/insights/overview/${session?.user.id}`,
     },
     {
       text: "Burn a Code",
       icon: <BurnCodeIcon />,
-      link: `/dashboard/burnCode/${session?.user.id}`
-      
+      link: `/dashboard/burnCode/${session?.user.id}`,
     },
     {
       text: "Profile",
       icon: <ProfileIcon />,
-      link: `/dashboard/profile/${session?.user.id}`
+      link: `/dashboard/profile/${session?.user.id}`,
     },
   ];
 
@@ -73,12 +71,12 @@ function SideBarItem() {
     {
       text: "Campaigns",
       // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-      link: `/dashboard/insights/campaigns/${session?.user.id}`
+      link: `/dashboard/insights/campaigns/${session?.user.id}`,
     },
     {
       text: "Customers",
-       // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-       link: `/dashboard/insights/customers/${session?.user.id}`
+      // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
+      link: `/dashboard/insights/customers/${session?.user.id}`,
     },
   ];
   const theme = useTheme();
@@ -91,10 +89,6 @@ function SideBarItem() {
   // console.log("sideBarItemActive=", sideBarItemActive);
   return (
     <>
-      {/* <PassContext
-        restaurantOwnerId={restaurantOwnerId}
-        restaurantId={restaurantId}
-      /> */}
       <List
         sx={{
           padding: "0",
@@ -108,7 +102,6 @@ function SideBarItem() {
           // console.log("currentURL=", currentURL[2]);
           // console.log("activeLink=", activeLink);
           // console.log("activeLinkSplit=", activeLinkSplit[1]);
-
 
           return (
             <ListItem key={text} style={{ display: "block" }}>
@@ -126,26 +119,24 @@ function SideBarItem() {
                   // position: "relative",
                 }}
               >
-                {  currentURL[2] === activeLinkSplit[1] &&
-                <SideBarSelect 
-                style={{
-                  position: "absolute",
-                left: "12%",
-              
-              }}
-                // sx={{
-                //   position: "absolute",
-                //   // justifyContent: "center",
-                //   left: "40%",
-                //   zIndex: "1",
-                // }}
-                >
-                </SideBarSelect>}
+                {currentURL[2] === activeLinkSplit[1] && (
+                  <SideBarSelect
+                    style={{
+                      position: "absolute",
+                      left: "12%",
+                    }}
+                    // sx={{
+                    //   position: "absolute",
+                    //   // justifyContent: "center",
+                    //   left: "40%",
+                    //   zIndex: "1",
+                    // }}
+                  ></SideBarSelect>
+                )}
                 <ListItemIcon
                   sx={{
                     marginRight: ".5rem",
-                    color:
-                      theme.palette.background.alt,
+                    color: theme.palette.background.alt,
                     minWidth: "auto",
                     fontSize: "1.5rem",
                   }}

@@ -1,5 +1,5 @@
 import { Box, Drawer, Typography, Divider, IconButton } from "@mui/material";
-import { useStore } from "../../store.js";
+import { useStore } from "../../../lib/context/store.js";
 import { useTheme } from "@mui/material";
 import LightModeOutlined from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlined from "@mui/icons-material/DarkModeOutlined";
@@ -15,9 +15,9 @@ function SideBarUtilButton() {
         sx={{
           padding: ".5rem 3rem ",
           typography: "h6",
-          fontSize:"12px",
+          fontSize: "12px",
           borderRadius: "0",
-          color: theme.palette.neutral[40] ,
+          color: theme.palette.neutral[40],
           justifyContent: "flex-start",
         }}
         onClick={() => setMode()}
@@ -25,9 +25,7 @@ function SideBarUtilButton() {
         {theme.palette.mode === "dark" ? (
           <DarkModeOutlined sx={{ fontSize: "1rem", marginRight: ".5rem" }} />
         ) : (
-          <LightModeOutlined
-            sx={{ fontSize: "1rem", marginRight: ".5rem" }}
-          />
+          <LightModeOutlined sx={{ fontSize: "1rem", marginRight: ".5rem" }} />
         )}{" "}
         Change theme
       </IconButton>
@@ -36,9 +34,9 @@ function SideBarUtilButton() {
         sx={{
           padding: ".25rem 3rem ",
           typography: "h6",
-          fontSize:"12px",
+          fontSize: "12px",
           borderRadius: "0",
-          color: theme.palette.neutral[40] ,
+          color: theme.palette.neutral[40],
           justifyContent: "flex-start",
         }}
         // CREATE FUNCTION TO LOGOUT

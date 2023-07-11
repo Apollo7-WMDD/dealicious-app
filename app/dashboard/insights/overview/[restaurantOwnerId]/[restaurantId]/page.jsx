@@ -6,10 +6,7 @@ import SubHeader from "../../../../../components/Header/SubHeader";
 import ChartCard from "../../../../../components/ChartCard";
 import MainGrid from "../../../../../components/MainGrid";
 import { Box, useTheme } from "@mui/material";
-import { ResponsiveBar } from "@nivo/bar";
 import { useMemo, useEffect, useState } from "react";
-
-
 
 const fetchInsightsOverview = async (restaurantOwnerId, restaurantId) => {
   const isProduction = process.env.NODE_ENV === "production";
@@ -136,108 +133,9 @@ const Page = async ({ params }) => {
       {/* CHANGE THIS COMPONENT TO DROWDOWN WITH ALL CAMPAIGN AND PINNED CAMPAIGN ON TOP */}
       <SubHeader props={"Campaing Data Overview(All)"} />
 
-
       {/*====== SET GRID ======*/}
       <MainGrid>
-        {/* <ResponsiveBar
-          data={
-            [
-              { opportunity: "foodQualityCount", spendings: 3 },
-              { opportunity: "foodQuantityCount", spendings: 1 },
-              { opportunity: "serviceCount", spendings: 1 },
-              { opportunity: "placeCount", spendings: 1 },
-              { opportunity: "otherCount", spendings: 0 },
-            ]
-          }
-          keys={["spendings"]}
-          indexBy="opportunity"
-          margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
-          padding={0.15}
-          valueScale={{ type: "linear" }}
-          indexScale={{ type: "band", round: true }}
-          colors={{ scheme: "nivo" }}
-          defs={[
-            {
-              id: "dots",
-              type: "patternDots",
-              background: "inherit",
-              color: "#38bcb2",
-              size: 4,
-              padding: 1,
-              stagger: true,
-            },
-            {
-              id: "lines",
-              type: "patternLines",
-              background: "inherit",
-              color: "#eed312",
-              rotation: -45,
-              lineWidth: 6,
-              spacing: 10,
-            },
-          ]}
-          // fill={[
-          //   {
-          //     match: {
-          //       id: "fries",
-          //     },
-          //     id: "dots",
-          //   },
-          //   {
-          //     match: {
-          //       id: "sandwich",
-          //     },
-          //     id: "lines",
-          //   },
-          // ]}
-          borderColor={{
-            from: "color",
-            modifiers: [["darker", 1.6]],
-          }}
-          axisTop={null}
-          axisRight={null}
-          axisBottom={null}
-          axisLeft={null}
-          enableGridY={false}
-          enableLabel={false}
-          labelSkipWidth={12}
-          labelSkipHeight={12}
-          labelTextColor={{
-            from: "color",
-            modifiers: [["darker", 1.6]],
-          }}
-          legends={[
-            {
-              dataFrom: "keys",
-              anchor: "bottom-right",
-              direction: "column",
-              justify: false,
-              translateX: 120,
-              translateY: 0,
-              itemsSpacing: 2,
-              itemWidth: 100,
-              itemHeight: 20,
-              itemDirection: "left-to-right",
-              itemOpacity: 0.85,
-              symbolSize: 20,
-              effects: [
-                {
-                  on: "hover",
-                  style: {
-                    itemOpacity: 1,
-                  },
-                },
-              ],
-            },
-          ]}
-          role="application"
-          ariaLabel="Nivo bar chart demo"
-          barAriaLabel={(e) =>
-            e.id + ": " + e.formattedValue + " in country: " + e.indexValue
-          }
-        /> */}
-
-        <ChartCard gridColumn={"span 2"} >
+        <ChartCard gridColumn={"span 2"}>
           averageBillSize
           {spendingsData.averageBillSize}
         </ChartCard>
@@ -315,7 +213,6 @@ const Page = async ({ params }) => {
         </Box>
       </Box> */}
       {/* <ChartCard content={{toBarData}} gridColumn={"span 3"} /> */}
-
 
       <Box sx={{ height: "400px" }}></Box>
       <Link href={`/dashboard/campaigns/active/${restaurantOwnerId}`}>

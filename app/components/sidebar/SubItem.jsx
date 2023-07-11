@@ -5,7 +5,7 @@ import {
   ListItemText,
   useTheme,
 } from "@mui/material";
-import { useStore } from "../../store";
+import { useStore } from "../../../lib/context/store";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
@@ -28,18 +28,14 @@ function SubItem({ list }) {
           const activeLinkSplit = activeLink.split("/");
           const currentURL = pathname.split("/");
 
-
           return (
             <ListItem key={text} sx={{ padding: "0.25rem 0 0 0" }}>
-
-
               <ListItemButton
                 onClick={() => {
                   router.push(`${link}`.substring(1));
                   setSideBarSubItemActive(activeLink);
                 }}
                 sx={{
-
                   borderBottom:
                     // currentURL[3] == text.toLowerCase()
                     currentURL[3] == activeLinkSplit[2]
@@ -52,7 +48,11 @@ function SubItem({ list }) {
                 <ListItemText
                   disableTypography
                   primary={text}
-                  sx={{ margin: 0, typography: "h6", color: theme.palette.neutral[40] }}
+                  sx={{
+                    margin: 0,
+                    typography: "h6",
+                    color: theme.palette.neutral[40],
+                  }}
                 ></ListItemText>
               </ListItemButton>
             </ListItem>

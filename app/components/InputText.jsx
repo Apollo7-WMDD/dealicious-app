@@ -1,12 +1,12 @@
-import { useStore } from "../store";
+import { useStore } from "../../lib/context/store";
 
 function InputText() {
   const filter = useStore((state) => state.filter);
-  const setFilter = useStore((state) => state.setFilter); 
+  const setFilter = useStore((state) => state.setFilter);
 
-
-  return <>
-   <input
+  return (
+    <>
+      <input
         type="text"
         value={filter}
         onChange={(e) => {
@@ -14,8 +14,8 @@ function InputText() {
         }}
         className="text-red-700"
       />
-  </>
-  ;
+    </>
+  );
 }
 
 export default InputText;

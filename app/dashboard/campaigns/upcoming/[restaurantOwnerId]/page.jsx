@@ -1,7 +1,6 @@
 "use client";
-import PassContext from "@/app/components/Dashboard/PassContext";
 import Link from "next/link";
-import { Button,Box } from "@mui/material";
+import { Button, Box } from "@mui/material";
 import CreateNewCampaign from "../../../../components/Dashboard/CreateNewCampaign";
 import Header from "../../../../components/Header/Header";
 import SubHeader from "../../../../components/Header/SubHeader";
@@ -33,13 +32,9 @@ const Page = async ({ params }) => {
   console.log(restaurantId);
 
   return (
-    <div style={{padding:"0 2%"}}>
-      <PassContext
-        restaurantOwnerId={restaurantOwnerId}
-        restaurantId={restaurantId}
-      />
+    <div style={{ padding: "0 2%" }}>
       {/* <div className="flex justify-between "> */}
-      <Box sx={{display:"flex" , justifyContent:"space-between"}}>
+      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <div>
           <Header props={"Campaigns"} />
           <SubHeader props={"Upcoming campaigns"} />
@@ -77,7 +72,7 @@ const Page = async ({ params }) => {
           <Button>Home Page</Button>
         </div>
         <CreateNewCampaign className="m-5" />
-      {/* </div> */}
+        {/* </div> */}
       </Box>
     </div>
   );

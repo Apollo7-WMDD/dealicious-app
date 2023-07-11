@@ -1,11 +1,13 @@
 "use client";
-import PassContext from "@/app/components/Dashboard/PassContext";
+
 import Link from "next/link";
 import { Button, Box } from "@mui/material";
-import CreateNewCampaign from "../../../../components/Dashboard/CreateNewCampaign";
-import Header from "../../../../components/Header/Header";
-import SubHeader from "../../../../components/Header/SubHeader";
-import InputButton from '../../../../components/Button/InputButton'
+
+import CreateNewCampaign from "@/app/components/Dashboard/CreateNewCampaign";
+import Header from "@/app/components/Header/Header";
+import SubHeader from "@/app/components/Header/SubHeader";
+import InputButton from "@/app/components/Button/InputButton";
+
 const fetchRestaurants = async (restaurantOwnerId) => {
   const isProduction = process.env.NODE_ENV === "production";
   const serverUrl = isProduction
@@ -14,9 +16,6 @@ const fetchRestaurants = async (restaurantOwnerId) => {
 
   const res = await fetch(
     `${serverUrl}/api/dashboard/campaigns/active/${restaurantOwnerId}`
-    // {
-    //   cache: "no-store",
-    // }
   );
 
   if (!res.ok) throw new Error("Something went wrong...");
@@ -33,14 +32,7 @@ const Page = async ({ params }) => {
   console.log(restaurantId);
 
   return (
-    <div 
-    // style={{ padding: "0 2%" }}
-    >
-      <PassContext
-        restaurantOwnerId={restaurantOwnerId}
-        restaurantId={restaurantId}
-      />
-
+    <div>
       <Box sx={{ display: "flex", justifyContent: "space-between" }}>
         <div>
           <Header props={"Campaigns"} />

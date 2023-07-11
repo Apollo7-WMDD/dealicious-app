@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Box, Drawer, Typography, Divider } from "@mui/material";
 
 import { useMediaQuery } from "@mui/material";
-import { useStore } from "../../store.js";
+import { useStore } from "../../../lib/context/store.js";
 import SideBarItem from "./SideBarItem.jsx";
 import SideBarUtilButton from "./SideBarUtilButton.jsx";
 import { useTheme } from "@mui/material";
@@ -73,29 +73,39 @@ function SideBar() {
                   variant="h5"
                   sx={{
                     fontWeight: "bold",
-                    color:theme.palette.secondary[20]
+                    color: theme.palette.secondary[20],
                   }}
                 >
                   Today
                 </Typography>
                 <br />
-                <Typography variant="h5" sx={{fontWeight:"300", color:theme.palette.secondary[20]}}>Revenue</Typography>
+                <Typography
+                  variant="h5"
+                  sx={{ fontWeight: "300", color: theme.palette.secondary[20] }}
+                >
+                  Revenue
+                </Typography>
                 <Typography
                   variant="h3"
                   sx={{
                     fontWeight: "bold",
-                    color:theme.palette.secondary[20]
+                    color: theme.palette.secondary[20],
                   }}
                 >
                   $$$
                 </Typography>
-                <br/>
-                <Typography variant="h5" sx={{fontWeight:"300",color:theme.palette.secondary[20]}}>Customers</Typography>
+                <br />
+                <Typography
+                  variant="h5"
+                  sx={{ fontWeight: "300", color: theme.palette.secondary[20] }}
+                >
+                  Customers
+                </Typography>
                 <Typography
                   variant="h3"
                   sx={{
                     fontWeight: "bold",
-                    color:theme.palette.secondary[20]
+                    color: theme.palette.secondary[20],
                   }}
                 >
                   $$$
