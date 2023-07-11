@@ -2,7 +2,7 @@
 import { useMemo } from "react";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "../theme.js";
-import { useStore } from "../../lib/context/store.js";
+import { useStore } from "../../lib/context/sidebar_context/store.js";
 
 // ADD USER TO THE DATABASE
 const handleSubmit = async function (e) {

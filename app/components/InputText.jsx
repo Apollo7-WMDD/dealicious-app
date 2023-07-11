@@ -1,4 +1,4 @@
-import { useStore } from "../../lib/context/store";
+import { useStore } from "../../lib/context/sidebar_context/store";
 
 function InputText() {
   const filter = useStore((state) => state.filter);

@@ -4,13 +4,13 @@ import Image from "next/image";
 import { Box, Drawer, Typography, Divider } from "@mui/material";
 
 import { useMediaQuery } from "@mui/material";
-import { useStore } from "../../../lib/context/store.js";
+import { useStore } from "../../../lib/context/sidebar_context/store.js";
 import SideBarItem from "./SideBarItem.jsx";
 import SideBarUtilButton from "./SideBarUtilButton.jsx";
 import { useTheme } from "@mui/material";
 
 function SideBar() {
-  const { isSidebarOpen, mode, setMode } = useStore();
+  const { isSidebarOpen } = useStore();
   const theme = useTheme();
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const shadowColor = `${theme.palette.neutral[20]}1f`;

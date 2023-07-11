@@ -30,6 +30,7 @@ const RestaurantSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
     required: [true, "User ID is required"],
+    index: true,
   },
   name: {
     type: String,
@@ -97,7 +98,7 @@ const RestaurantSchema = new Schema({
     friday: DaySchema,
     saturday: DaySchema,
     sunday: DaySchema,
-    holiday: DaySchema
+    holiday: DaySchema,
   },
   superCustomerIdArray: {
     type: [Schema.Types.ObjectId],

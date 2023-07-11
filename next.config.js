@@ -4,6 +4,7 @@
 
 // TRY ADDING CONFIG TO TURN SVG INTO COMPONENTS
 const nextConfig = {
+  reactStrictMode: false,
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
