@@ -8,49 +8,42 @@ import { useStore } from "@/lib/context/user_context/store";
 import Link from "next/link";
 import { useEffect } from "react";
 
+// import fetching data
+// import { fetchRestaurantId } from "@/lib/fetching/restaurantId/data";
+
 const Page = () => {
   const { data: session, status } = useSession();
   const { setRestaurantOwner, restaurantOwnerId } = useStore();
   console.log("This is the restaurantOwnerId: ", restaurantOwnerId);
 
   useEffect(() => {
-    if (status === "authenticated") {
-      setRestaurantOwner(session?.user.id);
-    }
+    const getRestaurantOwnerId = async () => {
+      if (status === "authenticated") {
+        setRestaurantOwner(session.user.id);
+      }
+    };
+    getRestaurantOwnerId();
   }, [status]);
 
   return (
     <main>
-      <h1 className="text-4xl font-bold text-blue-600">Landing Page</h1>
+      <h1>Landing Page</h1>
       <div>
         {status === "loading" ? (
           <div>Loading...</div>
         ) : status === "authenticated" ? (
-          <div className="flex flex-col items-center justify-center">
+          <div>
             <Link href={`/dashboard/campaigns/active/${session?.user.id}`}>
-              <button className="bg-blue-500 hover:bg-blue-700 text-white text-center font-bold py-2 px-4 rounded block m-4">
-                Dashboard
-              </button>
+              <button>Dashboard</button>
             </Link>
-            <button
-              className="bg-blue-500 hover:bg-blue-700 text-white text-center font-bold py-2 px-4 rounded block m-4"
-              onClick={signOut}
-            >
-              Sign Out
-            </button>
+            <button onClick={signOut}>Sign Out</button>
           </div>
         ) : (
           <>
-            <Link
-              href={`/login/owner`}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4"
-            >
+            <Link href={`/login/owner`}>
               <button>Login</button>
             </Link>
-            <Link
-              href={`/register`}
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4"
-            >
+            <Link href={`/register`}>
               <button>Sign Up!</button>
             </Link>
           </>
