@@ -27,6 +27,8 @@ function SideBarItem() {
   const theme = useTheme();
   const { sideBarItemActive, setSideBarItemActive } = useStore();
   const { restaurantOwnerId, restaurantId } = useStoreOwner();
+  console.log("This is the restaurantOwnerId: ", restaurantOwnerId);
+  console.log("This is the restaurantId: ", restaurantId);
   const router = useRouter();
   const pathname = usePathname();
 

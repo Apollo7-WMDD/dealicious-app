@@ -9,6 +9,7 @@ function MainGrid({ children }) {
       sx={{
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
+        width: "100%",
         gap: "1.5rem",
         gridAutoFlow: "row dense",
         margin: "1.5rem 0",
