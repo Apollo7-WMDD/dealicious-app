@@ -1,9 +1,9 @@
 "use client";
 import { useState, useEffect, useTheme } from "react";
-import { useRouter } from 'next/router';
 import InputText from "../../../../components/Input/InputText";
 import Form from "../../../../components/Card/Form";
 import SubHeader from "../../../../components/Header/SubHeader";
+import Header from "@/app/components/Header/Header";
 import InputDropdown from "../../../../components/Input/InputDropdown";
 import InputButton from "../../../../components/Button/InputButton";
 import PictureUploadCard from "../../../../components/Button/PictureUploadCard";
@@ -15,7 +15,6 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 
 const Restaurant = () => {
-//   const theme = useTheme();
   const [restaurants, setRestaurants] = useState([]);
   const [formData, setFormData] = useState({
     userId: "",
@@ -157,8 +156,7 @@ const Restaurant = () => {
 
   return (
       <div>
-        <SubHeader>Create Profile</SubHeader>
-          <form onSubmit={handleSubmit} className="">
+        <Header>Create Profile</Header>
             <Form>
             <Box sx={{
                 display: 'flex', 
@@ -172,9 +170,9 @@ const Restaurant = () => {
             </Box>
               {businessInfoVisible && (
               <>
-              <Box sx={{ display: { xs: 'block', md: 'flex' }}}>
-                <Box sx={{ width: { xs: '100%', md: '66.66%' }, display: 'flex', flexDirection: { xs: 'column', md: 'row' }, flexWrap: 'wrap'}}>
-                  <Box sx={{ width: { xs: '100%', md: '50%' }}}>
+              <Box sx={{ display: { xs: 'block', md: 'flex', justifyContent:'space-between' }}}>
+                <Box sx={{ width: { xs: '100%', md: '63%' }, display: 'flex', flexDirection: { xs: 'column', md: 'row' }, flexWrap: 'wrap', justifyContent:'space-between'}}>
+                  <Box sx={{ width: { xs: '100%', md: '48%' }}}>
                     <InputText
                       label="Business Name"
                       value={formData.name}
@@ -184,7 +182,7 @@ const Restaurant = () => {
                       placeholder="Business Name"
                     />
                   </Box>
-                  <Box sx={{ width: { xs: '100%', md: '50%' }}}>
+                  <Box sx={{ width: { xs: '100%', md: '48%' }}}>
                     <InputText
                       label="Business Category"
                       value={formData.category}
@@ -194,7 +192,7 @@ const Restaurant = () => {
                       placeholder="Ex:Japanese,Indian,Brunch"
                     />
                   </Box>
-                  <Box sx={{ width: { xs: '100%', md: '50%' }}}>
+                  <Box sx={{ width: { xs: '100%', md: '48%' }}}>
                     <InputText
                       label="Manager"
                       name="manager"
@@ -204,7 +202,7 @@ const Restaurant = () => {
                       placeholder="Manager"
                     />
                   </Box>
-                  <Box sx={{ width: { xs: '100%', md: '50%' }}}>
+                  <Box sx={{ width: { xs: '100%', md: '48%' }}}>
                     <InputText
                       label="Website"
                       name="website"
@@ -214,7 +212,7 @@ const Restaurant = () => {
                       placeholder="Website"
                     />
                   </Box>
-                  <Box sx={{ width: { xs: '100%', md: '50%' }}}>
+                  <Box sx={{ width: { xs: '100%', md: '48%' }}}>
                     <InputText
                       label="Business Email Address"
                       type="email"
@@ -225,7 +223,7 @@ const Restaurant = () => {
                       placeholder="Business Email Address"
                     />
                   </Box>
-                  <Box sx={{ width: { xs: '100%', md: '50%' }}}>
+                  <Box sx={{ width: { xs: '100%', md: '48%' }}}>
                     <InputText
                       label="Postal Code"
                       name="postalCode"
@@ -246,8 +244,8 @@ const Restaurant = () => {
                       />
                   </Box>
                 </Box>
-                <Box sx={{display: 'flex', flexDirection: { xs: 'column', md: 'row' }, flexWrap: 'wrap'}}>
-                  <Box sx={{ width: { xs: '100%', md: '33.33%' }}}>
+                <Box sx={{display: 'flex', flexDirection: { xs: 'column', md: 'row' }, flexWrap: 'wrap', justifyContent:'space-between'}}>
+                  <Box sx={{ width: { xs: '100%', md: '30.5%' }}}>
                     <InputText
                       label="Business Phone Number"
                       type="tel"
@@ -258,7 +256,7 @@ const Restaurant = () => {
                       placeholder="Business Phone Number"
                     />
                   </Box>
-                  <Box sx={{ width: { xs: '100%', md: '66.66%' }}}>
+                  <Box sx={{ width: { xs: '100%', md: '67%' }}}>
                     <InputText
                       label="Street Address"
                       name="street"
@@ -268,7 +266,7 @@ const Restaurant = () => {
                       placeholder="Street Address"
                     />
                   </Box>
-                  <Box sx={{ width: { xs: '100%', md: '33.33%' }}}>
+                  <Box sx={{ width: { xs: '100%', md: '30.5%' }}}>
                     <InputText
                       label="City"
                       name="city"
@@ -278,7 +276,7 @@ const Restaurant = () => {
                       placeholder="City"
                     />
                   </Box>
-                  <Box sx={{ width: { xs: '100%', md: '33.33%' }}}>
+                  <Box sx={{ width: { xs: '100%', md: '33.5%' }}}>
                     <InputText
                       label="Province/State"
                       name="province"
@@ -288,7 +286,7 @@ const Restaurant = () => {
                       placeholder="Province/State"
                     />
                   </Box>
-                  <Box sx={{ width: { xs: '100%', md: '33.33%', marginTop:'8px', }}}>
+                  <Box sx={{ width: { xs: '100%', md: '30.5%'}}}>
                     <InputDropdown
                       label="Country"
                       value={formData.address.country}
@@ -325,7 +323,8 @@ const Restaurant = () => {
                     sx={{ 
                       display: 'flex', 
                       flexDirection: { xs: 'column', md: 'row' }, 
-                      gap: { xs: '0', md: '20px' }, 
+                      gap: { xs: '0', md: '30px' },
+                      marginBottom: '20px', 
                       alignItems: 'center' 
                     }}
                   >
@@ -352,6 +351,7 @@ const Restaurant = () => {
                       <InputCheckbox 
                         label="Closed"
                         onChecked={DayClosedChange(day)}
+                        labelPlacement="start"
                         checked={formData.businessHours[day].closed}
                       />
                     </Box>
@@ -411,7 +411,7 @@ const Restaurant = () => {
                     flexDirection: { xs: 'column', md: 'row'},
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    gap: '8px',
+                    gap: '24px',
                   }}>
                     <Box sx={{    
                       display: 'flex', 
@@ -462,7 +462,6 @@ const Restaurant = () => {
               secondButtonText="Save Profile"
               type="submit"
             />
-          </form>
       </div>
   );
 };
