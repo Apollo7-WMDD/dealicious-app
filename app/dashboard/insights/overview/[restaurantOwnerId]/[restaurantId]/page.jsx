@@ -6,7 +6,7 @@ import SubHeader from "@/app/components/Header/SubHeader";
 
 import ChartCard from "@/app/components/ChartCard";
 import MainGrid from "@/app/components/MainGrid";
-import DoughnutChart from "../../../../../components/Chart/DoughnutChart";
+import DoughnutChart_NumCustomer from "../../../../../components/Chart/DoughnutChart_NumCustomer";
 import LineChart from "../../../../../components/Chart/LineChart";
 import BarChart from "../../../../../components/Chart/BarChart";
 import ChartCardTitle from "../../../../../components/Chart/ChartCardTitle";
