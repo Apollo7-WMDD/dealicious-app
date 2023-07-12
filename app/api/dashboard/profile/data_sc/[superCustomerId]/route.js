@@ -6,23 +6,23 @@ import Campaign from "@/models/campaign";
 
 export const GET = async (request) => {
   const url = new URL(request.url);
-  const restaurantOwnerId = url.pathname.split("/")[5];
+  const superCustomerId = url.pathname.split("/")[5];
 
   try {
     await connect();
 
-    // Retrieve the restaurant info using the user id
     const restaurantInfo = await Restaurant.findOne({
-      userId: new mongoose.Types.ObjectId(restaurantOwnerId),
+      superCustomerIdArray: { $in: [superCustomerId] },
     })
       .select({
         name: 1,
         address: 1,
-        qrCode: 1,
-        businessHours: 1,
         email: 1,
         website: 1,
-        manager: 1,
+        category: 1,
+        phone: 1,
+        menu: 1,
+        logo: 1,
       })
       .lean();
 
@@ -34,7 +34,7 @@ export const GET = async (request) => {
     // Construct the response object with restaurant information and restaurant ID
     const response = {
       restaurantInfo,
-      restaurantOwnerId: restaurantOwnerId,
+      superCustomerId: superCustomerId,
     };
 
     // Return the response as JSON

@@ -18,7 +18,7 @@ import SubHeader from "@/app/components/Header/SubHeader";
 import { useStore } from "@/lib/context/user_context/store";
 
 // fetch imports
-import { fetchRestaurantId } from "@/lib/fetching/restaurantId/data";
+import { fetchRestaurantId } from "@/lib/fetching/restaurant/restaurant_id/data";
 
 const Page = async () => {
   const { restaurantOwnerId, restaurantId, setRestaurantId } = useStore();
