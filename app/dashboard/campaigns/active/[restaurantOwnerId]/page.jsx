@@ -20,7 +20,7 @@ import { useStore } from "@/lib/context/user_context/store";
 // fetch imports
 import { fetchRestaurantId } from "@/lib/fetching/restaurant/restaurant_id/data";
 
-const Page = async () => {
+const Page = () => {
   const { restaurantOwnerId, restaurantId, setRestaurantId } = useStore();
 
   useEffect(() => {
