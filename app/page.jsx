@@ -14,6 +14,7 @@ import { useEffect } from "react";
 const Page = () => {
   const { data: session, status } = useSession();
   const { setRestaurantOwner, restaurantOwnerId } = useStore();
+  
   console.log("This is the restaurantOwnerId: ", restaurantOwnerId);
 
   useEffect(() => {
