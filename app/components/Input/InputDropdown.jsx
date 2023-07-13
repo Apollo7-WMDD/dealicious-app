@@ -8,9 +8,12 @@ const InputDropdown = ({ label, value, onChange, name, id, placeholder, options,
       sx={{
         display: 'flex',
         width: '260px',
+        width: '100%',
         flexDirection: 'column',
         alignItems: 'flex-start',
         flexShrink: 0,
+        marginBottom: '8px',
+        marginTop: '8px',
       }}
     >
       <Box
@@ -54,17 +57,20 @@ const InputDropdown = ({ label, value, onChange, name, id, placeholder, options,
             borderRadius: '8px',
             border: '1px solid #454545',
             background: '#FEFEFE',
+            "& .MuiOutlinedInput-notchedOutline": {
+              border: 'none'
+            }
           }}
           {...props}
         >
         <MenuItem value="" disabled>
             <em>{placeholder}</em>
         </MenuItem>
-          {options.map((option, index) => (
-            <MenuItem key={index} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
+        {options?.map((option, index) => (
+          <MenuItem key={index} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
         </Select>
       </Box>
     </Box>
