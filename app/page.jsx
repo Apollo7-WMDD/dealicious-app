@@ -1,52 +1,61 @@
 "use client";
-import { useSession, signIn, signOut } from "next-auth/react";
 
+// import next-auth hooks
+import { useSession, signOut } from "next-auth/react";
+import { useStore } from "@/lib/context/user_context/store";
+
+// nextjs components
 import Link from "next/link";
+import { useEffect } from "react";
+import Home from "./components/LandingPage/Home";
 
-export default function Home() {
+// import fetching data
+// import { fetchRestaurantId } from "@/lib/fetching/restaurantId/data";
+
+const Page = () => {
   const { data: session, status } = useSession();
-  console.log(session, status);
+  const { setRestaurantOwner, restaurantOwnerId } = useStore();
+
+  console.log("This is the restaurantOwnerId: ", restaurantOwnerId);
+
+  useEffect(() => {
+    const getRestaurantOwnerId = async () => {
+      if (status === "authenticated") {
+        setRestaurantOwner(session.user.id);
+      }
+    };
+    getRestaurantOwnerId();
+  }, [status]);
 
   return (
-    <main style={{ marginTop: "2rem" }}>
-      <Link
-        href="/users"
-        className=" mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white"
-      >
-        <button className="">Users</button>
-      </Link>
-      <Link
-        href="/campaigns"
-        className=" mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white"
-      >
-        <button className="">Campaigns</button>
-      </Link>
-      <Link
-        href="/login"
-        className=" mx-2 px-4 py-2 border-solid border-blue-700 border-2 rounded-md bg-blue-700 text-white"
-      >
-        <button className="">Login</button>
-      </Link>
-      <Link
-        href="/register"
-        className=" mx-2 px-4 py-2 border-solid border-blue-700 border-2 rounded-md bg-blue-700 text-white"
-      >
-        <button className="">Sign Up</button>
-      </Link>
-      <Link
-        href="/points"
-        className=" mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white"
-      >
-        <button className="">Points</button>
-      </Link>
-      {session && (
-        <button
-          className=" mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white"
-          onClick={signOut}
-        >
-          Sign Out
-        </button>
+    <main>
+      <Home />
+      {status === "loading" ? (
+        <div>Loading...</div>
+      ) : status === "authenticated" ? (
+        <div>
+          <Link href={`/dashboard/campaigns/active/${session?.user.id}`}>
+            <button>Dashboard</button>
+          </Link>
+                      <Link href={`/superCustomer/restaurants/${session?.user.id}`}>
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+                Dashboard Super Customer (Temporal-Testing)
+              </button>
+            </Link>
+          <button onClick={signOut}>Sign Out</button>
+        </div>
+      ) : (
+        <>
+          <Link href={`/login/owner`}>
+            <button>Login</button>
+          </Link>
+          <Link href={`/register`}>
+            <button>Sign Up!</button>
+          </Link>
+        </>
       )}
     </main>
   );
-}
+};
+
+export default Page;

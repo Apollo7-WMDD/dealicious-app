@@ -4,7 +4,8 @@ const CampaignSchema = new Schema({
   restaurantId: {
     type: Schema.Types.ObjectId,
     ref: "Restaurant",
-    required: [true, "Restaurant ID is required!"],
+    required: [true, "Restaurant ID is required"],
+    index: true,
   },
   superCustomerIdArray: {
     type: [Schema.Types.ObjectId],
@@ -13,8 +14,9 @@ const CampaignSchema = new Schema({
   },
   name: {
     type: String,
-    unique: [true, "Name already exists!"],
-    required: [true, "Name is required!"],
+    unique: [true, "Name already exists"],
+    required: [true, "Name is required"],
+    trim: true,
   },
   status: {
     type: String,
@@ -22,15 +24,19 @@ const CampaignSchema = new Schema({
     default: "active",
   },
   type: {
-    type: Array,
-    of: String,
-    default: ["Type is REQUIRED!"],
-    // required: [true, "Type is required!"],
+    type: [String],
+    default: ["Type is required!"],
+    validate: {
+      validator: function (value) {
+        return value.length > 0; // Ensure at least one type is provided
+      },
+      message: "At least one type is required!",
+    },
   },
   offer: {
     type: String,
-    default: "Offer is REQUIRED!",
-    // required: [true, "Offer is required!"],
+    default: "No offer",
+    trim: true,
   },
   allowSuperCustomer: {
     type: Boolean,
@@ -46,7 +52,8 @@ const CampaignSchema = new Schema({
   },
   availableCodes: {
     type: Number,
-    required: [true, "Available Codes is required!"],
+    required: [true, "Available Codes is required"],
+    min: [1, "Available Codes must be at least 1"], // Minimum value allowed is 1
   },
   superCustomerPoints: {
     type: Number,
@@ -58,20 +65,26 @@ const CampaignSchema = new Schema({
   },
   startDate: {
     type: Date,
-    required: [true, "Start Date is required!"],
+    required: [true, "Start Date is required"],
+    min: [new Date(), "Start Date must be a future date!"], // Start Date must be in the future
   },
   endDate: {
     type: Date,
     required: [true, "End Date is required!"],
+    validate: {
+      validator: function (value) {
+        return value > this.startDate; // End Date must be greater than Start Date
+      },
+      message: "End Date must be after the Start Date",
+    },
   },
   media: {
-    type: Array,
-    of: String,
+    type: [String],
   },
   description: {
     type: String,
-    default: "Restaurant description REQUIRED",
-    // required: [true, "Description is required!"],
+    required: [true, "Description is required"],
+    trim: true,
   },
   favorite: {
     type: Boolean,
@@ -79,6 +92,8 @@ const CampaignSchema = new Schema({
   },
   autoDescription: {
     type: String,
+    default: "No auto description",
+    trim: true,
   },
 });
 

@@ -42,8 +42,47 @@ const handlerAuth = NextAuth({
       },
     }),
   ],
-  pages: {
-    error: "/login",
+  secret: process.env.NEXTAUTH_SECRET,
+  callbacks: {
+    async session({ session }) {
+      try {
+        const data = await User.findOne({ email: session.user.email });
+
+        const newSession = {
+          ...session,
+          user: {
+            ...session.user,
+            id: data?._id.toString(),
+            ...data?.user,
+          },
+        };
+
+        return newSession;
+      } catch (error) {
+        return session;
+      }
+    },
+
+    async signIn({ profile }) {
+      try {
+        await connect();
+        const userExists = await User.findOne({ email: profile.email });
+
+        if (!userExists) {
+          await User.create({
+            email: profile.email,
+            firstname: profile.name?.split(" ")[0],
+            lastname: profile.name?.split(" ")[1],
+            phone: Math.floor(1000000000 + Math.random() * 9000000000),
+          });
+
+          console.log("User created successfully!");
+        }
+        return true;
+      } catch (error) {
+        return false;
+      }
+    },
   },
 });
 

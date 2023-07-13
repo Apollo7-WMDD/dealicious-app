@@ -1,4 +1,8 @@
 "use client";
+import { useMemo } from "react";
+import { createTheme } from "@mui/material/styles";
+import { themeSettings } from "../theme.js";
+import { useStore } from "../../lib/context/sidebar_context/store.js";
 
 // ADD USER TO THE DATABASE
 const handleSubmit = async function (e) {
@@ -27,7 +31,6 @@ const handleSubmit = async function (e) {
     } else {
       const data = await res.json();
       console.log("Success! ", data);
-      setUser([...user, data]);
     }
   } catch (error) {
     console.log(error);
@@ -36,6 +39,8 @@ const handleSubmit = async function (e) {
 };
 
 const FormUsers = () => {
+  const { mode } = useStore();
+  const theme = useMemo(() => createTheme(themeSettings(mode), [mode]));
   return (
     <form onSubmit={handleSubmit} className="flex items-center flex-col gap-5">
       <label htmlFor="email">Email</label>
@@ -67,8 +72,9 @@ const FormUsers = () => {
         className="border-solid border-green-700 border-2 rounded-md"
       />
       <button
+        style={{ backgroundColor: theme.palette.secondary[60] }}
         type="submit"
-        className=" mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white"
+        className=" mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md text-white"
       >
         Submit
       </button>

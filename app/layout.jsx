@@ -1,5 +1,8 @@
 import "./globals.css";
 import Provider from "./components/Provider";
+//
+
+import ThemeWrapper from "./components/Theme/ThemeWrapper";
 
 export const metadata = {
   title: "Dealicious",
@@ -15,7 +18,9 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
-        <Provider>{children}</Provider>
+        <ThemeWrapper>
+          <Provider>{children}</Provider>
+        </ThemeWrapper>
       </body>
     </html>
   );
