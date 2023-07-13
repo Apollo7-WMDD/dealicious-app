@@ -18,12 +18,16 @@ const SCCard = ({ props }) => {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {props}
+            {props.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica
+            {props._id}
           </Typography>
         </CardContent>
+        <img 
+        src={props.logo}
+        alt="new" width="50px" height="50px"
+        />
         <CardActions>
           <Button size="small">Share</Button>
           <Button size="small">Learn More</Button>
