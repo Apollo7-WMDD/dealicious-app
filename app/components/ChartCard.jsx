@@ -4,7 +4,7 @@ import { useTheme } from "@mui/material";
 function ChartCard({ content, children, gridColumn }) {
   const theme = useTheme();
   const shadowColor = `${theme.palette.neutral[20]}1f`;
-  console.log(content)
+  
   return (
     <Box
       sx={{

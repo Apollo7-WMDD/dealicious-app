@@ -6,20 +6,19 @@ import {
   defaults,
 } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import { useTheme } from "@mui/material";
-import {fetchNumberOf } from '../../../lib/fetching/insights/data';
+import { useTheme, Typography } from "@mui/material";
+import { fetchNumberOf } from "../../../lib/fetching/insights/data";
 import { useEffect, useState } from "react";
 import { useStore } from "@/lib/context/user_context/store";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-
-function DoughnutChart() {
-  const { restaurantOwnerId  } = useStore();
+function DoughnutChart_NumCustomer() {
+  const { restaurantOwnerId } = useStore();
   const [data, setData] = useState([]);
   console.log(restaurantOwnerId);
 
-useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       const result = await fetchNumberOf(restaurantOwnerId);
       setData(result);
@@ -27,7 +26,10 @@ useEffect(() => {
     fetchData();
   }, [restaurantOwnerId]);
 
-  console.log(data)
+  console.log(data);
+
+  const formatData = Object.values(data).slice(1);
+  console.log(formatData);
 
   const theme = useTheme();
   defaults.font.family = theme.typography.fontFamily;
@@ -35,14 +37,14 @@ useEffect(() => {
 
   const doughnutFakeData = {
     // Chart.defaults.font.family = 'Helvetica Neue';
-    labels: ["Super customers", "New customers"],
+    labels: ["Super Customers", "New Customers"],
     datasets: [
       {
-        data: [12, 19],
+        data: formatData,
         backgroundColor: [
           theme.palette.primary[80],
           theme.palette.primary[100],
-          // theme.palette.primary[60],
+          theme.palette.primary[60],
         ],
         // hoverBackgroundColor: [ theme.palette.primary[80],
         // theme.palette.primary[100],
@@ -72,27 +74,50 @@ useEffect(() => {
           // fontSize: 25,
           usePointStyle: true,
           pointStyle: "rectRounded",
-         
         },
         display: true,
         position: "right",
       },
     },
   };
+
+  // ! RESOLVE PLUGINS ISSUE FROM 'npm install --save chartjs-plugin-doughnutlabel'
   return (
-    <div>
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(1,1fr)",
+        position: "relative",
+        alignItems: "center",
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      <Typography
+        variant="h3"
+        sx={{
+          gridColumn: "1/-1",
+          gridRow: "1/-1",
+          position: "absolute",
+          left: "22.5%",
+          zIndex: "1",
+        }}
+      >
+        {" "}
+        {Object.values(data).shift(1)}
+      </Typography>
       <Doughnut
         data={doughnutFakeData}
         style={{
           width: "100%",
           height: "100%",
-          // gridColumn: "span 1",
+          gridColumn: "1/-1",
+          gridRow: "1/-1",
         }}
         options={option}
       />
-     
     </div>
   );
 }
 
-export default DoughnutChart;
+export default DoughnutChart_NumCustomer;

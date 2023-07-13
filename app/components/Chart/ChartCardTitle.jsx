@@ -8,8 +8,8 @@ function ChartCardTitle({ text, pinStatus }) {
   return (
     <div
       style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(2,1fr)",
+        display: pinStatus ? "grid": "block",
+        gridTemplateColumns: "2fr 0.17fr",
         justifyContent: "space-between",
         alignItems: "center",
         width: "100%",
