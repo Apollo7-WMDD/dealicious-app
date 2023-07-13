@@ -67,7 +67,7 @@ const Page = async () => {
       <MainGrid>
       <ChartCard gridColumn={"span 1"}>
           <ChartCardTitle text={"Number of:"} pinStatus={""}></ChartCardTitle>
-          <DoughnutChart></DoughnutChart>
+          <DoughnutChart_NumCustomer></DoughnutChart_NumCustomer>
           
           
         </ChartCard>

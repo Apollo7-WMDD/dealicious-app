@@ -80,8 +80,11 @@ function DoughnutChart_NumCustomer() {
       },
     },
   };
+
+  // ! RESOLVE PLUGINS ISSUE FROM 'npm install --save chartjs-plugin-doughnutlabel'
   return (
     <div>
+      {/* {Object.values(data).shift(1)} */}
       <Doughnut
         data={doughnutFakeData}
         style={{
