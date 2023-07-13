@@ -6,7 +6,7 @@ import {
   defaults,
 } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import { useTheme } from "@mui/material";
+import { useTheme, Typography } from "@mui/material";
 import { fetchNumberOf } from "../../../lib/fetching/insights/data";
 import { useEffect, useState } from "react";
 import { useStore } from "@/lib/context/user_context/store";
@@ -83,14 +83,34 @@ function DoughnutChart_NumCustomer() {
 
   // ! RESOLVE PLUGINS ISSUE FROM 'npm install --save chartjs-plugin-doughnutlabel'
   return (
-    <div>
-      {/* {Object.values(data).shift(1)} */}
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(1,1fr)",
+        position: "relative",
+        alignItems: "center",
+      }}
+    >
+      <Typography
+        variant="h3"
+        sx={{
+          gridColumn: "1/-1",
+          gridRow: "1/-1",
+          position: "absolute",
+          left: "22.5%",
+          zIndex: "1",
+        }}
+      >
+        {" "}
+        {Object.values(data).shift(1)}
+      </Typography>
       <Doughnut
         data={doughnutFakeData}
         style={{
           width: "100%",
           height: "100%",
-          // gridColumn: "span 1",
+          gridColumn: "1/-1",
+          gridRow: "1/-1",
         }}
         options={option}
       />

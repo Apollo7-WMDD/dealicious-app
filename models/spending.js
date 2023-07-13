@@ -1,92 +1,83 @@
-import { NextResponse } from "next/server";
-import connect from "@/utils/database";
-import Restaurant from "@/models/restaurant";
-import Campaign from "@/models/campaign";
-import Spending from "@/models/spending";
+import { Schema, model, models } from "mongoose";
 
-export const GET = async (request) => {
-  const url = new URL(request.url);
-  const restaurantOwner = url.pathname.split("/")[5];
-
-  try {
-    await connect();
-
-    const restaurant = await Restaurant.findOne(
-      { userId: restaurantOwner },
-      { _id: 1 }
-    ).lean();
-
-    if (!restaurant) {
-      return new NextResponse(JSON.stringify({ data: null }), { status: 200 });
-    }
-
-    const restaurantId = restaurant._id;
-
-    const campaigns = await Campaign.aggregate([
-      {
-        $match: { restaurantId: restaurantId },
+const SpendingSchema = new Schema({
+  phone: {
+    type: Number,
+    unique: [true, "Phone already exists"],
+    required: [true, "Phone is required"],
+    validate: {
+      validator: function (value) {
+        // Custom validation logic for phone number format
+        const phoneNumberRegex = /^[0-9]{10}$/; // Example: 10-digit phone number
+        return phoneNumberRegex.test(value);
       },
-      {
-        $lookup: {
-          from: "spendings",
-          let: { campaignId: "$_id" },
-          pipeline: [
-            { $match: { $expr: { $eq: ["$campaignId", "$$campaignId"] } } },
-            {
-              $group: {
-                _id: null,
-                totalBillAmount: { $sum: "$billamount" },
-                count: { $sum: 1 },
-              },
-            },
-          ],
-          as: "spendings",
-        },
+      message: "Phone number should be a 10-digit number.",
+    },
+  },
+  name: {
+    type: String,
+    required: [true, "Name is required"],
+    trim: true,
+  },
+  restaurantId: {
+    type: Schema.Types.ObjectId,
+    ref: "Restaurant",
+    required: [true, "Restaurant ID is required"],
+    index: true,
+  },
+  campaignId: {
+    type: Schema.Types.ObjectId,
+    ref: "Campaign",
+    required: [true, "Campaign ID is required"],
+  },
+  billamount: {
+    type: Number,
+    required: [true, "Bill Amount is required"],
+    min: [1, "Bill Amount cannot be negative and must be greater than 0"],
+  },
+  isSuperCustomer: {
+    type: Boolean,
+    default: false,
+  },
+  dateRedeemed: {
+    type: Date,
+    default: Date.now,
+    immutable: true,
+  },
+  suggestion: {
+    type: {
+      foodQuality: {
+        type: Boolean,
+        default: false,
       },
-      {
-        $project: {
-          _id: 1,
-          name: 1,
-          totalBillAmount: {
-            $ifNull: [{ $sum: "$spendings.totalBillAmount" }, 0],
-          },
-          count: { $ifNull: [{ $sum: "$spendings.count" }, 0] },
-        },
+      foodQuantity: {
+        type: Boolean,
+        default: false,
       },
-    ]);
+      service: {
+        type: Boolean,
+        default: false,
+      },
+      place: {
+        type: Boolean,
+        default: false,
+      },
+      other: {
+        type: Boolean,
+        default: false,
+      },
+    },
+    validate: {
+      validator: function (value) {
+        // Custom validation logic for suggestion
+        const keys = Object.keys(value);
+        return keys.some((key) => value[key]);
+      },
+      message: "At least one suggestion category should be selected",
+    },
+  },
+});
 
-    const [totals] = await Campaign.aggregate([
-      {
-        $match: { restaurantId: restaurantId },
-      },
-      {
-        $lookup: {
-          from: "spendings",
-          localField: "_id",
-          foreignField: "campaignId",
-          as: "spendings",
-        },
-      },
-      {
-        $group: {
-          _id: null,
-          totalRevenue: { $sum: { $sum: "$spendings.billamount" } },
-          totalCustomers: { $sum: { $size: "$spendings" } },
-        },
-      },
-    ]);
+const Spending = models.Spending || model("Spending", SpendingSchema);
 
-    const { totalRevenue, totalCustomers } = totals || {
-      totalRevenue: 0,
-      totalCustomers: 0,
-    };
-
-    return new NextResponse(
-      JSON.stringify({ campaigns, totalRevenue, totalCustomers }),
-      { status: 200 }
-    );
-  } catch (err) {
-    console.log(err.message);
-    return new NextResponse("Database Error", { status: 500 });
-  }
-};
+export default Spending;
