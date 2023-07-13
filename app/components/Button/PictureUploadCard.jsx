@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Card, Box } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
-const PictureUploadCard = ({ phrase, onFileSelected, sx}) => {
+const PictureUploadCard = ({ phrase, onCardClick, sx}) => {
   const inputRef = useRef();
 
   const cardClick = () => {
@@ -10,8 +10,8 @@ const PictureUploadCard = ({ phrase, onFileSelected, sx}) => {
   };
 
   const fileUpload = (e) => {
-    if (onFileSelected) {
-      onFileSelected(e.target.files[0]);
+    if (onCardClick) {
+      onCardClick(e.target.files[0]);
     }
   };
 

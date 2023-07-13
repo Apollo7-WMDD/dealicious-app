@@ -1,11 +1,11 @@
 import React from 'react';
 import Typography from '@mui/material/Typography';
 
-const SubHeader = ({ children, props, sx }) => {
+const SubHeader = ({ children, props }) => {
  
   return (
     <Typography
-      variant="h3" 
+      variant="h3"    
     >{props}
       {children}
     </Typography>

@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import InputText from "../../../../components/Input/InputText";
 import Form from "../../../../components/Card/Form";
 import SubHeader from "../../../../components/Header/SubHeader";
-import Header from "@/app/components/Header/Header";
 import InputDropdown from "../../../../components/Input/InputDropdown";
 import InputButton from "../../../../components/Button/InputButton";
 import PictureUploadCard from "../../../../components/Button/PictureUploadCard";
@@ -14,6 +13,7 @@ import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 const Restaurant = () => {
+  //   const theme = useTheme();
   const [restaurants, setRestaurants] = useState([]);
   const [formData, setFormData] = useState({
     userId: "",
