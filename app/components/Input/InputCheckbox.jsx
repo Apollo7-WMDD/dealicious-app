@@ -1,7 +1,7 @@
 import React from 'react';
 import { Checkbox, FormControlLabel, Box } from '@mui/material';
 
-const InputCheckbox = ({ label, onChecked, labelPlacement = 'end' }) => {
+const InputCheckbox = ({ label, onChecked }) => {
   const handleCheckboxChange = (event) => {
     if (event.target.checked && onChecked) {
       onChecked();
@@ -12,7 +12,7 @@ const InputCheckbox = ({ label, onChecked, labelPlacement = 'end' }) => {
     <Box
         sx={{
         display: 'flex',
-        // padding: '8px',
+        padding: '8px',
         alignItems: 'center',
         }}
     >
@@ -29,19 +29,18 @@ const InputCheckbox = ({ label, onChecked, labelPlacement = 'end' }) => {
             />
         }
         label={label}
-        labelPlacement={labelPlacement}
+        labelPlacement="start"
         sx={{
             marginLeft: '8px',
-            gap:'8px',
             '& .MuiTypography-body1': {
-            // marginRight: '8px',
+            marginRight: '8px',
             color: '#181818',
             fontSize: '16px',
             fontFamily: 'Mukta',
             fontStyle: 'normal',
             fontWeight: 600,
             lineHeight: '32px',
-            }
+            },
         }}
         />
     </Box>
