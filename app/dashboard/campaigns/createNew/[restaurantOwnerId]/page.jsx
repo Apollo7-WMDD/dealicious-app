@@ -350,7 +350,8 @@ const Page = () => {
               )}
             </Form>
 
-            {/* <Form>
+
+          <Form>
               <InputTextarea
                 label="Write an attractive campaign advertisement or simply click here to have a compelling ad ready!"
                 value={formData.description}
@@ -359,7 +360,7 @@ const Page = () => {
                 id="description"
                 placeholder="campaign advertisement"
               />
-          </Form> */}
+          </Form>
 
             <InputButton
               onFirstButtonClick={(e) => {
