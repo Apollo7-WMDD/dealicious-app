@@ -9,6 +9,9 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { useTheme } from "@mui/material";
+import { fetchToImprove } from "../../../lib/fetching/insights/data";
+import { useEffect, useState } from "react";
+import { useStore } from "@/lib/context/user_context/store";
 
 ChartJS.register(
   CategoryScale,
@@ -20,47 +23,87 @@ ChartJS.register(
 );
 
 function BarChart() {
+  const { restaurantOwnerId } = useStore();
+  const theme = useTheme();
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await fetchToImprove(restaurantOwnerId).then((res) => {
+        let formattedData = [];
+        for (const e in res) {
+          console.log(e + " " + res[e]);
+          let a = {
+            label: e,
+            data: [res[e]],
+          };
+          formattedData.push(a);
+        }
+        return formattedData;
+      });
+
+      setData(result);
+    };
+    fetchData();
+  }, [restaurantOwnerId]);
+
+  console.log(data);
+  console.log(Object.keys(data));
+  console.log(Object.values(data));
+
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        display: false,
+      },
+      x: {
+        title: {
+          display: false,
+        },
+
+        display: false,
+      },
+    },
     plugins: {
+      labels: {
+        display: false,
+      },
       legend: {
-        position: "top",
+        position: "right",
       },
       title: {
-        display: true,
-        text: "Chart.js Bar Chart",
+        display: false,
       },
     },
   };
-
-  const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-  ];
-
-  const data = {
+  const labels = [data.map((e) => e.label)];
+  let indexColor = -1;
+  const barData = {
     labels,
-    datasets: [
-      {
-        label: "Dataset 1",
-        data: [55,53,22,67,33,78],
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-      {
-        label: "Dataset 2",
-        data: [89,46,23,78,22,74],
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
-      },
-    ],
+    datasets: data.map((e) => {
+      const colorArray = [
+        theme.palette.primary[80],
+        theme.palette.primary[100],
+        theme.palette.primary[60],
+        theme.palette.primary[120],
+      ];
+      // const randomIndex = Math.floor(Math.random() * colorArray.length);
+      indexColor++;
+      return {
+        label: e.label,
+        data: e.data,
+        backgroundColor: colorArray[indexColor],
+      };
+    }),
   };
   return (
-    <div>
-      <Bar options={options} data={data} />
+    <div style={{ width: "100%", height: "100%" }}>
+      <Bar
+        options={options}
+        data={barData}
+        style={{ height: "100%", width: "100%", minHeight:"300px" }}
+      />
     </div>
   );
 }

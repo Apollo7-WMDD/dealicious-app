@@ -9,6 +9,7 @@ import MainGrid from "@/app/components/MainGrid";
 import DoughnutChart_NumCustomer from "../../../../../components/Chart/DoughnutChart_NumCustomer";
 import LineChart from "../../../../../components/Chart/LineChart";
 import BarChart from "../../../../../components/Chart/BarChart";
+import StackDoughNut from "../../../../../components/Chart/StackDoughNut";
 import ChartCardTitle from "../../../../../components/Chart/ChartCardTitle";
 
 import { usePathname } from "next/navigation";
@@ -64,10 +65,10 @@ const Page = async () => {
 
       {/*====== SET GRID ======*/}
       <MainGrid>
-        {/* <ChartCard gridColumn={"span 1"}>
+        <ChartCard gridColumn={"span 1"}>
           <ChartCardTitle text={"Number of:"} pinStatus={""}></ChartCardTitle>
           <DoughnutChart_NumCustomer></DoughnutChart_NumCustomer>
-        </ChartCard> */}
+        </ChartCard>
         <ChartCard gridColumn={"span 2"}>
           <ChartCardTitle
             text={"Customer Campaign Usage By Time"}
@@ -75,12 +76,17 @@ const Page = async () => {
           ></ChartCardTitle>
           <LineChart></LineChart>
         </ChartCard>
-        {/* <ChartCard gridColumn={"span 1"}>
-          
+        <ChartCard gridColumn={"span 1"}>
+        <ChartCardTitle
+            text={"To improve:"}
+            pinStatus={""}
+          ></ChartCardTitle>
           <BarChart></BarChart>
-          
-          
-        </ChartCard> */}
+        </ChartCard>
+        <ChartCard gridColumn={"span 1"}>
+          <ChartCardTitle text={"Top 6 Campaigns"} pinStatus={""}></ChartCardTitle>
+          <StackDoughNut ></StackDoughNut>
+        </ChartCard>
         <ChartCard gridColumn={"span 2"}>
           averageBillSize
           {/* {spendingsData.averageBillSize} */}
