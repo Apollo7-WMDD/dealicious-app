@@ -80,4 +80,5 @@ const SpendingSchema = new Schema({
 
 const Spending = models.Spending || model("Spending", SpendingSchema);
 
+
 export default Spending;

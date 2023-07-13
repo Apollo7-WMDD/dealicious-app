@@ -34,10 +34,21 @@ export const GET = async (request) => {
     const campaignsDataPromises = campaignIdsList.map(async (campaignId) => {
       const campaign = await Campaign.findById(campaignId, { name: 1 }).lean();
       const usage = await generateUsageData(campaignId);
+
+      // const campaignRedeemDate = await Spending.find(
+      //   { campaignId: campaignId },
+      //   { dateRedeemed: true }
+      // ).lean();
+      //  const campaignCount = await Spending.countDocuments({
+      //     campaignId: campaignId,
+      //   });
       return {
         campaignId,
         campaignName: campaign.name,
         usage,
+        // campaignCount,
+        // campaignRedeemDate,
+        // ! data to send have to be count of how many time spending happen for this campaignID + timestamp of it
       };
     });
 
@@ -55,22 +66,22 @@ export const GET = async (request) => {
 // Helper function to generate usage data for a campaign
 async function generateUsageData(campaignId) {
   const usage = {
-    day: await generateData(7),
-    week: await generateData(6),
-    month: await generateData(7),
+    day: await generateData(30,20),
+    week: await generateData(12,140),
+    month: await generateData(6,400),
   };
   return usage;
 }
 
 //  function to generate  usage data
-function generateData(count) {
+function generateData(count, amt) {
   const today = new Date();
   const data = [];
   for (let i = count - 1; i >= 0; i--) {
     const date = new Date(today);
     date.setDate(today.getDate() - i);
     const formattedDate = formatDate(date);
-    const value = Math.floor(Math.random() * 20);
+    const value = Math.floor(Math.random() * amt);
     data.push({ x: formattedDate, y: value });
   }
   return data;

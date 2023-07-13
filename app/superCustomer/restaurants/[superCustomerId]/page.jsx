@@ -1,4 +1,6 @@
-import Link from "next/link";
+"use client";
+import Header from "../../../components/Header/Header";
+import SCCard from "../../../components/Card/SCCard";
 
 const fetchRestaurants = async (superCustomerId) => {
   const isProduction = process.env.NODE_ENV === "production";
@@ -7,10 +9,10 @@ const fetchRestaurants = async (superCustomerId) => {
     : "http://localhost:3000";
 
   const res = await fetch(
-    `${serverUrl}/api/superCustomer/restaurants/${superCustomerId}`
-    // {
-    //   cache: "no-store",
-    // }
+    `${serverUrl}/api/superCustomer/restaurants/${superCustomerId}`,
+    {
+      cache: "no-store",
+    }
   );
 
   if (!res.ok) throw new Error("Something went wrong...");
@@ -20,27 +22,15 @@ const fetchRestaurants = async (superCustomerId) => {
 };
 
 const Page = async ({ params }) => {
-  const { superCustomerId, restaurantId } = params;
-  const restaurantData = await fetchRestaurants(superCustomerId);
-  console.log(restaurantData);
-
+  const { superCustomerId } = params;
+  const data = await fetchRestaurants(superCustomerId);
+  console.log(data[0].name)
   return (
-    <>
-      <h1>Restaurants List from the Super Customer</h1>
-      <h2>{superCustomerId}</h2>
-      <Link
-        href={`/superCustomer/restaurants/${superCustomerId}/${restaurantId}`}
-      >
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
-          Restaurant Card
-        </button>
-      </Link>
-      <Link href={`/superCustomer/profile/${superCustomerId}`}>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
-          Profile Super Customer
-        </button>
-      </Link>
-    </>
+    <div>
+      <Header props={"My Restaurants"} />
+      <SCCard props={data[0]}/>
+      <SCCard props={data[1]}/>
+    </div>
   );
 };
 
