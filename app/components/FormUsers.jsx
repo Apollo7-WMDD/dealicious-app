@@ -1,8 +1,8 @@
 "use client";
-import { useMemo  } from 'react';
+import { useMemo } from "react";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "../theme.js";
-import { useStore } from "../store.js";
+import { useStore } from "../../lib/context/sidebar_context/store.js";
 
 // ADD USER TO THE DATABASE
 const handleSubmit = async function (e) {
@@ -71,7 +71,8 @@ const FormUsers = () => {
         id="phone"
         className="border-solid border-green-700 border-2 rounded-md"
       />
-      <button style={{backgroundColor: theme.palette.secondary[60]}}
+      <button
+        style={{ backgroundColor: theme.palette.secondary[60] }}
         type="submit"
         className=" mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md text-white"
       >

@@ -5,6 +5,7 @@ const CampaignSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Restaurant",
     required: [true, "Restaurant ID is required"],
+    index: true,
   },
   superCustomerIdArray: {
     type: [Schema.Types.ObjectId],

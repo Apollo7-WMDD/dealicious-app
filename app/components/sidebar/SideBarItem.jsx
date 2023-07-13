@@ -12,87 +12,84 @@ import DealIcon from "../svg/dealIcon.svg";
 import InsightIcon from "../svg/insighticon.svg";
 import BurnCodeIcon from "../svg/burnCode.svg";
 import ProfileIcon from "../svg/profileIcon.svg";
-import { useStore } from "../../store.js";
+import SideBarSelect from "../svg/sideBarSelect.svg";
+import { useStore } from "@/lib/context/sidebar_context/store.js";
+import { useStore as useStoreOwner } from "@/lib/context/user_context/store.js";
 import { useTheme } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
-import PassContext from "@/app/components/Dashboard/PassContext";
+
 function SideBarItem() {
-  const { data: session, status } = useSession();
-  // const restaurantOwnerId = session?.user.id;
-  // const restaurantData = await fetchRestaurants(session?.user.id);
-  // const restaurantId = restaurantData.restaurantId;
-  // console.log(restaurantData);
-  // console.log(restaurantId);
-  // console.log(restaurantOwnerId);
+  // const { data: session, status } = useSession();
+
+  const theme = useTheme();
+  const { sideBarItemActive, setSideBarItemActive } = useStore();
+  const { restaurantOwnerId, restaurantId } = useStoreOwner();
+  console.log("This is the restaurantOwnerId: ", restaurantOwnerId);
+  console.log("This is the restaurantId: ", restaurantId);
+  const router = useRouter();
+  const pathname = usePathname();
 
   const navItems = [
     {
       text: "Campaigns",
       icon: <DealIcon />,
-      link: `/dashboard/campaigns/active/${session?.user.id}`,
+      link: `/dashboard/campaigns/active/${restaurantOwnerId}`,
     },
     {
       text: "Insights",
       icon: <InsightIcon />,
       // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-      link: `/dashboard/insights/overview/${session?.user.id}`
+      link: `/dashboard/insights/overview/${restaurantOwnerId}/${restaurantId}`,
     },
     {
       text: "Burn a Code",
       icon: <BurnCodeIcon />,
-      link: "/burnCode",
+      link: `/dashboard/burnCode/${restaurantOwnerId}`,
     },
     {
       text: "Profile",
       icon: <ProfileIcon />,
-      link: "/profile",
+      link: `/dashboard/profile/${restaurantOwnerId}`,
     },
   ];
 
   const campaignSubItems = [
     {
       text: "Ongoing",
-      link: `/dashboard/campaigns/active/${session?.user.id}`,
+      link: `/dashboard/campaigns/active/${restaurantOwnerId}`,
     },
     {
       text: "Upcoming",
-      link: `/dashboard/campaigns/upcoming/${session?.user.id}`,
+      link: `/dashboard/campaigns/upcoming/${restaurantOwnerId}`,
     },
   ];
 
   const insightSubItems = [
     {
       text: "Overview",
-      link: `dashboard/insights/overview/${session?.user.id}`,
+      link: `/dashboard/insights/overview/${restaurantOwnerId}`,
     },
     {
       text: "Campaigns",
       // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-      link: `/dashboard/insights/campaigns/${session?.user.id}`
+      link: `/dashboard/insights/campaigns/${restaurantOwnerId}`,
     },
     {
       text: "Customers",
-       // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-       link: `/dashboard/insights/customers/${session?.user.id}`
+      // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
+      link: `/dashboard/insights/customers/${restaurantOwnerId}`,
     },
   ];
-  const theme = useTheme();
-  const { sideBarItemActive, setSideBarItemActive } = useStore();
-  const router = useRouter();
-  const pathname = usePathname();
+
   useEffect(() => {
     setSideBarItemActive(pathname.substring(1));
   }, [pathname]);
-  // console.log("sideBarItemActive=", sideBarItemActive);
+
   return (
     <>
-      {/* <PassContext
-        restaurantOwnerId={restaurantOwnerId}
-        restaurantId={restaurantId}
-      /> */}
       <List
         sx={{
           padding: "0",
@@ -102,49 +99,42 @@ function SideBarItem() {
           const activeLink = `${link}`.substring("1");
           const activeLinkSplit = activeLink.split("/");
           const currentURL = pathname.split("/");
-
-          // console.log("currentURL=", currentURL[2]);
-          // console.log("activeLink=", activeLink);
-          // console.log("activeLinkSplit=", activeLinkSplit[1]);
-
-
           return (
             <ListItem key={text} style={{ display: "block" }}>
               <ListItemButton
                 onClick={() => {
                   router.push(`${link}`);
                   setSideBarItemActive(activeLink);
-                  // console.log("activeLink=", activeLink);
                 }}
                 sx={{
-                  backgroundColor:
-                  currentURL[2] === activeLinkSplit[1]
-                      ? theme.palette.primary[120]
-                      : "transparent",
-                  // "transparent"
-                  // theme.palette.background.alt,
-                  // color:
-                  // active === lcText
-                  //   ? theme.palette.primary[600]
-                  //   : theme.palette.secondary[100],
-                  // theme.palette.primary[80],
-
+                  // backgroundColor:
+                  // currentURL[2] === activeLinkSplit[1]
+                  //     ? theme.palette.primary[120]
+                  //     : "transparent",
                   padding: "0 2rem",
+                  // position: "relative",
                 }}
               >
+                {currentURL[2] === activeLinkSplit[1] && (
+                  <SideBarSelect
+                    style={{
+                      position: "absolute",
+                      left: "12%",
+                    }}
+                    // sx={{
+                    //   position: "absolute",
+                    //   // justifyContent: "center",
+                    //   left: "40%",
+                    //   zIndex: "1",
+                    // }}
+                  ></SideBarSelect>
+                )}
                 <ListItemIcon
                   sx={{
                     marginRight: ".5rem",
-                    color:
-                      // active === lcText
-                      //   ? theme.palette.primary[600]
-                      //   : theme.palette.secondary[200],
-                      theme.palette.background.alt,
-                    // theme.palette.primary[80],
+                    color: theme.palette.background.alt,
                     minWidth: "auto",
-                    // width: "auto",
                     fontSize: "1.5rem",
-                    // overflow: "clip"
                   }}
                 >
                   {icon}
@@ -153,7 +143,7 @@ function SideBarItem() {
                   disableTypography
                   primary={text}
                   sx={{
-                    typography: "h4",
+                    typography: "h5",
                   }}
                 >
                   {/* {active === lcText && (

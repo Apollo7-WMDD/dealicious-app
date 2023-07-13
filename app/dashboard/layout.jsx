@@ -1,18 +1,18 @@
 import Footer from "../components/Footer";
-import CreateNewCampaign from "../components/Dashboard/CreateNewCampaign";
-import ThemeWrapper from "../components/ThemeWrapper";
+import SideBar from "../components/sidebar/SideBar";
 
-import { Box } from "@mui/material";
 const DashboardLayout = ({ children }) => {
   return (
     <div>
-      <div
-        style={{ display: "flex" }}
-      >
-        <ThemeWrapper children={children} />
-    
+      <div style={{ display: "flex" }}>
+        <SideBar />
+        <div style={{width: "100%" }}>
+          <div style={{ margin: "2rem 1rem 0 1rem"}}>
+            {children}
+          </div>
+          <Footer />
+        </div>
       </div>
-      
     </div>
   );
 };

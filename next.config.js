@@ -4,7 +4,7 @@
 
 // TRY ADDING CONFIG TO TURN SVG INTO COMPONENTS
 const nextConfig = {
-  experimental: { esmExternals: 'loose' },
+  reactStrictMode: false,
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -17,7 +17,6 @@ const nextConfig = {
         },
       ],
     });
-
 
     return config;
   },
@@ -42,4 +41,3 @@ module.exports = nextConfig;
 //       return config
 //     },
 //   }
-

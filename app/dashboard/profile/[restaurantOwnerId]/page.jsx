@@ -1,4 +1,12 @@
+"use client";
+import Header from "@/app/components/Header/Header";
 import Link from "next/link";
+
+import { usePathname } from "next/navigation";
+
+// user context
+import { useStore } from "@/lib/context/user_context/store";
+import { useEffect } from "react";
 
 const fetchOwnerInfo = async (restaurantOwnerId) => {
   const isProduction = process.env.NODE_ENV === "production";
@@ -19,24 +27,33 @@ const fetchOwnerInfo = async (restaurantOwnerId) => {
   return data;
 };
 
-const Page = async ({ params }) => {
-  const { restaurantOwnerId } = params;
-  const ownerData = await fetchOwnerInfo(restaurantOwnerId);
-  console.log("owner data: ", ownerData);
+const Page = async () => {
+  // const { restaurantOwnerId } = params;
+  // const ownerData = await fetchOwnerInfo(restaurantOwnerId);
+  // console.log("owner data: ", ownerData);
+  
+  const { restaurantOwnerId,setRestaurantOwner} = useStore();
+  const pathname = usePathname();
+  const URLrestaurantOwnerId = pathname.split("/")[3];
+  useEffect(() => {
+    const setRestaurantOwnerFromParam =  () => {
+      setRestaurantOwner(URLrestaurantOwnerId);
+    };
+    setRestaurantOwnerFromParam();
+  }, [URLrestaurantOwnerId]);
+  console.log("restaurantOwnerId: ", restaurantOwnerId);
+  
 
   return (
     <>
+      <Header props={"Profile"}></Header>
       <div>Profile of the Restaurant Owner</div>
       <h1>{restaurantOwnerId}</h1>
       <Link href={`/dashboard/profile/edit/${restaurantOwnerId}`}>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
-          Edit Profile
-        </button>
+        <button>Edit Profile</button>
       </Link>
       <Link href={`/dashboard/campaigns/active/${restaurantOwnerId}`}>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
-          Back to DashBoard
-        </button>
+        <button>Back to DashBoard</button>
       </Link>
     </>
   );

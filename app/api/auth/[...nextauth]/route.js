@@ -45,11 +45,22 @@ const handlerAuth = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async session({ session }) {
-      if (!session) return null;
+      try {
+        const data = await User.findOne({ email: session.user.email });
 
-      const sessionUser = await User.findOne({ email: session.user.email });
-      session.user.id = sessionUser._id.toString();
-      return session;
+        const newSession = {
+          ...session,
+          user: {
+            ...session.user,
+            id: data?._id.toString(),
+            ...data?.user,
+          },
+        };
+
+        return newSession;
+      } catch (error) {
+        return session;
+      }
     },
 
     async signIn({ profile }) {

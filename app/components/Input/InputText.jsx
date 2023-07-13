@@ -8,10 +8,13 @@ const InputText = ({ label, value, onChange, name, id, placeholder, type = 'text
     <Box
       sx={{
         display: 'flex',
-        width: '326px',
+        // width: '260px',
+        width: '100%',
         flexDirection: 'column',
         alignItems: 'flex-start',
         flexShrink: 0,
+        marginBottom: '8px',
+        marginTop: '8px',
       }}
     >
       <Box
@@ -52,6 +55,9 @@ const InputText = ({ label, value, onChange, name, id, placeholder, type = 'text
               borderRadius: '8px',
               border: '1px solid #454545',
               background: '#FEFEFE',
+              "& .MuiOutlinedInput-notchedOutline": {
+                border: 'none'
+              }
             },
             inputProps: {
               style: {
