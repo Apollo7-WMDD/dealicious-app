@@ -13,6 +13,7 @@ import { Typography, Box, useTheme } from '@mui/material';
 import InputTextarea from '@/app/components/Input/InputTextarea';
 import BulletPoints from '@/app/components/Profile/BulletPoints';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
+import {Cloudinary} from "@cloudinary/url-gen";
 
 const Page = ({ params }) => {
   const theme = useTheme();
@@ -175,9 +176,10 @@ const Page = ({ params }) => {
       ...formData,
       media: media
     });
+    
   };
-  
-  
+
+  const cld = new Cloudinary({cloud: {cloudName: 'damy0oa7d'}});
 
   const toggleExpiredByNumber = () => {
     setFormData({
