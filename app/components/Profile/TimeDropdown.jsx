@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
-function TimeDropdown({ day, setBusinessHours, isDisabled }) {
+const TimeDropdown = ({ day, setBusinessHours, isDisabled }) => {
   const [openAt, setOpenAt] = useState('');
   const [closeAt, setCloseAt] = useState('');
 
@@ -63,5 +63,4 @@ function TimeDropdown({ day, setBusinessHours, isDisabled }) {
     </div>
   );
 }
-
 export default TimeDropdown;

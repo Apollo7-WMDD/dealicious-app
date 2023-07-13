@@ -7,15 +7,16 @@ import Form from "@/app/components/Card/Form";
 import Header from "@/app/components/Header/Header";
 import InputText from "@/app/components/Input/InputText";
 import DateDropdown from "@/app/components/Profile/DateDropdown";
-import InputDropdown from "@/app/components/Input/InputDropdown";
-import InputCheckbox from "@/app/components/Input/InputCheckbox";
-import InputButton from "@/app/components/Button/InputButton";
-import PictureUploadCard from "@/app/components/Button/PictureUploadCard";
-import ViewNewCampaign from "@/app/components/Dashboard/ViewNewCampaign";
-import { Typography, Box } from "@mui/material";
-import InputTextarea from "@/app/components/Input/InputTextarea";
-import BulletPoints from "@/app/components/Profile/BulletPoints";
-import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
+import InputDropdown from '@/app/components/Input/InputDropdown';
+import InputCheckbox from '@/app/components/Input/InputCheckbox';
+import InputButton from '@/app/components/Button/InputButton';
+import PictureUploadCard from '@/app/components/Button/PictureUploadCard';
+import ViewNewCampaign from '@/app/components/Dashboard/ViewNewCampaign';
+import { Typography, Box, useTheme } from '@mui/material';
+import InputTextarea from '@/app/components/Input/InputTextarea';
+import BulletPoints from '@/app/components/Profile/BulletPoints';
+import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
+import {Cloudinary} from "@cloudinary/url-gen";
 
 // import router
 import { useRouter } from "next/navigation";
@@ -175,7 +176,10 @@ const Page = () => {
       ...formData,
       media: media,
     });
+    
   };
+
+  const cld = new Cloudinary({cloud: {cloudName: 'damy0oa7d'}});
 
   const toggleExpiredByNumber = () => {
     setFormData({

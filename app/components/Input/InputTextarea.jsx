@@ -1,7 +1,7 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
+import Typography from '@mui/material/Typography';
 
 const InputTextarea = ({ label, value, onChange, name, id, placeholder, type = 'text', ...props }) => {
   return (
@@ -24,7 +24,7 @@ const InputTextarea = ({ label, value, onChange, name, id, placeholder, type = '
         }}
       >
         {label && (
-          <InputLabel
+          <Typography
             htmlFor={id}
             sx={{
               color: '#181818',
@@ -36,7 +36,7 @@ const InputTextarea = ({ label, value, onChange, name, id, placeholder, type = '
             }}
           >
             {label}
-          </InputLabel>
+          </Typography>
         )}
         <TextField
             type={type}
