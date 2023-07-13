@@ -1,3 +1,4 @@
+import Footer from "../components/Footer";
 import SideBar from "../components/sidebar/SideBar";
 
 const DashboardLayout = ({ children }) => {
@@ -5,7 +6,12 @@ const DashboardLayout = ({ children }) => {
     <div>
       <div style={{ display: "flex" }}>
         <SideBar />
-        {children}
+        <div style={{width: "100%" }}>
+          <div style={{ margin: "2rem 1rem 0 1rem"}}>
+            {children}
+          </div>
+          <Footer />
+        </div>
       </div>
     </div>
   );

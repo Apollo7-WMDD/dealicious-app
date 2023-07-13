@@ -1,28 +1,26 @@
 import Link from "next/link";
 
-const fetchOwnerInfo = async (restaurantOwnerId) => {
-  const isProduction = process.env.NODE_ENV === "production";
-  const serverUrl = isProduction
-    ? process.env.NEXT_PUBLIC_SERVER_URL
-    : "http://localhost:3000";
+// const fetchOwnerInfo = async (restaurantOwnerId) => {
+//   const isProduction = process.env.NODE_ENV === "production";
+//   const serverUrl = isProduction
+//     ? process.env.NEXT_PUBLIC_SERVER_URL
+//     : "http://localhost:3000";
 
-  const res = await fetch(
-    `${serverUrl}/api/dashboard/profile/${restaurantOwnerId}`
-    // {
-    //   cache: "no-store",
-    // }
-  );
+//   const res = await fetch(
+//     `${serverUrl}/api/dashboard/profile/${restaurantOwnerId}`
+//     // {
+//     //   cache: "no-store",
+//     // }
+//   );
 
-  if (!res.ok) throw new Error("Something went wrong...");
+//   if (!res.ok) throw new Error("Something went wrong...");
 
-  const data = await res.json();
-  return data;
-};
+//   const data = await res.json();
+//   return data;
+// };
 
 const Page = async ({ params }) => {
   const { restaurantOwnerId } = params;
-  const restaurantData = await fetchOwnerInfo(restaurantOwnerId);
-  console.log(restaurantData);
 
   return (
     <>

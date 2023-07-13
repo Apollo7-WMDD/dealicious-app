@@ -10,9 +10,8 @@ import PictureUploadCard from "../../../../components/Button/PictureUploadCard";
 import InputCheckbox from "../../../../components/Input/InputCheckbox";
 import TimeDropdown from "../../../../components/Profile/TimeDropdown";
 import { Box, Typography } from "@mui/material";
-import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-
+import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 const Restaurant = () => {
   const [restaurants, setRestaurants] = useState([]);
@@ -60,7 +59,16 @@ const Restaurant = () => {
     });
   };
 
-  const weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday', 'holiday'];
+  const weekdays = [
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+    "sunday",
+    "holiday",
+  ];
 
   const DayClosedChange = (day) => () => {
     setFormData((prevState) => ({
@@ -74,13 +82,13 @@ const Restaurant = () => {
       },
     }));
   };
-  
+
   const uploadLogo = () => {
-    console.log('Logo uploaded!');
+    console.log("Logo uploaded!");
   };
 
   const uploadMenu = (file) => {
-    console.log('Menu uploaded!');
+    console.log("Menu uploaded!");
     console.log(file);
   };
 
@@ -125,7 +133,7 @@ const Restaurant = () => {
             friday: { open: "", close: "" },
             saturday: { open: "", close: "" },
             sunday: { open: "", close: "" },
-            holiday: { open: "", close: "" }
+            holiday: { open: "", close: "" },
           },
           menu: "",
           logo: "",
@@ -136,18 +144,18 @@ const Restaurant = () => {
       .catch((error) => console.error("Error creating restaurant:", error));
   };
 
-  useEffect(() => {
-    const fetchRestaurants = async () => {
-      const res = await fetch("/api/restaurant", {
-        cache: "no-store",
-      });
-      if (!res.ok) throw new Error("Something went wrong...");
+  // useEffect(() => {
+  //   const fetchRestaurants = async () => {
+  //     const res = await fetch("/api/restaurant", {
+  //       cache: "no-store",
+  //     });
+  //     if (!res.ok) throw new Error("Something went wrong...");
 
-      const data = await res.json();
-      setRestaurants(data);
-    };
-    fetchRestaurants();
-  }, []);
+  //     const data = await res.json();
+  //     setRestaurants(data);
+  //   };
+  //   fetchRestaurants();
+  // }, []);
 
   const [businessInfoVisible, setBusinessInfoVisible] = useState(true);
   const [businessHoursVisible, setBusinessHoursVisible] = useState(true);
@@ -232,16 +240,6 @@ const Restaurant = () => {
                       onChange={handleAddressChange}
                       placeholder="Postal Code"
                     />
-                  </Box>
-                  </Box>
-                  <Box sx={{    
-                      flex: { xs: '0 0 100%', md: '0 0 33%'},
-                    }}>
-                      <PictureUploadCard
-                        sx={{ height: { md: '255px' }}}
-                        phrase="Upload Logo File"
-                        onFileSelected={uploadLogo}
-                      />
                   </Box>
                 </Box>
                 <Box sx={{display: 'flex', flexDirection: { xs: 'column', md: 'row' }, flexWrap: 'wrap', justifyContent:'space-between'}}>
@@ -390,19 +388,6 @@ const Restaurant = () => {
                   phrase="Upload Menus"
                   onFileSelected={uploadMenu}
                 />
-              )}
-            </Form>
-
-            <Form>
-              <Box sx={{
-                display: 'flex', 
-                justifyContent: 'space-between',
-                alignContent: 'center',
-                flexDirection: 'row',
-                width: '100%',
-              }}>
-                <SubHeader>Referral System</SubHeader>
-                <KeyboardArrowDown onClick={() => setreferralSystemVisible(!referralSystemVisible)} />
               </Box>
               {referralSystemVisible && (
                 <>
@@ -451,20 +436,99 @@ const Restaurant = () => {
                 </>
               )}
             </Form>
-
-            <InputButton
-              onFirstButtonClick={(e) => {
-                e.preventDefault();
-                console.log('Cancel');
-              }}
-              onSecondButtonClick={handleSubmit}
-              firstButtonText="Cancel"
-              secondButtonText="Save Profile"
-              type="submit"
+        <Form>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignContent: "center",
+              flexDirection: "row",
+              width: "100%",
+            }}
+          >
+            <SubHeader>Referral System</SubHeader>
+            <KeyboardArrowDown
+              onClick={() => setreferralSystemVisible(!referralSystemVisible)}
             />
-      </div>
+          </Box>
+          {referralSystemVisible && (
+            <>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: { xs: "column", md: "row" },
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    gap: "8px",
+                    width: { xs: "326px", md: "400px" },
+                    marginTop: "20px",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: "#181818",
+                      fontSize: "19px",
+                      fontFamily: "Mukta",
+                      fontStyle: "normal",
+                      fontWeight: 600,
+                    }}
+                  >
+                    How many points the Super Customers can earn for each
+                    hundred dollar they spend?
+                  </Typography>
+                  <InputText
+                    name="points"
+                    id="points"
+                    value={formData.points}
+                    onChange={handleInputChange}
+                    placeholder="Points"
+                    style={{ whiteSpace: "nowrap" }}
+                  />
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "row",
+                    gap: "5px",
+                    width: { xs: "326px", md: "400px" },
+                  }}
+                >
+                  <ErrorOutlineIcon />
+                  <Typography>
+                    You set up this number only when you’re creating your
+                    profile. The Super Customers can redeem their points to get
+                    $1.00 discount per point.
+                  </Typography>
+                </Box>
+              </Box>
+            </>
+          )}
+        </Form>
+
+        <InputButton
+          onFirstButtonClick={(e) => {
+            e.preventDefault();
+            console.log("Cancel");
+          }}
+          onSecondButtonClick={handleSubmit}
+          firstButtonText="Cancel"
+          secondButtonText="Save Profile"
+          type="submit"
+        />
+      </form>
+    </div>
   );
 };
 
 export default Restaurant;
-

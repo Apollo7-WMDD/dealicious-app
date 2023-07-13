@@ -1,43 +1,41 @@
 "use client";
 
+// react imports
 import { useEffect } from "react";
 
+// next imports
 import Link from "next/link";
+
+// mui imports
 import { Button, Box } from "@mui/material";
 
+// components imports
 import CreateNewCampaign from "@/app/components/Dashboard/CreateNewCampaign";
 import Header from "@/app/components/Header/Header";
 import SubHeader from "@/app/components/Header/SubHeader";
 
-// user context
+// user context imports
 import { useStore } from "@/lib/context/user_context/store";
 
-const fetchRestaurants = async (restaurantOwnerId) => {
-  const isProduction = process.env.NODE_ENV === "production";
-  const serverUrl = isProduction
-    ? process.env.NEXT_PUBLIC_SERVER_URL
-    : "http://localhost:3000";
+// fetch imports
+import { fetchRestaurantId } from "@/lib/fetching/restaurant/restaurant_id/data";
 
-  const res = await fetch(
-    `${serverUrl}/api/dashboard/campaigns/active/${restaurantOwnerId}`
-  );
-
-  if (!res.ok) throw new Error("Something went wrong...");
-
-  const data = await res.json();
-  return data;
-};
-
-const Page = async () => {
+const Page = () => {
   const { restaurantOwnerId, restaurantId, setRestaurantId } = useStore();
 
   useEffect(() => {
     const getRestaurantId = async () => {
-      const data = await fetchRestaurants(restaurantOwnerId);
+      const data = await fetchRestaurantId(restaurantOwnerId);
       setRestaurantId(data.restaurantId);
     };
-    getRestaurantId();
+
+    if (restaurantOwnerId) {
+      getRestaurantId();
+    }
   }, [restaurantOwnerId]);
+
+  console.log("restaurantOwnerId", restaurantOwnerId);
+  console.log("restaurantId", restaurantId);
 
   return (
     <div>
@@ -47,38 +45,28 @@ const Page = async () => {
           <SubHeader props={"Ongoing campaigns"} />
 
           <Link href={`/`}>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
-              Home Page
-            </button>
+            <button>Home Page</button>
           </Link>
           <Link href={`/dashboard/campaigns/createNew/${restaurantOwnerId}`}>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
-              Create campaign
-            </button>
+            <button>Create campaign</button>
           </Link>
 
           <Link href={`/dashboard/profile/${restaurantOwnerId}`}>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
-              Profile
-            </button>
+            <button>Profile</button>
           </Link>
 
           <Link
             href={`/dashboard/insights/overview/${restaurantOwnerId}/${restaurantId}`}
           >
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
-              Insights - Overview
-            </button>
+            <button>Insights - Overview</button>
           </Link>
 
           <Link href={`/dashboard/burnCode/${restaurantOwnerId}`}>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
-              Burn Code
-            </button>
+            <button>Burn Code</button>
           </Link>
           <Button>Home Page</Button>
         </div>
-        <CreateNewCampaign className="m-5" />
+        <CreateNewCampaign />
       </Box>
     </div>
   );
