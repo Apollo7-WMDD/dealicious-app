@@ -164,7 +164,12 @@ const Restaurant = () => {
 
   return (
     <div>
+<<<<<<< HEAD
       <Header>Create Profile</Header>
+=======
+      <SubHeader>Create Profile</SubHeader>
+      <form onSubmit={handleSubmit} className="">
+>>>>>>> fddc6d4 (Revert "feat: AP179-Create campaign page")
         <Form>
           <Box
             sx={{
@@ -184,6 +189,7 @@ const Restaurant = () => {
           </Box>
           {businessInfoVisible && (
             <>
+<<<<<<< HEAD
               <Box sx={{ display: { xs: "block", md: "flex", justifyContent:'space-between' }}}>
                 <Box
                   sx={{
@@ -195,6 +201,18 @@ const Restaurant = () => {
                   }}
                 >
                   <Box sx={{ width: { xs: "100%", md: "48%" } }}>
+=======
+              <Box sx={{ display: { xs: "block", md: "flex" } }}>
+                <Box
+                  sx={{
+                    width: { xs: "100%", md: "66.66%" },
+                    display: "flex",
+                    flexDirection: { xs: "column", md: "row" },
+                    flexWrap: "wrap",
+                  }}
+                >
+                  <Box sx={{ width: { xs: "100%", md: "50%" } }}>
+>>>>>>> fddc6d4 (Revert "feat: AP179-Create campaign page")
                     <InputText
                       label="Business Name"
                       value={formData.name}
@@ -204,7 +222,11 @@ const Restaurant = () => {
                       placeholder="Business Name"
                     />
                   </Box>
+<<<<<<< HEAD
                   <Box sx={{ width: { xs: "100%", md: "48%" } }}>
+=======
+                  <Box sx={{ width: { xs: "100%", md: "50%" } }}>
+>>>>>>> fddc6d4 (Revert "feat: AP179-Create campaign page")
                     <InputText
                       label="Business Category"
                       value={formData.category}
@@ -214,7 +236,11 @@ const Restaurant = () => {
                       placeholder="Ex:Japanese,Indian,Brunch"
                     />
                   </Box>
+<<<<<<< HEAD
                   <Box sx={{ width: { xs: "100%", md: "48%" } }}>
+=======
+                  <Box sx={{ width: { xs: "100%", md: "50%" } }}>
+>>>>>>> fddc6d4 (Revert "feat: AP179-Create campaign page")
                     <InputText
                       label="Manager"
                       name="manager"
@@ -224,7 +250,11 @@ const Restaurant = () => {
                       placeholder="Manager"
                     />
                   </Box>
+<<<<<<< HEAD
                   <Box sx={{ width: { xs: "100%", md: "48%" } }}>
+=======
+                  <Box sx={{ width: { xs: "100%", md: "50%" } }}>
+>>>>>>> fddc6d4 (Revert "feat: AP179-Create campaign page")
                     <InputText
                       label="Website"
                       name="website"
@@ -234,7 +264,11 @@ const Restaurant = () => {
                       placeholder="Website"
                     />
                   </Box>
+<<<<<<< HEAD
                   <Box sx={{ width: { xs: "100%", md: "48%" } }}>
+=======
+                  <Box sx={{ width: { xs: "100%", md: "50%" } }}>
+>>>>>>> fddc6d4 (Revert "feat: AP179-Create campaign page")
                     <InputText
                       label="Business Email Address"
                       type="email"
@@ -245,7 +279,11 @@ const Restaurant = () => {
                       placeholder="Business Email Address"
                     />
                   </Box>
+<<<<<<< HEAD
                   <Box sx={{ width: { xs: "100%", md: "48%" } }}>
+=======
+                  <Box sx={{ width: { xs: "100%", md: "50%" } }}>
+>>>>>>> fddc6d4 (Revert "feat: AP179-Create campaign page")
                     <InputText
                       label="Postal Code"
                       name="postalCode"
@@ -273,10 +311,16 @@ const Restaurant = () => {
                   display: "flex",
                   flexDirection: { xs: "column", md: "row" },
                   flexWrap: "wrap",
+<<<<<<< HEAD
                   justifyContent:'space-between',
                 }}
               >
                 <Box sx={{ width: { xs: "100%", md: "30.5%" } }}>
+=======
+                }}
+              >
+                <Box sx={{ width: { xs: "100%", md: "33.33%" } }}>
+>>>>>>> fddc6d4 (Revert "feat: AP179-Create campaign page")
                   <InputText
                     label="Business Phone Number"
                     type="tel"
@@ -287,7 +331,11 @@ const Restaurant = () => {
                     placeholder="Business Phone Number"
                   />
                 </Box>
+<<<<<<< HEAD
                 <Box sx={{ width: { xs: "100%", md: "67%" } }}>
+=======
+                <Box sx={{ width: { xs: "100%", md: "66.66%" } }}>
+>>>>>>> fddc6d4 (Revert "feat: AP179-Create campaign page")
                   <InputText
                     label="Street Address"
                     name="street"
@@ -297,7 +345,11 @@ const Restaurant = () => {
                     placeholder="Street Address"
                   />
                 </Box>
+<<<<<<< HEAD
                 <Box sx={{ width: { xs: "100%", md: "30.5%" } }}>
+=======
+                <Box sx={{ width: { xs: "100%", md: "33.33%" } }}>
+>>>>>>> fddc6d4 (Revert "feat: AP179-Create campaign page")
                   <InputText
                     label="City"
                     name="city"
@@ -307,7 +359,11 @@ const Restaurant = () => {
                     placeholder="City"
                   />
                 </Box>
+<<<<<<< HEAD
                 <Box sx={{ width: { xs: "100%", md: "33.5%" } }}>
+=======
+                <Box sx={{ width: { xs: "100%", md: "33.33%" } }}>
+>>>>>>> fddc6d4 (Revert "feat: AP179-Create campaign page")
                   <InputText
                     label="Province/State"
                     name="province"
@@ -318,7 +374,11 @@ const Restaurant = () => {
                   />
                 </Box>
                 <Box
+<<<<<<< HEAD
                   sx={{ width: { xs: "100%", md: "30.5%"} }}
+=======
+                  sx={{ width: { xs: "100%", md: "33.33%", marginTop: "8px" } }}
+>>>>>>> fddc6d4 (Revert "feat: AP179-Create campaign page")
                 >
                   <InputDropdown
                     label="Country"
@@ -359,8 +419,12 @@ const Restaurant = () => {
                 sx={{
                   display: "flex",
                   flexDirection: { xs: "column", md: "row" },
+<<<<<<< HEAD
                   gap: { xs: "0", md: "30px" },
                   marginBottom: '20px', 
+=======
+                  gap: { xs: "0", md: "20px" },
+>>>>>>> fddc6d4 (Revert "feat: AP179-Create campaign page")
                   alignItems: "center",
                 }}
               >
@@ -390,7 +454,10 @@ const Restaurant = () => {
                   <InputCheckbox
                     label="Closed"
                     onChecked={DayClosedChange(day)}
+<<<<<<< HEAD
                     labelPlacement="start"
+=======
+>>>>>>> fddc6d4 (Revert "feat: AP179-Create campaign page")
                     checked={formData.businessHours[day].closed}
                   />
                 </Box>
