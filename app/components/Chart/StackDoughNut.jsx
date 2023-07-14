@@ -62,15 +62,9 @@ function StackDoughNut() {
         // 'rgba(0, 0, 0, 0.2)'
       ],
       borderColor: [
-        'rgba(255, 26, 104, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(255, 206, 86, 1)',
-        'rgba(75, 192, 192, 1)',
-        'rgba(153, 102, 255, 1)',
-        'rgba(255, 159, 64, 1)',
-        'rgba(0, 0, 0, 1)'
+       "transparent",
       ],
-      borderWidth: 1,
+      borderWidth: 5,
     //   circumference : (ctx)=>{
     //     console.log(ctx.datasets.data[0])
     //         return ctx.datasets.data[0]/18*270
@@ -91,15 +85,9 @@ function StackDoughNut() {
         //   'rgba(0, 0, 0, 0.2)'
         ],
         borderColor: [
-          'rgba(255, 26, 104, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-          'rgba(0, 0, 0, 1)'
-        ],
-        borderWidth: 1,
+          "transparent",
+         ],
+         borderWidth: 5,
         circumference : 270
   
       },
@@ -116,15 +104,9 @@ function StackDoughNut() {
         //   'rgba(0, 0, 0, 0.2)'
         ],
         borderColor: [
-          'rgba(255, 26, 104, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-          'rgba(0, 0, 0, 1)'
-        ],
-        borderWidth: 1,
+          "transparent",
+         ],
+         borderWidth: 5,
         circumference : 270
   
       },
@@ -132,7 +114,8 @@ function StackDoughNut() {
         label: 'Weekly Sales',
         data: [5],
         backgroundColor: [
-            theme.palette.primary[120],
+            // theme.palette.primary[120],
+            "hotpink"
         //   'rgba(54, 162, 235, 0.2)',
         //   'rgba(255, 206, 86, 0.2)',
         //   'rgba(75, 192, 192, 0.2)',
@@ -141,15 +124,9 @@ function StackDoughNut() {
         //   'rgba(0, 0, 0, 0.2)'
         ],
         borderColor: [
-          'rgba(255, 26, 104, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)',
-          'rgba(0, 0, 0, 1)'
-        ],
-        borderWidth: 1,
+          "white",
+         ],
+         borderWidth: 5,
         circumference : 270
   
       },
