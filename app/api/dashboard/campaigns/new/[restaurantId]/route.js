@@ -17,6 +17,7 @@ export const POST = async (req) => {
       return new NextResponse(400, { message: "Missing required fields" });
     }
 
+    console.log(campaign.condition);
     const newCampaign = new Campaign({
       restaurantId: new mongoose.Types.ObjectId(campaign.restaurantId),
       superCustomerId:
@@ -36,10 +37,12 @@ export const POST = async (req) => {
       endDate: campaign.endDate,
       media: campaign.media,
       description: campaign.description,
+      condition: campaign.condition,
       favorite: campaign.favorite,
       autoDescription: campaign.autoDescription,
     });
 
+    console.log(newCampaign);
     await newCampaign.save();
     return new NextResponse(200, { message: "Campaign created successfully" });
   } catch (error) {

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Checkbox, FormControlLabel, Box } from '@mui/material';
 
-const InputCheckbox = ({ label, onChecked, labelPlacement = 'end' }) => {
-  const handleCheckboxChange = (event) => {
-    if (event.target.checked && onChecked) {
-      onChecked();
+const InputCheckbox = ({ label, onChecked, checked, labelPlacement = 'end' }) => {
+  const checkBoxChange = (event) => {
+    if (onChecked) {
+      onChecked(event.target.checked);
     }
   };
 
@@ -19,7 +19,8 @@ const InputCheckbox = ({ label, onChecked, labelPlacement = 'end' }) => {
         <FormControlLabel
         control={
             <Checkbox
-            onChange={handleCheckboxChange}
+            onChange={checkBoxChange}
+            checked={checked}
             sx={{
                 width: '24px',
                 height: '24px',

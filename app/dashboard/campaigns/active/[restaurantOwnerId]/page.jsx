@@ -7,68 +7,87 @@ import { useEffect } from "react";
 import Link from "next/link";
 
 // mui imports
-import { Button, Box } from "@mui/material";
+import { Button, Box , useTheme} from "@mui/material";
 
 // components imports
 import CreateNewCampaign from "@/app/components/Dashboard/CreateNewCampaign";
 import Header from "@/app/components/Header/Header";
 import SubHeader from "@/app/components/Header/SubHeader";
-
+import ChartCard from "@/app/components/ChartCard";
+import ChartCardTitle from "@/app/components/Chart/ChartCardTitle";
+import MainGrid from "@/app/components/MainGrid";
+import HeaderGrid from "@/app/components/HeaderGrid";
+// ? StackDoughNut is not working if not import DoughnutChart_NumCustomer before it due to 'arc' register issue
+import DoughnutChart_NumCustomer from "@/app/components/Chart/DoughnutChart_NumCustomer";
+import StackDougnNutSpan1 from "@/app/components/Chart/StackDougnNutSpan1";
+import CampaignGrid from "@/app/components/Dashboard/CampaignGrid";
 // user context imports
-import { useStore } from "@/lib/context/user_context/store";
-
-// fetch imports
-import { fetchRestaurantId } from "@/lib/fetching/restaurant/restaurant_id/data";
+// import { useStore as useStoreOwner } from "@/lib/context/user_context/store";
 
 const Page = () => {
-  const { restaurantOwnerId, restaurantId, setRestaurantId } = useStore();
+  // const { restaurantOwnerId, restaurantId, setRestaurantId } = useStoreOwner();
+  const theme = useTheme();
+  // useEffect(() => {
+  //   const getRestaurantId = async () => {
+  //     const data = await fetchRestaurantId(restaurantOwnerId);
+  //     setRestaurantId(data.restaurantId);
+  //   };
 
-  useEffect(() => {
-    const getRestaurantId = async () => {
-      const data = await fetchRestaurantId(restaurantOwnerId);
-      setRestaurantId(data.restaurantId);
-    };
+  //   if (restaurantOwnerId) {
+  //     getRestaurantId();
+  //   }
+  // }, [restaurantOwnerId]);
 
-    if (restaurantOwnerId) {
-      getRestaurantId();
-    }
-  }, [restaurantOwnerId]);
-
-  console.log("restaurantOwnerId", restaurantOwnerId);
-  console.log("restaurantId", restaurantId);
+  // console.log("restaurantOwnerId", restaurantOwnerId);
+  // console.log("restaurantId", restaurantId);
 
   return (
-    <div>
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-        <div>
+    <>
+      <Box
+        sx={{
+          // display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <HeaderGrid>
           <Header props={"Campaigns"} />
-          <SubHeader props={"Ongoing campaigns"} />
+          <CreateNewCampaign />
+        </HeaderGrid>
 
-          <Link href={`/`}>
-            <button>Home Page</button>
-          </Link>
-          <Link href={`/dashboard/campaigns/createNew/${restaurantOwnerId}`}>
-            <button>Create campaign</button>
-          </Link>
+        <SubHeader props={"Ongoing campaigns"} />
+        <MainGrid>
+          {/* <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3,1fr)",
+              gridColumn: "1/-1",
+              gap: "1.5rem",
+              width: "100%",
+              [theme.breakpoints.down('lg')]: {
+                gridTemplateColumns: "repeat(2, 1fr)"},
+              [theme.breakpoints.down('md')]: {
+                gridTemplateColumns: "repeat(1, 1fr)",
+              }
+            }}
+          > */}
+            <ChartCard gridColumn={"span 1"}>
+              <ChartCardTitle text={"Overview"} pinStatus={""}></ChartCardTitle>
+              <StackDougnNutSpan1></StackDougnNutSpan1>
+            </ChartCard>
 
-          <Link href={`/dashboard/profile/${restaurantOwnerId}`}>
-            <button>Profile</button>
-          </Link>
+            <ChartCard gridColumn={"2/-1"}>
+              <ChartCardTitle
+                text={"Hilighted Campaigns"}
+                pinStatus={"active"}
+              ></ChartCardTitle>
+            </ChartCard>
+          {/* </Box> */}
 
-          <Link
-            href={`/dashboard/insights/overview/${restaurantOwnerId}/${restaurantId}`}
-          >
-            <button>Insights - Overview</button>
-          </Link>
-
-          <Link href={`/dashboard/burnCode/${restaurantOwnerId}`}>
-            <button>Burn Code</button>
-          </Link>
-          <Button>Home Page</Button>
-        </div>
-        <CreateNewCampaign />
+          {/* // CAMPAIGN GRID */}
+          <CampaignGrid></CampaignGrid>
+        </MainGrid>
       </Box>
-    </div>
+    </>
   );
 };
 
