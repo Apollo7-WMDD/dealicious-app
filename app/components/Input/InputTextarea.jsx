@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const InputTextarea = ({ label, value, onChange, name, id, placeholder, type = 'text', ...props }) => {
+const InputTextarea = ({ label, value, onChange, name, id, placeholder, error, type = 'text', ...props }) => {
   return (
     <Box
       sx={{
@@ -49,6 +49,8 @@ const InputTextarea = ({ label, value, onChange, name, id, placeholder, type = '
             multiline
             rows={4}
             fullWidth
+            error={!!error} 
+            helperText={error || ''}
             InputProps={{
                 sx: {
                 alignItems: 'center',
