@@ -26,7 +26,7 @@ import { useRouter } from "next/navigation";
 import { useStore } from "@/lib/context/user_context/store";
 
 const Page = () => {
-  const { restaurantId } = useStore();
+  const { restaurantId, restaurantOwnerId } = useStore();
   // const obj = { restaurantId: '649caf44ea1c8363ed630fc4' };
   // const { restaurantId } = obj;
   const router = useRouter();
