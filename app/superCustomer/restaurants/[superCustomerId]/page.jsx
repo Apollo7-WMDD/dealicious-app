@@ -1,6 +1,7 @@
 "use client";
 import Header from "../../../components/Header/Header";
 import SCCard from "../../../components/Card/SCCard";
+import SCHeader from "../../../components/Header/SCHeader"
 
 const fetchRestaurants = async (superCustomerId) => {
   const isProduction = process.env.NODE_ENV === "production";
@@ -25,11 +26,13 @@ const Page = async ({ params }) => {
   const { superCustomerId } = params;
   const data = await fetchRestaurants(superCustomerId);
   console.log(data[0].name)
+  const cards = data.map((item, index) => <SCCard key={index} props={item} />);
+
   return (
     <div>
+      <SCHeader />
       <Header props={"My Restaurants"} />
-      <SCCard props={data[0]}/>
-      <SCCard props={data[1]}/>
+      {cards}
     </div>
   );
 };
