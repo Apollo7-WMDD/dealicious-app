@@ -13,19 +13,20 @@ const ViewNewCampaign = ({ formData, handleFinalSubmit, handleEditProp, setFormD
 
     let offerLimit, customerLimit;
 
-    if (formData.expireByNumber) {
+    if (formData.expiredByNumber) {
       offerLimit = `Offer is limited for ${formData.availableCodes} customers`;
     } else {
       offerLimit = "Offer is unlimited in number of customers";
     }
 
+    
     if (formData.allowSuperCustomer && formData.allowNewCustomer) {
+      customerLimit = "Super customers & New customers";
+    } else if (formData.allowNewCustomer) {
       customerLimit = "New customers";
     } else if (formData.allowSuperCustomer) {
       customerLimit = "Super customers";
-    } else if (formData.allowNewCustomer) {
-      customerLimit = "Super customers & New customers";
-    }
+    }    
 
 
     return (
@@ -58,7 +59,7 @@ const ViewNewCampaign = ({ formData, handleFinalSubmit, handleEditProp, setFormD
               alignItems: 'flex-start', 
               justifyContent: 'center' 
             }}>
-              <img src={formData.media} alt="Campaign Image" style={{ Width: '100%', height: '100%', objectFit: 'cover', borderRadius:'8px' }}/>
+              <img src={localStorage.getItem('media')} alt="Campaign Image" style={{ Width: '100%', height: '100%', objectFit: 'cover', borderRadius:'8px' }}/>
             </Box>
             <Box sx={{ width: { xs: '100%', md: '55%' }, display: 'flex', flexDirection: 'column', gap: '12px'}}>
               <SubHeader>{formData.name}</SubHeader>

@@ -8,12 +8,14 @@ import { useStore } from "../../../lib/context/sidebar_context/store.js";
 import SideBarItem from "./SideBarItem.jsx";
 import SideBarUtilButton from "./SideBarUtilButton.jsx";
 import { useTheme } from "@mui/material";
+import TodayInfo from "./TodayInfo.jsx";
 
 function SideBar() {
   const { isSidebarOpen } = useStore();
   const theme = useTheme();
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const shadowColor = `${theme.palette.neutral[20]}1f`;
+
   return (
     <>
       {isNonMobile && (
@@ -42,6 +44,7 @@ function SideBar() {
             },
           }}
         >
+          
           <Box
             sx={{
               display: "flex",
@@ -60,7 +63,8 @@ function SideBar() {
               />
               <Divider style={{ margin: "1rem 2rem" }} />
               <SideBarItem />
-              <Box
+              <TodayInfo />
+              {/* <Box
                 sx={{
                   backgroundColor: theme.palette.secondary[100],
                   borderRadius: "1rem 1rem 1rem 1rem",
@@ -110,7 +114,7 @@ function SideBar() {
                 >
                   $$$
                 </Typography>
-              </Box>
+              </Box> */}
             </Box>
 
             <SideBarUtilButton />

@@ -17,7 +17,7 @@ function ChartCard({ content, children, gridColumn }) {
         // height: "310px";
         padding: "1rem 1.5rem",
         flexDirection: "column",
-        justifyContent: "space-between",
+        justifyContent: "start",
         alignItems: "center",
         flexShrink: 0,
         [theme.breakpoints.down('md')]: {

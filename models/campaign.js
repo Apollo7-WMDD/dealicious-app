@@ -86,6 +86,11 @@ const CampaignSchema = new Schema({
     required: [true, "Description is required"],
     trim: true,
   },
+  condition:{
+    type: String,
+    required: [true, "Condition is required"],
+    trim: true,
+  },
   favorite: {
     type: Boolean,
     default: false,

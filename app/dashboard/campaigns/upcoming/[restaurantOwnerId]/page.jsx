@@ -4,32 +4,12 @@ import { Button, Box } from "@mui/material";
 import CreateNewCampaign from "../../../../components/Dashboard/CreateNewCampaign";
 import Header from "../../../../components/Header/Header";
 import SubHeader from "../../../../components/Header/SubHeader";
+import { useStore as useStoreOwner} from "@/lib/context/user_context/store";
 
-const fetchRestaurants = async (restaurantOwnerId) => {
-  const isProduction = process.env.NODE_ENV === "production";
-  const serverUrl = isProduction
-    ? process.env.NEXT_PUBLIC_SERVER_URL
-    : "http://localhost:3000";
 
-  const res = await fetch(
-    `${serverUrl}/api/dashboard/campaigns/active/${restaurantOwnerId}`
-    // {
-    //   cache: "no-store",
-    // }
-  );
 
-  if (!res.ok) throw new Error("Something went wrong...");
-
-  const data = await res.json();
-  return data;
-};
-
-const Page = async ({ params }) => {
-  const { restaurantOwnerId } = params;
-  const restaurantData = await fetchRestaurants(restaurantOwnerId);
-  const restaurantId = restaurantData.restaurantId;
-  console.log(restaurantData);
-  console.log(restaurantId);
+const Page =  () => {
+  const { restaurantOwnerId, restaurantId, setRestaurantId } = useStoreOwner();
 
   return (
     <div style={{ padding: "0 2%" }}>

@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const InputText = ({ label, value, onChange, name, id, placeholder, type = 'text', ...props }) => {
+const InputText = ({ label, value, onChange, name, id, placeholder, error, type = 'text', ...props }) => {
   return (
     <Box
       sx={{
@@ -37,7 +37,7 @@ const InputText = ({ label, value, onChange, name, id, placeholder, type = 'text
             }}
           >
             {label}
-        Typography</Typography>
+        </Typography>
         )}
         <TextField
           type={type}
@@ -48,6 +48,8 @@ const InputText = ({ label, value, onChange, name, id, placeholder, type = 'text
           placeholder={placeholder}
           variant="outlined"
           fullWidth
+          error={!!error} 
+          helperText={error || ''}
           InputProps={{
             sx: {
               height: '44px',

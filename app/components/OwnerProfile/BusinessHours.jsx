@@ -1,4 +1,4 @@
-import ChartCard from '../ChartCard';
+import ChartCard from '../Card/ChartCard';
 import SubHeader from '../Header/SubHeader';
 import { Box } from '@mui/material';
 import Typography from '@mui/material/Typography';

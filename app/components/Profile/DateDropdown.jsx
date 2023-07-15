@@ -3,10 +3,12 @@ import { Box, TextField, InputLabel } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
 
 const DateDropdown = ({ onChange }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const tomorrow = dayjs().add(1, 'day');
 
   const handleStartDateChange = (date) => {
     setStartDate(date);
@@ -24,8 +26,9 @@ const DateDropdown = ({ onChange }) => {
         display: 'flex',
         // width: '260px',
         width: '100%',
-        flexDirection: 'column',
+        flexDirection: { xs: 'column', md: 'row' },
         alignItems: 'flex-start',
+        justifyContent: 'center',
         flexShrink: 0, 
         gap: '16px',
         marginTop: '8px',
@@ -36,6 +39,7 @@ const DateDropdown = ({ onChange }) => {
             display: 'flex',
             flexDirection: 'column',
             alignSelf: 'stretch',
+            flex: 1,
           }}
         >
           <InputLabel
@@ -62,6 +66,7 @@ const DateDropdown = ({ onChange }) => {
               border: 'none'
             }
           }}
+          minDate={tomorrow}
           value={startDate}
           onChange={handleStartDateChange}
           renderInput={(params) => <TextField {...params} />}
@@ -72,6 +77,7 @@ const DateDropdown = ({ onChange }) => {
             display: 'flex',
             flexDirection: 'column',
             alignSelf: 'stretch',
+            flex: 1,
           }}
         >
           <InputLabel

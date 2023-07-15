@@ -5,7 +5,7 @@ import Restaurant from "@/models/restaurant";
 export const GET = async (request) => {
   const url = new URL(request.url);
   const restaurantOwner = url.pathname.split("/")[3];
-
+console.log(restaurantOwner)
   try {
     await connect();
 

@@ -31,14 +31,14 @@ const Restaurant = () => {
       country: "",
     },
     businessHours: {
-      monday: { open: "", close: "" },
-      tuesday: { open: "", close: "" },
-      wednesday: { open: "", close: "" },
-      thursday: { open: "", close: "" },
-      friday: { open: "", close: "" },
-      saturday: { open: "", close: "" },
-      sunday: { open: "", close: "" },
-      holiday: { open: "", close: "" },
+      monday: { open: "", close: "", closed: false },
+      tuesday: { open: "", close: "", closed: false },
+      wednesday: { open: "", close: "", closed: false },
+      thursday: { open: "", close: "", closed: false },
+      friday: { open: "", close: "", closed: false },
+      saturday: { open: "", close: "", closed: false },
+      sunday: { open: "", close: "", closed: false },
+      holiday: { open: "", close: "", closed: false },
     },
     menu: "",
     logo: "",
@@ -70,14 +70,23 @@ const Restaurant = () => {
     "holiday",
   ];
 
-  const DayClosedChange = (day) => () => {
+  const [selectedDay, setSelectedDay] = useState("");
+  const [dayClosed, setDayClosed] = useState("");
+
+  useEffect(() => {
+    if (selectedDay) {
+      setDayClosed(formData.businessHours[selectedDay]?.closed);
+    }
+  }, [selectedDay, formData.businessHours]);
+
+  const DayClosedChange = (day, newState) => () => {
     setFormData((prevState) => ({
       ...prevState,
       businessHours: {
         ...prevState.businessHours,
         [day]: {
           ...prevState.businessHours[day],
-          closed: !prevState.businessHours[day].closed,
+          closed: newState,
         },
       },
     }));
@@ -389,20 +398,20 @@ const Restaurant = () => {
                   </Typography>
                   <InputCheckbox
                     label="Closed"
-                    onChecked={DayClosedChange(day)}
+                    onChecked={(newState) => DayClosedChange(day, newState)()}
                     labelPlacement="start"
-                    checked={formData.businessHours[day].closed}
+                    checked={formData.businessHours[day]?.closed}
                   />
                 </Box>
                 <TimeDropdown
                   day={day}
-                  isDisabled={formData.businessHours[day].closed}
+                  isDisabled={formData.businessHours[day]?.closed}
                   setBusinessHours={(newHours) => {
                     setFormData((prevState) => ({
                       ...prevState,
                       businessHours: {
                         ...prevState.businessHours,
-                        [day]: newHours,
+                        [day]: { ...newHours, closed: formData.businessHours[day].closed },
                       },
                     }));
                   }}
