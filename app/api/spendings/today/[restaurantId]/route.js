@@ -7,7 +7,7 @@ import mongoose from "mongoose";
 export const GET = async (request) => {
   const url = new URL(request.url);
   const restaurantId = url.pathname.split("/")[4];
-  console.log(restaurantId);
+  console.log("This is the restaurant Id", restaurantId);
 
   try {
     await connect();
@@ -35,6 +35,11 @@ export const GET = async (request) => {
       0
     );
     const numCustomers = spendings.length;
+
+    // return empty object if no spendings
+    if (spendings.length === 0) {
+      return new NextResponse(JSON.stringify({}), { status: 200 });
+    }
 
     const result = {
       sum,
