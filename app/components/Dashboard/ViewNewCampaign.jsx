@@ -59,7 +59,7 @@ const ViewNewCampaign = ({ formData, handleFinalSubmit, handleEditProp, setFormD
               alignItems: 'flex-start', 
               justifyContent: 'center' 
             }}>
-              <img src={formData.media} alt="Campaign Image" style={{ Width: '100%', height: '100%', objectFit: 'cover', borderRadius:'8px' }}/>
+              <img src={localStorage.getItem('media')} alt="Campaign Image" style={{ Width: '100%', height: '100%', objectFit: 'cover', borderRadius:'8px' }}/>
             </Box>
             <Box sx={{ width: { xs: '100%', md: '55%' }, display: 'flex', flexDirection: 'column', gap: '12px'}}>
               <SubHeader>{formData.name}</SubHeader>

@@ -26,8 +26,9 @@ const DateDropdown = ({ onChange }) => {
         display: 'flex',
         // width: '260px',
         width: '100%',
-        flexDirection: 'column',
+        flexDirection: { xs: 'column', md: 'row' },
         alignItems: 'flex-start',
+        justifyContent: 'center',
         flexShrink: 0, 
         gap: '16px',
         marginTop: '8px',
@@ -38,6 +39,7 @@ const DateDropdown = ({ onChange }) => {
             display: 'flex',
             flexDirection: 'column',
             alignSelf: 'stretch',
+            flex: 1,
           }}
         >
           <InputLabel
@@ -75,6 +77,7 @@ const DateDropdown = ({ onChange }) => {
             display: 'flex',
             flexDirection: 'column',
             alignSelf: 'stretch',
+            flex: 1,
           }}
         >
           <InputLabel
