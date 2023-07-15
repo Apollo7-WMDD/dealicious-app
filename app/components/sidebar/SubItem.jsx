@@ -31,7 +31,8 @@ function SubItem({ list }) {
             <ListItem key={text} sx={{ padding: "0.25rem 0 0 0" }}>
               <ListItemButton
                 onClick={() => {
-                  router.push(`${link}`.substring(1));
+                  router.push(`${link}`);
+                  // router.push(`${link}`.substring(1));
                   setSideBarSubItemActive(activeLink);
                 }}
                 sx={{

@@ -9,11 +9,14 @@ import SideBarItem from "./SideBarItem.jsx";
 import SideBarUtilButton from "./SideBarUtilButton.jsx";
 import { useTheme } from "@mui/material";
 
+
+
 function SideBar() {
   const { isSidebarOpen } = useStore();
   const theme = useTheme();
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const shadowColor = `${theme.palette.neutral[20]}1f`;
+
   return (
     <>
       {isNonMobile && (
