@@ -7,7 +7,9 @@ import { useState } from "react";
 import Link from "next/link";
 
 // mui imports
+
 import { Button, Box, useTheme, Typography } from "@mui/material";
+
 
 // components imports
 import CreateNewCampaign from "@/app/components/Dashboard/CreateNewCampaign";
@@ -23,9 +25,9 @@ import StackDougnNutSpan1 from "@/app/components/Chart/StackDougnNutSpan1";
 import LineChart from "@/app/components/Chart/LineChart";
 import CampaignGrid from "@/app/components/Dashboard/CampaignGrid";
 
+
 import HilightWrap from "@/app/components/Dashboard/HilightWrap";
-// user context imports
-// import { useStore as useStoreOwner } from "@/lib/context/user_context/store";
+
 
 // const showHilighted = (data)=>{
 //   console.log("showHilighted")
@@ -33,8 +35,8 @@ import HilightWrap from "@/app/components/Dashboard/HilightWrap";
 // }
 
 const Page = () => {
-  // const { restaurantOwnerId, restaurantId, setRestaurantId } = useStoreOwner();
   const theme = useTheme();
+
   const [hilighted, setHilighted] = useState({});
   // useEffect(() => {
   //   const getRestaurantId = async () => {
@@ -56,6 +58,7 @@ const Page = () => {
   console.log("hilight campaign is");
   console.log(hilighted);
   console.log(hilighted.startDate);
+
   return (
     <>
       <Box
@@ -71,6 +74,7 @@ const Page = () => {
 
         <SubHeader props={"Ongoing campaigns"} />
         <MainGrid>
+
           <ChartCard gridColumn={"span 1"}>
             <ChartCardTitle text={"Overview"} pinStatus={""}></ChartCardTitle>
             <StackDougnNutSpan1></StackDougnNutSpan1>
@@ -79,6 +83,7 @@ const Page = () => {
           <ChartCard gridColumn={"2/-1"}>
             <ChartCardTitle
               text={"Hilighted Campaigns"}
+
               pinStatus={true}
               showPin={true}
             ></ChartCardTitle>

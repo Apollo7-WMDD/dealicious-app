@@ -1,7 +1,8 @@
 "use client";
 
 import LoginComponent from "@/app/components/Login/Login";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 const styles = {
@@ -33,10 +34,11 @@ const styles = {
 
 const Login = () => {
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     if (session) {
-      window.history.go(-3);
+      router.push("/");
     }
   }, [session]);
 
@@ -47,7 +49,7 @@ const Login = () => {
       email: e.target.email.value,
       password: e.target.password.value,
     };
-    signIn("credentials", formData);
+    // signIn("credentials", formData);
   };
 
   return (
@@ -73,6 +75,7 @@ const Login = () => {
               id="password"
             />
             <button style={styles.button}>Submit</button>
+
           </form>
           <button
             className=" mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white"
@@ -80,6 +83,7 @@ const Login = () => {
           >
             Login with Google
           </button> */}
+
         </>
       )}
     </>
