@@ -1,5 +1,5 @@
 import React from 'react';
-import ChartCard from '../ChartCard'; 
+import ChartCard from '../Card/ChartCard'; 
 import InputText from '../Input/InputText';
 import SubHeader from '../Header/SubHeader';
 import SingleButton from '../Button/SingleButton';

@@ -1,14 +1,35 @@
-import Pin from '@/app/components/svg/pin.svg';
-import { Typography,useTheme } from "@mui/material";
+import Pin from "@/app/components/svg/pin.svg";
+import { Typography, useTheme } from "@mui/material";
+import { useEffect, useState } from "react";
 
+function ChartCardTitle({
+  data,
+  text,
+  showPin,
+  pinStatus,
+  onPinClick,
+  pinIdSelected,
+}) {
+  const theme = useTheme();
+  const [pinned, setPinned] = useState(pinStatus);
+  console.log(pinStatus);
+  useEffect(() => {
+    setPinned(pinStatus);
+  }, [pinStatus]);
 
-
-function ChartCardTitle({ text, pinStatus }) {
-    const theme = useTheme();
+  if (pinStatus == true) {
+    console.log(data);
+  }
+  const onClick = () => {
+    onPinClick(data);
+    pinIdSelected(data._id);
+    setPinned(!pinned);
+  };
   return (
     <div
       style={{
-        display: pinStatus ? "grid": "block",
+        display: "grid",
+        // display: pinStatus ? "grid" : "block",
         gridTemplateColumns: "2fr 0.17fr",
         justifyContent: "space-between",
         alignItems: "center",
@@ -17,14 +38,24 @@ function ChartCardTitle({ text, pinStatus }) {
     >
       <Typography variant="h4">{text}</Typography>
 
-      <Pin style={{
-        justifySelf: "end",
-        
-        display: pinStatus ? "block" : "none",
-        fill: pinStatus == 'active' ? theme.palette.primary[80] : "transparent",
-        
-        stroke: pinStatus == 'active' ? theme.palette.primary[80] : theme.palette.background.alt,
-      }} />
+      <Pin
+        style={{
+          justifySelf: "end",
+
+          display: showPin ? "block" : "none",
+          fill: pinned  ? theme.palette.primary[80] : "transparent",
+
+          stroke:
+            pinned 
+              ? theme.palette.primary[80]
+              : theme.palette.background.alt,
+        }}
+        onClick={
+          onClick
+          // () => {
+          // onPinClick(data);}
+        }
+      />
     </div>
   );
 }
