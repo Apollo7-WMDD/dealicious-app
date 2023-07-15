@@ -57,7 +57,7 @@ const Login = () => {
       ) : (
         <>
           <LoginComponent></LoginComponent>
-          <h1 className="text-3xl text-center font-bold my-4">Login</h1>
+          {/* <h1 className="text-3xl text-center font-bold my-4">Login</h1>
           <form onSubmit={handleSubmit} style={styles.form}>
             <label style={styles.input} htmlFor="email">
               Email
@@ -79,7 +79,7 @@ const Login = () => {
             onClick={() => signIn("google")}
           >
             Login with Google
-          </button>
+          </button> */}
         </>
       )}
     </>
