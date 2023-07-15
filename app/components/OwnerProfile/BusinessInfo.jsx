@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ChartCard from '../ChartCard';
+import ChartCard from '../Card/ChartCard';
 import SubHeader from '../Header/SubHeader';
 import { Box } from '@mui/material';
 import Label from '../Profile/Label';

@@ -144,11 +144,11 @@ function StackDoughNut() {
       >
         <Box>
           <Typography variant="h5">Total Revenue</Typography>
-          <Typography variant="h3">$$$</Typography>
+          <Typography variant="h3">{data.totalRevenue}</Typography>
         </Box>
         <Box>
           <Typography variant="h5">Customers </Typography>
-          <Typography variant="h3">xxx</Typography>
+          <Typography variant="h3">{data.totalCustomers}</Typography>
         </Box>
       </Box>
       <Box
@@ -175,7 +175,7 @@ function StackDoughNut() {
             //position:"absolute", zIndex:"1" ,
             gridRow: "1/-1",
             gridColumn: "1/-1",
-            zIndex: 1,
+            zIndex: -1,
             [theme.breakpoints.down("lg")]: {
               width: "100%",
               // gridTemplateColumns: "repeat(1, 1fr)",

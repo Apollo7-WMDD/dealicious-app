@@ -75,8 +75,15 @@ const Login = () => {
               id="password"
             />
             <button style={styles.button}>Submit</button>
-          </form> */}
-          {/* <button onClick={() => signIn("google")}>Login with Google</button> */}
+
+          </form>
+          <button
+            className=" mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white"
+            onClick={() => signIn("google")}
+          >
+            Login with Google
+          </button> */}
+
         </>
       )}
     </>

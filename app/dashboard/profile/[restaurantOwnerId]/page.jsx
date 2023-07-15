@@ -13,7 +13,7 @@ import NavbarMobile from "@/app/components/Profile/NavbarMobile";
 import {Box, Grid} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
-
+import { useRouter } from "next/navigation";
 // const fetchOwnerInfo = async (restaurantOwnerId) => {
 //   const isProduction = process.env.NODE_ENV === "production";
 //   const serverUrl = isProduction
@@ -34,6 +34,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 // };
 
 const Page = async () => {
+  const router = useRouter();
   // const { restaurantOwnerId } = params;
   // const ownerData = await fetchOwnerInfo(restaurantOwnerId);
   // console.log("owner data: ", ownerData);

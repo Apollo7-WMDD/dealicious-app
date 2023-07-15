@@ -2,17 +2,20 @@ import { Box, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import { useStore } from "@/lib/context/user_context/store";
-import ChartCard from "@/app/components/ChartCard";
+import ChartCard from "@/app/components/Card/ChartCard";
 import ChartCardTitle from "@/app/components/Chart/ChartCardTitle";
+import CampaignCardBody from "../Chart/CampaignCardBody";
 
 // fetch imports
 import { fetchAllCampaigns } from "@/lib/fetching/campaigns/data";
 
-function CampaignGrid({ children }) {
+function CampaignGrid({ onPinClickB, children }) {
   const { restaurantOwnerId } = useStore();
   const [data, setData] = useState([]);
   const [dataArray, setDataArray] = useState([]);
-  console.log(restaurantOwnerId);
+  const [hilighted, setHilighted] = useState({});
+
+  // console.log(restaurantOwnerId);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,11 +24,16 @@ function CampaignGrid({ children }) {
       setDataArray(result.campaigns);
     };
     fetchData();
-  }, [restaurantOwnerId]);
+  }, [restaurantOwnerId, hilighted]);
 
-  console.log(data);
-  console.log(dataArray);
+  // console.log(data);
+  // console.log(dataArray);
   const theme = useTheme();
+  const getPinIdSelected = (id) => {
+    console.log("id is"+id);
+    setHilighted(id);
+  };
+
   return (
     <Box
       sx={{
@@ -49,9 +57,55 @@ function CampaignGrid({ children }) {
       {dataArray.map((e) => (
         <ChartCard key={e._id}>
           <ChartCardTitle
+            data={e}
             text={e.name}
-            pinStatus={"none"}
+            
+            pinStatus={hilighted == e._id ? 
+              // (console.log("hilighted TRUE")) : (console.log("hilighted FASLE"))
+              true : false
+            }
+            pinIdSelected={getPinIdSelected}
+            showPin={true}
+            onPinClick={onPinClickB}
           ></ChartCardTitle>
+
+          <CampaignCardBody>
+            <p
+              style={{
+                margin: "0",
+                fontWeight: "lighter",
+              }}
+            >
+              Item: {e.offer}
+            </p>
+            <p
+              style={{
+                margin: "0",
+                fontWeight: "lighter",
+              }}
+            >
+              Duration: {new Date(e.startDate).toISOString().substring(0, 10)}{" "}
+              to {new Date(e.endDate).toISOString().substring(0, 10)}
+            </p>
+            <p
+              style={{
+                margin: "0",
+                fontWeight: "lighter",
+              }}
+            >
+              Users: {e.allowNewCustomer ? "New Customers" : ""}
+              {e.allowNewCustomer && e.allowSuperCustomer ? " & " : ""}
+              {e.allowSuperCustomer ? "Super Customers" : ""}
+            </p>
+            <p
+              style={{
+                margin: "0",
+                fontWeight: "lighter",
+              }}
+            >
+              Condition: {e.description}
+            </p>
+          </CampaignCardBody>
         </ChartCard>
       ))}
     </Box>

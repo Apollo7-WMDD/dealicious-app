@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Header from "@/app/components/Header/Header";
 import SubHeader from "@/app/components/Header/SubHeader";
 
-import ChartCard from "@/app/components/ChartCard";
+import ChartCard from "@/app/components/Card/ChartCard";
 import MainGrid from "@/app/components/MainGrid";
 import DoughnutChart_NumCustomer from "../../../../../components/Chart/DoughnutChart_NumCustomer";
 import LineChart from "../../../../../components/Chart/LineChart";
@@ -52,30 +52,10 @@ const Page = async () => {
           {/* {spendingsData.averageBillSize} */}
         </ChartCard>
         <ChartCard gridColumn={"span 1"}>
-          to
+          total Revenue
           {/* {spendingsData.totalRevenue} */}
         </ChartCard>
-        <ChartCard gridColumn={"span 1"}>
-          nonSuperCustomers
-          {/* {spendingsData.customerCount.nonSuperCustomers} */}
-          <br />
-          superCustomers
-          {/* {spendingsData.customerCount.superCustomers} */}
-        </ChartCard>
-
-        <ChartCard gridColumn={"span 1"}>
-          foodQualityCount
-          {/* {spendingsData.opportunities.foodQualityCount} */}
-          <br />
-          foodQuantityCount
-          {/* {spendingsData.opportunities.foodQuantityCount} */}
-          <br />
-          placeCount
-          {/* {spendingsData.opportunities.placeCount} <br /> */}
-          serviceCount
-          {/* {spendingsData.opportunities.serviceCount} */}
-          <br />
-        </ChartCard>
+       
 
         <ChartCard gridColumn={"span 2"}>
           nonSuperCustomers

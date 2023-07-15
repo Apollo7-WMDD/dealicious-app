@@ -7,10 +7,13 @@ import { useRouter } from "next/navigation";
 const CreateNewCampaign = () => {
   const router = useRouter();
   const { restaurantOwnerId } = useStoreOwner();
-  const onClick = () => {router.push(`/dashboard/campaigns/createNew/${restaurantOwnerId}`)}
+  const onClick = () => {
+    router.push(`/dashboard/campaigns/createNew/${restaurantOwnerId}`);
+  };
   return (
-    <SingleButton text={"Create new campaign"} onClick={onClick}
-    > </SingleButton>
+    <SingleButton text={"Create new campaign"} onClick={onClick} width={"350px"} >
+      
+    </SingleButton>
     //  <Link href={`/dashboard/campaigns/createNew/${restaurantOwnerId}`}>
     //     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
     //       Create campaign

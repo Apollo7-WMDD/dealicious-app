@@ -11,7 +11,7 @@ const SingleButton = ({ text, onClick, width }) => {
       startIcon={<DealIcon />}
       onClick={onClick}
       sx={{
-        width: "80%",
+        width: width,
         height: "70%",
         justifySelf: "end",
         alignSelf: "center",
@@ -20,6 +20,18 @@ const SingleButton = ({ text, onClick, width }) => {
         ":hover": {
           backgroundColor: theme.palette.primary[60],
         },
+        [theme.breakpoints.down('lg')]: {
+         width: "265px",
+         fontSize: "16px",
+      },
+        [theme.breakpoints.down('md')]: {
+          width: "180px",
+          fontSize: "14px",
+          lineHeight: "16px",
+          margin: "1rem 0",
+          // alignSelf: "start",
+          justifySelf: "start",
+        }
       }}
     >
       {text}
