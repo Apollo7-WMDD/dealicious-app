@@ -150,7 +150,6 @@ function StackDougnNutSpan1() {
             <Box>
               <Typography variant="h5">Customers </Typography>
               <Typography variant="h3">{data.totalCustomers}</Typography>
-
             </Box>
           </Box>
           <Box

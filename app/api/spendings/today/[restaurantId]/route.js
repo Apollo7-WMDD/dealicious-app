@@ -9,6 +9,7 @@ export const GET = async (request) => {
   const restaurantId = url.pathname.split("/")[4];
   console.log("This is the restaurant Id", restaurantId);
 
+
   try {
     await connect();
 
@@ -40,7 +41,6 @@ export const GET = async (request) => {
     if (spendings.length === 0) {
       return new NextResponse(JSON.stringify({}), { status: 200 });
     }
-
     const result = {
       sum,
       numCustomers,

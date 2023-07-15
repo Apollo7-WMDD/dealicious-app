@@ -7,11 +7,15 @@ import { useStore } from "@/lib/context/user_context/store";
 
 // nextjs components
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect } from "react";
 import Home from "./components/LandingPage/Home";
 // loader
 import Loader from "./components/Loader";
 import { Button, useTheme } from "@mui/material";
+
+// loader
+import Loader from "./components/Loader";
 
 // import fetching data
 // import { fetchRestaurantId } from "@/lib/fetching/restaurantId/data";

@@ -7,7 +7,6 @@ import { useState } from "react";
 import Link from "next/link";
 
 // mui imports
-
 import { Button, Box, useTheme, Typography } from "@mui/material";
 
 
@@ -24,7 +23,6 @@ import DoughnutChart_NumCustomer from "@/app/components/Chart/DoughnutChart_NumC
 import StackDougnNutSpan1 from "@/app/components/Chart/StackDougnNutSpan1";
 import LineChart from "@/app/components/Chart/LineChart";
 import CampaignGrid from "@/app/components/Dashboard/CampaignGrid";
-
 
 import HilightWrap from "@/app/components/Dashboard/HilightWrap";
 
@@ -74,7 +72,6 @@ const Page = () => {
 
         <SubHeader props={"Ongoing campaigns"} />
         <MainGrid>
-
           <ChartCard gridColumn={"span 1"}>
             <ChartCardTitle text={"Overview"} pinStatus={""}></ChartCardTitle>
             <StackDougnNutSpan1></StackDougnNutSpan1>
@@ -83,7 +80,6 @@ const Page = () => {
           <ChartCard gridColumn={"2/-1"}>
             <ChartCardTitle
               text={"Hilighted Campaigns"}
-
               pinStatus={true}
               showPin={true}
             ></ChartCardTitle>
@@ -147,6 +143,7 @@ const Page = () => {
 
           {/* //* CAMPAIGN GRID */}
           <CampaignGrid onPinClickB={onPinClickA}></CampaignGrid>
+
         </MainGrid>
       </Box>
     </>
