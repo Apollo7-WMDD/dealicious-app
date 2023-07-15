@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 
 // mui imports
-import { Button, Box , useTheme} from "@mui/material";
+import { Button, Box, useTheme } from "@mui/material";
 
 // components imports
 import CreateNewCampaign from "@/app/components/Dashboard/CreateNewCampaign";
@@ -21,26 +21,9 @@ import HeaderGrid from "@/app/components/HeaderGrid";
 import DoughnutChart_NumCustomer from "@/app/components/Chart/DoughnutChart_NumCustomer";
 import StackDougnNutSpan1 from "@/app/components/Chart/StackDougnNutSpan1";
 import CampaignGrid from "@/app/components/Dashboard/CampaignGrid";
-// user context imports
-// import { useStore as useStoreOwner } from "@/lib/context/user_context/store";
 
 const Page = () => {
-  // const { restaurantOwnerId, restaurantId, setRestaurantId } = useStoreOwner();
   const theme = useTheme();
-  // useEffect(() => {
-  //   const getRestaurantId = async () => {
-  //     const data = await fetchRestaurantId(restaurantOwnerId);
-  //     setRestaurantId(data.restaurantId);
-  //   };
-
-  //   if (restaurantOwnerId) {
-  //     getRestaurantId();
-  //   }
-  // }, [restaurantOwnerId]);
-
-  // console.log("restaurantOwnerId", restaurantOwnerId);
-  // console.log("restaurantId", restaurantId);
-
   return (
     <>
       <Box
@@ -70,17 +53,17 @@ const Page = () => {
               }
             }}
           > */}
-            <ChartCard gridColumn={"span 1"}>
-              <ChartCardTitle text={"Overview"} pinStatus={""}></ChartCardTitle>
-              <StackDougnNutSpan1></StackDougnNutSpan1>
-            </ChartCard>
+          <ChartCard gridColumn={"span 1"}>
+            <ChartCardTitle text={"Overview"} pinStatus={""}></ChartCardTitle>
+            <StackDougnNutSpan1></StackDougnNutSpan1>
+          </ChartCard>
 
-            <ChartCard gridColumn={"2/-1"}>
-              <ChartCardTitle
-                text={"Hilighted Campaigns"}
-                pinStatus={"active"}
-              ></ChartCardTitle>
-            </ChartCard>
+          <ChartCard gridColumn={"2/-1"}>
+            <ChartCardTitle
+              text={"Hilighted Campaigns"}
+              pinStatus={"active"}
+            ></ChartCardTitle>
+          </ChartCard>
           {/* </Box> */}
 
           {/* // CAMPAIGN GRID */}

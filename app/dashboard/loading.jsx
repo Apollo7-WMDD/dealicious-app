@@ -1,7 +1,8 @@
 import React from "react";
+import Loader from "../components/Loader";
 
 const Loading = () => {
-  return <div>Loading DashBoard</div>;
+  return <Loader />;
 };
 
 export default Loading;

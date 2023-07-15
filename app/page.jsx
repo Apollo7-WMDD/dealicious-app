@@ -7,8 +7,12 @@ import { useStore } from "@/lib/context/user_context/store";
 
 // nextjs components
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect } from "react";
 import Home from "./components/LandingPage/Home";
+
+// loader
+import Loader from "./components/Loader";
 
 // import fetching data
 // import { fetchRestaurantId } from "@/lib/fetching/restaurantId/data";
@@ -32,17 +36,17 @@ const Page = () => {
     <main>
       <Home />
       {status === "loading" ? (
-        <div>Loading...</div>
+        <Loader />
       ) : status === "authenticated" ? (
         <div>
           <Link href={`/dashboard/campaigns/active/${session?.user.id}`}>
             <button>Dashboard</button>
           </Link>
-                      <Link href={`/superCustomer/restaurants/${session?.user.id}`}>
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
-                Dashboard Super Customer (Temporal-Testing)
-              </button>
-            </Link>
+          <Link href={`/superCustomer/restaurants/${session?.user.id}`}>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+              Dashboard Super Customer (Temporal-Testing)
+            </button>
+          </Link>
           <button onClick={signOut}>Sign Out</button>
         </div>
       ) : (
