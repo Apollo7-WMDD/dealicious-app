@@ -36,7 +36,7 @@ function DoughnutChart_NumCustomer() {
   defaults.font.size = theme.typography.fontSize;
 
   const doughnutFakeData = {
-    // Chart.defaults.font.family = 'Helvetica Neue';
+    
     labels: ["Super Customers", "New Customers"],
     datasets: [
       {
@@ -61,7 +61,7 @@ function DoughnutChart_NumCustomer() {
 
   const option = {
     responsive: true,
-    maintainAspectRatio: true,
+    maintainAspectRatio: false,
 
     plugins: {
       datalabels: {

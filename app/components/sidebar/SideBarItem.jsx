@@ -19,18 +19,38 @@ import { useTheme } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { fetchRestaurantId } from "@/lib/fetching/restaurant/restaurant_id/data";
 
 function SideBarItem() {
   // const { data: session, status } = useSession();
-
-  const theme = useTheme();
+  const {
+    restaurantOwnerId,
+    restaurantId,
+    setRestaurantOwner,
+    setRestaurantId,
+  } = useStoreOwner();
   const { sideBarItemActive, setSideBarItemActive } = useStore();
-  const { restaurantOwnerId, restaurantId } = useStoreOwner();
+  const pathname = usePathname();
+  console.log("This is the pathname: ", pathname.split("/")[4]);
+  useEffect(() => {
+    const getRestaurantId = async () => {
+      if (!restaurantOwnerId) {
+        setRestaurantOwner(pathname.split("/")[4]);
+        const data = await fetchRestaurantId(pathname.split("/")[4]);
+        setRestaurantId(data.restaurantId);
+      } else {
+        const data = await fetchRestaurantId(restaurantOwnerId);
+        setRestaurantId(data.restaurantId);
+      }
+    };
+
+    getRestaurantId();
+  }, []);
+  const theme = useTheme();
+
   console.log("This is the restaurantOwnerId: ", restaurantOwnerId);
   console.log("This is the restaurantId: ", restaurantId);
   const router = useRouter();
-  const pathname = usePathname();
 
   const navItems = [
     {
@@ -70,17 +90,17 @@ function SideBarItem() {
   const insightSubItems = [
     {
       text: "Overview",
-      link: `/dashboard/insights/overview/${restaurantOwnerId}`,
+      link: `/dashboard/insights/overview/${restaurantOwnerId}/${restaurantId}`,
     },
     {
       text: "Campaigns",
       // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-      link: `/dashboard/insights/campaigns/${restaurantOwnerId}`,
+      link: `/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId} `,
     },
     {
       text: "Customers",
       // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-      link: `/dashboard/insights/customers/${restaurantOwnerId}`,
+      link: `/dashboard/insights/customers/${restaurantOwnerId}/${restaurantId}`,
     },
   ];
 

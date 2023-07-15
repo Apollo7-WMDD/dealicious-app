@@ -6,6 +6,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  defaults
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { useTheme } from "@mui/material";
@@ -50,6 +51,8 @@ function BarChart() {
   console.log(Object.keys(data));
   console.log(Object.values(data));
 
+  defaults.font.family = theme.typography.fontFamily;
+  defaults.font.size = theme.typography.fontSize;
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -77,10 +80,10 @@ function BarChart() {
       },
     },
   };
-  const labels = [data.map((e) => e.label)];
+  const labels = data.map((e) => e.label);
   let indexColor = -1;
   const barData = {
-    labels,
+    labels: ["To improve"],
     datasets: data.map((e) => {
       const colorArray = [
         theme.palette.primary[80],
@@ -102,7 +105,9 @@ function BarChart() {
       <Bar
         options={options}
         data={barData}
-        style={{ height: "100%", width: "100%", minHeight:"300px" }}
+        style={{ height: "100%", width: "100%", 
+        minHeight:"250px" 
+      }}
       />
     </div>
   );
