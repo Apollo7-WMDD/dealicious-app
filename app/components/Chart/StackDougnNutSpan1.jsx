@@ -144,11 +144,12 @@ function StackDougnNutSpan1() {
           >
             <Box>
               <Typography variant="h5">Total Revenue</Typography>
-              <Typography variant="h3">$$$</Typography>
+
+              <Typography variant="h3">{data.totalRevenue}</Typography>
             </Box>
             <Box>
               <Typography variant="h5">Customers </Typography>
-              <Typography variant="h3">xxx</Typography>
+              <Typography variant="h3">{data.totalCustomers}</Typography>
             </Box>
           </Box>
           <Box

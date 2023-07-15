@@ -17,6 +17,7 @@ function HeaderGrid({ children }) {
           gridTemplateColumns: "repeat(2, 1fr)"},
         [theme.breakpoints.down('md')]: {
           gridTemplateColumns: "repeat(1, 1fr)",
+          
         }
       }}
     >

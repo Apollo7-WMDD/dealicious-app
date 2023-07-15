@@ -10,6 +10,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect } from "react";
 import Home from "./components/LandingPage/Home";
+// loader
+import Loader from "./components/Loader";
+import { Button, useTheme } from "@mui/material";
 
 // loader
 import Loader from "./components/Loader";
@@ -20,6 +23,7 @@ import Loader from "./components/Loader";
 const Page = () => {
   const { data: session, status } = useSession();
   const { setRestaurantOwner, restaurantOwnerId } = useStore();
+  const theme = useTheme();
 
   console.log("This is the restaurantOwnerId: ", restaurantOwnerId);
 
@@ -40,22 +44,86 @@ const Page = () => {
       ) : status === "authenticated" ? (
         <div>
           <Link href={`/dashboard/campaigns/active/${session?.user.id}`}>
-            <button>Dashboard</button>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: theme.palette.primary[80],
+                marginTop: "20px",
+                marginRight: "20px",
+                ":hover": {
+                  backgroundColor: "white",
+                  color: theme.palette.primary[80],
+                },
+              }}
+            >
+              Dashboard
+            </Button>
           </Link>
           <Link href={`/superCustomer/restaurants/${session?.user.id}`}>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
-              Dashboard Super Customer (Temporal-Testing)
-            </button>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: theme.palette.primary[80],
+                marginTop: "20px",
+                marginRight: "20px",
+                ":hover": {
+                  backgroundColor: "white",
+                  color: theme.palette.primary[80],
+                },
+              }}
+            >
+              Dashboard - Super Customer
+            </Button>
           </Link>
-          <button onClick={signOut}>Sign Out</button>
+          <Button
+            onClick={signOut}
+            variant="contained"
+            sx={{
+              backgroundColor: theme.palette.primary[80],
+              marginTop: "20px",
+              marginRight: "20px",
+              ":hover": {
+                backgroundColor: "white",
+                color: theme.palette.primary[80],
+              },
+            }}
+          >
+            Sign Out
+          </Button>
         </div>
       ) : (
         <>
           <Link href={`/login/owner`}>
-            <button>Login</button>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: theme.palette.primary[80],
+                marginTop: "20px",
+                marginRight: "20px",
+                ":hover": {
+                  backgroundColor: "white",
+                  color: theme.palette.primary[80],
+                },
+              }}
+            >
+              Login
+            </Button>
           </Link>
           <Link href={`/register`}>
-            <button>Sign Up!</button>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: theme.palette.primary[80],
+                marginTop: "20px",
+                marginRight: "20px",
+                ":hover": {
+                  backgroundColor: "white",
+                  color: theme.palette.primary[80],
+                },
+              }}
+            >
+              Sign Up!
+            </Button>
           </Link>
         </>
       )}
