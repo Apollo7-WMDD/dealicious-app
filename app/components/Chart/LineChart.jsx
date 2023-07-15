@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
   TimeScale,
+  defaults
 } from "chart.js";
 // import ChartDataLabels from "chartjs-plugin-datalabels";
 import { fetchCustomerCampaignUsageByTime } from "../../../lib/fetching/insights/data";
@@ -142,7 +143,8 @@ function LineChart() {
   //   "June",
   //   "July",
   // ];
-
+  defaults.font.family = theme.typography.fontFamily;
+  defaults.font.size = theme.typography.fontSize;
   const dailyDataSet1 = [
     { x: Date.parse("2023-01-02 00:00:00 GMT+0700"), y: 52 },
     { x: Date.parse("2023-01-08 00:00:00 GMT+0700 "), y: 63 },
@@ -309,13 +311,33 @@ function LineChart() {
     },
     scales: {
       y: {
+        ticks: {
+          callback: function(val, index) {
+            // Hide every 5th tick label
+            return index % 3 === 0 ? this.getLabelForValue(val)  : '';
+            
+          },
+        },
         beginAtZero: true,
-        display: false,
+        display: true,
+        grid: {
+          display: false,
+        }
       },
       x: {
+        ticks: {
+          callback: function(val, index) {
+            // Hide every 5th tick label
+            return index % 5 === 0 ? this.getLabelForValue(val).split(',')[0]  : '';
+            
+          },
+        },
         type: "time",
         time: {
           unit: period,
+        },
+        grid: {
+          display: false,
         },
         adapters: {
           date: {
@@ -378,6 +400,7 @@ function LineChart() {
           data={lineChartData}
           style={{
             width: "100%",
+            minHeight: "250px",
           }}
         />
       </div>
