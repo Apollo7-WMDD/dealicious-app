@@ -25,11 +25,15 @@ const Page = async ({ params }) => {
   const { superCustomerId } = params;
   const data = await fetchRestaurants(superCustomerId);
   console.log(data[0].name)
+
+  const cards = data.map((item, index) => <SCCard key={index} props={item} />);
+
   return (
     <div>
       <Header props={"My Restaurants"} />
-      <SCCard props={data[0]}/>
-      <SCCard props={data[1]}/>
+      {/* <SCCard props={data[0]}/>
+      <SCCard props={data[1]}/> */}
+      {cards}
     </div>
   );
 };
