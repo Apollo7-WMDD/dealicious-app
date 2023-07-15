@@ -1,13 +1,12 @@
-
-import React from 'react';
-import ChartCard from '../Card/ChartCard'; 
-import InputText from '../Input/InputText';
-import SubHeader from '../Header/SubHeader';
-import SingleButton from '../Button/SingleButton';
-import GoogleIcon from '@mui/icons-material/Google';
-import { useTheme, Typography, Box, Button } from '@mui/material';
-import Divider from '@mui/material/Divider';
-import Form from '../Card/Form';
+import React from "react";
+import ChartCard from "../Card/ChartCard";
+import InputText from "../Input/InputText";
+import SubHeader from "../Header/SubHeader";
+import SingleButton from "../Button/SingleButton";
+import GoogleIcon from "@mui/icons-material/Google";
+import { useTheme, Typography, Box, Button } from "@mui/material";
+import Divider from "@mui/material/Divider";
+import FormLogin from "../Card/FormLogin";
 import { signIn } from "next-auth/react";
 
 // import ChartCard from "../ChartCard";
@@ -21,7 +20,6 @@ import { signIn } from "next-auth/react";
 
 // import { signIn } from "next-auth/react";
 
-
 function LoginComponent() {
   const theme = useTheme();
   const handleLogin = () => {
@@ -33,7 +31,7 @@ function LoginComponent() {
   };
 
   return (
-    <Form>
+    <FormLogin>
       <SubHeader>Login</SubHeader>
       <Box sx={{ margin: 2 }}>
         <InputText
@@ -98,7 +96,7 @@ function LoginComponent() {
         <GoogleIcon />
         Google
       </Button>
-    </Form>
+    </FormLogin>
   );
 }
 

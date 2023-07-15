@@ -7,18 +7,17 @@ import Form from "@/app/components/Card/Form";
 import Header from "@/app/components/Header/Header";
 import InputText from "@/app/components/Input/InputText";
 import DateDropdown from "@/app/components/Profile/DateDropdown";
-import InputDropdown from '@/app/components/Input/InputDropdown';
-import InputCheckbox from '@/app/components/Input/InputCheckbox';
-import InputButton from '@/app/components/Button/InputButton';
-import PictureUploadCard from '@/app/components/Button/PictureUploadCard';
-import ViewNewCampaign from '@/app/components/Dashboard/ViewNewCampaign';
-import { Typography, Box, Modal, Grid } from '@mui/material';
-import InputTextarea from '@/app/components/Input/InputTextarea';
-import BulletPoints from '@/app/components/Profile/BulletPoints';
-import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
+import InputDropdown from "@/app/components/Input/InputDropdown";
+import InputCheckbox from "@/app/components/Input/InputCheckbox";
+import InputButton from "@/app/components/Button/InputButton";
+import PictureUploadCard from "@/app/components/Button/PictureUploadCard";
+import ViewNewCampaign from "@/app/components/Dashboard/ViewNewCampaign";
+import { Typography, Box, Modal, Grid } from "@mui/material";
+import InputTextarea from "@/app/components/Input/InputTextarea";
+import BulletPoints from "@/app/components/Profile/BulletPoints";
+import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import ImagePreview from "@/app/components/Profile/ImagePreview";
 import Notification from "@/app/components/Card/Notification";
-
 
 // import router
 import { useRouter } from "next/navigation";
@@ -51,51 +50,48 @@ const Page = () => {
     endDate: "",
     media: [],
     description: "",
-    condition:"",
+    condition: "",
     favorite: false,
     autoDescription: "No auto description",
   });
 
   console.log("restaurantId", restaurantId);
-  
+
   // The first save button - submit the form
   const handleSubmit = (e) => {
     e.preventDefault();
     const errors = {};
-    
+
     if (!formData.name) {
-      errors.name = 'Campaign name is required.';
+      errors.name = "Campaign name is required.";
     }
     if (!formData.description) {
-      errors.description = 'Campaign advertisement is required.';
+      errors.description = "Campaign advertisement is required.";
     }
     if (!formData.availableCodes) {
-      errors.availableCodes = 'This input is required.';
+      errors.availableCodes = "This input is required.";
     }
-  
+
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
       return;
     }
     setFormErrors({});
-  
-    localStorage.setItem("uploadedImageURL", localStorage.getItem('media'));
+
+    localStorage.setItem("uploadedImageURL", localStorage.getItem("media"));
     localStorage.setItem("formData", JSON.stringify(formData));
     setIsSubmitted(true);
     console.log(formData);
   };
-  
 
   const handleEdit = () => {
-    const uploadedImageURL = localStorage.getItem('uploadedImageURL'); 
-    setFormData(prevFormData => ({
+    const uploadedImageURL = localStorage.getItem("uploadedImageURL");
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      media: uploadedImageURL 
+      media: uploadedImageURL,
     }));
     setIsSubmitted(false);
   };
-
-
 
   ////////////////////// Final Submit button for campaign preview /////////////////////
   const handleFinalSubmit = async (e) => {
@@ -126,28 +122,30 @@ const Page = () => {
   const [showNotification, setShowNotification] = useState(false);
   const onClick = () => {
     router.push(`/dashboard/campaigns/active/${restaurantOwnerId}`);
-    setShowNotification(false); 
+    setShowNotification(false);
   };
   const closeNotification = () => {
     setShowNotification(false);
   };
 
-
-  // input and date value save 
+  // input and date value save
   const inputValue = (e) => {
-    let value = e.target.type === "number" ? parseInt(e.target.value, 10) : e.target.value;
+    let value =
+      e.target.type === "number"
+        ? parseInt(e.target.value, 10)
+        : e.target.value;
     setFormData({
       ...formData,
       [e.target.name]: value,
     });
   };
-  
+
   const dateValue = (dates) => {
     const [startDate, endDate] = dates;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
       startDate: startDate ? startDate.format("YYYY-MM-DD") : null,
-      endDate: endDate ? endDate.format("YYYY-MM-DD") : null
+      endDate: endDate ? endDate.format("YYYY-MM-DD") : null,
     }));
   };
 
@@ -199,7 +197,6 @@ const Page = () => {
     });
   };
 
-
   //upload menu
   const [imagePreview, setImagePreview] = useState(null);
 
@@ -208,26 +205,25 @@ const Page = () => {
     console.log(file);
 
     const fileURL = URL.createObjectURL(file);
-    localStorage.setItem("media", fileURL); 
+    localStorage.setItem("media", fileURL);
     setImagePreview(fileURL);
 
-    const media = "https://fitmencook.com/wp-content/uploads/2023/03/mix-and-match-meal-prep11.jpg";
+    const media =
+      "https://fitmencook.com/wp-content/uploads/2023/03/mix-and-match-meal-prep11.jpg";
     setFormData({
       ...formData,
-      media: media, 
+      media: media,
     });
-};
+  };
 
   const removeImage = () => {
     setImagePreview(null);
-    localStorage.removeItem('media');
+    localStorage.removeItem("media");
     setFormData({
       ...formData,
       media: "",
     });
   };
-
-  
 
   const [inspirationVisible, setInspirationVisible] = useState(true);
 
@@ -237,19 +233,20 @@ const Page = () => {
         <Modal open={showNotification} onClose={closeNotification}>
           <Box
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-              minHeight: '100vh', 
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              minHeight: "100vh",
               p: 4,
+              width: "100%",
             }}
           >
-            <Notification 
-              header="Congratulations!" 
-              text="You successfully created a new campaign. You can examine its real time outcomes." 
-              buttonText="Go to Campaigns" 
-              buttonAction={onClick} 
+            <Notification
+              header="Congratulations!"
+              text="You successfully created a new campaign. You can examine its real time outcomes."
+              buttonText="Go to Campaigns"
+              buttonAction={onClick}
             />
           </Box>
         </Modal>
@@ -264,41 +261,41 @@ const Page = () => {
           <>
             <Header>Create a New Campaign</Header>
             <Form>
-            <Grid container spacing={2} sx={{ marginBottom: { md: '40px' }}}>
-              <Grid item xs={12} md={8}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} md={6}>
-                    <InputText
-                      label="Campaign Name"
-                      value={formData.name}
-                      onChange={inputValue}
-                      name="name"
-                      id="name"
-                      placeholder="Name"
-                      error={formErrors.name}
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={6}>
-                    <InputDropdown
-                      label="Specify the type of campaign"
-                      value={selectedType}
-                      onChange={TypeChange}
-                      name="dropdown"
-                      id="dropdown"
-                      placeholder="Type"
-                      options={campaignTypes}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <DateDropdown
-                      label="Start and end date"
-                      value={[formData.startDate, formData.endDate]}
-                      onChange={dateValue}
-                      name="dateRange"
-                      id="dateRange"
-                    />
-                  </Grid>
-                  <Grid item xs={12} md={6}>
+              <Grid container spacing={2} sx={{ marginBottom: { md: "40px" } }}>
+                <Grid item xs={12} md={8}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12} md={6}>
+                      <InputText
+                        label="Campaign Name"
+                        value={formData.name}
+                        onChange={inputValue}
+                        name="name"
+                        id="name"
+                        placeholder="Name"
+                        error={formErrors.name}
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                      <InputDropdown
+                        label="Specify the type of campaign"
+                        value={selectedType}
+                        onChange={TypeChange}
+                        name="dropdown"
+                        id="dropdown"
+                        placeholder="Type"
+                        options={campaignTypes}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <DateDropdown
+                        label="Start and end date"
+                        value={[formData.startDate, formData.endDate]}
+                        onChange={dateValue}
+                        name="dateRange"
+                        id="dateRange"
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={6}>
                       <Typography
                         sx={{
                           fontSize: "16px",
@@ -308,10 +305,10 @@ const Page = () => {
                           fontWeight: "600",
                         }}
                       >
-                        Who can participate this campaign? Super customers don’t gain
-                        points when themselves participate in the campaign.
+                        Who can participate this campaign? Super customers don’t
+                        gain points when themselves participate in the campaign.
                       </Typography>
-                  </Grid>
+                    </Grid>
                     <Grid item xs={12} md={6}>
                       <InputCheckbox
                         label="New Customers"
@@ -324,26 +321,26 @@ const Page = () => {
                         checked={formData.allowSuperCustomer}
                       />
                     </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  {imagePreview ? (
+                    <ImagePreview
+                      src={localStorage.getItem("media")}
+                      alt="preview"
+                      width="280px"
+                      height="320px"
+                      onRemove={removeImage}
+                    />
+                  ) : (
+                    <PictureUploadCard
+                      phrase="Add a campaign image"
+                      onFileSelected={uploadMenu}
+                      sx={{ height: { md: "320px" } }}
+                    />
+                  )}
                 </Grid>
               </Grid>
-              <Grid item xs={12} md={4}>
-                {imagePreview ? (
-                  <ImagePreview 
-                    src={localStorage.getItem('media')}  
-                    alt="preview" 
-                    width="280px" 
-                    height="320px" 
-                    onRemove={removeImage} 
-                  />
-                ) : (
-                  <PictureUploadCard
-                    phrase="Add a campaign image"
-                    onFileSelected={uploadMenu}
-                    sx={{ height: { md: "320px" } }}
-                  />
-                )}
-              </Grid>
-            </Grid>
 
               <Box
                 sx={{
@@ -446,8 +443,7 @@ const Page = () => {
               )}
             </Form>
 
-
-          <Form>
+            <Form>
               <InputTextarea
                 label="Write an attractive campaign advertisement or simply click here to have a compelling ad ready!"
                 value={formData.description}
@@ -457,7 +453,7 @@ const Page = () => {
                 placeholder="campaign advertisement"
                 error={formErrors.description}
               />
-          </Form>
+            </Form>
 
             <InputButton
               onFirstButtonClick={(e) => {

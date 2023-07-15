@@ -1,7 +1,7 @@
 import React from "react";
 import Box from "@mui/material/Box";
 
-const Form = ({ children, ...props }) => {
+const FormLogin = ({ children, ...props }) => {
   return (
     <Box
       component="section"
@@ -16,6 +16,7 @@ const Form = ({ children, ...props }) => {
         display: "flex",
         padding: "1rem 1.5rem",
         margin: "10rem auto",
+        maxWidth: "400px",
       }}
       {...props}
     >
@@ -24,4 +25,4 @@ const Form = ({ children, ...props }) => {
   );
 };
 
-export default Form;
+export default FormLogin;
