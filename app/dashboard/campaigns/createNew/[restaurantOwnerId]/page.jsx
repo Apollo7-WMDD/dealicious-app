@@ -16,7 +16,6 @@ import { Typography, Box, useTheme } from '@mui/material';
 import InputTextarea from '@/app/components/Input/InputTextarea';
 import BulletPoints from '@/app/components/Profile/BulletPoints';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
-import {Cloudinary} from "@cloudinary/url-gen";
 
 // import router
 import { useRouter } from "next/navigation";
@@ -25,12 +24,15 @@ import { useRouter } from "next/navigation";
 import { useStore } from "@/lib/context/user_context/store";
 
 const Page = () => {
+  // const { restaurantId } = useStore();
+  const obj = { restaurantId: '649caf44ea1c8363ed630fc4' };
+  const { restaurantId } = obj;
   const router = useRouter();
-  const { restaurantId } = useStore();
   const [campaigns, setCampaigns] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
   const [formData, setFormData] = useState({
-    restaurantId: "",
+    restaurantId: restaurantId,
     superCustomerIdArray: [],
     name: "",
     status: "active",
@@ -46,6 +48,7 @@ const Page = () => {
     endDate: "",
     media: [],
     description: "",
+    condition:"",
     favorite: false,
     autoDescription: "No auto description",
   });
@@ -53,50 +56,75 @@ const Page = () => {
   console.log("restaurantId", restaurantId);
 
   const handleInputChange = (e) => {
+    let value = e.target.type === "number" ? parseInt(e.target.value, 10) : e.target.value;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: value,
     });
   };
-
-  const handleDateChange = (dateRange) => {
-    setFormData({
-      ...formData,
-      startDate: dateRange[0],
-      endDate: dateRange[1],
-    });
+  
+  const handleDateChange = (dates) => {
+    const [startDate, endDate] = dates;
+    setFormData(prevState => ({
+      ...prevState,
+      startDate: startDate ? startDate.format("YYYY-MM-DD") : null,
+      endDate: endDate ? endDate.format("YYYY-MM-DD") : null
+    }));
   };
+  
 
   const handleSubmit = (e) => {
-    localStorage.setItem("formData", JSON.stringify(formData));
     e.preventDefault();
+    const errors = {};
+    
+    if (!formData.name) {
+      errors.name = 'Campaign name is required.';
+    }
+    if (!formData.description) {
+      errors.description = 'Campaign advertisement is required.';
+    }
+    if (!formData.availableCodes) {
+      errors.availableCodes = 'This input is required.';
+    }
+  
+  
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+    setFormErrors({});
+  
+    localStorage.setItem("formData", JSON.stringify(formData));
     setIsSubmitted(true);
+    console.log(formData);
   };
+  
 
   const handleEdit = () => {
     setIsSubmitted(false);
   };
 
-  const fakeData = {
-    restaurantId: restaurantId,
-    superCustomerIdArray: [],
-    name: "Tony's Pizza",
-    status: "active",
-    type: "Discount on pizzas",
-    offer: "25% on pizza",
-    allowSuperCustomer: true,
-    allowNewCustomer: true,
-    expiredByNumber: false,
-    availableCodes: 156,
-    superCustomerPoints: 100,
-    state: true,
-    startDate: "2023-10-01",
-    endDate: "2023-10-31",
-    media: "https://picsum.photos/id/27/200/300",
-    description: "This is a description of the campaign",
-    favorite: false,
-    autoDescription: "No auto description",
-  };
+  // const fakeData = {
+  //   restaurantId: restaurantId,
+  //   superCustomerIdArray: [],
+  //   name: "Tony's Pizza22222",
+  //   status: "active",
+  //   type: "Discount on pizzas",
+  //   offer: "25% on pizza",
+  //   allowSuperCustomer: true,
+  //   allowNewCustomer: true,
+  //   expiredByNumber: false,
+  //   availableCodes: 156,
+  //   superCustomerPoints: 100,
+  //   state: true,
+  //   startDate: "2023-10-01",
+  //   endDate: "2023-10-31",
+  //   media: "https://picsum.photos/id/27/200/300",
+  //   description: "This is a description of the campaign",
+  //   favorite: false,
+  //   autoDescription: "No auto description",
+  // };
+
 
   // ///////////////////////////////////////////////////////////////////
   const handleFinalSubmit = async (e) => {
@@ -110,7 +138,7 @@ const Page = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(fakeData),
+          body: JSON.stringify(formData),
         }
       );
 
@@ -118,12 +146,11 @@ const Page = () => {
         console.log("Campaign created successfully!");
       }
     } catch (error) {
-      console.error("Error creating campaign:", error);
+      console.log("Error creating campaign:", responseData.message);
     }
   };
   //////////////////////////////////////////////////////////////////////
 
-  // useEffect(() => {}, []);
 
   // SELECT campaign type
   const [selectedType, setSelectedType] = useState("");
@@ -165,12 +192,20 @@ const Page = () => {
     });
   };
 
-  //Upload campaign image
+  // Expire by number allowed
+  const toggleExpiredByNumber = () => {
+    setFormData({
+      ...formData,
+      expiredByNumber: !formData.expiredByNumber,
+    });
+  };
+
+
   const uploadMenu = (file) => {
     console.log("campaign image uploaded");
     console.log(file);
     const media =
-      "https://animaljustice.ca/wp-content/uploads/2021/08/Press-Release-McDonalds-Sustainable-Ad-Animal-Justice.jpeg";
+      "https://fitmencook.com/wp-content/uploads/2023/03/mix-and-match-meal-prep11.jpg";
     localStorage.setItem("media", media);
     setFormData({
       ...formData,
@@ -178,15 +213,7 @@ const Page = () => {
     });
     
   };
-
-  const cld = new Cloudinary({cloud: {cloudName: 'damy0oa7d'}});
-
-  const toggleExpiredByNumber = () => {
-    setFormData({
-      ...formData,
-      expiredByNumber: !formData.expiredByNumber,
-    });
-  };
+  
 
   const [inspirationVisible, setInspirationVisible] = useState(true);
 
@@ -211,6 +238,7 @@ const Page = () => {
                 name="name"
                 id="name"
                 placeholder="Name"
+                error={formErrors.name}
               />
               <InputDropdown
                 label="Specify the type of campaign"
@@ -244,10 +272,12 @@ const Page = () => {
                 <InputCheckbox
                   label="New Customers"
                   onChecked={toggleAllowNewCustomer}
+                  checked={formData.allowNewCustomer}
                 />
                 <InputCheckbox
                   label="Super Customers"
                   onChecked={toggleAllowSuperCustomer}
+                  checked={formData.allowSuperCustomer}
                 />
               </Box>
 
@@ -266,16 +296,18 @@ const Page = () => {
                 <InputCheckbox
                   label="This campaign expire after a specific number of customers use it"
                   onChecked={toggleExpiredByNumber}
+                  checked={formData.expiredByNumber}
                 />
               </Box>
               <InputText
                 label="Number of available codes"
-                type="numbers"
+                type="number"
                 value={formData.availableCodes}
                 onChange={handleInputChange}
                 name="availableCodes"
                 id="availableCodes"
                 placeholder="Available Codes"
+                error={formErrors.availableCodes}
               />
               <Box>
                 <Typography
@@ -292,6 +324,7 @@ const Page = () => {
                 </Typography>
                 <InputText
                   label="$ = 1 point for super customer"
+                  type="number"
                   value={formData.superCustomerPoints}
                   onChange={handleInputChange}
                   name="superCustomerPoints"
@@ -363,6 +396,7 @@ const Page = () => {
                 name="description"
                 id="description"
                 placeholder="campaign advertisement"
+                error={formErrors.description}
               />
           </Form>
 
