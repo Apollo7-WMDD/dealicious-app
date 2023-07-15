@@ -13,19 +13,20 @@ const ViewNewCampaign = ({ formData, handleFinalSubmit, handleEditProp, setFormD
 
     let offerLimit, customerLimit;
 
-    if (formData.expireByNumber) {
+    if (formData.expiredByNumber) {
       offerLimit = `Offer is limited for ${formData.availableCodes} customers`;
     } else {
       offerLimit = "Offer is unlimited in number of customers";
     }
 
+    
     if (formData.allowSuperCustomer && formData.allowNewCustomer) {
+      customerLimit = "Super customers & New customers";
+    } else if (formData.allowNewCustomer) {
       customerLimit = "New customers";
     } else if (formData.allowSuperCustomer) {
       customerLimit = "Super customers";
-    } else if (formData.allowNewCustomer) {
-      customerLimit = "Super customers & New customers";
-    }
+    }    
 
 
     return (
