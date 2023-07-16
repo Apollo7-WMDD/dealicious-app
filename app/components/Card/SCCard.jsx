@@ -1,14 +1,13 @@
 import React from 'react';
-import StarIcon from '@mui/icons-material/Star';
-import { Card, CardActions, CardContent, Box, Typography } from "@mui/material";
+import { Card, CardContent, Box, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
+import StarIcon from "@/app/components/svg/star.svg";
+
 
 const SCCard = ({ props, superCustomerId }) => {
   
-
-
   // const router = useRouter();
   // const cardClick = (_id) => {
   //   console.log(superCustomerId)
@@ -45,14 +44,17 @@ const SCCard = ({ props, superCustomerId }) => {
   // }
 
 return (
-    <Box >
+    <Box 
+    > 
       {/* <Link href={`/superCustomer/restaurants/${superCustomerId}/${props._id}`}> */}
       <Link underline="none" href={`/superCustomer/restaurants/64a9918f8f2748a9b781ad59/649caf44ea1c8363ed630fc4`} style={{ textDecoration: 'none' }}>
         <Card 
           sx={{ 
-            maxWidth: 324,
-            borderRadius: '16px'
-          }}>
+            maxWidth: 400,
+            borderRadius: '16px',
+            boxShadow: 20
+          }}
+          >
           <img 
           src="https://media.istockphoto.com/id/1415525222/photo/fire-and-chinese-chefs.jpg?s=1024x1024&w=is&k=20&c=zdg6cOC9XSu1Xw9Adys82VBZxHWkHupFiAqxBbxyqxU="
           alt="new" height="189px"
@@ -60,25 +62,41 @@ return (
           <Box
             sx={{
               display:'flex',
+              direction: 'row',
+              alignItems: 'center',
+              m:'0 1rem',
             }}
             >
-            <img 
-            src={props.logo}
-            alt="new" width="30px" height="30px"
-            style={{ borderRadius: '50%' }}
-            />
+            <Box>
+              <img
+                src={props.logo}
+                style={{
+                  borderRadius: '50%',
+                  width: '50px', // adjust the size as needed
+                  height: '50px' // adjust the size as needed
+                }}
+                alt="Logo"
+              />
+            </Box>
             <CardContent
               sx={{
-                p:0,
-                m:0,
-                textAlign:'center',
+                m:'0 0 0 2rem',
+                textAlign:'start',
+              }}
+              style={{
+                padding: '1rem 0',
               }}
             >
               <Typography gutterBottom variant="h5" component="div">
                 {props.name}
               </Typography>
               <Typography variant="p" color="text.secondary">
-                4.5<StarIcon />{props.campaigns.length} Active campaigns
+                4.5 <StarIcon 
+                    sx={{
+                      m:0,
+                      p:0,
+                    }}
+                    /> {props.campaigns.length} Active campaigns
               </Typography>
             </CardContent>
           </Box>

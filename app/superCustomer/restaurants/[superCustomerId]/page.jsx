@@ -3,7 +3,7 @@ import Header from "../../../components/Header/Header";
 import SCCard from "../../../components/Card/SCCard";
 import SCHeader from "../../../components/Header/SCHeader"
 import SCFooter from "../../../components/Footer/SCFooter"
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 
 const fetchRestaurants = async (superCustomerId) => {
@@ -28,10 +28,7 @@ const fetchRestaurants = async (superCustomerId) => {
 const Page = async ({ params }) => {
   const { superCustomerId } = params;
   const data = await fetchRestaurants(superCustomerId);
-  console.log(data);
-  //const activeCampaigns = data[0].filter(campaign => campaign.status === 'active');
-  //console.log(activeCampaigns);
-
+  // console.log(data);
   const cards = data.map((item, index) => <SCCard key={index} props={{ ...item, superCustomerId }} />);
 
   return (
@@ -39,10 +36,11 @@ const Page = async ({ params }) => {
       <SCHeader />
       <Box
         sx={{
-          p:'3%'
+          p:0,
+          m:'1rem',
         }}
       >
-        <Header props={"My Restaurants"} />
+        <Typography variant="h1" style={{ padding: '0 0 1rem 0' }}>My Restaurants</Typography>
         <Box
           sx={{
             display: 'flex',
@@ -50,11 +48,6 @@ const Page = async ({ params }) => {
             gap:"3%",
           }}
         >
-        {/* <Link href={`/`}>
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
-            Insights - Overview
-          </button>
-        </Link> */}
           {cards}
         </Box>
       </Box>
