@@ -47,7 +47,7 @@ const SCCard = ({ props, superCustomerId }) => {
 return (
     <Box >
       {/* <Link href={`/superCustomer/restaurants/${superCustomerId}/${props._id}`}> */}
-      <Link href={`/superCustomer/restaurants/64a9918f8f2748a9b781ad59/649caf44ea1c8363ed630fc4`}>
+      <Link underline="none" href={`/superCustomer/restaurants/64a9918f8f2748a9b781ad59/649caf44ea1c8363ed630fc4`} style={{ textDecoration: 'none' }}>
         <Card 
           sx={{ 
             maxWidth: 324,

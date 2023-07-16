@@ -11,28 +11,31 @@ import Paper from '@mui/material/Paper';
 import SCActive from '../../components/Button/SCActive';
 import SingleButton from '../Button/SingleButton';
 import SCSubmitBtn from '../Button/SCSubmitBtn';
-require('dotenv').config();
-import twilio from 'twilio';
-import { URL } from 'url';
+import { sendSMS } from '../../../lib/sms/sms';
+
+
+// require('dotenv').config();
+// import twilio from 'twilio';
+// import { URL } from 'url';
 
 
 // Download the helper library from https://www.twilio.com/docs/node/install
 // Find your Account SID and Auth Token at twilio.com/console
 // and set the environment variables. See http://twil.io/secure
-const test = () => {
-  const accountSid = process.env.TWILIO_ACCOUNT_SID;
-  const authToken = process.env.TWILIO_AUTH_TOKEN;
-  // const client = require('twilio')(accountSid, authToken);
-  const client = require('twilio')('ACbfab2bb79da6d6e59471055f10216ea9', '838a8c275189d7f62f5b9faccdf75111');
+// const test = () => {
+//   const accountSid = process.env.TWILIO_ACCOUNT_SID;
+//   const authToken = process.env.TWILIO_AUTH_TOKEN;
+//   // const client = require('twilio')(accountSid, authToken);
+//   const client = require('twilio')('ACbfab2bb79da6d6e59471055f10216ea9', '838a8c275189d7f62f5b9faccdf75111');
 
-  client.messages
-    .create({
-      body: 'DEALicious Test',
-      from: '+15416157617',
-      to: '+14372105501'
-    })
-    .then(message => console.log(message.sid));
-}
+//   client.messages
+//     .create({
+//       body: 'DEALicious Test',
+//       from: '+15416157617',
+//       to: '+14372105501'
+//     })
+//     .then(message => console.log(message.sid));
+// }
 
 
 
@@ -47,6 +50,21 @@ const CampaignCard = ({ props }) => {
   const handleOpenSecond = () => {
     setOpen(false);
     setOpenSecond(true);
+    
+    const handleSendSMS = async () => {
+      try {
+        const success = await sendSMS();
+        if (success) {
+          console.log('SMS sent successfully!');
+        } else {
+          console.log('Failed to send SMS.');
+        }
+      } catch (error) {
+        console.error('Error sending SMS:', error);
+      }
+    };
+
+    handleSendSMS();
     //test();
     // const accountSid = process.env.TWILIO_ACCOUNT_SID;
     // const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -98,7 +116,7 @@ const CampaignCard = ({ props }) => {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    border: '2px solid #ff5938',
     boxShadow: 24,
     p: 4,
   };
@@ -140,8 +158,8 @@ return (
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>Time: {props.startDate}</Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>{props.endDate}</Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>{props.description}</Typography>
-              {/* <SingleButton text="Activate" width="144px" onClick={handleOpenSecond}></SingleButton> */}
-              <SingleButton text="Activate" width="144px" onClick={test}></SingleButton>
+              <SingleButton text="Activate" width="144px" onClick={handleOpenSecond}></SingleButton>
+              {/* <SingleButton text="Activate" width="144px" onClick={test}></SingleButton> */}
               {/* <SingleButton text="Activate" width="144px" onClick={() =>{
                 handleClose;
                 handleOpenSecond;
