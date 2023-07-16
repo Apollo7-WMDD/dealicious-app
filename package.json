@@ -24,6 +24,7 @@
     "cloudinary": "^1.37.3",
     "date-fns": "^2.30.0",
     "dayjs": "^1.11.9",
+    "dotenv": "^16.3.1",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.5",
     "mongodb": "^5.6.0",
@@ -37,10 +38,11 @@
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "tailwindcss": "3.3.2",
-    "twilio": "^4.13.0",
+    "url": "^0.11.1",
     "zustand": "^4.3.8"
   },
   "devDependencies": {
-    "@svgr/webpack": "^8.0.1"
+    "@svgr/webpack": "^8.0.1",
+    "twilio": "^4.14.0"
   }
 }

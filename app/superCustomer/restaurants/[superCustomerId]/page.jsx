@@ -4,6 +4,7 @@ import SCCard from "../../../components/Card/SCCard";
 import SCHeader from "../../../components/Header/SCHeader"
 import SCFooter from "../../../components/Footer/SCFooter"
 import { Box } from "@mui/material";
+import Link from "next/link";
 
 const fetchRestaurants = async (superCustomerId) => {
   const isProduction = process.env.NODE_ENV === "production";
@@ -31,7 +32,7 @@ const Page = async ({ params }) => {
   //const activeCampaigns = data[0].filter(campaign => campaign.status === 'active');
   //console.log(activeCampaigns);
 
-  const cards = data.map((item, index) => <SCCard key={index} props={item} />);
+  const cards = data.map((item, index) => <SCCard key={index} props={{ ...item, superCustomerId }} />);
 
   return (
     <Box>
@@ -49,6 +50,11 @@ const Page = async ({ params }) => {
             gap:"3%",
           }}
         >
+        {/* <Link href={`/`}>
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
+            Insights - Overview
+          </button>
+        </Link> */}
           {cards}
         </Box>
       </Box>
