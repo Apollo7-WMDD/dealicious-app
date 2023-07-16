@@ -42,7 +42,7 @@ const Login = ({ params }) => {
       if (urlParams.includes("owner")) {
         router.push("/");
       } else {
-        router.push(`/home/${urlParams[urlParams.length - 1]}`);
+        router.push(`/home/superCustomer`);
       }
     }
   }, [session]);

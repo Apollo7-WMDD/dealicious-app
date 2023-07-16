@@ -1,3 +1,5 @@
+"use client";
+
 import StarIcon from "@mui/icons-material/Star";
 import { Card, CardActions, CardContent, Box, Typography } from "@mui/material";
 import Image from "next/image";
