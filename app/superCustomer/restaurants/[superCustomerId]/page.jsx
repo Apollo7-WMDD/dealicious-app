@@ -1,6 +1,9 @@
 "use client";
 import Header from "../../../components/Header/Header";
 import SCCard from "../../../components/Card/SCCard";
+import SCHeader from "../../../components/Header/SCHeader"
+import SCFooter from "../../../components/Footer/SCFooter"
+import { Box } from "@mui/material";
 
 const fetchRestaurants = async (superCustomerId) => {
   const isProduction = process.env.NODE_ENV === "production";
@@ -24,13 +27,33 @@ const fetchRestaurants = async (superCustomerId) => {
 const Page = async ({ params }) => {
   const { superCustomerId } = params;
   const data = await fetchRestaurants(superCustomerId);
-  console.log(data[0].name)
+  console.log(data);
+  //const activeCampaigns = data[0].filter(campaign => campaign.status === 'active');
+  //console.log(activeCampaigns);
+
+  const cards = data.map((item, index) => <SCCard key={index} props={item} />);
+
   return (
-    <div>
-      <Header props={"My Restaurants"} />
-      <SCCard props={data[0]}/>
-      <SCCard props={data[1]}/>
-    </div>
+    <Box>
+      <SCHeader />
+      <Box
+        sx={{
+          p:'3%'
+        }}
+      >
+        <Header props={"My Restaurants"} />
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            gap:"3%",
+          }}
+        >
+          {cards}
+        </Box>
+      </Box>
+      <SCFooter />
+    </Box>
   );
 };
 
