@@ -23,19 +23,18 @@ import { sendSMS } from '../../../lib/sms/sms';
 // Find your Account SID and Auth Token at twilio.com/console
 // and set the environment variables. See http://twil.io/secure
 // const test = () => {
-//   const accountSid = process.env.TWILIO_ACCOUNT_SID;
-//   const authToken = process.env.TWILIO_AUTH_TOKEN;
-//   // const client = require('twilio')(accountSid, authToken);
-//   const client = require('twilio')('ACbfab2bb79da6d6e59471055f10216ea9', '838a8c275189d7f62f5b9faccdf75111');
+  // const accountSid = process.env.TWILIO_ACCOUNT_SID;
+  // const authToken = process.env.TWILIO_AUTH_TOKEN;
+  // // const client = require('twilio')(accountSid, authToken);
+  // const client = require('twilio')('ACbfab2bb79da6d6e59471055f10216ea9', '838a8c275189d7f62f5b9faccdf75111');
 
-//   client.messages
-//     .create({
-//       body: 'DEALicious Test',
-//       from: '+15416157617',
-//       to: '+14372105501'
-//     })
-//     .then(message => console.log(message.sid));
-// }
+  // client.messages
+  //   .create({
+  //     body: 'DEALicious Test',
+  //     from: '+15416157617',
+  //     to: '+14372105501'
+  //   })
+  //   .then(message => console.log(message.sid));
 
 
 
