@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Button } from "@mui/material";
 import SubHeader from "../Header/SubHeader";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import PictureUploadCard from '../Button/PictureUploadCard';
 import Form from '../Card/Form';
 
-const MenuForm = ({ uploadMenu }) => {
+const MenuForm = ({ uploadMenu, initialImages }) => {
     const [imagesAndMenusVisible, setImagesAndMenusVisible] = useState(true);
     const [previews, setPreviews] = useState([]);
     const [files, setFiles] = useState([]);
+
+    useEffect(() => {
+        if (Array.isArray(initialImages)) {
+            setPreviews(initialImages);
+        } else if (typeof initialImages === 'string') {
+            setPreviews([initialImages]); // if initialImages is a string, put it in an array
+        } else {
+            setPreviews([]); // for any other cases, set previews to an empty array
+        }
+    }, [initialImages]);
+    
 
     const handleUploadMenu = (files) => {
         const allFiles = Array.from(files);
