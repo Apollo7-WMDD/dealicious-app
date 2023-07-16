@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
-const TimeDropdown = ({ day, setBusinessHours, isDisabled }) => {
-  const [openAt, setOpenAt] = useState('');
-  const [closeAt, setCloseAt] = useState('');
+const TimeDropdown = ({ day, setBusinessHours, isDisabled, initialData }) => {
+  const [openAt, setOpenAt] = useState(initialData?.open || '');
+  const [closeAt, setCloseAt] = useState(initialData?.close || '');
 
   const hours = Array.from({length: 12}, (_, i) => i + 1);
   const periods = ['AM', 'PM'];
@@ -25,6 +25,12 @@ const TimeDropdown = ({ day, setBusinessHours, isDisabled }) => {
     setBusinessHours({ open: openAt, close: e.target.value });
   };
 
+  useEffect(() => {
+    if(initialData) {
+      setOpenAt(initialData.open);
+      setCloseAt(initialData.close);
+    }
+  }, [initialData]);
 
   return (
     <div>

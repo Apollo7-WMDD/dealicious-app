@@ -64,7 +64,7 @@ const ReferralSystemForm = ({ formData, handleInputChange }) => {
                     type='number'
                     name="points"
                     id="points"
-                    value={formData.points}
+                    value={formData.superCustomerPoints}
                     onChange={handleInputChange}
                     placeholder="Points"
                     style={{ whiteSpace: "nowrap" }}

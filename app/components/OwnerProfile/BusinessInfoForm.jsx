@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import InputText from "../Input/InputText";
 import { Box } from "@mui/material";
 import PictureUploadCard from "../Button/PictureUploadCard";
@@ -8,9 +8,16 @@ import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import InputDropdown from "../Input/InputDropdown";
 import ImagePreview from "../Profile/ImagePreview";
 
-const BusinessInfoForm = ({ formData, handleInputChange, handleAddressChange, uploadLogo }) => {
+const BusinessInfoForm = ({ formData, handleInputChange, handleAddressChange, uploadLogo, isEdit }) => {
     const [businessInfoVisible, setBusinessInfoVisible] = useState(true);
     const [logoPreview, setLogoPreview] = useState(null);
+    // const [logoPreview, setLogoPreview] = useState(formData.logo);
+    // const [logoPreview, setLogoPreview] = useState(isEdit ? formData.logo : null);
+    useEffect(() => {
+        if (isEdit) {
+            setLogoPreview(formData.logo);
+        }
+    }, [isEdit, formData.logo]);
 
     const handleUploadLogo = (file) => {
         const logoFile = file[0];

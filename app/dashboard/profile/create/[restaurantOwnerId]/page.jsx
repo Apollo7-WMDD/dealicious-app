@@ -7,7 +7,7 @@ import BusinessHourForm from "@/app/components/OwnerProfile/BusinessHourForm";
 import ReferralSystemForm from "@/app/components/OwnerProfile/ReferralSystemForm";
 import MenuForm from "@/app/components/OwnerProfile/MenuForm";
 
-const Restaurant = () => {
+const Page = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [formData, setFormData] = useState({
     userId: "",
@@ -36,6 +36,7 @@ const Restaurant = () => {
     },
     menu: "",
     logo: "",
+    superCustomerPoints: "",
     qrCode: "",
   });
 
@@ -132,6 +133,7 @@ const Restaurant = () => {
           },
           menu: "",
           logo: "",
+          superCustomerPoints: "",
           qrCode: "",
         });
         router.push(`/dashboard/profile/${restaurantOwnerId}`);
@@ -147,6 +149,7 @@ const Restaurant = () => {
           handleInputChange={handleInputChange}
           handleAddressChange={handleAddressChange}
           uploadLogo={uploadLogo}
+          isEdit={false}
         />
         <BusinessHourForm 
           weekdays={weekdays} 
@@ -176,5 +179,5 @@ const Restaurant = () => {
   );
 };
 
-export default Restaurant;
+export default Page;
 
