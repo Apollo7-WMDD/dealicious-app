@@ -44,7 +44,6 @@ function SideBar() {
             },
           }}
         >
-          
           <Box
             sx={{
               display: "flex",
@@ -64,57 +63,6 @@ function SideBar() {
               <Divider style={{ margin: "1rem 2rem" }} />
               <SideBarItem />
               <TodayInfo />
-              {/* <Box
-                sx={{
-                  backgroundColor: theme.palette.secondary[100],
-                  borderRadius: "1rem 1rem 1rem 1rem",
-                  textAlign: "center",
-                  margin: "1rem 2rem",
-                  padding: "1rem 0",
-                }}
-              >
-                <Typography
-                  variant="h5"
-                  sx={{
-                    fontWeight: "bold",
-                    color: theme.palette.secondary[20],
-                  }}
-                >
-                  Today
-                </Typography>
-                <br />
-                <Typography
-                  variant="h5"
-                  sx={{ fontWeight: "300", color: theme.palette.secondary[20] }}
-                >
-                  Revenue
-                </Typography>
-                <Typography
-                  variant="h3"
-                  sx={{
-                    fontWeight: "bold",
-                    color: theme.palette.secondary[20],
-                  }}
-                >
-                  $$$
-                </Typography>
-                <br />
-                <Typography
-                  variant="h5"
-                  sx={{ fontWeight: "300", color: theme.palette.secondary[20] }}
-                >
-                  Customers
-                </Typography>
-                <Typography
-                  variant="h3"
-                  sx={{
-                    fontWeight: "bold",
-                    color: theme.palette.secondary[20],
-                  }}
-                >
-                  $$$
-                </Typography>
-              </Box> */}
             </Box>
 
             <SideBarUtilButton />
