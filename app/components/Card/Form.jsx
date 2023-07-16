@@ -15,7 +15,7 @@ const Form = ({ children, ...props }) => {
         flexShrink: 0,
         display: "flex",
         padding: "1rem 1.5rem",
-        margin: "10rem auto",
+        margin: "1.5rem auto",
       }}
       {...props}
     >
