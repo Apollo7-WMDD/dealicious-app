@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 // user context
 import { useStore } from "@/lib/context/user_context/store";
 import { useEffect, useState } from "react";
-import SingleButton from "@/app/components/Button/SingleButton";
+import SingleButtonNoIcon from "@/app/components/Button/SingleButtonNoIcon";
 import BusinessInfo from "@/app/components/OwnerProfile/BusinessInfo";
 import BusinessHours from "@/app/components/OwnerProfile/BusinessHours";
 import Images from "@/app/components/OwnerProfile/Images";
@@ -109,12 +109,18 @@ const Page = async () => {
           </Grid>
         </Box>
       )}
-        <SingleButton 
+      <Box sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: { xs:'center', md: 'flex-end'},
+          margin: '20px',
+        }}>
+        <SingleButtonNoIcon
           text="Edit" 
           onClick={editClick} 
-          width={{ xs: '100%', sm: '174px' }}
+          width={{ xs: '100%', md: '174px' }}
         />
-
+      </Box>
     </>
   );
 };
