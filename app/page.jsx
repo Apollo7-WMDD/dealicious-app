@@ -22,7 +22,8 @@ const Page = () => {
   const { setRestaurantOwner, restaurantOwnerId } = useStore();
   const theme = useTheme();
 
-  console.log("This is the restaurantOwnerId: ", restaurantOwnerId);
+  // hardcode restaurantId since it's always dinamically changing
+  const restaurantId = "649caf44ea1c8363ed630fc4";
 
   useEffect(() => {
     const getRestaurantOwnerId = async () => {
@@ -56,7 +57,7 @@ const Page = () => {
               Dashboard
             </Button>
           </Link>
-          <Link href={`/superCustomer/restaurants/${session?.user.id}`}>
+          <Link href={`/home/${restaurantId}`}>
             <Button
               variant="contained"
               sx={{
@@ -69,7 +70,7 @@ const Page = () => {
                 },
               }}
             >
-              Dashboard - Super Customer
+              Homepage - Restaurant (dynamic)
             </Button>
           </Link>
           <Button
