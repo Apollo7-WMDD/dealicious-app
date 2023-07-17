@@ -14,15 +14,10 @@ import Home from "./components/LandingPage/Home";
 import Loader from "./components/Loader";
 import { Button, useTheme } from "@mui/material";
 
-// import fetching data
-// import { fetchRestaurantId } from "@/lib/fetching/restaurantId/data";
-
 const Page = () => {
   const { data: session, status } = useSession();
   const { setRestaurantOwner, restaurantOwnerId } = useStore();
   const theme = useTheme();
-
-  console.log("This is the restaurantOwnerId: ", restaurantOwnerId);
 
   useEffect(() => {
     const getRestaurantOwnerId = async () => {
@@ -56,7 +51,7 @@ const Page = () => {
               Dashboard
             </Button>
           </Link>
-          <Link href={`/superCustomer/restaurants/${session?.user.id}`}>
+          <Link href={`/home/superCustomer`}>
             <Button
               variant="contained"
               sx={{
@@ -69,7 +64,7 @@ const Page = () => {
                 },
               }}
             >
-              Dashboard - Super Customer
+              Homepage - Restaurant - Super Customer
             </Button>
           </Link>
           <Button

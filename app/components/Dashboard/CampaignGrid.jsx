@@ -21,7 +21,8 @@ function CampaignGrid({ onPinClickB, children }) {
     const fetchData = async () => {
       const result = await fetchAllCampaigns(restaurantOwnerId);
       setData(result);
-      setDataArray(result.campaigns);
+      setDataArray(result.campaigns || []);
+      // setDataArray(result.campaigns);
     };
     fetchData();
   }, [restaurantOwnerId, hilighted]);

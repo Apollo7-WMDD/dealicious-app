@@ -1,10 +1,12 @@
-import React from "react";
+"use client";
+
 import { Box, useTheme, Typography } from "@mui/material";
 import DealIcon from "@/app/components/svg/scdealicon.svg";
 
 function SCFooter() {
-    const theme = useTheme();
+  const theme = useTheme();
   return (
+
         <Box
             sx={{
                 bgcolor: '#474747',//theme.palette.primary[60],
@@ -47,6 +49,7 @@ function SCFooter() {
                 <Typography>TERMS OF USE</Typography>
             </Box>
         </Box>
+
   );
 }
 

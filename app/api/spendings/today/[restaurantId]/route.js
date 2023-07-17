@@ -9,7 +9,6 @@ export const GET = async (request) => {
   const restaurantId = url.pathname.split("/")[4];
   console.log("This is the restaurant Id", restaurantId);
 
-
   try {
     await connect();
 
