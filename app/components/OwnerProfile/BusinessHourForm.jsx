@@ -1,13 +1,19 @@
-import React from 'react';
+import React from "react";
 import { useState, useEffect } from "react";
-import TimeDropdown from '../Profile/TimeDropdown';
-import InputCheckbox from '../Input/InputCheckbox';
-import Form from '../Card/Form';
-import SubHeader from '../Header/SubHeader';
-import { Box, Typography } from '@mui/material';
+import TimeDropdown from "../Profile/TimeDropdown";
+import InputCheckbox from "../Input/InputCheckbox";
+import Form from "../Card/Form";
+import SubHeader from "../Header/SubHeader";
+import { Box, Typography } from "@mui/material";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 
-const BusinessHourForm = ({ weekdays, formData, setFormData, DayClosedChange, isEdit }) => {
+const BusinessHourForm = ({
+  weekdays,
+  formData,
+  setFormData,
+  DayClosedChange,
+  isEdit,
+}) => {
   const [businessHoursVisible, setBusinessHoursVisible] = useState(true);
 
   return (
@@ -27,13 +33,14 @@ const BusinessHourForm = ({ weekdays, formData, setFormData, DayClosedChange, is
         />
       </Box>
       {businessHoursVisible &&
-        weekdays.map((day) => (
-            <Box
+        weekdays.map((day, index) => (
+          <Box
+            key={index}
             sx={{
               display: "flex",
               flexDirection: { xs: "column", md: "row" },
               gap: { xs: "0", md: "30px" },
-              marginBottom: '20px', 
+              marginBottom: "20px",
               alignItems: "center",
             }}
           >
@@ -76,16 +83,18 @@ const BusinessHourForm = ({ weekdays, formData, setFormData, DayClosedChange, is
                   ...prevState,
                   businessHours: {
                     ...prevState.businessHours,
-                    [day]: { ...newHours, closed: formData.businessHours[day].closed },
+                    [day]: {
+                      ...newHours,
+                      closed: formData.businessHours[day].closed,
+                    },
                   },
                 }));
               }}
             />
           </Box>
-      ))}
-  </Form>
-);
+        ))}
+    </Form>
+  );
 };
 
 export default BusinessHourForm;
-
