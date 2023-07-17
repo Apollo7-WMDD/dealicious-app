@@ -14,9 +14,6 @@ import Home from "./components/LandingPage/Home";
 import Loader from "./components/Loader";
 import { Button, useTheme } from "@mui/material";
 
-// import fetching data
-// import { fetchRestaurantId } from "@/lib/fetching/restaurantId/data";
-
 const Page = () => {
   const { data: session, status } = useSession();
   const { setRestaurantOwner, restaurantOwnerId } = useStore();
