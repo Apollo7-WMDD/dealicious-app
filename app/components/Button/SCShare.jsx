@@ -4,10 +4,10 @@ import Share from "@/app/components/svg/shareIcon.svg";
 import QRCode from "qrcode";
 import { useState } from "react";
 
-const SCShare = ({ text, width, params }) => {
+const SCShare = ({ text, width, superCustomerId, restaurantId }) => {
   const theme = useTheme();
-  const { superCustomerId, restaurantId } = params;
   const url = `http://localhost:3000/newCustomer/${restaurantId}/${superCustomerId}}`;
+  console.log(url);
   const [qr, setQr] = useState("");
   const [open, setOpen] = React.useState(false);
   //const handleOpen = () => setOpen(true);
@@ -90,9 +90,7 @@ const SCShare = ({ text, width, params }) => {
       </Button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
-          <Typography variant="p">
-            Where this QR goes/URL/New Customer URL?
-          </Typography>
+          <Typography variant="p">Link to New Customer Page</Typography>
           <img src={qr} />
         </Box>
       </Modal>
