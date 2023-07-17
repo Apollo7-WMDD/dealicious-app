@@ -3,10 +3,10 @@
 // next js imports
 import Link from "next/link";
 
-import Header from "../../../components/Header/Header";
-import SCCard from "../../../components/Card/SCCard";
-import SCHeader from "../../../components/Header/SCHeader";
-import SCFooter from "../../../components/Footer/SCFooter";
+import Header from "@/app/components/Header/Header";
+import SCCard from "@/app/components/Card/SCCard";
+import SCHeader from "@/app/components/Header/SCHeader";
+import SCFooter from "@/app/components/Footer/SCFooter";
 
 // material-ui imports
 import { Box, Button } from "@mui/material";

@@ -122,7 +122,8 @@ const RestaurantSchema = new Schema({
   },
   qrCode: {
     type: String,
-    required: [true, "QR Code is required"], //validation pending
+    default: "https://i.imgur.com/2ZtUZJH.png",
+    //validation pending
   },
 });
 

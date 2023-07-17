@@ -62,7 +62,10 @@ const Page = ({ params }) => {
             boxShadow: 20,
           }}
         >
-          <Share />
+          <Share
+            superCustomerId={superCustomerId}
+            restaurantId={restaurantId}
+          />
         </Box>
         <Box>
           {!restaurantData.campaigns ? (
