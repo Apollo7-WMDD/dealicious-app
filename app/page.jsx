@@ -9,8 +9,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect } from "react";
 import Home from "./components/LandingPage/Home";
-// // loader
-// import Loader from "./components/Loader";
+
+//  loader
+import Loader from "./components/Loader";
 import { Button, useTheme } from "@mui/material";
 
 const Page = () => {
