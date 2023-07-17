@@ -1,13 +1,16 @@
+
 import React from "react";
 import { Box, useTheme, Typography } from "@mui/material";
+
 import DealIcon from "@/app/components/svg/scdealicon.svg";
 import ScanCode from "@/app/components/svg/scanCode.svg";
 
 function SCHeader() {
-    const theme = useTheme();
+  const theme = useTheme();
   return (
     <Box
       sx={{
+
           borderBottom: '3px solid',
           borderColor: theme.palette.primary[80],
           height: "78px",
@@ -60,6 +63,7 @@ function SCHeader() {
           <Typography variant="p">My Restaurants</Typography>
         </Box>
       </Box>
+
     </Box>
   );
 }

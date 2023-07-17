@@ -23,6 +23,16 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "https://media.istockphoto.com",
+        port: "",
+        pathname: "/**",
+      },
+    ],
+  },
   webpack(config) {
     config.resolve.fallback = { ...config.resolve.fallback, fs: false, tls: false, net: false, os: false },
     config.module.rules.push({

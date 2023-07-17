@@ -15,15 +15,12 @@ import Footer from "@/app/components/Footer";
 
 const Page = ({ params }) => {
   const { data: session, status } = useSession();
-
-  console.log(session?.user);
-
   const [results, setResults] = useState({});
   const { restaurantId } = params;
 
   useEffect(() => {
     const fetchRestaurant = async (restaurantId) => {
-      const res = await fetch(`/api/restaurant/${restaurantId}`);
+      const res = await fetch(`/api/restaurant/all_campaigns/${restaurantId}`);
       if (!res.ok) throw new Error(await res.text());
       const data = await res.json();
       setResults(data);
@@ -31,28 +28,22 @@ const Page = ({ params }) => {
     fetchRestaurant(restaurantId);
   }, []);
 
+  console.log("This is the results: ", results);
+
   return (
     <>
-      <Navbar restaurantId={restaurantId} />
+      <Navbar />
       <h1>Restaurant Home Page for Super Customers to Login or Sign Up</h1>
       <div>
         <>
-          <Link
-            href={`/login/superCustomer`}
-            className="mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white"
-          >
+          <Link href={`/login/superCustomer/${restaurantId}`}>
             <button>Login</button>
           </Link>
-          <Link
-            href={`/register`}
-            className="mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white"
-          >
+          <Link href={`/register`}>
             <button>Sign Up!</button>
           </Link>
           <Link href={`/superCustomer/restaurants/${session?.user.id}`}>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
-              Dashboard SC
-            </button>
+            <button>Dashboard SC</button>
           </Link>
         </>
         <Footer />
