@@ -77,7 +77,11 @@ const Page = ({ params }) => {
           }}
         >
           {restaurants.map((item, index) => (
-            <SCCard key={index} props={item} />
+            <SCCard
+              key={index}
+              props={item}
+              superCustomerId={superCustomerId}
+            />
           ))}
         </Box>
       </Box>
