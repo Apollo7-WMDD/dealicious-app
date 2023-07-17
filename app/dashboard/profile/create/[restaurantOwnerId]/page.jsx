@@ -7,16 +7,15 @@ import BusinessHourForm from "@/app/components/OwnerProfile/BusinessHourForm";
 import ReferralSystemForm from "@/app/components/OwnerProfile/ReferralSystemForm";
 import MenuForm from "@/app/components/OwnerProfile/MenuForm";
 
-const Page = () => {
+const Page = ({ params }) => {
+  const { restaurantOwnerId } = params;
   const [restaurants, setRestaurants] = useState([]);
   const [formData, setFormData] = useState({
     userId: "",
     name: "",
+    category: "",
     manager: "",
     email: "",
-    phone: "",
-    website: "",
-    category: "",
     address: {
       street: "",
       postalCode: "",
@@ -24,15 +23,17 @@ const Page = () => {
       province: "",
       country: "",
     },
+    phone: "",
+    website: "",
     businessHours: {
-      monday: { open: "", close: "", closed: false },
-      tuesday: { open: "", close: "", closed: false },
-      wednesday: { open: "", close: "", closed: false },
-      thursday: { open: "", close: "", closed: false },
-      friday: { open: "", close: "", closed: false },
-      saturday: { open: "", close: "", closed: false },
-      sunday: { open: "", close: "", closed: false },
-      holiday: { open: "", close: "", closed: false },
+      monday: { open: "", close: "", Isclosed: false },
+      tuesday: { open: "", close: "", Isclosed: false },
+      wednesday: { open: "", close: "", Isclosed: false },
+      thursday: { open: "", close: "", Isclosed: false },
+      friday: { open: "", close: "", Isclosed: false },
+      saturday: { open: "", close: "", Isclosed: false },
+      sunday: { open: "", close: "", Isclosed: false },
+      holiday: { open: "", close: "", Isclosed: false },
     },
     menu: "",
     logo: "",
@@ -65,7 +66,6 @@ const Page = () => {
     "holiday",
   ];
 
-
   const DayClosedChange = (day) => (newState) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -79,6 +79,8 @@ const Page = () => {
     }));
   };
 
+  console.log("This is the form data", formData);
+
   const uploadLogo = () => {
     console.log("Logo uploaded!");
   };
@@ -88,96 +90,104 @@ const Page = () => {
     console.log(file);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    fetch("/api/restaurant", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          return response.text().then((text) => {
-            throw new Error(`Server error: ${text}`);
-          });
+
+    formData["userId"] = restaurantOwnerId;
+
+    try {
+      const response = await fetch(
+        `/api/dashboard/profile/create/${restaurantOwnerId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
         }
-        return response.json();
-      })
-      .then((data) => {
-        setRestaurants((prevRestaurants) => [...prevRestaurants, data]);
-        setFormData({
-          userId: "",
-          name: "",
-          manager: "",
-          email: "",
-          phone: "",
-          website: "",
-          address: {
-            street: "",
-            postalCode: "",
-            city: "",
-            province: "",
-            country: "",
-          },
-          businessHours: {
-            monday: { open: "", close: "" },
-            tuesday: { open: "", close: "" },
-            wednesday: { open: "", close: "" },
-            thursday: { open: "", close: "" },
-            friday: { open: "", close: "" },
-            saturday: { open: "", close: "" },
-            sunday: { open: "", close: "" },
-            holiday: { open: "", close: "" },
-          },
-          menu: "",
-          logo: "",
-          superCustomerPoints: "",
-          qrCode: "",
-        });
-        router.push(`/dashboard/profile/${restaurantOwnerId}`);
-      })
-      .catch((error) => console.error("Error creating restaurant:", error));
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Server error: ${errorText}`);
+      }
+
+      const data = await response.json();
+      alert("Restaurant profile created successfully!");
+
+      setRestaurants((prevRestaurants) => [...prevRestaurants, data]);
+      setFormData({
+        userId: "",
+        name: "",
+        manager: "",
+        email: "",
+        phone: "",
+        website: "",
+        address: {
+          street: "",
+          postalCode: "",
+          city: "",
+          province: "",
+          country: "",
+        },
+        businessHours: {
+          monday: { open: "", close: "", isClosed: false },
+          tuesday: { open: "", close: "", isClosed: false },
+          wednesday: { open: "", close: "", isClosed: false },
+          thursday: { open: "", close: "", isClosed: false },
+          friday: { open: "", close: "", isClosed: false },
+          saturday: { open: "", close: "", isClosed: false },
+          sunday: { open: "", close: "", isClosed: false },
+          holiday: { open: "", close: "", isClosed: false },
+        },
+        menu: "",
+        logo: "",
+        superCustomerPoints: "",
+        qrCode: "",
+      });
+
+      router.push(`/dashboard/profile/${restaurantOwnerId}`);
+    } catch (error) {
+      console.error("Error creating restaurant:", error);
+    }
   };
 
   return (
     <div>
       <Header>Create Profile</Header>
-        <BusinessInfoForm
-          formData={formData}
-          handleInputChange={handleInputChange}
-          handleAddressChange={handleAddressChange}
-          uploadLogo={uploadLogo}
-          isEdit={false}
-        />
-        <BusinessHourForm 
-          weekdays={weekdays} 
-          DayClosedChange={DayClosedChange} 
-          formData={formData} 
-          setFormData={setFormData} 
-        />
+      <BusinessInfoForm
+        formData={formData}
+        handleInputChange={handleInputChange}
+        handleAddressChange={handleAddressChange}
+        uploadLogo={uploadLogo}
+        isEdit={false}
+      />
+      <BusinessHourForm
+        weekdays={weekdays}
+        DayClosedChange={DayClosedChange}
+        formData={formData}
+        setFormData={setFormData}
+      />
 
-        <MenuForm uploadMenu={uploadMenu} />
+      <MenuForm uploadMenu={uploadMenu} />
 
-        <ReferralSystemForm
-          formData={formData}
-          handleInputChange={handleInputChange}
-        />
+      <ReferralSystemForm
+        formData={formData}
+        handleInputChange={handleInputChange}
+      />
 
-        <InputButton
-          onFirstButtonClick={(e) => {
-            e.preventDefault();
-            console.log("Cancel");
-          }}
-          onSecondButtonClick={handleSubmit}
-          firstButtonText="Cancel"
-          secondButtonText="Save Profile"
-          type="submit"
-        />
+      <InputButton
+        onFirstButtonClick={(e) => {
+          e.preventDefault();
+          console.log("Cancel");
+        }}
+        onSecondButtonClick={handleSubmit}
+        firstButtonText="Cancel"
+        secondButtonText="Save Profile"
+        type="submit"
+      />
     </div>
   );
 };
 
 export default Page;
-
