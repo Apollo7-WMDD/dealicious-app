@@ -1,9 +1,7 @@
 "use client";
-
 import StarIcon from "@/app/components/svg/star.svg";
 import { Card, CardContent, Box, Typography } from "@mui/material";
 import Link from "next/link";
-
 const SCCard = ({ props, superCustomerId }) => {
   console.log("This is the props SC!!!!", superCustomerId);
   return (
@@ -72,7 +70,7 @@ const SCCard = ({ props, superCustomerId }) => {
             sx={{
               textAlign: "end",
               p: 1,
-              bgcolor: "#ffd8c8",
+              bgcolor: "#FFD8C8",
             }}
           >
             <Typography>Points earned {props?.points[0]?.points}</Typography>
@@ -82,5 +80,3 @@ const SCCard = ({ props, superCustomerId }) => {
     </Box>
   );
 };
-
-export default SCCard;
