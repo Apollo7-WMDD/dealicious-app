@@ -40,15 +40,12 @@ function BusinessHours({ restaurantOwnerId }) {
           ) : (
             Object.keys(restaurantData?.businessHours).map((day) => (
               <Box
-                sx={{ marginTop: "24px" }}
+                sx={{ marginTop: "24px", display: "flex", flexDirection: "row", justifyContent: "space-between" }}
                 key={restaurantData?.businessHours[day]._id}
               >
                 <Typography>{day}</Typography>
                 <Typography>
-                  {restaurantData?.businessHours[day].open}
-                </Typography>
-                <Typography>
-                  {restaurantData?.businessHours[day].close}
+                  {restaurantData?.businessHours[day].open} - {restaurantData?.businessHours[day].close}
                 </Typography>
               </Box>
             ))
