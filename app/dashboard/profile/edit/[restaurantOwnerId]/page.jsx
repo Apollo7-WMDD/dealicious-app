@@ -40,45 +40,34 @@ const Page = () => {
     qrCode: "",
   });
 
-  useEffect(() => {
-    fetch(`/api/dashboard/profile/data/${restaurantOwnerId}`)
-      .then(response => response.json())
-      .then(data => {
-        setFormData(fakeData);
-      })
-      .catch(error => {
-        console.error('Error fetching restaurant:', error);
-      });
-  }, [restaurantOwnerId]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
     fetch(`/api/dashboard/profile/data/${restaurantOwnerId}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
     })
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
-          return response.text().then(text => {
+          return response.text().then((text) => {
             throw new Error(`Server error: ${text}`);
           });
         }
         return response.json();
       })
-      .then(data => {
-        setRestaurants(prevRestaurants =>
-          prevRestaurants.map(restaurant => 
+      .then((data) => {
+        setRestaurants((prevRestaurants) =>
+          prevRestaurants.map((restaurant) =>
             restaurant._id === restaurantId ? data : restaurant
           )
         );
         router.push(`/dashboard/campaigns/active/${restaurantOwnerId}`);
       })
-      .catch(error => {
-        console.error('Error updating restaurant:', error);
+      .catch((error) => {
+        console.error("Error updating restaurant:", error);
       });
   };
 
@@ -108,74 +97,73 @@ const Page = () => {
   ];
 
   const fakeData = {
-    "_id": "649caf44ea1c8363ed630fc4",
-    "userId": "64a735418ff9fb2c44c58a75",
-    "name": "Tim Hortons",
-    "manager": "Tony Stark",
-    "email": "timmies@hotmail.com",
-    "category": "cafe",
-    "address": {
-      "street": "123 Main Street",
-      "postalCode": "V3L 3L3",
-      "city": "Vancouver",
-      "province": "BC",
-      "country": "Canada"
+    _id: "649caf44ea1c8363ed630fc4",
+    userId: "64a735418ff9fb2c44c58a75",
+    name: "Tim Hortons",
+    manager: "Tony Stark",
+    email: "timmies@hotmail.com",
+    category: "cafe",
+    address: {
+      street: "123 Main Street",
+      postalCode: "V3L 3L3",
+      city: "Vancouver",
+      province: "BC",
+      country: "Canada",
     },
-    "phone": "1234567890",
-    "website": "https://www.myrestaurant.com",
-    "businessHours": {
-      "monday": {
-        "open": "8:00 AM",
-        "close": "8:00 PM",
-        "closed": false,
+    phone: "1234567890",
+    website: "https://www.myrestaurant.com",
+    businessHours: {
+      monday: {
+        open: "8:00 AM",
+        close: "8:00 PM",
+        closed: false,
       },
-      "tuesday": {
-        "open": "8:00 AM",
-        "close": "8:00 PM",
-        "closed": false,
+      tuesday: {
+        open: "8:00 AM",
+        close: "8:00 PM",
+        closed: false,
       },
-      "wednesday": {
-        "open": "8:00 AM",
-        "close": "8:00 PM",
-        "closed": false,
+      wednesday: {
+        open: "8:00 AM",
+        close: "8:00 PM",
+        closed: false,
       },
-      "thursday": {
-        "open": "8:00 AM",
-        "close": "8:00 PM",
-        "closed": false,
+      thursday: {
+        open: "8:00 AM",
+        close: "8:00 PM",
+        closed: false,
       },
-      "friday": {
-        "open": "8:00 AM",
-        "close": "8:00 PM",
-        "closed": false,
+      friday: {
+        open: "8:00 AM",
+        close: "8:00 PM",
+        closed: false,
       },
-      "saturday": {
-        "open": "8:00 AM",
-        "close": "8:00 PM",
-        "closed": false,
+      saturday: {
+        open: "8:00 AM",
+        close: "8:00 PM",
+        closed: false,
       },
-      "sunday": {
-        "open": "8:00 AM",
-        "close": "8:00 PM",
-        "closed": false,
+      sunday: {
+        open: "8:00 AM",
+        close: "8:00 PM",
+        closed: false,
       },
-      "holiday": {
-        "open": "0:00 AM",
-        "close": "0:00 PM",
-        "closed": true,
-      }
+      holiday: {
+        open: "0:00 AM",
+        close: "0:00 PM",
+        closed: true,
+      },
     },
-    "superCustomerIdArray": [
+    superCustomerIdArray: [
       "649cfdb69ff81655bdc3cbc5",
       "64a9918f8f2748a9b781ad59",
       "649be44234ccc8cbad46d38c",
-      "64a735418ff9fb2c44c58a75"
+      "64a735418ff9fb2c44c58a75",
     ],
-    "menu": "https://img.freepik.com/free-photo/happy-waiter-serving-food-group-cheerful-friends-pub_637285-12525.jpg?w=2000&t=st=1689475566~exp=1689476166~hmac=c4fdbc153dd49daaa33bb4128530d9c35bfe65bb50e5333d891549766e194561",
-    "logo": "https://randompicturegenerator.com/img/car-generator/g55938cab3ca5e1d6a85a240c8d3a1c3a732aca43a41b7b3cce22c49d27d96615d3fd1d16170172bff6920861c0e851cb_640.jpg",
-    "qrCode": "https://www.myrestaurant.com/qrcode",
-  }
-  
+    menu: "https://img.freepik.com/free-photo/happy-waiter-serving-food-group-cheerful-friends-pub_637285-12525.jpg?w=2000&t=st=1689475566~exp=1689476166~hmac=c4fdbc153dd49daaa33bb4128530d9c35bfe65bb50e5333d891549766e194561",
+    logo: "https://randompicturegenerator.com/img/car-generator/g55938cab3ca5e1d6a85a240c8d3a1c3a732aca43a41b7b3cce22c49d27d96615d3fd1d16170172bff6920861c0e851cb_640.jpg",
+    qrCode: "https://www.myrestaurant.com/qrcode",
+  };
 
   const DayClosedChange = (day) => (newState) => {
     setFormData((prevState) => ({
@@ -199,40 +187,38 @@ const Page = () => {
     console.log(file);
   };
 
-
   return (
     <div>
       <Header>Edit Profile</Header>
-        <BusinessInfoForm
-          formData={formData}
-          handleInputChange={handleInputChange}
-          handleAddressChange={handleAddressChange}
-          uploadLogo={uploadLogo}
-          isEdit={true}
-        />
-        <BusinessHourForm 
-          weekdays={weekdays} 
-          DayClosedChange={DayClosedChange} 
-          formData={formData} 
-          setFormData={setFormData} 
-          isEdit={true}
-        />
+      <BusinessInfoForm
+        formData={formData}
+        handleInputChange={handleInputChange}
+        handleAddressChange={handleAddressChange}
+        uploadLogo={uploadLogo}
+        isEdit={true}
+      />
+      <BusinessHourForm
+        weekdays={weekdays}
+        DayClosedChange={DayClosedChange}
+        formData={formData}
+        setFormData={setFormData}
+        isEdit={true}
+      />
 
-        <MenuForm uploadMenu={uploadMenu} initialImages={formData.menu} />
+      <MenuForm uploadMenu={uploadMenu} initialImages={formData.menu} />
 
-        <InputButton
-          onFirstButtonClick={(e) => {
-            e.preventDefault();
-            console.log("Cancel");
-          }}
-          onSecondButtonClick={handleSubmit}
-          firstButtonText="Cancel"
-          secondButtonText="Save Profile"
-          type="submit"
-        />
+      <InputButton
+        onFirstButtonClick={(e) => {
+          e.preventDefault();
+          console.log("Cancel");
+        }}
+        onSecondButtonClick={handleSubmit}
+        firstButtonText="Cancel"
+        secondButtonText="Save Profile"
+        type="submit"
+      />
     </div>
   );
 };
 
 export default Page;
-
