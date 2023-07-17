@@ -18,7 +18,7 @@ const SCRedeemBtn = ({ text, width }) => {
         color: '#ff5938'
       }}
     >
-        <Typography variant="p">{text}</Typography>
+        <Typography variant="button">{text}</Typography>
     </Button>
   );
 };

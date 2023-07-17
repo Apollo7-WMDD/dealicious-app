@@ -80,19 +80,35 @@ const Page = async ({ params }) => {
         sx={{
           display:'flex',
           flexDirection:'row',
-          gap: '3%'
+          gap: '3%',
+          m:'1rem',
+          p:0,
         }}
       >
-        <SCRestaurantCard 
-          sx={{
-            width:'120%'
-          }}
-          props={restaurantData.restaurant} ></SCRestaurantCard>
+        <SCRestaurantCard props={restaurantData.restaurant} />
         <PointsEarned props={restaurantData.points}></PointsEarned>
       </Box>
-      <Box>
-        <Share />
-        {cards}
+      <Box
+        sx={{
+          display:'grid',
+          gridTemplateColumns: '1fr 2fr',
+          m:'1rem',
+          p:0,
+          gap:'1rem'
+        }}
+      >
+        <Box
+          sx={{
+            borderRadius: '10px',
+            boxShadow: 20,
+          }}
+        >
+          <Share/>
+        </Box>
+        <Box
+        >
+          {cards}
+        </Box>        
       </Box>
       {/* <h2>{superCustomerId}</h2>
       <Link

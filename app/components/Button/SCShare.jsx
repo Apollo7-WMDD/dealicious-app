@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Box, useTheme, Typography, Modal } from "@mui/material";
-import AirlineStopsIcon from '@mui/icons-material/AirlineStops';
+import Share from "@/app/components/svg/shareIcon.svg";
 import QRCode from 'qrcode';
 import { useState } from 'react';
 
@@ -45,11 +45,16 @@ const SCShare = ({ text, width}) => {
   };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        textAlign:'end',
+        p:'1rem',
+      }}
+    >
       <Button
         variant="contained"
         size="medium"
-        startIcon={<AirlineStopsIcon />}
+        startIcon={<Share />}
         // onClick={GenerateQRCode}
         // onClick={open}
         onClick={handleOpen}
@@ -57,7 +62,7 @@ const SCShare = ({ text, width}) => {
           width: width,
           height: "44px",
           justifySelf: "end",
-          alignSelf: "center",
+          alignSelf: "end",
           borderRadius: "12px",
           backgroundColor: theme.palette.primary[80],
           ":hover": {
