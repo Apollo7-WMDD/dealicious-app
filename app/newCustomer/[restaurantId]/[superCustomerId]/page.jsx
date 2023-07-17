@@ -58,7 +58,6 @@ const Page = async ({ params }) => {
 };
 
 export default Page;
-
 // import Link from "next/link";
 
 // const fetchRestaurant = async (restaurantId, superCustomerId) => {
