@@ -16,6 +16,7 @@ export const GET = async (request) => {
       .select({
         name: 1,
         category: 1,
+        manager: 1, 
         website: 1,
         email: 1,
         address: 1,
