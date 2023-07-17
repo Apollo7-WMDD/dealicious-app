@@ -44,8 +44,8 @@ const Page = ({ params }) => {
           p: 0,
         }}
       >
-        <SCRestaurantCard props={restaurantData?.restaurant} />
-        <PointsEarned props={restaurantData?.points}></PointsEarned>
+        <SCRestaurantCard {...restaurantData.restaurant} />
+        <PointsEarned props={restaurantData.points}></PointsEarned>
       </Box>
       <Box
         sx={{
