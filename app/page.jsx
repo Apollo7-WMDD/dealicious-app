@@ -22,8 +22,6 @@ const Page = () => {
   const { setRestaurantOwner, restaurantOwnerId } = useStore();
   const theme = useTheme();
 
-  console.log("This is the restaurantOwnerId: ", restaurantOwnerId);
-
   useEffect(() => {
     const getRestaurantOwnerId = async () => {
       if (status === "authenticated") {
@@ -56,7 +54,7 @@ const Page = () => {
               Dashboard
             </Button>
           </Link>
-          <Link href={`/superCustomer/restaurants/${session?.user.id}`}>
+          <Link href={`/home/superCustomer`}>
             <Button
               variant="contained"
               sx={{
@@ -69,7 +67,7 @@ const Page = () => {
                 },
               }}
             >
-              Dashboard - Super Customer
+              Homepage - Restaurant - Super Customer
             </Button>
           </Link>
           <Button

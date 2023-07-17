@@ -32,13 +32,18 @@ const styles = {
   },
 };
 
-const Login = () => {
+const Login = ({ params }) => {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const urlParams = params.login;
 
   useEffect(() => {
     if (session) {
-      router.push("/");
+      if (urlParams.includes("owner")) {
+        router.push("/");
+      } else {
+        router.push(`/home/superCustomer`);
+      }
     }
   }, [session]);
 
@@ -83,7 +88,6 @@ const Login = () => {
           >
             Login with Google
           </button> */}
-
         </>
       )}
     </>
