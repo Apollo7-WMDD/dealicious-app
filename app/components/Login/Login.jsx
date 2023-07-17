@@ -7,6 +7,7 @@ import { useTheme, Typography, Box, Button } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import FormLogin from "../Card/FormLogin";
 import { signIn } from "next-auth/react";
+import SingleButtonNoIcon from "../Button/SingleButtonNoIcon";
 
 function LoginComponent() {
   const theme = useTheme();
@@ -55,7 +56,7 @@ function LoginComponent() {
           onChange={handleChange}
         />
       </Box>
-      <SingleButton text="Log in" onClick={handleLogin} width="326px" />
+      <SingleButtonNoIcon text="Log in" onClick={handleLogin} width="326px"/>
       <Typography
         sx={{
           display: "flex",

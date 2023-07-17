@@ -2,14 +2,14 @@ import React from "react";
 import { Button, Box, useTheme, Typography } from "@mui/material";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-const SCSubmitBtn = ({ text, width }) => {
+const SCSubmitBtn = ({ text, width , onClick}) => {
   const theme = useTheme();
   return (
     <Button
       variant="contained"
       size="medium"
       startIcon={<ArrowForwardIosIcon />}
-      //onClick={onClick}
+      onClick={onClick}
       sx={{
         width: width,
         height: "44px",

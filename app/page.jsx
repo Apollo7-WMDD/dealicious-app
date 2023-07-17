@@ -1,5 +1,4 @@
 "use client";
-// !HOLA AMIGOS
 
 // import next-auth hooks
 import { useSession, signOut } from "next-auth/react";
@@ -10,7 +9,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect } from "react";
 import Home from "./components/LandingPage/Home";
-// loader
+
+//  loader
 import Loader from "./components/Loader";
 import { Button, useTheme } from "@mui/material";
 

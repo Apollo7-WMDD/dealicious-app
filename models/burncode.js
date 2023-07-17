@@ -23,6 +23,10 @@ const BurnCodeSchema = new Schema({
     ref: "Restaurant",
     required: true,
   },
+  campaignId: {
+    type: Schema.Types.ObjectId,
+    ref: "Campaign",
+  }
 });
 
 const Burncode = models.Burncode || model("Burncode", BurnCodeSchema);
