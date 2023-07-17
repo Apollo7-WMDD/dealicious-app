@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, Box, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
@@ -59,11 +58,9 @@ return (
           <img 
           src="https://media.istockphoto.com/id/1415525222/photo/fire-and-chinese-chefs.jpg?s=1024x1024&w=is&k=20&c=zdg6cOC9XSu1Xw9Adys82VBZxHWkHupFiAqxBbxyqxU="
           alt="new" height="189px"
-
           />
           <Box
             sx={{
-
               display:'flex',
               direction: 'row',
               alignItems: 'center',
