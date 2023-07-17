@@ -44,9 +44,13 @@ export const GET = async (request) => {
 
 // POST CODES TO THE OWNER SIDE
 export const POST = async (req) => {
+  const burnCode = await req.json();
+
+  console.log("THIS IS THE BURN CODE: ✅✅✅✅ ", burnCode);
+
   try {
     await connect();
-    const burnCode = await req.json();
+    console.log("THIS IS INSIDE THE TRY!@@: ✅✅✅✅ ");
 
     const newBurnCode = new Burncode({
       username: burnCode.username || "",
@@ -61,9 +65,14 @@ export const POST = async (req) => {
         : undefined,
     });
 
+    console.log("THIS IS AFTER THE new burn code!@@: ✅✅✅✅ ");
+
     await newBurnCode.save();
 
-    return new NextResponse(200, { message: "Code created successfully" });
+    return new NextResponse(
+      JSON.stringify({ message: "Restaurant posted successfully" }),
+      { status: 200 }
+    );
   } catch (error) {
     return new NextResponse(500, {
       message: "Error creating campaign, check the inputs",

@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 import React, { useState } from "react";
 import StarIcon from "@mui/icons-material/Star";
 import {
@@ -20,7 +20,6 @@ import SingleButton from "../Button/SingleButton";
 import SCSubmitBtn from "../Button/SCSubmitBtn";
 import { sendSMS } from "../../../lib/sms/sms";
 import { usePathname } from "next/navigation";
-
 
 // require('dotenv').config();
 // import twilio from 'twilio';
@@ -45,7 +44,7 @@ import { usePathname } from "next/navigation";
 
 const CampaignCard = ({ props }) => {
   // const { restaurantId } = useStore();
-  console.log(props._id)
+  console.log(props._id);
   const pathname = usePathname();
   console.log(pathname.split("/")[4]);
   const restaurantId = pathname.split("/")[4];
@@ -56,32 +55,34 @@ const CampaignCard = ({ props }) => {
   const [openSecond, setOpenSecond] = React.useState(false);
 
   // * no SMS verification version
-  const [openConfirm, setOpenConfirm] = React.useState(false);
+  const [openConfirm, setOpenConfirm] = useState(false);
 
   const handleOpenConfirm = async () => {
     const campaignRedeemed = {
       username: "NEW CUSTOMER",
-      campaignname: props.name,
-      offer: props.offer,
-      burned:false,
-      restaurantId: restaurantId,
-      campaignId: props._id,
+      campaignname: "name",
+      offer: "something",
+      burned: false,
+      restaurantId: "649caf44ea1c8363ed630fc4",
+      campaignId: "649caf44ea1c8363ed630fc4",
     };
     try {
-      const res = await fetch(`/api/burnCode/customers/${restaurantId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(campaignRedeemed),
-      });
+      const res = await fetch(
+        `/api/burnCode/customers/649caf44ea1c8363ed630fc4`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(campaignRedeemed),
+        }
+      );
       if (!res.ok) {
         const data = await res.text();
         throw new Error(data);
-      } else {
-        const data = await res.json();
-        console.log("Success! ", data);
       }
+      const data = await res.json();
+      console.log("Success! ", data);
     } catch (error) {
       console.log(error);
     }
