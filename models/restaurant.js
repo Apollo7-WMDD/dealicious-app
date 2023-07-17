@@ -6,10 +6,11 @@ const DaySchema = new Schema({
     required: [true, "Opening time is required."],
     validate: {
       validator: function (value) {
-        const timeRegex = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/; // 24-hour time format
+        const timeRegex = /^(0?[1-9]|1[0-2]):[0-5][0-9] (AM|PM)$/; // 12-hour time format with AM/PM
         return timeRegex.test(value);
       },
-      message: "Opening time format is invalid.",
+      message:
+        "Opening time format is invalid. Please use the format 'HH:MM AM/PM'.",
     },
   },
   close: {
@@ -17,11 +18,16 @@ const DaySchema = new Schema({
     required: [true, "Closing time is required."],
     validate: {
       validator: function (value) {
-        const timeRegex = /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/; //24-hour time format
+        const timeRegex = /^(0?[1-9]|1[0-2]):[0-5][0-9] (AM|PM)$/; // 12-hour time format with AM/PM
         return timeRegex.test(value);
       },
-      message: "Closing time format is invalid.",
+      message:
+        "Closing time format is invalid. Please use the format 'HH:MM AM/PM'.",
     },
+  },
+  isClosed: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -118,7 +124,8 @@ const RestaurantSchema = new Schema({
   },
   qrCode: {
     type: String,
-    required: [true, "QR Code is required"], //validation pending
+    default: "https://i.imgur.com/2ZtUZJH.png",
+    //validation pending
   },
 });
 

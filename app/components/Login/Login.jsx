@@ -1,5 +1,4 @@
-import React from "react";
-import ChartCard from "../Card/ChartCard";
+import { useState } from "react";
 import InputText from "../Input/InputText";
 import SubHeader from "../Header/SubHeader";
 import SingleButton from "../Button/SingleButton";
@@ -8,26 +7,32 @@ import { useTheme, Typography, Box, Button } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import FormLogin from "../Card/FormLogin";
 import { signIn } from "next-auth/react";
-
-// import ChartCard from "../ChartCard";
-// import InputText from "../Input/InputText";
-// import SubHeader from "../Header/SubHeader";
-// import SingleButton from "../Button/SingleButton";
-// import GoogleIcon from "@mui/icons-material/Google";
-// import { useTheme, Typography, Box, Button } from "@mui/material";
-// import Divider from "@mui/material/Divider";
-// import Form from "../Card/Form";
-
-// import { signIn } from "next-auth/react";
+import SingleButtonNoIcon from "../Button/SingleButtonNoIcon";
 
 function LoginComponent() {
   const theme = useTheme();
+  const [credentials, setCredentials] = useState({
+    email: "",
+    password: "",
+  });
+
+  console.log("these are the credentials", credentials);
+
   const handleLogin = () => {
     console.log("Login button clicked");
+    signIn("credentials", { ...credentials }, { redirect: false });
   };
 
   const handleLinkClick = (text) => {
     console.log(`${text} clicked`);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCredentials((prevCredentials) => ({
+      ...prevCredentials,
+      [name]: value,
+    }));
   };
 
   return (
@@ -37,21 +42,21 @@ function LoginComponent() {
         <InputText
           name="email"
           id="email"
-          // value={}
-          // onChange={}
           placeholder="Email or username"
+          value={credentials.email}
+          onChange={handleChange}
         />
       </Box>
       <Box sx={{ marginBottom: 2 }}>
         <InputText
           name="password"
           id="password"
-          // value={}
-          // onChange={}
           placeholder="Password"
+          value={credentials.password}
+          onChange={handleChange}
         />
       </Box>
-      <SingleButton text="Log in" onClick={handleLogin} width="326px" />
+      <SingleButtonNoIcon text="Log in" onClick={handleLogin} width="326px"/>
       <Typography
         sx={{
           display: "flex",

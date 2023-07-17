@@ -19,10 +19,10 @@ const TodayInfo = () => {
 
   useEffect(() => {
     const getCurrentInfo = async () => {
-      const currentInfo = await fetchCurrentInfo(restaurantId ?? 0);
+      const currentInfo = await fetchCurrentInfo(restaurantId);
       setCurrentInfo({
-        revenue: currentInfo.sum,
-        customers: currentInfo.numCustomers,
+        revenue: currentInfo?.sum,
+        customers: currentInfo?.numCustomers,
       });
     };
     getCurrentInfo();

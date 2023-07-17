@@ -23,23 +23,23 @@ function StackDougnNutSpan1() {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      const result = await fetchTopSixCampaigns(restaurantOwnerId).then(
-        (res) => {
-          let formattedData = [];
-          res.campaigns.forEach((element) => {
-            let a = {
-              campaignName: element.campaignName,
-              totalSpending: element.totalSpending,
-            };
-            formattedData.push(a);
-          });
-          setCampaignArray(formattedData);
-          return res;
-        }
-      );
-
-      setData(result);
-      setIsLoading(false);
+      try {
+        const res = await fetchTopSixCampaigns(restaurantOwnerId);
+        let formattedData = [];
+        res.campaigns.forEach((element) => {
+          let a = {
+            campaignName: element.campaignName,
+            totalSpending: element.totalSpending,
+          };
+          formattedData.push(a);
+        });
+        setCampaignArray(formattedData);
+        setData(res);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchData();
   }, [restaurantOwnerId]);

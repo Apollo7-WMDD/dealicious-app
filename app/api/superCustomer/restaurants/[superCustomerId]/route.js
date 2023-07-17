@@ -25,13 +25,45 @@ export const GET = async (request) => {
           }
         },
         {
+          $lookup: {
+            from: "points",
+            let: { restaurantId: "$_id" }, // Store the value of _id in a variable called restaurantId
+            pipeline: [
+              {
+                $match: {
+                  $expr: {
+                    $and: [
+                      { $eq: ["$restaurantId", "$$restaurantId"] }, // Match the points with the restaurantId
+                      { $eq: ["$superCustomerId", new mongoose.Types.ObjectId(superCustomerId)] } // Match the points with the superCustomerId
+                    ]
+                  }
+                }
+              },
+              {
+                $project: {
+                  points: 1,
+                  _id:0
+                }
+              }
+            ],            
+            as: "points"
+          }
+        },
+        {
           $project: {
             name: 1,
             _id: 1,
             logo: 1,
-            campaigns: 1,
+            campaigns: {
+              $filter: {
+                input: "$campaigns",
+                as: "campaign",
+                cond: { $eq: ["$$campaign.status", "active"] }
+              }
+            },
             menu: 1, 
-            logo: 1
+            logo: 1,
+            points: 1
           }
         },
       ])
