@@ -1,26 +1,40 @@
 import React from "react";
-import { Button, Box, useTheme } from "@mui/material";
-import DealIcon from "@/app/components/svg/dealIcon.svg";
+import { Button, useTheme } from "@mui/material";
 
-const SingleButtonNoIcon = ({ text, onClick, width }) => {
+const SingleButtonNoIcon = ({ text, onClick, width, variant = "contained" }) => {
   const theme = useTheme();
   return (
-        <Button
-            variant="contained"
-            size="medium"
-            onClick={onClick}
-            sx={{
-                width: width,
-                alignSelf: "center",
-                borderRadius: "12px",
-                backgroundColor: theme.palette.primary[80],
-                ":hover": {
-                backgroundColor: theme.palette.primary[60],
-                },
-            }}
-            >
-            {text}
-        </Button>
+    <Button
+      variant={variant}
+      size="medium"
+      onClick={onClick}
+      sx={{
+        width: width,
+        alignSelf: "center",
+        borderRadius: "12px",
+        borderColor: theme.palette.primary[80],
+        ":hover": {
+          borderColor: theme.palette.primary[60],
+          color: theme.palette.primary[60],
+        },
+        '&.MuiButton-contained': {
+          color: 'white',
+          backgroundColor: theme.palette.primary[80],
+          ':hover': {
+            backgroundColor: theme.palette.primary[60],
+          }
+        },
+        '&.MuiButton-outlined': {
+          color: theme.palette.primary[80],
+          backgroundColor: 'transparent',
+          ':hover': {
+            backgroundColor: theme.palette.primary[10],
+          }
+        },
+      }}
+    >
+      {text}
+    </Button>
   );
 };
 
