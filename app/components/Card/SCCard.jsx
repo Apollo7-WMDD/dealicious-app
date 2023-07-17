@@ -6,7 +6,7 @@ import Link from "next/link";
 import StarIcon from "@/app/components/svg/star.svg";
 
 
-const SCCard = ({ props, superCustomerId }) => {
+const SCCard = ({ props }) => {
   
   // const router = useRouter();
   // const cardClick = (_id) => {
@@ -46,7 +46,7 @@ const SCCard = ({ props, superCustomerId }) => {
 return (
     <Box 
     > 
-      {/* <Link href={`/superCustomer/restaurants/${superCustomerId}/${props._id}`}> */}
+      {/* <Link href={`/superCustomer/restaurants/${props.superCustomerId}/${props._id}`}> */}
       <Link underline="none" href={`/superCustomer/restaurants/64a9918f8f2748a9b781ad59/649caf44ea1c8363ed630fc4`} style={{ textDecoration: 'none' }}>
         <Card 
           sx={{ 
