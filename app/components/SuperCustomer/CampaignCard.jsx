@@ -291,7 +291,7 @@ const CampaignCard = ({ props }) => {
             </Typography>
             <br />
             <Typography variant="p">
-              Customer phone number : "XXX-XXX-XXXX"
+              Customer phone number : 123-456-7890
             </Typography>
             <br />
             <br />
