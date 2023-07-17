@@ -23,6 +23,10 @@ const DaySchema = new Schema({
       message: "Closing time format is invalid.",
     },
   },
+  isClosed: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const RestaurantSchema = new Schema({
