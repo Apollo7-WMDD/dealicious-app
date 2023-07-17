@@ -26,15 +26,26 @@ function ImagesMenus({ restaurantOwnerId }) {
           display: "flex",
           flexDirection: "column",
           justifyContent: "flex-start",
+          alignItems: "start",
         }}
       >
         <SubHeader>Images & Menus</SubHeader>
-        <Typography>
-          {!restaurantData ? <LoaderSkeleton /> : restaurantData?.menu}
-        </Typography>
-        <Typography>
-          {!restaurantData ? <LoaderSkeleton /> : restaurantData?.logo}
-        </Typography>
+        {!restaurantData ? (
+          <LoaderSkeleton />
+        ) : (
+          <>
+            <Box sx={{  
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-start",
+              gap: "19px"}}>
+              {/* <Typography variant="body1">Logo Image:</Typography> */}
+              <img src={restaurantData?.logo} alt="Logo" style={{ width: '200px', height: '200px', objectFit: 'cover', borderRadius: '8px' }}/>
+              {/* <Typography variant="body1">Menu Image:</Typography> */}
+              <img src={restaurantData?.menu} alt="Menu" style={{ width: '200px', height: '200px' , objectFit: 'cover', borderRadius: '8px' }}/>
+            </Box>
+          </>
+        )}
       </Box>
     </ChartCard>
   );
