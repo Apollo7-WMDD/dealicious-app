@@ -22,6 +22,7 @@ const Page = ({ params }) => {
   const [restaurants, setRestaurants] = useState([]);
   const { superCustomerId } = params;
 
+
   console.log(restaurants);
 
   useEffect(() => {
@@ -83,6 +84,7 @@ const Page = ({ params }) => {
       </Box>
       <SCFooter />
     </Box>
+
   );
 };
 
