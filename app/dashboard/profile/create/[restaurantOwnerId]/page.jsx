@@ -93,7 +93,10 @@ const Page = ({ params }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // TODO: CHANGE THIS
     formData["userId"] = restaurantOwnerId;
+    formData["menu"] = "https://www.google.com/";
+    formData["logo"] = "https://www.google.com/";
 
     try {
       const response = await fetch(
@@ -151,6 +154,10 @@ const Page = ({ params }) => {
       console.error("Error creating restaurant:", error);
     }
   };
+
+  // const handleSubmit = () => {
+  //   console.log("This is the data to be submitted", formData);
+  // };
 
   return (
     <div>
