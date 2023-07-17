@@ -64,30 +64,6 @@ const Login = ({ params }) => {
       ) : (
         <>
           <LoginComponent></LoginComponent>
-          {/* <h1 className="text-3xl text-center font-bold my-4">Login</h1>
-          <form onSubmit={handleSubmit} style={styles.form}>
-            <label style={styles.input} htmlFor="email">
-              Email
-            </label>
-            <input style={styles.input} type="email" name="email" id="email" />
-            <label style={styles.input} htmlFor="password">
-              Password
-            </label>
-            <input
-              style={styles.input}
-              type="password"
-              name="password"
-              id="password"
-            />
-            <button style={styles.button}>Submit</button>
-
-          </form>
-          <button
-            className=" mx-2 px-4 py-2 border-solid border-red-700 border-2 rounded-md bg-red-700 text-white"
-            onClick={() => signIn("google")}
-          >
-            Login with Google
-          </button> */}
         </>
       )}
     </>

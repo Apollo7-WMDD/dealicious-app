@@ -19,6 +19,8 @@ const Page = () => {
   const { setRestaurantOwner, restaurantOwnerId } = useStore();
   const theme = useTheme();
 
+  console.log("This is the session", session);
+
   useEffect(() => {
     const getRestaurantOwnerId = async () => {
       if (status === "authenticated") {

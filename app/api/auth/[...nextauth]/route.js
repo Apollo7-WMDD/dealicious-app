@@ -53,6 +53,8 @@ const handlerAuth = NextAuth({
           user: {
             ...session.user,
             id: data?._id.toString(),
+            firstname: data?.firstname,
+            lastname: data?.lastname,
             ...data?.user,
           },
         };
@@ -66,17 +68,21 @@ const handlerAuth = NextAuth({
     async signIn({ profile }) {
       try {
         await connect();
-        const userExists = await User.findOne({ email: profile.email });
+        if (profile) {
+          const userExists = await User.findOne({ email: profile.email });
 
-        if (!userExists) {
-          await User.create({
-            email: profile.email,
-            firstname: profile.name?.split(" ")[0],
-            lastname: profile.name?.split(" ")[1],
-            phone: Math.floor(1000000000 + Math.random() * 9000000000),
-          });
+          console.log("User exists: ", userExists);
 
-          console.log("User created successfully!");
+          if (!userExists) {
+            await User.create({
+              email: profile.email,
+              firstname: profile.name?.split(" ")[0],
+              lastname: profile.name?.split(" ")[1],
+              phone: Math.floor(1000000000 + Math.random() * 9000000000),
+            });
+
+            console.log("User created successfully!");
+          }
         }
         return true;
       } catch (error) {
