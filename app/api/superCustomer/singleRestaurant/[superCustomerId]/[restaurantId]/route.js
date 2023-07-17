@@ -26,11 +26,14 @@ export const GET = async (request) => {
         })
         .lean(),
 
-      Campaign.find({ restaurantId, state: true })
+      Campaign.find({ restaurantId, status: "active" }) // Filter by active campaigns
         .select({
           name: 1,
           offer: 1,
+          startDate:1,
           endDate: 1,
+          media:1,
+          description:1,
         })
         .lean(),
 

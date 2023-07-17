@@ -15,6 +15,7 @@ export const GET = async (request) => {
     })
       .select({
         qrCode: 1,
+        superCustomerPoints: 1,
       })
       .lean();
 
