@@ -34,7 +34,7 @@ export const GET = async (request) => {
     const response = {
       burncodes,
     };
-
+    console.log(response);
     return new NextResponse(JSON.stringify(response, null, 2), { status: 200 });
   } catch (err) {
     console.log(err.message);
