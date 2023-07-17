@@ -8,8 +8,10 @@ import Phone from "@/app/components/svg/phone.svg";
 import URL from "@/app/components/svg/url.svg";
 import { CardContent, Box, Typography } from "@mui/material";
 
-const SCRestaurantCard = ({ props }) => {
-  
+const SCRestaurantCard = (props) => {
+  if (!props || !props.address) {
+    return null; 
+  }
 return (
     <Box 
       sx={{

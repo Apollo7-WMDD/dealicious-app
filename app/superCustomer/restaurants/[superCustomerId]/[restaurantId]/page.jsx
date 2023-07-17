@@ -85,7 +85,7 @@ const Page = async ({ params }) => {
           p:0,
         }}
       >
-        <SCRestaurantCard props={restaurantData.restaurant} />
+        <SCRestaurantCard {...restaurantData.restaurant} />
         <PointsEarned props={restaurantData.points}></PointsEarned>
       </Box>
       <Box
