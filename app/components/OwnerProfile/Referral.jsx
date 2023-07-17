@@ -23,7 +23,6 @@ function Referral({ restaurantOwnerId }) {
         setQrCodeURL(url);
       }
     };
-
     getRestaurantData();
   }, [restaurantOwnerId]);
 
@@ -48,10 +47,17 @@ function Referral({ restaurantOwnerId }) {
           The Super Customers can earn 
           {restaurantData ? `$${restaurantData.superCustomerPoints}` : <LoaderSkeleton />} points for each hundred dollars they spend at your business. They can redeem their points to get $1.00 discount per point.
         </Typography>
-        <Typography>
-          {qrCodeURL ? <img src={qrCodeURL} alt="QR Code" /> : <LoaderSkeleton />}
-        </Typography>
-        <SingleButtonNoIcon variant="outlined" text="Print Code" onClick={printCode}/>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            // justifyContent: "flex-start",
+          }}>
+          <Typography>
+            {qrCodeURL ? <img src={qrCodeURL} alt="QR Code" /> : <LoaderSkeleton />}
+          </Typography>
+          <SingleButtonNoIcon variant="outlined" text="Print Code" onClick={printCode}/>
+        </Box>
       </Box>
     </ChartCard>
   );
