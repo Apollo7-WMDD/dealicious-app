@@ -13,6 +13,7 @@ export const GET = async (request) => {
 
     const restaurant = await Restaurant.findOne({
       _id: restaurantId,
+      burned: false,
     }).lean();
 
     if (!restaurant) {
