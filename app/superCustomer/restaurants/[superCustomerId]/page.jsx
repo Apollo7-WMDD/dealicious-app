@@ -1,11 +1,6 @@
 "use client";
-
-// next js imports
-import Link from "next/link";
-
 import Header from "../../../components/Header/Header";
 import SCCard from "../../../components/Card/SCCard";
-
 import SCHeader from "../../../components/Header/SCHeader"
 import SCFooter from "../../../components/Footer/SCFooter"
 import { Box, Typography } from "@mui/material";
@@ -24,52 +19,40 @@ const fetchRestaurants = async (superCustomerId) => {
     }
   );
 
-// material-ui imports
-import { Box, Button } from "@mui/material";
+  if (!res.ok) throw new Error("Something went wrong...");
 
-// theme import
-import { useTheme } from "@mui/material";
+  const data = await res.json();
+  return data;
+};
 
-// react imports
-import { useEffect, useState } from "react";
-
-const Page = ({ params }) => {
-  const theme = useTheme();
-  const [restaurants, setRestaurants] = useState([]);
+const Page = async ({ params }) => {
   const { superCustomerId } = params;
-
   const data = await fetchRestaurants(superCustomerId);
   // console.log(data);
   const cards = data.map((item, index) => <SCCard key={index} props={{ ...item, superCustomerId }} />);
-
 
   return (
     <Box>
       <SCHeader />
       <Box
         sx={{
-
           p:0,
           m:'1rem',
         }}
       >
         <Typography variant="h1" style={{ padding: '0 0 1rem 0' }}>My Restaurants</Typography>
-
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "row",
-            gap: "3%",
+            display: 'flex',
+            flexDirection: 'row',
+            gap:"3%",
           }}
         >
-          {restaurants.map((item, index) => (
-            <SCCard key={index} props={item} />
-          ))}
+          {cards}
         </Box>
       </Box>
       <SCFooter />
     </Box>
-
   );
 };
 
