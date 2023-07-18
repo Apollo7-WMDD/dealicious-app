@@ -10,17 +10,25 @@ const ViewCampaignImage = ({
 }) => {
   return (
     <>
-      {imagePreview?.length > 0 ? (
+      {Array.isArray(imagePreview) ? (
         imagePreview.map((image, index) => (
           <ImagePreview
             key={index}
-            src={localStorage.getItem("media")}
+            src={image}
             alt="preview"
             width="280px"
             height="320px"
             onRemove={() => handleRemoveImage(index)}
           />
         ))
+      ) : imagePreview ? (
+        <ImagePreview
+          src={imagePreview}
+          alt="preview"
+          width="280px"
+          height="320px"
+          onRemove={handleRemoveImage}
+        />
       ) : (
         <Box>
           <PictureUploadCard
