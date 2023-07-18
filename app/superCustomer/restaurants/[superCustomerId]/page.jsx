@@ -26,13 +26,8 @@ const Page = ({ params }) => {
 
   useEffect(() => {
     const fetchRestaurants = async (superCustomerId) => {
-      const isProduction = process.env.NODE_ENV === "production";
-      const serverUrl = isProduction
-        ? process.env.NEXT_PUBLIC_SERVER_URL
-        : "http://localhost:3000";
-
       const res = await fetch(
-        `${serverUrl}/api/superCustomer/restaurants/${superCustomerId}`
+        `/api/superCustomer/restaurants/${superCustomerId}`
       );
 
       if (!res.ok) throw new Error("Something went wrong...");
@@ -76,13 +71,17 @@ const Page = ({ params }) => {
             gap: "3%",
           }}
         >
-          {restaurants.map((item, index) => (
-            <SCCard
-              key={index}
-              props={item}
-              superCustomerId={superCustomerId}
-            />
-          ))}
+          {!restaurants ? (
+            <p></p>
+          ) : (
+            restaurants.map((item, index) => (
+              <SCCard
+                key={index}
+                props={item}
+                superCustomerId={superCustomerId}
+              />
+            ))
+          )}
         </Box>
       </Box>
       <SCFooter />
