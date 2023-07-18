@@ -19,9 +19,6 @@ export const GET = async (request) => {
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
 
-    console.log(today);
-    console.log(tomorrow);
-
     const spendings = await Spending.find({
       restaurantId,
       dateRedeemed: {
