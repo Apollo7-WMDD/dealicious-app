@@ -1,11 +1,12 @@
+"use client";
+
 import { useStore } from "@/lib/context/user_context/store";
 import { fetchUserCodes } from "@/lib/fetching/burncode/data";
 import { useEffect, useState } from "react";
 function BurnCodeWrap() {
   const { restaurantId } = useStore();
   console.log("restaurantId", restaurantId);
-
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
   console.log(restaurantId);
 
   useEffect(() => {
@@ -16,7 +17,7 @@ function BurnCodeWrap() {
     fetchData();
   }, []);
 
-  console.log("data", data);
+  console.log("data: ", data);
 
   return <div></div>;
 }

@@ -34,7 +34,7 @@ export const GET = async (request) => {
     const response = {
       burncodes,
     };
-    console.log(response);
+
     return new NextResponse(JSON.stringify(response, null, 2), { status: 200 });
   } catch (err) {
     console.log(err.message);
@@ -45,12 +45,8 @@ export const GET = async (request) => {
 // POST CODES TO THE OWNER SIDE
 export const POST = async (req) => {
   const burnCode = await req.json();
-
-  console.log("THIS IS THE BURN CODE: ✅✅✅✅ ", burnCode);
-
   try {
     await connect();
-    console.log("THIS IS INSIDE THE TRY!@@: ✅✅✅✅ ");
 
     const newBurnCode = new Burncode({
       username: burnCode.username || "",
@@ -64,8 +60,6 @@ export const POST = async (req) => {
         ? new mongoose.Types.ObjectId(burnCode.campaignId)
         : undefined,
     });
-
-    console.log("THIS IS AFTER THE new burn code!@@: ✅✅✅✅ ");
 
     await newBurnCode.save();
 
