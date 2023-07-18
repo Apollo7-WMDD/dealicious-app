@@ -21,16 +21,16 @@ function HilightWrap() {
   return (
     <div style={{ width: "100%" }}>
       <div>
-        <Typography variant="h5">{data.name}</Typography>
+        <Typography variant="h5">{data?.name}</Typography>
         <p
           style={{
             margin: "0",
             fontWeight: "lighter",
           }}
         >
-          Item: {data.offer}
+          Item: {data?.offer}
         </p>
-        {data._id != undefined && (
+        {data?._id != undefined && (
           <p
             style={{
               margin: "0",
@@ -48,9 +48,9 @@ function HilightWrap() {
             fontWeight: "lighter",
           }}
         >
-          Users: {data.allowNewCustomer ? "New Customers" : ""}
-          {data.allowNewCustomer && data.allowSuperCustomer ? " & " : ""}
-          {data.allowSuperCustomer ? "Super Customers" : ""}
+          Users: {data?.allowNewCustomer ? "New Customers" : ""}
+          {data?.allowNewCustomer && data?.allowSuperCustomer ? " & " : ""}
+          {data?.allowSuperCustomer ? "Super Customers" : ""}
         </p>
         <p
           style={{
@@ -58,7 +58,7 @@ function HilightWrap() {
             fontWeight: "lighter",
           }}
         >
-          Condition: {data.description}
+          Condition: {data?.description}
         </p>
         <p
           style={{
