@@ -14,8 +14,6 @@ export const GET = async (request) => {
     const today = new Date();
     today.setUTCHours(0, 0, 0, 0);
 
-    console.log(today);
-
     const spendings = await Spending.find({
       restaurantId: new mongoose.Types.ObjectId(restaurantId),
       dateRedeemed: {
