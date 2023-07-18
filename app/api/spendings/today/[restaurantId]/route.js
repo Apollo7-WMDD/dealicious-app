@@ -7,23 +7,18 @@ import mongoose from "mongoose";
 export const GET = async (request) => {
   const url = new URL(request.url);
   const restaurantId = url.pathname.split("/")[4];
-  console.log("This is the restaurant Id", restaurantId);
 
   try {
     await connect();
 
     const today = new Date();
-    // set the format
     today.setUTCHours(0, 0, 0, 0);
-    // get the next day
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
 
     const spendings = await Spending.find({
-      restaurantId,
+      restaurantId: new mongoose.Types.ObjectId(restaurantId),
       dateRedeemed: {
         $gte: today,
-        $lt: tomorrow,
+        $lte: new Date(today.getTime() + 24 * 60 * 60 * 1000),
       },
     });
 
