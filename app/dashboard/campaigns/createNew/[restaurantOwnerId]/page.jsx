@@ -180,14 +180,20 @@ const Page = () => {
   //upload menu
   const [imagePreview, setImagePreview] = useState(null);
 
-  const uploadMenu = (file) => {
+  const uploadMenu = (fileList) => {
     console.log("campaign image uploaded");
-    console.log(file);
-
+    console.log(fileList);
+    
+    if (fileList.length === 0) {
+      console.error("No files found in fileList.");
+      return;
+    }
+  
+    const file = fileList[0];
     const fileURL = URL.createObjectURL(file);
     localStorage.setItem("media", fileURL);
     setImagePreview(fileURL);
-
+  
     const media =
       "https://fitmencook.com/wp-content/uploads/2023/03/mix-and-match-meal-prep11.jpg";
     setFormData({
@@ -195,6 +201,7 @@ const Page = () => {
       media: media,
     });
   };
+  
 
   const removeImage = () => {
     setImagePreview(null);
