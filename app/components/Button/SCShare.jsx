@@ -6,8 +6,18 @@ import { useState } from "react";
 
 const SCShare = ({ text, width, superCustomerId, restaurantId }) => {
   const theme = useTheme();
-  const url = `http://localhost:3000/newCustomer/${restaurantId}/${superCustomerId}}`;
-  console.log(url);
+
+  // <Bug AP-220 #133 - SC Share button>
+  const isProduction = process.env.NODE_ENV === "production";
+  const serverUrl = isProduction
+    ? process.env.NEXT_PUBLIC_SERVER_URL
+    : "http://localhost:3000";
+
+  const url = `${serverUrl}/newCustomer/${restaurantId}/${superCustomerId}`;
+  //const url = `http://localhost:3000/newCustomer/${restaurantId}/${superCustomerId}}`;
+  //console.log(url);
+  // </Bug AP-220 #133 - SC Share button>
+
   const [qr, setQr] = useState("");
   const [open, setOpen] = React.useState(false);
   //const handleOpen = () => setOpen(true);
