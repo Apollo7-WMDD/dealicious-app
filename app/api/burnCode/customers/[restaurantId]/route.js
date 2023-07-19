@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import connect from "@/utils/database";
 import Restaurant from "@/models/restaurant";
 import Burncode from "@/models/burncode";
+import mongoose from "mongoose";
 
 // GET CODES FROM THE OWNER SIDE
 export const GET = async (request) => {
@@ -45,21 +46,20 @@ export const GET = async (request) => {
 // POST CODES TO THE OWNER SIDE
 export const POST = async (req) => {
   const burnCode = await req.json();
+
   try {
     await connect();
 
     const newBurnCode = new Burncode({
-      username: burnCode.username || "",
-      campaignname: burnCode.campaignname || "",
-      offer: burnCode.offer || "",
-      burned: false,
-      restaurantId: burnCode.restaurantId
-        ? new mongoose.Types.ObjectId(burnCode.restaurantId)
-        : undefined,
-      campaignId: burnCode.campaignId
-        ? new mongoose.Types.ObjectId(burnCode.campaignId)
-        : undefined,
+      username: burnCode.username,
+      campaignname: burnCode.campaignname,
+      offer: burnCode.offer,
+      burned: burnCode.burned,
+      restaurantId: new mongoose.Types.ObjectId(burnCode.restaurantId),
+      campaignId: new mongoose.Types.ObjectId(burnCode.campaignId),
     });
+
+    console.log("newBurnCode: ", newBurnCode);
 
     await newBurnCode.save();
 
