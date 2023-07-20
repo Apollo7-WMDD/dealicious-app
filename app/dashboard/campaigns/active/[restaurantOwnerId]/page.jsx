@@ -9,7 +9,6 @@ import Link from "next/link";
 // mui imports
 import { Button, Box, useTheme, Typography } from "@mui/material";
 
-
 // components imports
 import CreateNewCampaign from "@/app/components/Dashboard/CreateNewCampaign";
 import Header from "@/app/components/Header/Header";
@@ -25,7 +24,6 @@ import LineChart from "@/app/components/Chart/LineChart";
 import CampaignGrid from "@/app/components/Dashboard/CampaignGrid";
 
 import HilightWrap from "@/app/components/Dashboard/HilightWrap";
-
 
 // const showHilighted = (data)=>{
 //   console.log("showHilighted")
@@ -130,20 +128,26 @@ const Page = () => {
                   >
                     Condition: {hilighted.description}
                   </p>
-                  <p style={{ color: "red", margin: "0", fontSize:10, textAlign:"right" }}>chart is mock up</p>
+                  <p
+                    style={{
+                      color: "red",
+                      margin: "0",
+                      fontSize: 10,
+                      textAlign: "right",
+                    }}
+                  >
+                    chart is mock up
+                  </p>
                   <LineChart></LineChart>
                 </div>
               </div>
             ) : (
-              <HilightWrap>
-                
-              </HilightWrap>
+              <HilightWrap></HilightWrap>
             )}
           </ChartCard>
 
           {/* //* CAMPAIGN GRID */}
           <CampaignGrid onPinClickB={onPinClickA}></CampaignGrid>
-
         </MainGrid>
       </Box>
     </>

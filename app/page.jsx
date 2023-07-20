@@ -28,7 +28,7 @@ const Page = () => {
       }
     };
     getRestaurantOwnerId();
-  }, [status]);
+  }, [status, restaurantOwnerId]);
 
   return (
     <main>
@@ -103,7 +103,7 @@ const Page = () => {
               Login
             </Button>
           </Link>
-          <Link href={`/register`}>
+          <Link href={`/register/owner`}>
             <Button
               variant="contained"
               sx={{

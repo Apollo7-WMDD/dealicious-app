@@ -39,7 +39,7 @@ const Page = ({ params }) => {
           <Link href={`/login/superCustomer/${restaurantId}`}>
             <button>Login</button>
           </Link>
-          <Link href={`/register`}>
+          <Link href={`/register/superCustomer`}>
             <button>Sign Up!</button>
           </Link>
           <Link href={`/superCustomer/restaurants/${session?.user.id}`}>
