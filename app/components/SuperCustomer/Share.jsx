@@ -1,11 +1,10 @@
 "use client";
 import React from "react";
-import StarIcon from "@mui/icons-material/Star";
-import { Card, CardActions, CardContent, Box, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
-import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 // import SingleButton from '../../components/Button/SingleButton';
 import SCShare from "../../components/Button/SCShare";
+import ShareLink from "@/app/components/SuperCustomer/ShareLink";
 
 const Share = ({ superCustomerId, restaurantId }) => {
   return (
@@ -26,12 +25,13 @@ const Share = ({ superCustomerId, restaurantId }) => {
           Refer your friends and earn points!
         </Typography>
         <Typography variant="p">where is this text?</Typography>
-        <SCShare
+        <ShareLink></ShareLink>
+        {/* <SCShare
           text="Share with friends"
           width="244px"
           superCustomerId={superCustomerId}
           restaurantId={restaurantId}
-        />
+        /> */}
       </Box>
     </Paper>
   );
