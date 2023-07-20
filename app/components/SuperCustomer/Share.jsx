@@ -25,13 +25,13 @@ const Share = ({ superCustomerId, restaurantId }) => {
           Refer your friends and earn points!
         </Typography>
         <Typography variant="p">where is this text?</Typography>
-        <ShareLink></ShareLink>
-        {/* <SCShare
+        {/* <ShareLink></ShareLink> */}
+        <SCShare
           text="Share with friends"
           width="244px"
           superCustomerId={superCustomerId}
           restaurantId={restaurantId}
-        /> */}
+        />
       </Box>
     </Paper>
   );

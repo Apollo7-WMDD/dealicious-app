@@ -1,8 +1,9 @@
 import React from "react";
-import { Button, Box, useTheme, Typography, Modal } from "@mui/material";
+import { CardContent, Button, Box, useTheme, Typography, Modal } from "@mui/material";
 import Share from "@/app/components/svg/shareIcon.svg";
 import QRCode from "qrcode";
 import { useState } from "react";
+import StarIcon from "@/app/components/svg/star.svg";
 
 const SCShare = ({ text, width, superCustomerId, restaurantId }) => {
   const theme = useTheme();
@@ -69,8 +70,6 @@ const SCShare = ({ text, width, superCustomerId, restaurantId }) => {
         variant="contained"
         size="medium"
         startIcon={<Share />}
-        // onClick={GenerateQRCode}
-        // onClick={open}
         onClick={handleOpen}
         sx={{
           width: width,
@@ -99,10 +98,75 @@ const SCShare = ({ text, width, superCustomerId, restaurantId }) => {
         <Typography variant="p">{text}</Typography>
       </Button>
       <Modal open={open} onClose={handleClose}>
-        <Box sx={style}>
+        <Box
+          // sx={{
+          //   maxWidth: "auto",
+          //   display: "flex",
+          //   flexDirection: "column",
+          //   gap: "3%",
+          //   textAlign: "center",
+          //   justifyContent: "center",
+          //   border: 1,
+          //   borderColor: '#ff5938',          
+          //   borderRadius: "10px",
+          //   boxShadow: 20,
+          // }}
+        >
+          <Box>
+              {/* <Typography variant="h2">{props.name}</Typography> */}
+              <Typography variant="p">Invited you to experience culinary bliss. 
+              Activate your favourite cmpaign at our place and embark on a remarkable
+              culinary adventure unlike any other.</Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              direction: "row",
+              alignItems: "center",
+              m: "0 1rem",
+              p: "0 0 2rem 0",
+            }}
+          >
+            <Box>
+              <img
+                // src={props?.logo}
+                style={{
+                  borderRadius: "50%",
+                  width: "90px", // adjust the size as needed
+                  height: "90px", // adjust the size as needed
+                }}
+                alt="Logo"
+              />
+            </Box>
+            <CardContent
+              sx={{
+                m: "0 0 0 1rem",
+                textAlign: "start",
+              }}
+              style={{
+                padding: "0",
+              }}
+            >
+              <Typography gutterBottom variant="h3" component="div">
+                {/* {props?.name} */}
+              </Typography>
+              <Typography variant="p" color="text.secondary">
+                4.5{" "}
+                <StarIcon
+                  sx={{
+                    m: 0,
+                    p: 0,
+                  }}
+                />{" "}
+                Peruvian * Cafe * Bistro
+              </Typography>
+            </CardContent>
+          </Box>
+        </Box>
+        {/* <Box sx={style}>
           <Typography variant="p">Link to New Customer Page</Typography>
           <img src={qr} />
-        </Box>
+        </Box> */}
       </Modal>
     </Box>
   );
