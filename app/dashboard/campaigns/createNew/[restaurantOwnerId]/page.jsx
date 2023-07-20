@@ -18,8 +18,6 @@ import CampaignForm2 from "@/app/components/Campaign/CampaignForm2";
 
 const Page = () => {
   const { restaurantId, restaurantOwnerId } = useStore();
-  // const obj = { restaurantId: '649caf44ea1c8363ed630fc4' };
-  // const { restaurantId } = obj;
   const router = useRouter();
   const [campaigns, setCampaigns] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -75,7 +73,7 @@ const Page = () => {
     localStorage.setItem("uploadedImageURL", localStorage.getItem("media"));
     localStorage.setItem("formData", JSON.stringify(formData));
     setIsSubmitted(true);
-    console.log(formData);
+    console.log("formData1: first submit", formData);
   };
 
   const handleEdit = () => {
@@ -90,27 +88,72 @@ const Page = () => {
   ////////////////////// Final Submit button for campaign preview /////////////////////
   const handleFinalSubmit = async (e) => {
     e.preventDefault();
-
-    try {
-      const response = await fetch(
-        `/api/dashboard/campaigns/new/${restaurantId}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
+  
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.readAsDataURL(selectedFile);
+  
+      reader.onloadend = async () => {
+        const base64String = reader.result;
+  
+        try {
+          const response = await fetch(
+            `/api/image/upload`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ file: base64String }),
+            }
+          );
+  
+          if (response.ok) {
+            console.log("image uploaded successfully!");
+            const data = await response.json();
+  
+            const newFormData = {
+              ...formData,
+              media: data.secure_url, 
+            };
+            setFormData(newFormData);
+            
+  
+            // then POST the formData 
+            try {
+              const response = await fetch(
+                `/api/dashboard/campaigns/new/${restaurantId}`,
+                {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(newFormData),
+                }
+              );
+        
+              if (response.ok) {
+                console.log("Campaign created successfully!");
+                console.log(newFormData)
+                setShowNotification(true);
+              }
+            } catch (error) {
+              console.log("Error creating campaign:", error.message);
+            }
+  
+          }
+        } catch (error) {
+          console.log("Error uploading image:", error.message);
         }
-      );
-
-      if (response.ok) {
-        console.log("Campaign created successfully!");
-        setShowNotification(true);
-      }
-    } catch (error) {
-      console.log("Error creating campaign:", responseData.message);
+      };
+  
+      reader.onerror = (error) => {
+        console.log("Error reading file:", error);
+      };
     }
   };
+  
+  
   //////////////////////////////////////////////////////////////////////
 
   const [showNotification, setShowNotification] = useState(false);
@@ -152,8 +195,6 @@ const Page = () => {
   };
 
 
-
-
   //SC AND NC allowed
   const toggleAllowNewCustomer = () => {
     setFormData({
@@ -177,31 +218,24 @@ const Page = () => {
     });
   };
 
-  //upload menu
+  //upload image
   const [imagePreview, setImagePreview] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const uploadMenu = (fileList) => {
-    console.log("campaign image uploaded");
-    console.log(fileList);
-    
     if (fileList.length === 0) {
       console.error("No files found in fileList.");
       return;
     }
-  
+
     const file = fileList[0];
     const fileURL = URL.createObjectURL(file);
     localStorage.setItem("media", fileURL);
     setImagePreview(fileURL);
-  
-    const media =
-      "https://fitmencook.com/wp-content/uploads/2023/03/mix-and-match-meal-prep11.jpg";
-    setFormData({
-      ...formData,
-      media: media,
-    });
+
+    setSelectedFile(file);
   };
-  
+
 
   const removeImage = () => {
     setImagePreview(null);

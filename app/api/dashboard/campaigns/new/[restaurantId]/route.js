@@ -20,9 +20,9 @@ export const POST = async (req) => {
     console.log(campaign.condition);
     const newCampaign = new Campaign({
       restaurantId: new mongoose.Types.ObjectId(campaign.restaurantId),
-      superCustomerId:
-        campaign.superCustomerIdArray ??
-        new mongoose.Types.ObjectId(campaign.superCustomerIdArray),
+      superCustomerIdArray: campaign.superCustomerIdArray 
+      ? campaign.superCustomerIdArray.map(id => new mongoose.Types.ObjectId(id))
+      : [],
       name: campaign.name,
       status: campaign.status,
       type: campaign.type,
@@ -41,13 +41,14 @@ export const POST = async (req) => {
       favorite: campaign.favorite,
       autoDescription: campaign.autoDescription,
     });
-
-    console.log(newCampaign);
+    console.log("New Campaign",newCampaign);
     await newCampaign.save();
     return new NextResponse(200, { message: "Campaign created successfully" });
   } catch (error) {
+    console.error('Error creating campaign:', error); 
     return new NextResponse(500, {
       message: "Error creating campaign, check the inputs",
+      error: error.message, 
     });
-  }
+  }  
 };

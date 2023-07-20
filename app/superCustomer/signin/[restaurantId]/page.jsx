@@ -12,15 +12,19 @@ const Page = () => {
     const router = useRouter();
     const { status } = useSession();
 
-    useEffect(() => {
-        if (status === "authenticated") {
-            router.push(`/home/superCustomer`);
-        }
-    }, [status]);
+    const restaurantId = router.isReady ? router.query.restaurantId:null;
+    // const  restaurantId  = router.query
+    console.log(router.query);
+
+    // useEffect(() => {
+    //     if (status === "authenticated") {
+    //         router.push(`/home/superCustomer`);
+    //     }
+    // }, [status]);
 
     // const { restaurantId } = useStore();
-    const obj = { restaurantId: '649cb095ea1c8363ed630fe5' };
-    const { restaurantId } = obj;
+    // const obj = { restaurantId: '649cb095ea1c8363ed630fe5' };
+    // const { restaurantId } = obj;
     const [restaurantData, setRestaurantData] = useState(null);
 
     useEffect(() => {
