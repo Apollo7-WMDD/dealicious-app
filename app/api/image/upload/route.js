@@ -27,7 +27,6 @@ export async function POST(request) {
     // Decode the base64 image
     const buffer = Buffer.from(file.replace(/^data:image\/\w+;base64,/, ""), 'base64');
   
-    // We need to return a Promise here because the function is asynchronous
     return new Promise((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(
         { resource_type: "image" },
