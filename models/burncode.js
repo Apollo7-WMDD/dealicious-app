@@ -26,9 +26,11 @@ const BurnCodeSchema = new Schema({
   campaignId: {
     type: Schema.Types.ObjectId,
     ref: "Campaign",
-  }
+    required: true,
+  },
 });
 
-const Burncode = models.Burncode || model("Burncode", BurnCodeSchema);
+const Burncode =
+  models.Burncode || model("Burncode", BurnCodeSchema, "burncodes");
 
 export default Burncode;

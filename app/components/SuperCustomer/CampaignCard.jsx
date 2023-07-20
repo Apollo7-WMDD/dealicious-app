@@ -21,6 +21,8 @@ import SCSubmitBtn from "../Button/SCSubmitBtn";
 import { sendSMS } from "../../../lib/sms/sms";
 import { usePathname } from "next/navigation";
 
+import { useSession } from "next-auth/react";
+
 // require('dotenv').config();
 // import twilio from 'twilio';
 // import { URL } from 'url';
@@ -43,8 +45,10 @@ import { usePathname } from "next/navigation";
 //   .then(message => console.log(message.sid));
 
 const CampaignCard = ({ props }) => {
+  const { data: session } = useSession();
   // const { restaurantId } = useStore();
-  console.log(props._id);
+  console.log("These are the props ✅: ", props);
+  console.log("This is the session ✅: ", session);
   const pathname = usePathname();
   console.log(pathname.split("/")[4]);
   const restaurantId = pathname.split("/")[4];
@@ -58,25 +62,24 @@ const CampaignCard = ({ props }) => {
   const [openConfirm, setOpenConfirm] = useState(false);
 
   const handleOpenConfirm = async () => {
-    const campaignRedeemed = {
-      username: "NEW CUSTOMER",
-      campaignname: "name",
-      offer: "something",
+    const burnCodeInfo = {
+      username:
+        session.user.name ||
+        `${session.user?.firstname} ${session.user?.lastname}`,
+      campaignname: props.name,
+      offer: props.offer,
       burned: false,
-      restaurantId: "649caf44ea1c8363ed630fc4",
-      campaignId: "649caf44ea1c8363ed630fc4",
+      restaurantId: restaurantId,
+      campaignId: props._id,
     };
     try {
-      const res = await fetch(
-        `/api/burnCode/customers/649caf44ea1c8363ed630fc4`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(campaignRedeemed),
-        }
-      );
+      const res = await fetch(`/api/burnCode/customers/${restaurantId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(burnCodeInfo),
+      });
       if (!res.ok) {
         const data = await res.text();
         throw new Error(data);
