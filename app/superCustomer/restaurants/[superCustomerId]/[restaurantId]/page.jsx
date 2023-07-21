@@ -68,14 +68,45 @@ const Page = ({ params }) => {
             restaurantData={...restaurantData.restaurant}
           />
         </Box>
-        <Box>
-          {!restaurantData.campaigns ? (
-            <Typography>Loading...</Typography>
-          ) : (
-            restaurantData.campaigns.map((item, index) => (
-              <CampaignCard key={index} props={item} />
-            ))
-          )}
+        <Box
+          sx={{
+            p:'1rem',
+            borderRadius: "10px",
+            boxShadow: 10,
+            maxWidth: "auto",
+            display: "flex",
+            flexDirection: "column",
+            gap: "3%",
+          }}
+        >
+          <Typography variant="h3">Ongoing campaigns, exclusively for you</Typography>
+          <Box
+            sx={{
+              display: 'grid', 
+              gridTemplateColumns: '1fr 1fr',
+              // display: "flex",
+              // flexFlow: 'row wrap',
+              m: "1rem",
+              p: 0,
+              gap: "1rem",
+            }}
+          >
+            {!restaurantData.campaigns ? (
+              <Typography>Loading...</Typography>
+            ) : (
+              restaurantData.campaigns.map((item, index) => (
+                <CampaignCard 
+                  sx={{
+                    // flexGrow: '1', 
+                    // flexShrink: '1', 
+                    // flexBasis: '100%',
+                    // flex: '1 0 40%',
+                    
+                  }}                
+                  key={index} props={item} />
+              ))
+            )}
+          </Box>
         </Box>
       </Box>
       <SCFooter />

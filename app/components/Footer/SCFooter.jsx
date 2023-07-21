@@ -19,8 +19,11 @@ function SCFooter() {
                 m:0,
                 p:'0 1rem',
                 bottom: 0,
-                position: 'fixed',
+                position: 'static',
                 width:'100%',
+                left:0,
+                bottom:0,
+                right:0,
             }}
         >
             <Box>
