@@ -37,7 +37,7 @@ const Page = () => {
         <Loader />
       ) : status === "authenticated" ? (
         <div>
-          <Link href={`/dashboard/campaigns/active/${session?.user.id}`}>
+          <Link href={`/dashboard/campaigns/active/${session?.user.id}/#ongoing`}>
             <Button
               variant="contained"
               sx={{

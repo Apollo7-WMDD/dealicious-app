@@ -115,7 +115,8 @@ function StackDougnNutSpan1() {
         justifyContent: "center",
         gridTemplateColumns: "repeat(1, 1fr)",
         [theme.breakpoints.down("lg")]: {
-          gridTemplateColumns: "1fr 2fr",
+          // gridTemplateColumns: "1fr 2fr",
+          gridTemplateRows: "repeat(1, 1fr)",
         },
         [theme.breakpoints.down("md")]: {
           gridTemplateColumns: "repeat(1, 1fr)",
@@ -134,7 +135,7 @@ function StackDougnNutSpan1() {
               textAlign: "center",
 
               [theme.breakpoints.down("lg")]: {
-                gridTemplateColumns: "repeat(1, 1fr)",
+                gridTemplateColumns: "repeat(2, 1fr)",
               },
 
               [theme.breakpoints.down("md")]: {
@@ -177,6 +178,7 @@ function StackDougnNutSpan1() {
                 gridRow: "1/2",
                 gridColumn: "1/-1",
                 zIndex: 1,
+                justifySelf: "start",
                 [theme.breakpoints.down("lg")]: {
                   width: "100%",
                   // gridTemplateColumns: "repeat(1, 1fr)",
@@ -226,6 +228,7 @@ function StackDougnNutSpan1() {
                 gridColumn: "1/-1",
                 [theme.breakpoints.down("lg")]: {
                   width: "80%",
+                  // justifySelf: "start",
                   // gridTemplateColumns: "repeat(1, 1fr)",
                 },
                 [theme.breakpoints.down("md")]: {

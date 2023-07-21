@@ -22,6 +22,7 @@ import DoughnutChart_NumCustomer from "@/app/components/Chart/DoughnutChart_NumC
 import StackDougnNutSpan1 from "@/app/components/Chart/StackDougnNutSpan1";
 import LineChart from "@/app/components/Chart/LineChart";
 import CampaignGrid from "@/app/components/Dashboard/CampaignGrid";
+import UpcomingCampaignGrid from "@/app/components/Dashboard/UpcomingCampaignGrid";
 
 import HilightWrap from "@/app/components/Dashboard/HilightWrap";
 
@@ -146,8 +147,12 @@ const Page = () => {
             )}
           </ChartCard>
 
-          {/* //* CAMPAIGN GRID */}
+          {/* //* ONGOING CAMPAIGN GRID */}
           <CampaignGrid onPinClickB={onPinClickA}></CampaignGrid>
+
+          {/* //* UPCOMING CAMPAIGN */}
+          <SubHeader props={"Upcoming campaigns"} id={"upcoming"}/>
+          <UpcomingCampaignGrid></UpcomingCampaignGrid>
         </MainGrid>
       </Box>
     </>
