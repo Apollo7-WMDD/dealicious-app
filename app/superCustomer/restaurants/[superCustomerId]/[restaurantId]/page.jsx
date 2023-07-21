@@ -65,6 +65,7 @@ const Page = ({ params }) => {
           <Share
             superCustomerId={superCustomerId}
             restaurantId={restaurantId}
+            restaurantData={...restaurantData.restaurant}
           />
         </Box>
         <Box>
