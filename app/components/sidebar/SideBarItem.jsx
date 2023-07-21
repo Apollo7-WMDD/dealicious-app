@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 
 import SubItem from "./SubItem.jsx";
+import SubItemInsight from "./SubItemInsight.jsx";
 import DealIcon from "../svg/dealIcon.svg";
 import InsightIcon from "../svg/insighticon.svg";
 import BurnCodeIcon from "../svg/burnCode.svg";
@@ -56,7 +57,7 @@ function SideBarItem() {
     {
       text: "Campaigns",
       icon: <DealIcon />,
-      link: `/dashboard/campaigns/active/${restaurantOwnerId}`,
+      link: `/dashboard/campaigns/active/${restaurantOwnerId}/#ongoing`,
     },
     {
       text: "Insights",
@@ -181,7 +182,7 @@ function SideBarItem() {
                 ))} */}
               {currentURL[2] === activeLinkSplit[1] &&
                 currentURL[2] == `insights` && (
-                  <SubItem list={insightSubItems}></SubItem>
+                  <SubItemInsight list={insightSubItems}></SubItemInsight>
                 )}
             </ListItem>
           );
