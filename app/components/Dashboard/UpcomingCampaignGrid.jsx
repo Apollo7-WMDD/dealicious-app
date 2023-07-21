@@ -13,7 +13,7 @@ function CampaignGrid({ onPinClickB, children }) {
   const { restaurantOwnerId } = useStore();
   const [data, setData] = useState([]);
   const [dataArray, setDataArray] = useState([]);
-  const [hilighted, setHilighted] = useState({});
+  
 
   // console.log(restaurantOwnerId);
 
@@ -21,22 +21,20 @@ function CampaignGrid({ onPinClickB, children }) {
     const fetchData = async () => {
       const result = await fetchAllCampaigns(restaurantOwnerId);
       const filteredResult =
-      result.campaigns.filter((e) => Date.parse(e.startDate)  < Date.now() && Date.parse(e.endDate) > Date.now());
-      // filteredResult.filter((e)=> Date.parse(e.endDate) > Date.now())
+      result.campaigns.filter((e) => Date.parse(e.startDate)  > Date.now());
+      filteredResult.sort((a,b)=> Date.parse(a.startDate) - Date.parse(b.startDate))
+      console.log( filteredResult);
       setData(filteredResult);
       setDataArray(filteredResult || []);
       // setDataArray(result.campaigns);
     };
     fetchData();
-  }, [restaurantOwnerId, hilighted]);
+  }, [restaurantOwnerId]);
 
   // console.log(data);
-  // console.log(dataArray);
+  console.log(dataArray);
   const theme = useTheme();
-  const getPinIdSelected = (id) => {
-    console.log("id is"+id);
-    setHilighted(id);
-  };
+
 
   return (
     <Box
@@ -64,13 +62,13 @@ function CampaignGrid({ onPinClickB, children }) {
             data={e}
             text={e.name}
             
-            pinStatus={hilighted == e._id ? 
-              // (console.log("hilighted TRUE")) : (console.log("hilighted FASLE"))
-              true : false
-            }
-            pinIdSelected={getPinIdSelected}
-            showPin={true}
-            onPinClick={onPinClickB}
+            // pinStatus={hilighted == e._id ? 
+            //   // (console.log("hilighted TRUE")) : (console.log("hilighted FASLE"))
+            //   true : false
+            // }
+            // pinIdSelected={getPinIdSelected}
+            // showPin={true}
+            // onPinClick={onPinClickB}
           ></ChartCardTitle>
 
           <CampaignCardBody>

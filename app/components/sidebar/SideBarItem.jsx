@@ -79,11 +79,11 @@ function SideBarItem() {
   const campaignSubItems = [
     {
       text: "Ongoing",
-      link: `/dashboard/campaigns/active/${restaurantOwnerId}`,
+      link: `/dashboard/campaigns/active/${restaurantOwnerId}/#ongoing`,
     },
     {
       text: "Upcoming",
-      link: `/dashboard/campaigns/upcoming/${restaurantOwnerId}`,
+      link: `/dashboard/campaigns/active/${restaurantOwnerId}/#upcoming`,
     },
   ];
 
