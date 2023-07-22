@@ -10,7 +10,10 @@ import ChartCardTitle from "@/app/components/Chart/ChartCardTitle";
 import CampaignCardBody from "../Chart/CampaignCardBody";
 
 // fetch imports
-import { fetchAllCampaigns,fetchTotalRevenueSingle } from "@/lib/fetching/campaigns/data";
+import {
+  fetchAllCampaigns,
+  fetchTotalRevenueSingle,
+} from "@/lib/fetching/campaigns/data";
 
 function CampaignGrid({ children }) {
   const router = useRouter();
@@ -33,7 +36,6 @@ function CampaignGrid({ children }) {
     restaurantOwnerId,
     // , hilighted
   ]);
- 
 
   console.log(data);
   console.log(dataArray);
@@ -83,6 +85,7 @@ function CampaignGrid({ children }) {
         (e) =>
           hilighted == e.id && (
             <Link
+              key={e._id}
               sx={{
                 textDecoration: "none",
                 textAlign: "left",
@@ -176,6 +179,7 @@ function CampaignGrid({ children }) {
         (e) =>
           hilighted != e.id && (
             <Link
+              key={e._id}
               sx={{
                 textDecoration: "none",
                 textAlign: "left",

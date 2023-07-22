@@ -34,15 +34,24 @@ export const GET = async (request) => {
       ]
     );
 
-    // and then calculate the total revenue of all customers
+    // Check if there is only one type of user (either all super customers or all non-super customers)
+    if (
+      superCustomersRevenue.length === 0 &&
+      nonSuperCustomersRevenue.length === 0
+    ) {
+      throw new Error("No spending data found for the given campaign.");
+    }
+
+    // Ensure superCustomersRevenue and nonSuperCustomersRevenue are not empty arrays
     const totalRevenue =
-      superCustomersRevenue[0].total + nonSuperCustomersRevenue[0].total;
+      (superCustomersRevenue[0]?.total || 0) +
+      (nonSuperCustomersRevenue[0]?.total || 0);
 
     // return the response
     const response = {
       totalRevenue,
-      superCustomersRevenue: superCustomersRevenue[0]?.total,
-      nonSuperCustomersRevenue: nonSuperCustomersRevenue[0]?.total,
+      superCustomersRevenue: superCustomersRevenue[0]?.total || 0,
+      nonSuperCustomersRevenue: nonSuperCustomersRevenue[0]?.total || 0,
     };
 
     return new NextResponse(JSON.stringify(response, null, 2), {
