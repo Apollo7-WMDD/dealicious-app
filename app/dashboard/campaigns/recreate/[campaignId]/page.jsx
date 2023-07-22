@@ -1,8 +1,9 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useStore } from "@/lib/context/user_context/store";
 import React, { useState, useEffect } from "react";
-// import components
+import { useTheme } from '@mui/material/styles';
+// components
 import Form from "@/app/components/Card/Form";
 import Header from "@/app/components/Header/Header";
 import InputButton from "@/app/components/Button/InputButton";
@@ -13,13 +14,20 @@ import Notification from "@/app/components/Card/Notification";
 import CampaignImage from "@/app/components/Campaign/CampaignImage";
 import CampaignForm1 from "@/app/components/Campaign/CampaignForm1";
 import CampaignForm2 from "@/app/components/Campaign/CampaignForm2";
-
+import { fetchSingleCampaign } from "@/lib/fetching/campaigns/data";
 
 
 const Page = () => {
   const { restaurantId, restaurantOwnerId } = useStore();
   const router = useRouter();
-  const [campaigns, setCampaigns] = useState([]);
+//   const { campaignId: campaignId } = router.query;
+//   const searchParams = useSearchParams();
+//   const campaignId = searchParams.get('campaignId'); 
+  const obj = { campaignId: '64b6e6f8806dc9d66fba26c8' };
+  const { campaignId } = obj;
+  console.log(campaignId);
+
+  const theme = useTheme();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const [formData, setFormData] = useState({
@@ -43,6 +51,25 @@ const Page = () => {
     favorite: false,
     autoDescription: "No auto description",
   });
+
+//   fetch the campaign data and load the data
+  const [campaignData, setCampaignData] = useState(null);
+  useEffect(() => {
+    const getCampaignData = async () => {
+        const data = await fetchSingleCampaign(campaignId);
+        console.log(data);
+        const { campaignInfo } = data;
+        setCampaignData(campaignInfo);
+
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            ...campaignInfo,
+            startDate: new Date(campaignInfo.startDate).toISOString().slice(0,10),
+            endDate: new Date(campaignInfo.endDate).toISOString().slice(0,10),
+        }));
+    };
+    getCampaignData();
+  }, [restaurantId]);
 
 
   // The first save button - submit the form
@@ -291,11 +318,12 @@ const Page = () => {
                     handletypeValue={typeValue}
                     handleAllowNewCustomerToggle={toggleAllowNewCustomer}
                     handleAllowSuperCustomerToggle={toggleAllowSuperCustomer}
+                    inputstyles={{color: theme.palette.primary[80]}}
                   />
                 </Grid>
                 <Grid item xs={12} md={4}>
                   <CampaignImage
-                    imagePreview={imagePreview}
+                    imagePreview={formData.media}
                     handleUploadMenu={uploadMenu}
                     handleRemoveImage={removeImage}
                   />
@@ -309,6 +337,7 @@ const Page = () => {
                 inputValue={inputValue}
                 inspirationVisible={inspirationVisible}
                 setInspirationVisible={setInspirationVisible}
+                inputstyles={{color: theme.palette.primary[80]}}
               />
             </Form>
 
@@ -321,6 +350,7 @@ const Page = () => {
                 id="description"
                 placeholder="campaign advertisement"
                 error={formErrors.description}
+                inputstyles={{color: theme.palette.primary[80]}}
               />
             </Form>
 

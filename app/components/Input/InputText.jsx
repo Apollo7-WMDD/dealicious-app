@@ -12,19 +12,20 @@ const InputText = ({
   placeholder,
   error,
   type = "text",
+  marginTop = "8px",
+  disabled,
   ...props
 }) => {
   return (
     <Box
       sx={{
         display: "flex",
-        // width: '260px',
         width: "100%",
         flexDirection: "column",
         alignItems: "flex-start",
         flexShrink: 0,
         marginBottom: "8px",
-        marginTop: "8px",
+        marginTop,
       }}
     >
       <Box
@@ -38,7 +39,7 @@ const InputText = ({
           <Typography
             htmlFor={id}
             sx={{
-              color: "#181818",
+              color: disabled ? "gray" : "#181818",  
               fontSize: "20px",
               fontFamily: "Mukta",
               fontStyle: "normal",
@@ -60,12 +61,13 @@ const InputText = ({
           fullWidth
           error={!!error}
           helperText={error || ""}
+          disabled={disabled}
           InputProps={{
             sx: {
               height: "44px",
               alignItems: "center",
               borderRadius: "8px",
-              border: "1px solid #454545",
+              border: disabled ? "1px solid grey" : "1px solid #454545",  
               background: "#FEFEFE",
               "& .MuiOutlinedInput-notchedOutline": {
                 border: "none",
