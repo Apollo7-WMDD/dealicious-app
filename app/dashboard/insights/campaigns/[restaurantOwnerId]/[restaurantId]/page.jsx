@@ -1,25 +1,18 @@
+"use client"
 import Link from "next/link";
+import HeaderGrid from "@/app/components/HeaderGrid";
+import Header from "@/app/components/Header/Header";
+import CreateNewCampaign from "@/app/components/Dashboard/CreateNewCampaign";
+import SubHeader from "@/app/components/Header/SubHeader";
 
 const Page = async () => {
   return (
     <>
-      <h1>Insights of every Campaign (as a list)</h1>
-      <h1 style={{color:"red"}}>under construction</h1>
-      <Link href={`/`}>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
-          Insights - Single Campaign (example)
-        </button>
-      </Link>
-      <Link href={`/`}>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
-          Insights - Overview
-        </button>
-      </Link>
-      <Link href={`/`}>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
-          Insights - Customers
-        </button>
-      </Link>
+      <HeaderGrid>
+        <Header props={"Insights"} />
+        <CreateNewCampaign />
+      </HeaderGrid>
+      <SubHeader props={"Select a Campaigns"} />
     </>
   );
 };
