@@ -64,7 +64,7 @@ const ViewNewCampaign = ({ formData, handleFinalSubmit, handleEditProp, setFormD
             <Box sx={{ width: { xs: '100%', md: '55%' }, display: 'flex', flexDirection: 'column', gap: '12px'}}>
               <SubHeader>{formData.name}</SubHeader>
               <Typography>{formData.type}</Typography>
-              <Typography>Date: {new Date(formData.startDate).toLocaleDateString()} to {new Date(formData.endDate).toLocaleDateString()}</Typography>
+              <Typography>Date: {new Date(formData.startDate).toISOString().slice(0,10)} to {new Date(formData.endDate).toISOString().slice(0,10)}</Typography>
               <Typography>{offerLimit}</Typography>
               <Typography>Offers: {formData.offer}</Typography>
               <Typography>Eligible customers: {customerLimit}</Typography>

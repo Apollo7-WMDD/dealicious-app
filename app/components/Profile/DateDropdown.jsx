@@ -5,20 +5,24 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 
-const DateDropdown = ({ onChange }) => {
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+const DateDropdown = ({ onChange, value }) => {   
+  const [startDate, setStartDate] = useState(value ? value[0] : null);  
+  const [endDate, setEndDate] = useState(value ? value[1] : null);      
   const tomorrow = dayjs().add(1, 'day');
 
   const handleStartDateChange = (date) => {
-    setStartDate(date);
-    onChange([date, endDate]);
+    const utcDate = date.toISOString().slice(0, 10);
+    setStartDate(utcDate);
+    onChange([utcDate, endDate]);
   };
-
+  
   const handleEndDateChange = (date) => {
-    setEndDate(date);
-    onChange([startDate, date]);
+    const utcDate = date.toISOString().slice(0, 10);
+    setEndDate(utcDate);
+    onChange([startDate, utcDate]);
   };
+  
+  
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
