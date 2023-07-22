@@ -43,9 +43,9 @@ const Page = ({ params }) => {
           m: "1rem",
           p: 0,
 
-          '@media screen and (min-width:800px)': {
-            display: 'flex',
-            flexDirection:'row',
+          "@media screen and (min-width:800px)": {
+            display: "flex",
+            flexDirection: "row",
           },
         }}
       >
@@ -54,13 +54,13 @@ const Page = ({ params }) => {
       </Box>
       <Box
         sx={{
-          display: 'flex',
-          flexDirection:'column',
+          display: "flex",
+          flexDirection: "column",
           m: "1rem",
           p: 0,
           gap: "1rem",
 
-          '@media screen and (min-width:800px)': {
+          "@media screen and (min-width:800px)": {
             display: "grid",
             gridTemplateColumns: "1fr 2fr",
           },
@@ -69,11 +69,11 @@ const Page = ({ params }) => {
         <Share
           superCustomerId={superCustomerId}
           restaurantId={restaurantId}
-          restaurantData={...restaurantData.restaurant}
+          restaurantData={restaurantData.restaurant}
         />
         <Box
           sx={{
-            p:'1rem',
+            p: "1rem",
             borderRadius: "10px",
             boxShadow: 10,
             maxWidth: "auto",
@@ -82,16 +82,18 @@ const Page = ({ params }) => {
             gap: "1rem",
           }}
         >
-          <Typography variant="h3">Ongoing campaigns, exclusively for you</Typography>
+          <Typography variant="h3">
+            Ongoing campaigns, exclusively for you
+          </Typography>
           <Box
             sx={{
-              display: 'grid', 
+              display: "grid",
               m: "1rem",
               p: 0,
-              gap: "1rem",             
+              gap: "1rem",
 
-              '@media screen and (min-width:800px)': {
-                gridTemplateColumns: '1fr 1fr',
+              "@media screen and (min-width:800px)": {
+                gridTemplateColumns: "1fr 1fr",
               },
             }}
           >
@@ -99,15 +101,18 @@ const Page = ({ params }) => {
               <Typography>Loading...</Typography>
             ) : (
               restaurantData.campaigns.map((item, index) => (
-                <CampaignCard 
-                  sx={{
-                    // flexGrow: '1', 
-                    // flexShrink: '1', 
-                    // flexBasis: '100%',
-                    // flex: '1 0 40%',
-                    
-                  }}                
-                  key={index} props={item} />
+                <CampaignCard
+                  sx={
+                    {
+                      // flexGrow: '1',
+                      // flexShrink: '1',
+                      // flexBasis: '100%',
+                      // flex: '1 0 40%',
+                    }
+                  }
+                  key={index}
+                  props={item}
+                />
               ))
             )}
           </Box>
