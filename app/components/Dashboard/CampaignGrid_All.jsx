@@ -32,14 +32,7 @@ function CampaignGrid({ children }) {
       setDataArray(filteredResult || []);
     };
     fetchData();
-  }, [
-    restaurantOwnerId,
-    // , hilighted
-  ]);
-
-  console.log(data);
-  console.log(dataArray);
-  console.log(hilighted);
+  }, [restaurantOwnerId]);
 
   useEffect(() => {
     dataArray.sort((a, b) => a.pinStatus - b.pinStatus);
