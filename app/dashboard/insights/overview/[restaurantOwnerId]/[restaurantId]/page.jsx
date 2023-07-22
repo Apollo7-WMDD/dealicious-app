@@ -11,6 +11,10 @@ import LineChart from "../../../../../components/Chart/LineChart";
 import BarChart from "../../../../../components/Chart/BarChart";
 import StackDoughNut from "../../../../../components/Chart/StackDoughNut";
 import ChartCardTitle from "../../../../../components/Chart/ChartCardTitle";
+import AverageBill from "../../../../../components/Chart/AverageBill";
+import CustomerSpending from "@/app/components/Chart/CustomerSpending";
+import { fetchTotalRevenue } from "@/lib/fetching/insights/data";
+import SingleLineChart from "@/app/components/Chart/SingleLineChart";
 
 
 const Page = async () => {
@@ -47,26 +51,19 @@ const Page = async () => {
           <ChartCardTitle text={"Top Campaigns"} pinStatus={""}></ChartCardTitle>
           <StackDoughNut ></StackDoughNut>
         </ChartCard>
-        <ChartCard gridColumn={"span 2"}>
-          averageBillSize
-          {/* {spendingsData.averageBillSize} */}
+        <ChartCard gridColumn={"span 1"}>
+          <ChartCardTitle text={"Average Bill"} pinStatus={""}></ChartCardTitle>
+          <AverageBill></AverageBill>
         </ChartCard>
         <ChartCard gridColumn={"span 1"}>
-          total Revenue
-          {/* {spendingsData.totalRevenue} */}
+          <ChartCardTitle text={"Total Revenue"} pinStatus={""}></ChartCardTitle>
+          <SingleLineChart fetchDataSource={fetchTotalRevenue}
+          showTextSource={(data) => `$ ${Math.round(data.totalRevenue)}`}/>
         </ChartCard>
-       
-
-        <ChartCard gridColumn={"span 2"}>
-          nonSuperCustomers
-          {/* {spendingsData.customerSpendings.nonSuperCustomers} */}
-          <br />
-          superCustomers
-          {/* {spendingsData.customerSpendings.superCustomers} */}
+        <ChartCard gridColumn={"span 1"}>
+          <ChartCardTitle text={"Customer Spending"} pinStatus={""}></ChartCardTitle>
+          <CustomerSpending></CustomerSpending>
         </ChartCard>
-        {/* {spendingsData.topCampaigns.map((item) => (
-          <ChartCard gridColumn={"span 1"}>{item.campaignName}</ChartCard>
-        ))} */}
       </MainGrid>
     </>
   );
