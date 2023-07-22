@@ -54,9 +54,10 @@ function LoginComponent() {
           placeholder="Password"
           value={credentials.password}
           onChange={handleChange}
+          type="password"
         />
       </Box>
-      <SingleButtonNoIcon text="Log in" onClick={handleLogin} width="326px"/>
+      <SingleButtonNoIcon text="Log in" onClick={handleLogin} width="326px" />
       <Typography
         sx={{
           display: "flex",

@@ -15,7 +15,7 @@ const PointsEarned = ({ props }) => {
         textAlign: "center",
         justifyContent: "center",
         borderRadius: "10px",
-        boxShadow: 20,
+        boxShadow: 10,
         p: "1rem",
       }}
     >

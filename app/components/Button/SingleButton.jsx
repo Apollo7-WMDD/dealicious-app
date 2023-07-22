@@ -13,12 +13,14 @@ const SingleButton = ({ text, onClick, width }) => {
       sx={{
         width: width,
         height: "70%",
+        boxShadow: "none",
         justifySelf: "end",
         alignSelf: "center",
         borderRadius: "12px",
         backgroundColor: theme.palette.primary[80],
         ":hover": {
-          backgroundColor: theme.palette.primary[60],
+          backgroundColor: '#FF2D2D',
+          boxShadow: "none",
         },
         [theme.breakpoints.down('lg')]: {
          width: "265px",

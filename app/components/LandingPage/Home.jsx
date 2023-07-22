@@ -41,27 +41,6 @@ const Home = ({ status }) => {
           <Typography variant="h3" sx={{ color: theme.palette.neutral }}>
             Your favourite App to get the best deals
           </Typography>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: theme.palette.primary[80],
-              marginTop: "20px",
-              ":hover": {
-                backgroundColor: "white",
-                color: theme.palette.primary[80],
-              },
-            }}
-          >
-            Join now
-          </Button>
-        </div>
-        <div className="home-image-section">
-          {/* <Image
-            src={"/public/home-banner-image.png"}
-            alt=""
-            width={500}
-            height={500}
-          /> */}
         </div>
       </div>
     </div>

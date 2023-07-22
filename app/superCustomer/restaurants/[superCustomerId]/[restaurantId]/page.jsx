@@ -38,10 +38,15 @@ const Page = ({ params }) => {
       <Box
         sx={{
           display: "flex",
-          flexDirection: "row",
-          gap: "3%",
+          flexDirection: "column",
+          gap: "1rem",
           m: "1rem",
           p: 0,
+
+          '@media screen and (min-width:800px)': {
+            display: 'flex',
+            flexDirection:'row',
+          },
         }}
       >
         <SCRestaurantCard {...restaurantData.restaurant} />
@@ -49,32 +54,63 @@ const Page = ({ params }) => {
       </Box>
       <Box
         sx={{
-          display: "grid",
-          gridTemplateColumns: "1fr 2fr",
+          display: 'flex',
+          flexDirection:'column',
           m: "1rem",
           p: 0,
           gap: "1rem",
+
+          '@media screen and (min-width:800px)': {
+            display: "grid",
+            gridTemplateColumns: "1fr 2fr",
+          },
         }}
       >
+        <Share
+          superCustomerId={superCustomerId}
+          restaurantId={restaurantId}
+          restaurantData={...restaurantData.restaurant}
+        />
         <Box
           sx={{
+            p:'1rem',
             borderRadius: "10px",
-            boxShadow: 20,
+            boxShadow: 10,
+            maxWidth: "auto",
+            display: "flex",
+            flexDirection: "column",
+            gap: "1rem",
           }}
         >
-          <Share
-            superCustomerId={superCustomerId}
-            restaurantId={restaurantId}
-          />
-        </Box>
-        <Box>
-          {!restaurantData.campaigns ? (
-            <Typography>Loading...</Typography>
-          ) : (
-            restaurantData.campaigns.map((item, index) => (
-              <CampaignCard key={index} props={item} />
-            ))
-          )}
+          <Typography variant="h3">Ongoing campaigns, exclusively for you</Typography>
+          <Box
+            sx={{
+              display: 'grid', 
+              m: "1rem",
+              p: 0,
+              gap: "1rem",             
+
+              '@media screen and (min-width:800px)': {
+                gridTemplateColumns: '1fr 1fr',
+              },
+            }}
+          >
+            {!restaurantData.campaigns ? (
+              <Typography>Loading...</Typography>
+            ) : (
+              restaurantData.campaigns.map((item, index) => (
+                <CampaignCard 
+                  sx={{
+                    // flexGrow: '1', 
+                    // flexShrink: '1', 
+                    // flexBasis: '100%',
+                    // flex: '1 0 40%',
+                    
+                  }}                
+                  key={index} props={item} />
+              ))
+            )}
+          </Box>
         </Box>
       </Box>
       <SCFooter />

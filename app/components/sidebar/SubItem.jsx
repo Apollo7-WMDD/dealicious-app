@@ -8,13 +8,23 @@ import {
 import { useStore } from "../../../lib/context/sidebar_context/store";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+// import {useLocation} from 'react-router-dom';
 
 function SubItem({ list }) {
   const { sideBarSubItemActive, setSideBarSubItemActive, sideBarItemActive } =
     useStore();
-  const router = useRouter();
+  const router = useRouter();  
   const pathname = usePathname();
+  const [hash, setHash] = useState(window.location.hash.split("#")[1]);
+console.log(hash);
+  
+  useEffect(() => {
+    setHash(window.location.hash.split("#")[1]);
+  },[])
+  
+
   useEffect(() => {
     setSideBarSubItemActive(pathname.substring(1));
   }, [pathname]);
@@ -25,7 +35,12 @@ function SubItem({ list }) {
         {list.map(({ text, link }) => {
           const activeLink = `${link}`.substring("1");
           const activeLinkSplit = activeLink.split("/");
-          const currentURL = pathname.split("/");
+          console.log(activeLinkSplit);
+          console.log(activeLinkSplit[4].split("#")[1]);
+
+          const currentURL = pathname.split("#");
+          console.log(pathname);
+          console.log(currentURL);
 
           return (
             <ListItem key={text} sx={{ padding: "0.25rem 0 0 0" }}>
@@ -34,13 +49,12 @@ function SubItem({ list }) {
                   router.push(`${link}`);
                   // router.push(`${link}`.substring(1));
                   setSideBarSubItemActive(activeLink);
+                  setHash(
+                    hash == 'ongoing' ? 'upcoming' : 'ongoing'
+                     )
                 }}
                 sx={{
-                  borderBottom:
-                    // currentURL[3] == text.toLowerCase()
-                    currentURL[3] == activeLinkSplit[2]
-                      ? `.15rem solid ${theme.palette.primary[80]}`
-                      : "none",
+                
 
                   padding: "0",
                 }}
@@ -52,6 +66,13 @@ function SubItem({ list }) {
                     margin: 0,
                     typography: "h6",
                     color: theme.palette.neutral[40],
+                    borderBottom:
+                    // currentURL[3] == text.toLowerCase()
+                    // currentURL[3] == activeLinkSplit[2] &&
+                    // currentURL[1] == activeLinkSplit[4].split("#")[1]
+                    hash == activeLinkSplit[4].split("#")[1]
+                      ? `.15rem solid ${theme.palette.primary[80]}`
+                      : "none",
                   }}
                 ></ListItemText>
               </ListItemButton>

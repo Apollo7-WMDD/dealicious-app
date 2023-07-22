@@ -1,4 +1,3 @@
-// import { useTheme } from "@mui/material";
 import { Typography } from "@mui/material";
 
 function Header({ children, props }) {

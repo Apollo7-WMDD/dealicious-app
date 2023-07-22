@@ -21,14 +21,7 @@ const Page = () => {
   const { data: session, status } = useSession();
   const theme = useTheme();
 
-  // useEffect(() => {
-  //   const fetchRestaurant = async (restaurantId) => {
-  //     const res = await fetch(`/api/restaurant/all_campaigns/${restaurantId}`);
-  //     if (!res.ok) throw new Error(await res.text());
-  //     const data = await res.json();
-  //     setResults(data);
-  //   };
-  // }, []);
+  console.log(session);
 
   return (
     <>
@@ -90,7 +83,7 @@ const Page = () => {
                   Login
                 </Button>
               </Link>
-              <Link href={`/register`}>
+              <Link href={`/register/superCustomer`}>
                 <Button
                   variant="contained"
                   sx={{

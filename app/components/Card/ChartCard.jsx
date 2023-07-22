@@ -20,6 +20,7 @@ function ChartCard({ content, children, gridColumn }) {
         justifyContent: "start",
         alignItems: "center",
         flexShrink: 0,
+             
         [theme.breakpoints.down('md')]: {
           gridColumn: "1/-1",
         }

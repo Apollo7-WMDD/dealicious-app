@@ -12,7 +12,6 @@ const InputCheckbox = ({ label, onChecked, checked, error, labelPlacement = 'end
     <Box
         sx={{
         display: 'flex',
-        // padding: '8px',
         alignItems: 'center',
         }}
     >
@@ -38,7 +37,7 @@ const InputCheckbox = ({ label, onChecked, checked, error, labelPlacement = 'end
             '& .MuiTypography-body1': {
             // marginRight: '8px',
             color: '#181818',
-            fontSize: '16px',
+            fontSize: '20px',
             fontFamily: 'Mukta',
             fontStyle: 'normal',
             fontWeight: 600,

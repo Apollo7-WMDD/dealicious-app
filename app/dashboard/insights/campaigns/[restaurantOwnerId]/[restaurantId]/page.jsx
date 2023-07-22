@@ -1,25 +1,32 @@
-import Link from "next/link";
+"use client"
+import { useState } from "react";
+import HeaderGrid from "@/app/components/HeaderGrid";
+import Header from "@/app/components/Header/Header";
+import CreateNewCampaign from "@/app/components/Dashboard/CreateNewCampaign";
+import SubHeader from "@/app/components/Header/SubHeader";
+import MainGrid from "@/app/components/MainGrid";
+import ChartCard from "@/app/components/Card/ChartCard";
+import CampaignGrid_All from "@/app/components/Dashboard/CampaignGrid_All";
 
 const Page = async () => {
+  // const [hilighted, setHilighted] = useState({});
+
+  // const onPinClickA = (hilighted) => {
+  //   setHilighted(hilighted);
+  // };
   return (
     <>
-      <h1>Insights of every Campaign (as a list)</h1>
-      <h1 style={{color:"red"}}>under construction</h1>
-      <Link href={`/`}>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
-          Insights - Single Campaign (example)
-        </button>
-      </Link>
-      <Link href={`/`}>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
-          Insights - Overview
-        </button>
-      </Link>
-      <Link href={`/`}>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
-          Insights - Customers
-        </button>
-      </Link>
+      <HeaderGrid>
+        <Header props={"Insights"} />
+        <CreateNewCampaign />
+      </HeaderGrid>
+      <SubHeader props={"Select a Campaigns"} />
+      <MainGrid>
+
+        <CampaignGrid_All 
+        //  onPinClickB={onPinClickA}
+        />
+      </MainGrid>
     </>
   );
 };

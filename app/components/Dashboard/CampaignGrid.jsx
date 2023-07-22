@@ -20,8 +20,11 @@ function CampaignGrid({ onPinClickB, children }) {
   useEffect(() => {
     const fetchData = async () => {
       const result = await fetchAllCampaigns(restaurantOwnerId);
-      setData(result);
-      setDataArray(result.campaigns || []);
+      const filteredResult =
+      result.campaigns.filter((e) => Date.parse(e.startDate)  < Date.now() && Date.parse(e.endDate) > Date.now());
+      // filteredResult.filter((e)=> Date.parse(e.endDate) > Date.now())
+      setData(filteredResult);
+      setDataArray(filteredResult || []);
       // setDataArray(result.campaigns);
     };
     fetchData();

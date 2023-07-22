@@ -19,8 +19,6 @@ const Page = () => {
   const { setRestaurantOwner, restaurantOwnerId } = useStore();
   const theme = useTheme();
 
-  console.log("This is the session", session);
-
   useEffect(() => {
     const getRestaurantOwnerId = async () => {
       if (status === "authenticated") {
@@ -28,16 +26,18 @@ const Page = () => {
       }
     };
     getRestaurantOwnerId();
-  }, [status]);
+  }, [status, restaurantOwnerId]);
 
   return (
     <main>
       <Home />
       {status === "loading" ? (
         <Loader />
-      ) : status === "authenticated" ? (
+      ) : status === "authenticated" && session ? (
         <div>
-          <Link href={`/dashboard/campaigns/active/${session?.user.id}`}>
+          <Link
+            href={`/dashboard/campaigns/active/${session?.user.id}/#ongoing`}
+          >
             <Button
               variant="contained"
               sx={{
@@ -51,22 +51,6 @@ const Page = () => {
               }}
             >
               Dashboard
-            </Button>
-          </Link>
-          <Link href={`/home/superCustomer`}>
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: theme.palette.primary[80],
-                marginTop: "20px",
-                marginRight: "20px",
-                ":hover": {
-                  backgroundColor: "white",
-                  color: theme.palette.primary[80],
-                },
-              }}
-            >
-              Homepage - Restaurant - Super Customer
             </Button>
           </Link>
           <Button
@@ -100,10 +84,26 @@ const Page = () => {
                 },
               }}
             >
-              Login
+              Login as Restaurant Owner
             </Button>
           </Link>
-          <Link href={`/register`}>
+          <Link href={`/login/superCustomer`}>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: theme.palette.primary[80],
+                marginTop: "20px",
+                marginRight: "20px",
+                ":hover": {
+                  backgroundColor: "white",
+                  color: theme.palette.primary[80],
+                },
+              }}
+            >
+              Login as Super Customer
+            </Button>
+          </Link>
+          <Link href={`/register/owner`}>
             <Button
               variant="contained"
               sx={{

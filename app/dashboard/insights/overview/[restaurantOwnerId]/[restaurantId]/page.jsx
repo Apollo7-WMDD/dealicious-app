@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Header from "@/app/components/Header/Header";
-import SubHeader from "@/app/components/Header/SubHeader";
+
 
 import ChartCard from "@/app/components/Card/ChartCard";
 import MainGrid from "@/app/components/MainGrid";
@@ -12,16 +12,20 @@ import BarChart from "../../../../../components/Chart/BarChart";
 import StackDoughNut from "../../../../../components/Chart/StackDoughNut";
 import ChartCardTitle from "../../../../../components/Chart/ChartCardTitle";
 
+import AverageBill from "../../../../../components/Chart/AverageBill";
+import CustomerSpending from "@/app/components/Chart/CustomerSpending";
+import { fetchTotalRevenue } from "@/lib/fetching/insights/data";
+import SingleLineChart from "@/app/components/Chart/SingleLineChart";
+
+
+import InputSubtitleDropdown from "@/app/components/Input/InputSubtitleDropdown";
+
 
 const Page = async () => {
- 
-
   return (
     <>
       <Header props={"Insights"} />
-      {/* //! CHANGE THIS COMPONENT TO DROWDOWN WITH ALL CAMPAIGN AND PINNED CAMPAIGN ON TOP */}
-      <SubHeader props={"Campaing Data Overview(All)"} />
-
+      <InputSubtitleDropdown />
 
       {/*====== SET GRID ======*/}
       <MainGrid>
@@ -37,36 +41,31 @@ const Page = async () => {
           <LineChart></LineChart>
         </ChartCard>
         <ChartCard gridColumn={"span 1"}>
-        <ChartCardTitle
-            text={"To improve:"}
-            pinStatus={""}
-          ></ChartCardTitle>
+          <ChartCardTitle text={"To improve:"} pinStatus={""}></ChartCardTitle>
           <BarChart></BarChart>
         </ChartCard>
         <ChartCard gridColumn={"span 2"}>
-          <ChartCardTitle text={"Top Campaigns"} pinStatus={""}></ChartCardTitle>
-          <StackDoughNut ></StackDoughNut>
-        </ChartCard>
-        <ChartCard gridColumn={"span 2"}>
-          averageBillSize
-          {/* {spendingsData.averageBillSize} */}
+          <ChartCardTitle
+            text={"Top Campaigns"}
+            pinStatus={""}
+          ></ChartCardTitle>
+          <StackDoughNut></StackDoughNut>
         </ChartCard>
         <ChartCard gridColumn={"span 1"}>
-          total Revenue
-          {/* {spendingsData.totalRevenue} */}
+          <ChartCardTitle text={"Average Bill"} pinStatus={""}></ChartCardTitle>
+          <AverageBill></AverageBill>
         </ChartCard>
-       
+        <ChartCard gridColumn={"span 1"}>
+          <ChartCardTitle text={"Total Revenue"} pinStatus={""}></ChartCardTitle>
+          <SingleLineChart fetchDataSource={fetchTotalRevenue}
+          showTextSource={(data) => `$ ${Math.round(data.totalRevenue)}`}/>
+        </ChartCard>
 
-        <ChartCard gridColumn={"span 2"}>
-          nonSuperCustomers
-          {/* {spendingsData.customerSpendings.nonSuperCustomers} */}
-          <br />
-          superCustomers
-          {/* {spendingsData.customerSpendings.superCustomers} */}
+        <ChartCard gridColumn={"span 1"}>
+          <ChartCardTitle text={"Customer Spending"} pinStatus={""}></ChartCardTitle>
+          <CustomerSpending></CustomerSpending>
+
         </ChartCard>
-        {/* {spendingsData.topCampaigns.map((item) => (
-          <ChartCard gridColumn={"span 1"}>{item.campaignName}</ChartCard>
-        ))} */}
       </MainGrid>
     </>
   );

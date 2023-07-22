@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, Typography } from '@mui/material';
 import InputText from "@/app/components/Input/InputText";
 import DateDropdown from "@/app/components/Profile/DateDropdown";
 import InputDropdown from "@/app/components/Input/InputDropdown";
 import InputCheckbox from "@/app/components/Input/InputCheckbox";
+import dayjs from 'dayjs';
 
-const ViewCampaignForm1 = ({ formData, formErrors, handleInputChange, handleDateChange, handleAllowNewCustomerToggle, handleAllowSuperCustomerToggle }) => {
+const CampaignForm1 = ({ formData, formErrors, handleInputChange, handleDateChange, handleAllowNewCustomerToggle, handleAllowSuperCustomerToggle }) => {
 
-  const [selectedType, setSelectedType] = useState("");
+  const [selectedType, setSelectedType] = useState(formData.type || "");
 
   const campaignTypes = [
     { value: "Happy hour", label: "Happy hour" },
@@ -31,6 +32,12 @@ const ViewCampaignForm1 = ({ formData, formErrors, handleInputChange, handleDate
       },
     });
   };
+
+  useEffect(() => {
+      setSelectedType(formData.type || "");
+  }, [formData.type]);
+
+  console.log(typeof formData.startDate);  
 
   return (
       <Grid container spacing={2}>
@@ -59,7 +66,7 @@ const ViewCampaignForm1 = ({ formData, formErrors, handleInputChange, handleDate
       <Grid item xs={12}>
         <DateDropdown
           label="Start and end date"
-          value={[formData.startDate, formData.endDate]}
+          value={[dayjs(formData.startDate), dayjs(formData.endDate)]}
           onChange={handleDateChange}
           name="dateRange"
           id="dateRange"
@@ -97,4 +104,4 @@ const ViewCampaignForm1 = ({ formData, formErrors, handleInputChange, handleDate
   );
 }
 
-export default ViewCampaignForm1;
+export default CampaignForm1;
