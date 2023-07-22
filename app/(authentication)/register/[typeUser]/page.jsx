@@ -5,13 +5,25 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-const Register = () => {
+// mui imports
+import { Button } from "@mui/material";
+import GoogleIcon from "@mui/icons-material/Google";
+
+// login
+import { signIn } from "next-auth/react";
+
+const Register = ({ params }) => {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const urlParams = params.typeUser;
 
   useEffect(() => {
-    if (status === "authenticated") {
-      router.push(`/login`);
+    if (session) {
+      if (urlParams.includes("owner")) {
+        router.push("/login/owner");
+      } else {
+        router.push(`/login/superCustomer`);
+      }
     }
   }, [session]);
 
@@ -75,7 +87,11 @@ const Register = () => {
         const data = await res.text();
         throw new Error(data);
       } else {
-        router.push("/login?success=Account has been created");
+        if (urlParams.includes("owner")) {
+          router.push("/login/owner");
+        } else {
+          router.push(`/login/superCustomer`);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -121,6 +137,26 @@ const Register = () => {
         <button style={styles.button}>Submit</button>
       </form>
       <br></br>
+      <Button
+        onClick={() => signIn("google")}
+        sx={{
+          display: "flex",
+          height: "44px",
+          width: "326px",
+          padding: "12px 24px",
+          marginBottom: "20px",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "8px",
+          borderRadius: "8px",
+          color: "black",
+          borderColor: "#A9A9A9",
+        }}
+        variant="outlined"
+      >
+        <GoogleIcon />
+        Google
+      </Button>
       <Link href="/login">Login with existing account</Link>
     </main>
   );

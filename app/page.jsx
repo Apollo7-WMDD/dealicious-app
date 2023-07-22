@@ -28,7 +28,7 @@ const Page = () => {
       }
     };
     getRestaurantOwnerId();
-  }, [status]);
+  }, [status, restaurantOwnerId]);
 
   return (
     <main>
@@ -37,7 +37,7 @@ const Page = () => {
         <Loader />
       ) : status === "authenticated" ? (
         <div>
-          <Link href={`/dashboard/campaigns/active/${session?.user.id}`}>
+          <Link href={`/dashboard/campaigns/active/${session?.user.id}/#ongoing`}>
             <Button
               variant="contained"
               sx={{
@@ -103,7 +103,7 @@ const Page = () => {
               Login
             </Button>
           </Link>
-          <Link href={`/register`}>
+          <Link href={`/register/owner`}>
             <Button
               variant="contained"
               sx={{
