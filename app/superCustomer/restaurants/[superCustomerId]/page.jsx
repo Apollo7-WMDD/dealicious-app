@@ -40,11 +40,18 @@ const Page = ({ params }) => {
   }, [superCustomerId]);
 
   return (
-    <Box>
+    <Box
+      // sx={{
+      //   position: 'relative',
+      //   minHeight: '100vh',
+      // }}
+    >
       <SCHeader />
       <Box
         sx={{
-          p: "3%",
+          p: "1rem",
+          position: 'relative',
+          minHeight: '100vh',
         }}
       >
         <Header props={"My Restaurants"} />
@@ -67,8 +74,16 @@ const Page = ({ params }) => {
         <Box
           sx={{
             display: "flex",
-            flexDirection: "row",
-            gap: "3%",
+            flexDirection: "column",
+            gap: "1rem",
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: '100%',
+
+            '@media screen and (min-width:800px)': {
+              display: 'flex',
+              flexDirection:'row',
+            },
           }}
         >
           {!restaurants ? (
@@ -76,6 +91,10 @@ const Page = ({ params }) => {
           ) : (
             restaurants.map((item, index) => (
               <SCCard
+                sx={{
+                  // flexGrow:1,
+                  
+                }}
                 key={index}
                 props={item}
                 superCustomerId={superCustomerId}
@@ -84,7 +103,17 @@ const Page = ({ params }) => {
           )}
         </Box>
       </Box>
-      <SCFooter />
+      <SCFooter 
+        sx={{
+          bottom: 0,
+          position: 'fixed',
+          width:'100%',
+          left:0,
+          bottom:0,
+          right:0,
+          zindex:1000,
+        }}
+      />
     </Box>
   );
 };

@@ -176,7 +176,7 @@ const SCShare = ({ text, width, superCustomerId, restaurantId, restaurantData })
             data={{
               text: "Share with friends",
               url: url,
-              title: "GfG",
+              title: "DEALicious share",
             }}
           onClick={() => console.log("shared successfully!")}
           >
