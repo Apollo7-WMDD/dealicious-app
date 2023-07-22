@@ -12,13 +12,13 @@ function ChartCardTitle({
 }) {
   const theme = useTheme();
   const [pinned, setPinned] = useState(pinStatus);
-  console.log(pinStatus);
+  // console.log(pinStatus);
   useEffect(() => {
     setPinned(pinStatus);
   }, [pinStatus]);
 
   if (pinStatus == true) {
-    console.log(data);
+    // console.log(data);
   }
   const onClick = () => {
     onPinClick(data);

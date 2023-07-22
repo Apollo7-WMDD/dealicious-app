@@ -1,11 +1,17 @@
 import React from "react";
-import { CardContent, Button, Box, useTheme, Typography, Modal } from "@mui/material";
+import { RWebShare } from "react-web-share";
+import { Button, Box, useTheme, Typography, Modal } from "@mui/material";
 import Share from "@/app/components/svg/shareIcon.svg";
-import QRCode from "qrcode";
 import { useState } from "react";
 import StarIcon from "@/app/components/svg/star.svg";
+import Location from "@/app/components/svg/location.svg";
+import CopyIcon from "@/app/components/svg/copyIcon.svg";
+import Clock from "@/app/components/svg/clock.svg";
+import Phone from "@/app/components/svg/phone.svg";
+import URL from "@/app/components/svg/url.svg";
+import { useSession } from "next-auth/react";
 
-const SCShare = ({ text, width, superCustomerId, restaurantId }) => {
+const SCShare = ({ text, width, superCustomerId, restaurantId, restaurantData }) => {
   const theme = useTheme();
 
   // <Bug AP-220 #143 - SC Share button>
@@ -19,33 +25,11 @@ const SCShare = ({ text, width, superCustomerId, restaurantId }) => {
   //console.log(url);
   // </Bug AP-220 #143 - SC Share button>
 
-  const [qr, setQr] = useState("");
-  const [open, setOpen] = React.useState(false);
-  //const handleOpen = () => setOpen(true);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
-    GenerateQRCode();
   };
   const handleClose = () => setOpen(false);
-
-  const GenerateQRCode = () => {
-    QRCode.toDataURL(
-      url,
-      {
-        width: 400,
-        // margin: 2,
-        color: {
-          // dark: '#335383FF',
-          // light: '#EEEEEEFF'
-        },
-      },
-      (err, url) => {
-        if (err) return console.error(err);
-        //console.log(url)
-        setQr(url);
-      }
-    );
-  };
 
   const style = {
     position: "absolute",
@@ -59,13 +43,17 @@ const SCShare = ({ text, width, superCustomerId, restaurantId }) => {
     p: 4,
   };
 
+  const { data: session } = useSession();
+  const username = `${session?.user?.firstname} ${session?.user?.lastname}`; 
+  // const [user, setUserName] = useState("");
+  // setUserName(username);
+
+  // console.log(restaurantData)
+  // console.log(username)
+
+
   return (
-    <Box
-      sx={{
-        textAlign: "end",
-        p: "1rem",
-      }}
-    >
+    <Box>
       <Button
         variant="contained"
         size="medium"
@@ -97,27 +85,27 @@ const SCShare = ({ text, width, superCustomerId, restaurantId }) => {
       >
         <Typography variant="p">{text}</Typography>
       </Button>
-      <Modal open={open} onClose={handleClose}>
+      <Modal
+        open={open} 
+        onClose={handleClose}
+      >
         <Box
-          // sx={{
-          //   maxWidth: "auto",
-          //   display: "flex",
-          //   flexDirection: "column",
-          //   gap: "3%",
-          //   textAlign: "center",
-          //   justifyContent: "center",
-          //   border: 1,
-          //   borderColor: '#ff5938',          
-          //   borderRadius: "10px",
-          //   boxShadow: 20,
-          // }}
+          sx={style}        
         >
-          <Box>
-              {/* <Typography variant="h2">{props.name}</Typography> */}
-              <Typography variant="p">Invited you to experience culinary bliss. 
-              Activate your favourite cmpaign at our place and embark on a remarkable
-              culinary adventure unlike any other.</Typography>
-          </Box>
+          <Typography variant="p">
+            Experience culinary bliss with a special invitation from{" "}
+          </Typography>
+          <Typography 
+            variant="h3"
+            sx={{
+              color: '#ff5938'
+            }}
+          >{username}</Typography>          
+          <Typography
+            variant ="p"
+            >
+            Activate your favourite campaign at our place and embark on a remarkable culinary adventure unlike any other.
+          </Typography>
           <Box
             sx={{
               display: "flex",
@@ -129,7 +117,7 @@ const SCShare = ({ text, width, superCustomerId, restaurantId }) => {
           >
             <Box>
               <img
-                // src={props?.logo}
+                src={restaurantData?.logo}
                 style={{
                   borderRadius: "50%",
                   width: "90px", // adjust the size as needed
@@ -138,35 +126,93 @@ const SCShare = ({ text, width, superCustomerId, restaurantId }) => {
                 alt="Logo"
               />
             </Box>
-            <CardContent
+            <Box
+                sx={{
+                  m: "0 0 0 1rem",
+                  textAlign: "start",
+                }}
+                style={{
+                  padding: "0",
+                }}
+              >
+                <Typography gutterBottom variant="h3" component="div">
+                  {restaurantData?.name}
+                </Typography>
+                <Typography variant="p" color="text.secondary">
+                  4.5{" "}
+                  <StarIcon
+                    sx={{
+                      m: 0,
+                      p: 0,
+                    }}
+                  />{" "}
+                  Peruvian * Cafe * Bistro
+                </Typography>
+            </Box>            
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "flex-start",
+              flexDirection: "column",
+              m: "0 1rem",
+            }}
+          >
+            <Typography variant="p" color="text.secondary">
+              <Location /> {restaurantData?.address?.street}, {restaurantData?.address?.city},{" "}
+              {restaurantData?.address?.province}, {restaurantData?.address?.zipcode} <CopyIcon />
+            </Typography>
+            <Typography variant="p" color="text.secondary">
+              <Clock /> Everyday: 5 pm - 10 pm
+            </Typography>
+            <Typography variant="p" color="text.secondary">
+              <Phone /> {restaurantData?.phone}
+            </Typography>
+            <Typography variant="p" color="text.secondary">
+              <URL /> {restaurantData?.website}
+            </Typography>
+          </Box>
+          <RWebShare
+            data={{
+              text: "Share with friends",
+              url: url,
+              title: "GfG",
+            }}
+          onClick={() => console.log("shared successfully!")}
+          >
+            <Button
+              variant="contained"
+              size="medium"
+              startIcon={<Share />}
+              // onClick={onClick}
               sx={{
-                m: "0 0 0 1rem",
-                textAlign: "start",
-              }}
-              style={{
-                padding: "0",
+                width: width,
+                height: "44px",
+                justifySelf: "end",
+                alignSelf: "center",
+                borderRadius: "12px",
+                backgroundColor: theme.palette.primary[80],
+                ":hover": {
+                  backgroundColor: theme.palette.primary[60],
+                },
+                [theme.breakpoints.down('lg')]: {
+                width: "265px",
+                fontSize: "16px",
+              },
+                [theme.breakpoints.down('md')]: {
+                  width: "180px",
+                  fontSize: "14px",
+                  lineHeight: "16px",
+                  margin: "1rem 0",
+                  // alignSelf: "start",
+                  justifySelf: "start",
+                }
               }}
             >
-              <Typography gutterBottom variant="h3" component="div">
-                {/* {props?.name} */}
-              </Typography>
-              <Typography variant="p" color="text.secondary">
-                4.5{" "}
-                <StarIcon
-                  sx={{
-                    m: 0,
-                    p: 0,
-                  }}
-                />{" "}
-                Peruvian * Cafe * Bistro
-              </Typography>
-            </CardContent>
-          </Box>
+              <Typography variant="p">{text}</Typography>
+            </Button> 
+          </RWebShare>
         </Box>
-        {/* <Box sx={style}>
-          <Typography variant="p">Link to New Customer Page</Typography>
-          <img src={qr} />
-        </Box> */}
       </Modal>
     </Box>
   );

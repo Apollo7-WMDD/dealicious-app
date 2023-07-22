@@ -21,7 +21,7 @@ return (
         gap: "2%",
         borderRadius: "10px",
         p: "1rem",
-        boxShadow: 20,
+        boxShadow: 10,
         flexGrow: 1,
       }}
     >

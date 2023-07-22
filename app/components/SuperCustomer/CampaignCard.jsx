@@ -148,11 +148,13 @@ const CampaignCard = ({ props }) => {
   return (
     <Box
       sx={{
+        p:'1rem',
+        borderRadius: "10px",
+        boxShadow: 10,
         maxWidth: "auto",
         display: "flex",
         flexDirection: "column",
         gap: "3%",
-        borderRadius: "5%",
       }}
     >
       <Typography variant="h3">{props.name}</Typography>

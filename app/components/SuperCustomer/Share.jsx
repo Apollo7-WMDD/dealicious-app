@@ -4,9 +4,8 @@ import { Box, Typography } from "@mui/material";
 import Paper from "@mui/material/Paper";
 // import SingleButton from '../../components/Button/SingleButton';
 import SCShare from "../../components/Button/SCShare";
-import ShareLink from "@/app/components/SuperCustomer/ShareLink";
 
-const Share = ({ superCustomerId, restaurantId }) => {
+const Share = ({ superCustomerId, restaurantId, restaurantData }) => {
   return (
     <Paper elevation={10}>
       <Box
@@ -31,6 +30,7 @@ const Share = ({ superCustomerId, restaurantId }) => {
           width="244px"
           superCustomerId={superCustomerId}
           restaurantId={restaurantId}
+          restaurantData={restaurantData}
         />
       </Box>
     </Paper>
