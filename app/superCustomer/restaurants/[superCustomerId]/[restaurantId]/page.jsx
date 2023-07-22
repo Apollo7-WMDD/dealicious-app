@@ -38,10 +38,15 @@ const Page = ({ params }) => {
       <Box
         sx={{
           display: "flex",
-          flexDirection: "row",
-          gap: "3%",
+          flexDirection: "column",
+          gap: "1rem",
           m: "1rem",
           p: 0,
+
+          '@media screen and (min-width:800px)': {
+            display: 'flex',
+            flexDirection:'row',
+          },
         }}
       >
         <SCRestaurantCard {...restaurantData.restaurant} />
@@ -49,25 +54,23 @@ const Page = ({ params }) => {
       </Box>
       <Box
         sx={{
-          display: "grid",
-          gridTemplateColumns: "1fr 2fr",
+          display: 'flex',
+          flexDirection:'column',
           m: "1rem",
           p: 0,
           gap: "1rem",
+
+          '@media screen and (min-width:800px)': {
+            display: "grid",
+            gridTemplateColumns: "1fr 2fr",
+          },
         }}
       >
-        <Box
-          sx={{
-            borderRadius: "10px",
-            boxShadow: 20,
-          }}
-        >
-          <Share
-            superCustomerId={superCustomerId}
-            restaurantId={restaurantId}
-            restaurantData={...restaurantData.restaurant}
-          />
-        </Box>
+        <Share
+          superCustomerId={superCustomerId}
+          restaurantId={restaurantId}
+          restaurantData={...restaurantData.restaurant}
+        />
         <Box
           sx={{
             p:'1rem',
@@ -76,19 +79,20 @@ const Page = ({ params }) => {
             maxWidth: "auto",
             display: "flex",
             flexDirection: "column",
-            gap: "3%",
+            gap: "1rem",
           }}
         >
           <Typography variant="h3">Ongoing campaigns, exclusively for you</Typography>
           <Box
             sx={{
               display: 'grid', 
-              gridTemplateColumns: '1fr 1fr',
-              // display: "flex",
-              // flexFlow: 'row wrap',
               m: "1rem",
               p: 0,
-              gap: "1rem",
+              gap: "1rem",             
+
+              '@media screen and (min-width:800px)': {
+                gridTemplateColumns: '1fr 1fr',
+              },
             }}
           >
             {!restaurantData.campaigns ? (
