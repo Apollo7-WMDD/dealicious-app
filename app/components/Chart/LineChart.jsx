@@ -317,9 +317,15 @@ function LineChart() {
             return index % 3 === 0 ? this.getLabelForValue(val)  : '';
             
           },
+          
+          color: theme.palette.background.alt,
+        },
+        border:{
+          color: theme.palette.background.alt,
         },
         beginAtZero: true,
         display: true,
+        
         grid: {
           display: false,
         }
@@ -331,6 +337,10 @@ function LineChart() {
             return index % 5 === 0 ? this.getLabelForValue(val).split(',')[0]  : '';
             
           },
+          color: theme.palette.background.alt,
+        },
+        border:{
+          color: theme.palette.background.alt,
         },
         type: "time",
         time: {
@@ -338,6 +348,7 @@ function LineChart() {
         },
         grid: {
           display: false,
+        
         },
         adapters: {
           date: {
