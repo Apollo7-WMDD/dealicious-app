@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Header from "@/app/components/Header/Header";
-import SubHeader from "@/app/components/Header/SubHeader";
+
 
 import ChartCard from "@/app/components/Card/ChartCard";
 import MainGrid from "@/app/components/MainGrid";
@@ -11,17 +11,13 @@ import LineChart from "../../../../../components/Chart/LineChart";
 import BarChart from "../../../../../components/Chart/BarChart";
 import StackDoughNut from "../../../../../components/Chart/StackDoughNut";
 import ChartCardTitle from "../../../../../components/Chart/ChartCardTitle";
-
+import InputSubtitleDropdown from "@/app/components/Input/InputSubtitleDropdown";
 
 const Page = async () => {
- 
-
   return (
     <>
       <Header props={"Insights"} />
-      {/* //! CHANGE THIS COMPONENT TO DROWDOWN WITH ALL CAMPAIGN AND PINNED CAMPAIGN ON TOP */}
-      <SubHeader props={"Campaing Data Overview(All)"} />
-
+      <InputSubtitleDropdown />
 
       {/*====== SET GRID ======*/}
       <MainGrid>
@@ -37,15 +33,15 @@ const Page = async () => {
           <LineChart></LineChart>
         </ChartCard>
         <ChartCard gridColumn={"span 1"}>
-        <ChartCardTitle
-            text={"To improve:"}
-            pinStatus={""}
-          ></ChartCardTitle>
+          <ChartCardTitle text={"To improve:"} pinStatus={""}></ChartCardTitle>
           <BarChart></BarChart>
         </ChartCard>
         <ChartCard gridColumn={"span 2"}>
-          <ChartCardTitle text={"Top Campaigns"} pinStatus={""}></ChartCardTitle>
-          <StackDoughNut ></StackDoughNut>
+          <ChartCardTitle
+            text={"Top Campaigns"}
+            pinStatus={""}
+          ></ChartCardTitle>
+          <StackDoughNut></StackDoughNut>
         </ChartCard>
         <ChartCard gridColumn={"span 2"}>
           averageBillSize
@@ -55,7 +51,6 @@ const Page = async () => {
           total Revenue
           {/* {spendingsData.totalRevenue} */}
         </ChartCard>
-       
 
         <ChartCard gridColumn={"span 2"}>
           nonSuperCustomers
