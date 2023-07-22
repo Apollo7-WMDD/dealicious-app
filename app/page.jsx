@@ -19,8 +19,6 @@ const Page = () => {
   const { setRestaurantOwner, restaurantOwnerId } = useStore();
   const theme = useTheme();
 
-  console.log("This is the session", session);
-
   useEffect(() => {
     const getRestaurantOwnerId = async () => {
       if (status === "authenticated") {
@@ -55,22 +53,6 @@ const Page = () => {
               Dashboard
             </Button>
           </Link>
-          {/* <Link href={`/home/superCustomer`}>
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: theme.palette.primary[80],
-                marginTop: "20px",
-                marginRight: "20px",
-                ":hover": {
-                  backgroundColor: "white",
-                  color: theme.palette.primary[80],
-                },
-              }}
-            >
-              Homepage - Restaurant - Super Customer
-            </Button>
-          </Link> */}
           <Button
             onClick={signOut}
             variant="contained"
