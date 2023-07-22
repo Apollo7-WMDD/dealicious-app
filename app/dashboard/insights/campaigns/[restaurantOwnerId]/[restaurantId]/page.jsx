@@ -1,11 +1,19 @@
 "use client"
-import Link from "next/link";
+import { useState } from "react";
 import HeaderGrid from "@/app/components/HeaderGrid";
 import Header from "@/app/components/Header/Header";
 import CreateNewCampaign from "@/app/components/Dashboard/CreateNewCampaign";
 import SubHeader from "@/app/components/Header/SubHeader";
+import MainGrid from "@/app/components/MainGrid";
+import ChartCard from "@/app/components/Card/ChartCard";
+import CampaignGrid_All from "@/app/components/Dashboard/CampaignGrid_All";
 
 const Page = async () => {
+  // const [hilighted, setHilighted] = useState({});
+
+  // const onPinClickA = (hilighted) => {
+  //   setHilighted(hilighted);
+  // };
   return (
     <>
       <HeaderGrid>
@@ -13,6 +21,12 @@ const Page = async () => {
         <CreateNewCampaign />
       </HeaderGrid>
       <SubHeader props={"Select a Campaigns"} />
+      <MainGrid>
+
+        <CampaignGrid_All 
+        //  onPinClickB={onPinClickA}
+        />
+      </MainGrid>
     </>
   );
 };

@@ -40,8 +40,7 @@ const Page = async () => {
     <>
       <Header props={"Insights"} />
       <InputSubtitleDropdown text={subTitle} />
-      <h1>{dataArray.name}</h1>
-      <h1>{dataArray.description}</h1>
+      
       <MainGrid>
         <ChartCard gridColumn={"span 2"}>
           <ChartCardTitle text={"Total Revenue"}></ChartCardTitle>

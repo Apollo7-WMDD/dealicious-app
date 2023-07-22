@@ -1,12 +1,13 @@
 import { Box } from "@mui/material";
 import { useTheme } from "@mui/material";
 
-function ChartCard({ content, children, gridColumn }) {
+function ChartCard_Insight({ content, children, gridColumn }) {
   const theme = useTheme();
   const shadowColor = `${theme.palette.neutral[20]}1f`;
   
   return (
     <Box
+    // onClick={content}
       sx={{
         gridColumn:{gridColumn},
         boxShadow: `0px 4px 20px 0px ${shadowColor}`,
@@ -20,7 +21,9 @@ function ChartCard({ content, children, gridColumn }) {
         justifyContent: "start",
         alignItems: "center",
         flexShrink: 0,
-             
+             ':hover': {
+                  color:  theme.palette.primary[80],
+                },
         [theme.breakpoints.down('md')]: {
           gridColumn: "1/-1",
         }
@@ -33,4 +36,4 @@ function ChartCard({ content, children, gridColumn }) {
   );
 }
 
-export default ChartCard;
+export default ChartCard_Insight;
