@@ -149,18 +149,30 @@ const CampaignCard = ({ props }) => {
     <Box
       sx={{
         p:'1rem',
+        // m:'1rem',
         borderRadius: "10px",
         boxShadow: 10,
         maxWidth: "auto",
         display: "flex",
         flexDirection: "column",
-        gap: "3%",
+        gap: "1rem",
       }}
     >
       <Typography variant="h3">{props.name}</Typography>
       <Typography variant="p">{props.offer}</Typography>
-      <Link href="#">More information</Link>
-      <SCActive text="Active" width="144px" onClick={handleOpen} />
+      <Box
+       sx={{
+          display:'flex',
+          flexDirection:'column',
+          textAlign:'end',
+          p:'1rem',
+          marginLeft: 'auto',
+          gap:'1rem',
+        }}
+      >
+        <Link href="#">More information</Link>      
+        <SCActive text="Active" width="144px" onClick={handleOpen} />
+      </Box>
       <Modal
         open={open}
         onClose={handleClose}
