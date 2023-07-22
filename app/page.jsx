@@ -35,9 +35,11 @@ const Page = () => {
       <Home />
       {status === "loading" ? (
         <Loader />
-      ) : status === "authenticated" ? (
+      ) : status === "authenticated" && session ? (
         <div>
-          <Link href={`/dashboard/campaigns/active/${session?.user.id}/#ongoing`}>
+          <Link
+            href={`/dashboard/campaigns/active/${session?.user.id}/#ongoing`}
+          >
             <Button
               variant="contained"
               sx={{
@@ -53,7 +55,7 @@ const Page = () => {
               Dashboard
             </Button>
           </Link>
-          <Link href={`/home/superCustomer`}>
+          {/* <Link href={`/home/superCustomer`}>
             <Button
               variant="contained"
               sx={{
@@ -68,7 +70,7 @@ const Page = () => {
             >
               Homepage - Restaurant - Super Customer
             </Button>
-          </Link>
+          </Link> */}
           <Button
             onClick={signOut}
             variant="contained"
@@ -100,7 +102,23 @@ const Page = () => {
                 },
               }}
             >
-              Login
+              Login as Restaurant Owner
+            </Button>
+          </Link>
+          <Link href={`/login/superCustomer`}>
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: theme.palette.primary[80],
+                marginTop: "20px",
+                marginRight: "20px",
+                ":hover": {
+                  backgroundColor: "white",
+                  color: theme.palette.primary[80],
+                },
+              }}
+            >
+              Login as Super Customer
             </Button>
           </Link>
           <Link href={`/register/owner`}>

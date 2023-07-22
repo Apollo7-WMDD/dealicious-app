@@ -13,9 +13,9 @@ const Login = ({ params }) => {
   useEffect(() => {
     if (session) {
       if (urlParams.includes("owner")) {
-        router.push("/");
+        router.push(`/dashboard/campaigns/active/${session?.user.id}`);
       } else {
-        router.push(`/home/superCustomer`);
+        router.push(`/superCustomer/restaurants/${session?.user.id}`);
       }
     }
   }, [session]);
