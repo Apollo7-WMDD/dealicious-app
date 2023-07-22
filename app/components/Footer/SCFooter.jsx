@@ -13,25 +13,28 @@ function SCFooter() {
                 color: 'white',
                 height: "78px",
                 display: 'flex',
-                flex: 'flex-flow',
                 justifyContent: 'space-between',
                 alignItems:'center',
                 m:0,
                 p:'0 1rem',
-                bottom: 0,
-                position: 'static',
-                width:'100%',
-                left:0,
-                bottom:0,
-                right:0,
+                flexDirection: 'column-reverse',
+
+                '@media screen and (min-width:800px)': {
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                },
             }}
         >
             <Box>
                 <Box
                     sx={{
                         display: 'flex',
-                        flex: 'flex-flow',
-                        // justifyContent: 'space-between',
+                        flex: 'flex-flow',                        
+                        justifyContent: 'center',
+                        '@media screen and (min-width:800px)': {
+                            justifyContent: 'start',
+                        },
                     }}
                 >
                     <DealIcon />
@@ -45,6 +48,7 @@ function SCFooter() {
                     alignItems: 'center',
                     justifyContent: 'flex-end',
                     gap: 5,
+                    order:0,
                 }}>            
                 <Typography>CONTACT US</Typography>
                 <Typography>FAQ</Typography>
