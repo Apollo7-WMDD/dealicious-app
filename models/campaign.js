@@ -1,5 +1,9 @@
 import { Schema, model, models } from "mongoose";
 
+function getClientDate() {
+  return dayjs().tz("UTC").toDate();
+}
+
 const CampaignSchema = new Schema({
   restaurantId: {
     type: Schema.Types.ObjectId,
@@ -52,7 +56,6 @@ const CampaignSchema = new Schema({
   },
   availableCodes: {
     type: Number,
-    required: [true, "Available Codes is required"],
     min: [1, "Available Codes must be at least 1"], // Minimum value allowed is 1
   },
   superCustomerPoints: {
@@ -66,8 +69,13 @@ const CampaignSchema = new Schema({
   startDate: {
     type: Date,
     required: [true, "Start Date is required"],
-    min: [new Date(), "Start Date must be a future date!"], // Start Date must be in the future
-  },
+    validate: {
+      validator: function (value) {
+        return value > getClientDate();
+      },
+      message: "Start Date must be a future date!",
+    },
+  },  
   endDate: {
     type: Date,
     required: [true, "End Date is required!"],

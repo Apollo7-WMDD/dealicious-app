@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, Grid } from '@mui/material';
 import InputCheckbox from "@/app/components/Input/InputCheckbox";
 import InputText from "@/app/components/Input/InputText";
 import InputTextarea from "@/app/components/Input/InputTextarea";
@@ -9,52 +9,71 @@ import BulletPoints from '../Profile/BulletPoints';
 const CampaignForm2 = ({ formData, formErrors, toggleExpiredByNumber, inputValue, inspirationVisible, setInspirationVisible, }) => {
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "flex-start",
-          width: "100%",
-        }}
-      >
-        <InputCheckbox
-          label="This campaign expire after a specific number of customers use it"
-          onChecked={toggleExpiredByNumber}
-          checked={formData.expiredByNumber}
-        />
-      </Box>
-      <InputText
-        label="Number of available codes"
-        type="number"
-        value={formData.availableCodes}
-        onChange={inputValue}
-        name="availableCodes"
-        id="availableCodes"
-        placeholder="Available Codes"
-        error={formErrors.availableCodes}
-      />
-      <Box>
-        <Typography
-          sx={{
-            fontSize: "16px",
-            fontFamily: "Mukta",
-            fontSize: "20px",
-            fontStyle: "normal",
-            fontWeight: "600",
-          }}
-        >
-          How much spending by referred customers converts to 1 earning
-          point for your super customer to receive $1.00 discount?
-        </Typography>
-        <InputText
-          label="$ = 1 point for super customer"
-          type="number"
-          value={formData.superCustomerPoints}
-          onChange={inputValue}
-          name="superCustomerPoints"
-          id="superCustomerPoints"
-          placeholder="Customers’ spending($)"
-        />
-      </Box>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={8}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-start",
+              marginTop: "36px",
+              width: "100%",
+            }}
+          >
+            <InputCheckbox
+              label="This campaign expire after a specific number of customers use it"
+              onChecked={toggleExpiredByNumber}
+              checked={formData.expiredByNumber}
+            />
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <InputText
+            label="Number of available codes"
+            type="number"
+            value={formData.availableCodes}
+            onChange={inputValue}
+            name="availableCodes"
+            id="availableCodes"
+            placeholder="Available Codes"
+            error={formErrors.availableCodes}
+            disabled={!formData.expiredByNumber}
+          />
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              width: "100%",
+              marginTop: "10px",
+            }}>
+              <Typography
+                sx={{
+                  fontSize: "20px",
+                  fontFamily: "Mukta",
+                  fontSize: "20px",
+                  fontStyle: "normal",
+                  fontWeight: "600",
+                }}
+              >
+                How much spending by referred customers converts to 1 earning
+                point for your super customer to receive $1.00 discount?
+              </Typography>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <InputText
+            label="$ = 1 point for super customer"
+            type="number"
+            value={formData.superCustomerPoints}
+            onChange={inputValue}
+            name="superCustomerPoints"
+            id="superCustomerPoints"
+            placeholder="Customers’ spending($)"
+            marginTop = "0"
+          />
+        </Grid>
+      </Grid>
       <InputTextarea
         label="Specify the offers"
         value={formData.offer}
