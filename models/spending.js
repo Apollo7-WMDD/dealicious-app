@@ -3,7 +3,7 @@ import { Schema, model, models } from "mongoose";
 const SpendingSchema = new Schema({
   phone: {
     type: Number,
-    unique: [true, "Phone already exists"],
+    // unique: [true, "Phone already exists"],
     required: [true, "Phone is required"],
     validate: {
       validator: function (value) {

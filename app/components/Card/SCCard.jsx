@@ -14,9 +14,8 @@ const SCCard = ({ props, superCustomerId }) => {
       >
         <Card
           sx={{
-            maxWidth: 324,
             borderRadius: "16px",
-            boxShadow: 20,
+            boxShadow: 10,
           }}
         >
           <img
