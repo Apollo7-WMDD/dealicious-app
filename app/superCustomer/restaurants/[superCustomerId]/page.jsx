@@ -1,8 +1,5 @@
 "use client";
 
-// next js imports
-import Link from "next/link";
-
 import Header from "@/app/components/Header/Header";
 import SCCard from "@/app/components/Card/SCCard";
 import SCHeader from "@/app/components/Header/SCHeader";
@@ -49,34 +46,18 @@ const Page = ({ params }) => {
       <SCHeader />
       <Box
         sx={{
-          p: "1rem",
+          p: "2rem",
           position: 'relative',
           minHeight: '100vh',
         }}
       >
         <Header props={"My Restaurants"} />
-        <Link href={`/home/superCustomer`}>
-          <Button
-            variant="contained"
-            sx={{
-              backgroundColor: theme.palette.primary[80],
-              marginTop: "20px",
-              marginRight: "20px",
-              ":hover": {
-                backgroundColor: "white",
-                color: theme.palette.primary[80],
-              },
-            }}
-          >
-            Home
-          </Button>
-        </Link>
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
-            gap: "1rem",
-            justifyContent: 'space-between',
+            gap: "24px",
+            m:'32px 0 32px 0',
             alignItems: 'center',
             width: '100%',
 
@@ -91,10 +72,6 @@ const Page = ({ params }) => {
           ) : (
             restaurants.map((item, index) => (
               <SCCard
-                sx={{
-                  // flexGrow:1,
-                  
-                }}
                 key={index}
                 props={item}
                 superCustomerId={superCustomerId}
