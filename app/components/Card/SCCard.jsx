@@ -4,7 +4,7 @@ import { Card, CardContent, Box, Typography } from "@mui/material";
 import Link from "next/link";
 
 const SCCard = ({ props, superCustomerId }) => {
-  console.log("This is the props SC!!!!", superCustomerId);
+  // console.log("This is the props SC!!!!", superCustomerId);
   return (
     <Box>
       <Link
@@ -16,6 +16,8 @@ const SCCard = ({ props, superCustomerId }) => {
           sx={{
             borderRadius: "16px",
             boxShadow: 10,
+            maxWidth:'400px',
+            maxHeight:'500px',
           }}
         >
           <img
