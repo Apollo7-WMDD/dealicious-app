@@ -6,7 +6,6 @@ import { useStore } from "@/lib/context/user_context/store";
 
 // nextjs components
 import Link from "next/link";
-import Image from "next/image";
 import { useEffect } from "react";
 import Home from "./components/LandingPage/Home";
 
