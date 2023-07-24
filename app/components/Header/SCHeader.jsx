@@ -1,12 +1,19 @@
 
 import React from "react";
 import { Box, useTheme, Typography } from "@mui/material";
-
+import Link from "next/link";
 import DealIcon from "@/app/components/svg/scdealicon.svg";
 import ScanCode from "@/app/components/svg/scanCode.svg";
+import { usePathname } from "next/navigation";
+import SCProfile from "@/app/components/Header/SCProfile";
 
 function SCHeader() {
   const theme = useTheme();
+  const pathname = usePathname();
+  const superCustomerId = pathname.split("/")[3];
+
+  const [age, setAge] = React.useState('');
+
   return (
     <Box
       sx={{
@@ -23,7 +30,7 @@ function SCHeader() {
           width={50}
           height={50}
           style={{ 
-            margin: "1rem auto 1rem 1rem",
+            margin: "1rem auto 1rem 2rem",
           }}
       />
       <Box
@@ -60,7 +67,23 @@ function SCHeader() {
             gap:'0.5rem'
           }}
         >
-          <Typography variant="p">My Restaurants</Typography>
+          <Link 
+            underline="none"
+            style={{ 
+              textDecoration: "none",
+              '&:visited': {
+              textDecoration: 'none', // Text decoration for visited links
+              // Add any additional styles for visited links if needed
+              },
+            }}
+            href={`/superCustomer/restaurants/${superCustomerId}`}>
+            <Typography 
+              variant="p"
+            >My Restaurants</Typography>
+          </Link>
+        </Box>
+        <Box>
+          <SCProfile />
         </Box>
       </Box>
 
