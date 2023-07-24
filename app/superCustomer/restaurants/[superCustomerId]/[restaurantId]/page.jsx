@@ -1,15 +1,14 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
 import SCRestaurantCard from "../../../../components/SuperCustomer/SCRestaurantCard";
 import SCHeader from "../../../../components/Header/SCHeader";
 import SCFooter from "../../../../components/Footer/SCFooter";
 import PointsEarned from "../../../../components/SuperCustomer/PointsEarned";
 import Share from "../../../../components/SuperCustomer/Share";
 import CampaignCard from "@/app/components/SuperCustomer/CampaignCard";
-import { Card, CardActions, CardContent, Box, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import Loader from "@/app/components/Loader";
 
 const Page = ({ params }) => {
   const { superCustomerId, restaurantId } = params;
@@ -40,7 +39,7 @@ const Page = ({ params }) => {
           display: "flex",
           flexDirection: "column",
           gap: "1rem",
-          m: "1rem",
+          m: "2rem",
           p: 0,
 
           "@media screen and (min-width:800px)": {
@@ -56,17 +55,27 @@ const Page = ({ params }) => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          m: "1rem",
+          m: "2rem",
           p: 0,
           gap: "1rem",
 
           "@media screen and (min-width:800px)": {
             display: "grid",
             gridTemplateColumns: "1fr 2fr",
+            height: '551px',
           },
         }}
       >
         <Share
+          sx={{
+            // maxWidth:'324px',
+            maxHeight:'551px',
+            p:'64px 26px',
+
+            "@media screen and (min-width:800px)": {
+              // height:'551px',
+            },
+          }}
           superCustomerId={superCustomerId}
           restaurantId={restaurantId}
           restaurantData={restaurantData.restaurant}
@@ -80,17 +89,24 @@ const Page = ({ params }) => {
             display: "flex",
             flexDirection: "column",
             gap: "1rem",
+            // maxWidth:'324px',
+            maxHeight:'551px',
           }}
         >
-          <Typography variant="h3">
+          <Typography 
+            sx={{
+              p: '0 2rem',
+            }}
+            variant="h3">
             Ongoing campaigns, exclusively for you
           </Typography>
           <Box
             sx={{
               display: "grid",
-              m: "1rem",
-              p: 0,
+              m: "0 1rem",
+              p: '1rem',
               gap: "1rem",
+              overflow: 'auto',
 
               "@media screen and (min-width:800px)": {
                 gridTemplateColumns: "1fr 1fr",
@@ -98,7 +114,9 @@ const Page = ({ params }) => {
             }}
           >
             {!restaurantData.campaigns ? (
-              <Typography>Loading...</Typography>
+              <Loader />
+              // <Typography>Loading...</Typography>
+              
             ) : (
               restaurantData.campaigns.map((item, index) => (
                 <CampaignCard
