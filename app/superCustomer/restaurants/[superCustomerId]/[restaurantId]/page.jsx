@@ -107,7 +107,6 @@ const Page = ({ params }) => {
               p: '1rem',
               gap: "1rem",
               overflow: 'auto',
-
               "@media screen and (min-width:800px)": {
                 gridTemplateColumns: "1fr 1fr",
               },
