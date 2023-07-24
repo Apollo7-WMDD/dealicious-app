@@ -136,14 +136,53 @@ const CampaignCard = ({ props }) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: '600px',
     bgcolor: "background.paper",
     border: "2px solid #ff5938",
     boxShadow: 24,
     p: 4,
+    borderRadius: "10px",
   };
 
 // console.log('👍 this is the code'+code);
+/*const formatDate = (dateString) => {
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+
+  const formattedDate = new Date(dateString).toLocaleDateString(undefined, options);
+
+  // Convert the day to the correct ordinal suffix (e.g., 1st, 2nd, 3rd, 4th, etc.)
+  const day = new Date(dateString).getDate();
+  const daySuffix =
+    day >= 11 && day <= 13
+      ? 'th'
+      : ['st', 'nd', 'rd', 'th'][Math.min((day - 1) % 10, 3)];
+
+  return formattedDate.replace(/\d{1,2}$/, (day) => day + daySuffix);
+};*/
+const formatDate = (dateString) => {
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
+
+  const date = new Date(dateString);
+
+  // Format the day without the ordinal suffix
+  const day = date.getDate();
+  const month = date.toLocaleString('default', { month: 'long' });
+  const year = date.getFullYear();
+  const value = day +" "+month+","+year;
+
+  return value;//date.toLocaleDateString(undefined, options).replace(/\d{1,2}$/, day);
+};
+const formattedStartDate = formatDate(props.startDate);
+const formattedEndDate = formatDate(props.endDate);
+
 
   return (
     <Box
@@ -174,6 +213,9 @@ const CampaignCard = ({ props }) => {
         <SCActive text="Active" width="144px" onClick={handleOpen} />
       </Box>
       <Modal
+        sx={{
+          minWidth:'300px',
+        }}
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -183,38 +225,54 @@ const CampaignCard = ({ props }) => {
           <Typography id="modal-modal-title" variant="h3">
             {props.name}
           </Typography>
-          <Box>
-            <img
-              src={props.media[0]}
-              alt="new"
-              width="500px"
-              height="500px"
-              style={{ borderRadius: "5%" }}
-            />
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Offer: {props.offer}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Date: {props.startDate}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              {props.endDate}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Time: {props.startDate}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              {props.endDate}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              {props.description}
-            </Typography>
-            <SingleButton
-              text="Activate"
-              width="144px"
-              onClick={handleOpenSecond}
+          <Box
+            sx={{
+              display:'flex',
+              flexDirection:'row',
+              gap:'1rem',
+              alignItems:'center',
+              m:'1rem 0'
+            }}
+          >
+            <Box
+              sx={{
+                flex:'1 0 40%',
+              }}
+            >
+              <img
+                src={props.media[0]}
+                alt="new"
+                width="auto"
+                height="auto"
+                style={{ borderRadius: "10px" }}
+              />
+            </Box>
+            <Box
+              sx={{
+                display:'flex',
+                flexDirection:'column',
+              }}
+            >
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Offer: <Typography variant="p">{props.offer}</Typography>
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                {/* Date: {props.startDate} */}
+                Date: <Typography variant="p">{formattedStartDate} to {formattedEndDate}</Typography>
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Time: <Typography variant="p">11:00AM to 8:00PM</Typography>
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                <Typography variant="p">{props.description}</Typography>
+              </Typography>
+              <SingleButton
+                text="Activate"
+                width="auto"
+                onClick={handleOpenSecond}
             ></SingleButton>
-          </Box>
+            </Box>            
+          </Box>          
         </Box>
       </Modal>
       <Modal
