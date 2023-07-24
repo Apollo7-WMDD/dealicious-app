@@ -15,14 +15,16 @@ const SCRestaurantCard = (props) => {
 return (
     <Box 
       sx={{
-        maxWidth: "auto",
+        // maxWidth: "auto",
         display: "flex",
         flexDirection: "row",
-        gap: "2%",
+        gap: "1rem",
         borderRadius: "10px",
         p: "1rem",
         boxShadow: 10,
-        flexGrow: 1,
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+        flex:'1 0 50%'
       }}
     >
       <Box sx={{}}>
@@ -75,31 +77,55 @@ return (
             display: "flex",
             alignItems: "flex-start",
             flexDirection: "column",
-            m: "0 1rem",
+            m: '0 1rem',
+            gap:'0.5rem',
           }}
         >
-          <Typography variant="p" color="text.secondary">
+          <Typography variant="p" color="text.secondary"
+            sx={{
+              display:'flex',              
+              gap:'1rem',
+            }}
+          >
             <Location /> {props?.address?.street}, {props?.address?.city},{" "}
             {props?.address?.province}, {props?.address?.zipcode} <CopyIcon />
           </Typography>
-          <Typography variant="p" color="text.secondary">
+          <Typography variant="p" color="text.secondary"
+            sx={{
+              display:'flex',              
+              gap:'1rem',
+            }}
+          >
             <Clock /> Everyday: 5 pm - 10 pm
           </Typography>
-          <Typography variant="p" color="text.secondary">
+          <Typography variant="p" color="text.secondary"
+            sx={{
+              display:'flex',              
+              gap:'1rem',
+            }}
+          >
             <Phone /> {props?.phone}
           </Typography>
-          <Typography variant="p" color="text.secondary">
+          <Typography variant="p" color="text.secondary"
+            sx={{
+              display:'flex',              
+              gap:'1rem',
+            }}
+          >
             <URL /> {props?.website}
           </Typography>
         </Box>
       </Box>
-      <img
-        src={props?.menu}
-        alt="new"
-        width="200px"
-        height="200px"
-        style={{ borderRadius: "10px" }}
-      />
+      <Box>
+        <img
+          src={props?.menu}
+          alt="new"
+          style={{ 
+            borderRadius: "10px",
+            maxWidth:'346px'
+          }}
+        />
+      </Box>
     </Box>
   );
 };
