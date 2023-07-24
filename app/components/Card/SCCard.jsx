@@ -14,17 +14,21 @@ const SCCard = ({ props, superCustomerId }) => {
       >
         <Card
           sx={{
-            borderRadius: "16px",
+            borderRadius: "10px",
             boxShadow: 10,
-            maxWidth:'400px',
-            maxHeight:'500px',
+            Width:'350px',
+            Height:'500px',
           }}
         >
-          <img
-            src="https://media.istockphoto.com/id/1415525222/photo/fire-and-chinese-chefs.jpg?s=1024x1024&w=is&k=20&c=zdg6cOC9XSu1Xw9Adys82VBZxHWkHupFiAqxBbxyqxU="
+        <img
+            src={props?.menu}
+            style={{
+              borderRadius: "10px",
+              width:'350px',
+              height:"230px", // adjust the size as needed
+            }}
             alt="new"
-            height="189px"
-          />
+          />  
           <Box
             sx={{
               display: "flex",
@@ -46,7 +50,7 @@ const SCCard = ({ props, superCustomerId }) => {
             </Box>
             <CardContent
               sx={{
-                m: "0 0 0 2rem",
+                m: "0 0 0 1rem",
                 textAlign: "start",
               }}
               style={{
