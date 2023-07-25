@@ -79,32 +79,17 @@ function DoughnutChart_NumCustomer() {
         position: "right",
       },
     },
+    cutout: "60%",
   };
 
   // ! RESOLVE PLUGINS ISSUE FROM 'npm install --save chartjs-plugin-doughnutlabel'
   return (
     <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(1,1fr)",
-        position: "relative",
-        alignItems: "center",
-        width: "100%",
-        height: "100%",
-      }}
-    >
-      <Typography
-        variant="h3"
-        sx={{
-          gridColumn: "1/-1",
-          gridRow: "1/-1",
-          position: "absolute",
-          left: "22.5%",
-          zIndex: "1",
-        }}
-      >
-        {" "}
-        {Object.values(data).shift(1)}
+    style={{
+      maxHeight: "250px"
+    }}
+  >
+    <Typography variant="h4" lineHeight="35px">Total = {Object.values(data).shift(1)}
       </Typography>
       <Doughnut
         data={doughnutFakeData}

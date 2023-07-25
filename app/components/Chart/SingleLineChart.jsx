@@ -47,29 +47,15 @@ const SingleLineChart = ({ fetchDataSource, showTextSource }) => {
       fetchData();
     }, [restaurantOwnerId, fetchDataSource]);
 
-    const showText = data && showTextSource ? showTextSource(data) : '';
+    console.log("single line chart", data);
 
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       setIsLoading(true);
-//       try {
-//         const res = await fetchTotalRevenue(restaurantOwnerId);
-//         setData(res);
-//       } catch (error) {
-//         console.error("Error fetching data:", error);
-//       } finally {
-//         setIsLoading(false);
-//       }
-//     };
-//     fetchData();
-//   }, [restaurantOwnerId]);
-//   console.log(data);
+    const showText = data && showTextSource ? showTextSource(data) : '';
 
     const theme = useTheme();
     defaults.font.family = theme.typography.fontFamily;
     defaults.font.size = theme.typography.fontSize;
 
-    const periodKey = period === 'daily' ? 'daily' : period === 'weekly' ? 'week' : 'month';
+    const periodKey = period === 'daily' ? 'date' : period === 'weekly' ? 'week' : 'month';
     const chartData = {
         labels: data?.[period]?.map(item => item[periodKey]),
         datasets: [
@@ -87,35 +73,77 @@ const SingleLineChart = ({ fetchDataSource, showTextSource }) => {
         responsive: true,
         maintainAspectRatio: false,
         elements: {
-        line: {
-            tension: 0.5, 
-        },
-        point: {
-            hitRadius: 20,
-        },
+            line: {
+                tension: 0.5, 
+            },
+            point: {
+                hitRadius: 20,
+            },
         },
         scales: {
-        x: {
-            display: false,
-        },
-        y: {
-            display: false,
-            beginAtZero: true,
-            ticks: {
-            min: 0,
-            max: data && data[period]
-                ? Math.max(...data[period].map(item => item.totalRevenue)) * 1.1
-                : 0,
-            padding: 10
-            }
-        },
+            x: {
+                type: 'time',
+                time: {
+                    unit: 'day'
+                },
+                display: true,
+                title: {
+                    display: true,
+                },
+                ticks: {
+                    callback: function(val, index) {
+                        return index % 5 === 0 ? this.getLabelForValue(val).split(',')[0]  : '';
+                    },
+                    color: theme.palette.background.alt,
+                },
+                border:{
+                    color: theme.palette.background.alt,
+                },
+                grid: {
+                    display: false,
+                },
+            },
+            y: {
+                display: true,
+                beginAtZero: false,
+                ticks: {
+                    min: 0,
+                    // stepSize: 2000,
+                    max: data && data[period]
+                        ? Math.max(...data[period].map(item => item.totalRevenue)) * 1.1
+                        : 0,
+                    padding: 10,
+                    callback: function(val, index) {
+                        return index % 3 === 0 ? this.getLabelForValue(val)  : '';
+                    },
+                    color: theme.palette.background.alt,
+                },
+                border:{
+                    color: theme.palette.background.alt,
+                },
+                grid: {
+                    display: false,
+                },
+            },
         },
         plugins: {
-        legend: {
-            display: false,
-        },
+            legend: {
+                display: false,
+            },
+            tooltip: {
+                callbacks: {
+                  title: function(context) {
+                    var date = new Date(context[0].parsed.x);
+                    const day = String(date.getDate()).padStart(2, '0');
+                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                    const year = date.getFullYear();
+                    return `${year}-${month}-${day}`;
+                  }
+                }
+            },
         },
     };
+    
     
 
     return (
@@ -131,7 +159,7 @@ const SingleLineChart = ({ fetchDataSource, showTextSource }) => {
                 alignItems: "end",
                 justifyItems: "flex-end",
                 width: "100%",
-                height: "100%",
+                height: "60%",
                 position: "relative",
             }}
             >
@@ -143,7 +171,7 @@ const SingleLineChart = ({ fetchDataSource, showTextSource }) => {
                 gridColumn: "1/-1",
                 }}
             >
-                <Typography variant="h2" align="center">{showText}</Typography>
+                <Typography variant="h2" align="center" lineHeight="77px">{showText}</Typography>
                 <Line data={chartData} options={options} style={{maxHeight: "250px"}}/>
             </Box>
             <Box>

@@ -73,24 +73,27 @@ async function generateUsageData(campaignId) {
   return usage;
 }
 
-//  function to generate  usage data
+// function to generate usage data
 function generateData(count, amt) {
   const today = new Date();
   const data = [];
+  let prevValue = 35;
   for (let i = count - 1; i >= 0; i--) {
     const date = new Date(today);
     date.setDate(today.getDate() - i);
     const formattedDate = formatDate(date);
-    const value = Math.floor(Math.random() * amt);
+    const value = prevValue + Math.floor(Math.random() * amt);
+    prevValue = value + Math.floor(Math.random() * 100) - 50; 
     data.push({ x: formattedDate, y: value });
   }
   return data;
 }
 
-//  function to format date as "YYYY-MM-DD"
+// function to format date as "YYYY-MM-DD"
 function formatDate(date) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 }
+
