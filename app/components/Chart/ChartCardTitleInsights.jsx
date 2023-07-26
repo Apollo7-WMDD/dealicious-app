@@ -19,6 +19,7 @@ function ChartCardTitleInsights({
   const onClick = async (e) => {
     e.stopPropagation();
     setPinned(!pinned);
+
     try {
       const res = await fetch(
         `/api/dashboard/insights/toggle_pin/${data._id}`,
@@ -34,8 +35,8 @@ function ChartCardTitleInsights({
 
       const dataRes = await res.json();
       data.pinned = !data.pinned;
-      console.log("this is the data: ", data);
       setClickPin((prev) => !prev);
+
     } catch (error) {
       console.log(error);
     }

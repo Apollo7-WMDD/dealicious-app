@@ -6,11 +6,14 @@ import SCFooter from "../../../../components/Footer/SCFooter";
 import PointsEarned from "../../../../components/SuperCustomer/PointsEarned";
 import Share from "../../../../components/SuperCustomer/Share";
 import CampaignCard from "@/app/components/SuperCustomer/CampaignCard";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import Loader from "@/app/components/Loader";
 
 const Page = ({ params }) => {
+  const theme = useTheme();
+  const shadowColor = `${theme.palette.neutral[20]}1f`;
+
   const { superCustomerId, restaurantId } = params;
   const [restaurantData, setRestaurantData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -92,7 +95,7 @@ const Page = ({ params }) => {
           sx={{
             p: "1rem",
             borderRadius: "10px",
-            boxShadow: 10,
+            boxShadow: `0px 4px 20px 0px ${shadowColor}`,
             maxWidth: "auto",
             display: "flex",
             flexDirection: "column",

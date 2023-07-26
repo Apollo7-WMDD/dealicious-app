@@ -34,7 +34,6 @@ function CampaignGrid({ children }) {
         const filteredResult = result.campaigns.sort(
           (b, a) => Date.parse(a.endDate) - Date.parse(b.endDate)
         );
-
         filteredResult.sort((a, b) => (b.favorite ? 1 : -1));
 
         const dataArrayWithPinnedStatus = filteredResult.map((item) => ({
@@ -53,10 +52,10 @@ function CampaignGrid({ children }) {
   }, [restaurantOwnerId]);
 
   const theme = useTheme();
-
   useEffect(() => {
     setDataArray([...dataArray].sort((a, b) => (b.pinned ? 1 : -1)));
   }, [sortByPin]);
+
 
   return (
     <Box

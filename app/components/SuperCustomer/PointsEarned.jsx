@@ -1,10 +1,13 @@
 "use client";
 import React from "react";
 import StarPerson from "@/app/components/svg/starPerson.svg";
-import { Card, CardActions, CardContent, Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import SCRedeemBtn from "../../components/Button/SCRedeemBtn";
 
 const PointsEarned = ({ props }) => {
+  const theme = useTheme();
+  const shadowColor = `${theme.palette.neutral[20]}1f`;
+
   return (
     <Box
       sx={{
@@ -15,7 +18,7 @@ const PointsEarned = ({ props }) => {
         textAlign: "center",
         justifyContent: "center",
         borderRadius: "10px",
-        boxShadow: 10,
+        boxShadow: `0px 4px 20px 0px ${shadowColor}`,
         p: "1rem",
       }}
     >

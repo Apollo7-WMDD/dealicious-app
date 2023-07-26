@@ -6,9 +6,12 @@ import CopyIcon from "@/app/components/svg/copyIcon.svg";
 import Clock from "@/app/components/svg/clock.svg";
 import Phone from "@/app/components/svg/phone.svg";
 import URL from "@/app/components/svg/url.svg";
-import { CardContent, Box, Typography } from "@mui/material";
+import { CardContent, Box, Typography, useTheme } from "@mui/material";
 
 const SCRestaurantCard = (props) => {
+
+const theme = useTheme();
+const shadowColor = `${theme.palette.neutral[20]}1f`;
   if (!props || !props.address) {
     return null; 
   }
@@ -21,7 +24,7 @@ return (
         gap: "1rem",
         borderRadius: "10px",
         p: "1rem",
-        boxShadow: 10,
+        boxShadow: `0px 4px 20px 0px ${shadowColor}`,
         flexWrap: 'wrap',
         justifyContent: 'space-between',
         flex:'1 0 50%'
@@ -44,6 +47,7 @@ return (
                 borderRadius: "50%",
                 width: "90px", // adjust the size as needed
                 height: "90px", // adjust the size as needed
+                objectFit: "cover",
               }}
               alt="Logo"
             />
