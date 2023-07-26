@@ -21,11 +21,23 @@ const SCActive = ({ text, width, onClick }) => {
         backgroundColor:'white',
         border: '3px solid #ff5938',
         color: '#ff5938',
+        // '.icon': { // Use the custom class name to target the SVG icon
+        //   stroke: '#ff5938', // Change this to the desired color for the SVG icon border on hover
+        // },
+        '& svg': {
+          fill: '#ff5938',
+        },
         // backgroundColor: theme.palette.primary[80],
         ":hover": {
           backgroundColor: "#ff5938",
           color: 'white',
           boxShadow: "none",
+          // '.icon': { // Use the custom class name to target the SVG icon
+          //   stroke: 'white', // Change this to the desired color for the SVG icon border on hover
+          // },
+          '& svg': {
+            fill: 'white',
+          },
         },
         [theme.breakpoints.down("lg")]: {
           width: "265px",
