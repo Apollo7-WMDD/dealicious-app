@@ -11,8 +11,6 @@ import Link from "next/link";
 import SCActive from "../../components/Button/SCActive";
 import SingleButton from "../Button/SingleButton";
 import SCSubmitBtn from "../Button/SCSubmitBtn";
-// import { usePathname } from "next/navigation";
-// import { useSession } from "next-auth/react";
 import SCOfferApplied from "@/app/components/SuperCustomer/SCOfferApplied";
 
 const CampaignCard = ({ props }) => {
@@ -68,38 +66,6 @@ const CampaignCard = ({ props }) => {
     setOpenThird(true);
   };  
 
-  // const handleOpenConfirm = async () => {
-  //   const burnCodeInfo = {
-  //     username:
-  //       session.user.name ||
-  //       `${session.user?.firstname} ${session.user?.lastname}`,
-  //     campaignname: props.name,
-  //     offer: props.offer,
-  //     burned: false,
-  //     restaurantId: restaurantId,
-  //     campaignId: props._id,
-  //   };
-  //   try {
-  //     const res = await fetch(`/api/burnCode/customers/${restaurantId}`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(burnCodeInfo),
-  //     });
-  //     if (!res.ok) {
-  //       const data = await res.text();
-  //       throw new Error(data);
-  //     }
-  //     const data = await res.json();
-  //     console.log("Success! ", data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  //   setOpenConfirm(true);
-  //   setOpenSecond(false);
-  // };
-
   // 1st Modal
   const handleOpen = () => {
     setOpen(true);
@@ -146,25 +112,6 @@ const CampaignCard = ({ props }) => {
     borderRadius: "10px",
   };
 
-// console.log('👍 this is the code'+code);
-/*const formatDate = (dateString) => {
-  const options = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  };
-
-  const formattedDate = new Date(dateString).toLocaleDateString(undefined, options);
-
-  // Convert the day to the correct ordinal suffix (e.g., 1st, 2nd, 3rd, 4th, etc.)
-  const day = new Date(dateString).getDate();
-  const daySuffix =
-    day >= 11 && day <= 13
-      ? 'th'
-      : ['st', 'nd', 'rd', 'th'][Math.min((day - 1) % 10, 3)];
-
-  return formattedDate.replace(/\d{1,2}$/, (day) => day + daySuffix);
-};*/
 const formatDate = (dateString) => {
   const options = {
     year: 'numeric',
@@ -211,8 +158,16 @@ const formattedEndDate = formatDate(props.endDate);
           gap:'1rem',
         }}
       >
-        <Link href="#">More information</Link>      
-        <SCActive text="Active" width="144px" onClick={handleOpen} />
+        <Typography variant="p">More information</Typography>
+        {/* <Link href="#">More information</Link>       */}
+        {/* <SingleButton text="Activate" width="144px" onClick={handleOpen}></SingleButton> */}
+        {/* <SCActive text="Activate" width="144px" onClick={handleOpen} />
+         */}
+         <SCActive
+            text="Activate"
+            width="auto"
+            onClick={handleOpen}
+          ></SCActive>
       </Box>
       <Modal
         sx={{

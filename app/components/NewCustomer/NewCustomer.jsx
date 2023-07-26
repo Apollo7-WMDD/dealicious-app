@@ -14,7 +14,7 @@ return (
         flexDirection: 'column',
         gap:'3%',
         textAlign:'start',
-        justifyContent: 'start',
+        justifyContent: 'space-evenly',
         borderRadius: '10px',
         boxShadow: `0px 4px 20px 0px ${shadowColor}`,
         p:'1rem',
@@ -22,8 +22,8 @@ return (
       }}
     >
         <Typography variant="p">Experience culinar bliss with a special invitation from</Typography>
-        <Typography variant="h2">{props?.firstname}</Typography>
-        <Typography variant="h2">{props?.lastname}</Typography>
+        <Typography variant="h2">{props?.firstname} {props?.lastname}</Typography>
+        {/* <Typography variant="h2"></Typography> */}
         <Typography variant="p">Activate your favourite campaign at our place and embark on a remarkable
         culinary adventure unlike any other</Typography>
     </Box>
