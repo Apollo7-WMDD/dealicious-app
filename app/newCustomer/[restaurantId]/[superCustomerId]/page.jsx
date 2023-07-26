@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import SCRestaurantCard from "../../../components/SuperCustomer/SCRestaurantCard";
-import SCHeader from "../../../components/Header/SCHeader";
-import SCFooter from "../../../components/Footer/SCFooter";
+import SCRestaurantCard from "@/app/components/SuperCustomer/SCRestaurantCard";
+import NCHeader from "@/app/components/Header/NCHeader";
+import SCFooter from "@/app/components/Footer/SCFooter";
 import CampaignCard from "@/app/components/SuperCustomer/CampaignCard";
 import NewCustomer from "@/app/components/NewCustomer/NewCustomer";
+import Loader from "@/app/components/Loader";
 import { Box } from "@mui/material";
 import { useEffect } from "react";
 
@@ -35,7 +36,7 @@ const Page = ({ params }) => {
 
   return (
     <>
-      <SCHeader />
+      <NCHeader />
       <Box
         sx={{
           display: "flex",
@@ -50,7 +51,17 @@ const Page = ({ params }) => {
       </Box>
       <Box>
         {!restaurantData ? (
-          <h1>Loading...</h1>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <Loader />
+          </div>
         ) : (
           restaurantData.campaigns.map((item, index) => (
             <CampaignCard key={index} props={item} />
