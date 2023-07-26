@@ -15,21 +15,32 @@ import {
   fetchTotalRevenueSingle,
 } from "@/lib/fetching/campaigns/data";
 
+// loader
+import Loader from "../Loader";
+
 function CampaignGrid({ children }) {
   const router = useRouter();
   const { restaurantOwnerId, restaurantId } = useStore();
   const [data, setData] = useState([]);
   const [dataArray, setDataArray] = useState([]);
   const [hilighted, setHilighted] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetchAllCampaigns(restaurantOwnerId);
-      const filteredResult = result.campaigns.sort(
-        (b, a) => Date.parse(a.endDate) - Date.parse(b.endDate)
-      );
-      setData(filteredResult);
-      setDataArray(filteredResult || []);
+      setIsLoading(true);
+      try {
+        const result = await fetchAllCampaigns(restaurantOwnerId);
+        const filteredResult = result.campaigns.sort(
+          (b, a) => Date.parse(a.endDate) - Date.parse(b.endDate)
+        );
+        setData(filteredResult);
+        setDataArray(filteredResult || []);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchData();
   }, [restaurantOwnerId]);
@@ -49,9 +60,6 @@ function CampaignGrid({ children }) {
   const onPinClickB = (id) => {
     setHilighted([...hilighted, id]);
   };
-  // const navigate = (id) => {
-  //   router.push(`/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId}/${id}`)
-  // }
 
   return (
     <Box
@@ -74,100 +82,113 @@ function CampaignGrid({ children }) {
         },
       }}
     >
-      {dataArray.map(
-        (e) =>
-          hilighted == e.id && (
-            <Link
-              key={e._id}
-              sx={{
-                textDecoration: "none",
-                textAlign: "left",
-                cursor: "pointer",
-              }}
-              onClick={
-                // navigate
-                // navigate(e.id)
-                () => {
-                  router.push(
-                    `/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId}/${e._id}`
-                  );
-                }
-              }
-            >
-              {/* {e.name} */}
-              <ChartCard_Insight
+      {isLoading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gridColumn: "span 3",
+          }}
+        >
+          <Loader />
+        </div>
+      ) : (
+        dataArray.map(
+          (e) =>
+            hilighted == e.id && (
+              <Link
                 key={e._id}
-                style={{
-                  ":hover": {
-                    color: "hotpink",
-                  },
+                sx={{
+                  textDecoration: "none",
+                  textAlign: "left",
+                  cursor: "pointer",
                 }}
-              >
-                <ChartCardTitle
-                  data={e}
-                  text={e.name}
-                  onClick={
-                    // navigate
-                    // navigate(e.id)
-                    () => {
-                      router.push(
-                        `/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId}/${e._id}`
-                      );
-                    }
+                onClick={
+                  // navigate
+                  // navigate(e.id)
+                  () => {
+                    router.push(
+                      `/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId}/${e._id}`
+                    );
                   }
-                  pinStatus={hilighted == e._id ? true : false}
-                  pinIdSelected={getPinIdSelected}
-                  showPin={true}
-                  onPinClick={onPinClickB}
+                }
+              >
+                {/* {e.name} */}
+                <ChartCard_Insight
+                  key={e._id}
                   style={{
                     ":hover": {
                       color: "hotpink",
                     },
                   }}
-                ></ChartCardTitle>
+                >
+                  <ChartCardTitle
+                    data={e}
+                    text={e.name}
+                    onClick={
+                      // navigate
+                      // navigate(e.id)
+                      () => {
+                        router.push(
+                          `/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId}/${e._id}`
+                        );
+                      }
+                    }
+                    pinStatus={hilighted == e._id ? true : false}
+                    pinIdSelected={getPinIdSelected}
+                    showPin={true}
+                    onPinClick={onPinClickB}
+                    style={{
+                      ":hover": {
+                        color: "hotpink",
+                      },
+                    }}
+                  ></ChartCardTitle>
 
-                <CampaignCardBody>
-                  <p
-                    style={{
-                      margin: "0",
-                      fontWeight: "lighter",
-                    }}
-                  >
-                    Item: {e.offer}
-                  </p>
-                  <p
-                    style={{
-                      margin: "0",
-                      fontWeight: "lighter",
-                    }}
-                  >
-                    Duration:{" "}
-                    {new Date(e.startDate).toISOString().substring(0, 10)} to{" "}
-                    {new Date(e.endDate).toISOString().substring(0, 10)}
-                  </p>
-                  <p
-                    style={{
-                      margin: "0",
-                      fontWeight: "lighter",
-                    }}
-                  >
-                    Users: {e.allowNewCustomer ? "New Customers" : ""}
-                    {e.allowNewCustomer && e.allowSuperCustomer ? " & " : ""}
-                    {e.allowSuperCustomer ? "Super Customers" : ""}
-                  </p>
-                  <p
-                    style={{
-                      margin: "0",
-                      fontWeight: "lighter",
-                    }}
-                  >
-                    Condition: {e.description}
-                  </p>
-                </CampaignCardBody>
-              </ChartCard_Insight>
-            </Link>
-          )
-      )}{" "}
+                  <CampaignCardBody>
+                    <p
+                      style={{
+                        margin: "0",
+                        fontWeight: "lighter",
+                      }}
+                    >
+                      Item: {e.offer}
+                    </p>
+                    <p
+                      style={{
+                        margin: "0",
+                        fontWeight: "lighter",
+                      }}
+                    >
+                      Duration:{" "}
+                      {new Date(e.startDate).toISOString().substring(0, 10)} to{" "}
+                      {new Date(e.endDate).toISOString().substring(0, 10)}
+                    </p>
+                    <p
+                      style={{
+                        margin: "0",
+                        fontWeight: "lighter",
+                      }}
+                    >
+                      Users: {e.allowNewCustomer ? "New Customers" : ""}
+                      {e.allowNewCustomer && e.allowSuperCustomer ? " & " : ""}
+                      {e.allowSuperCustomer ? "Super Customers" : ""}
+                    </p>
+                    <p
+                      style={{
+                        margin: "0",
+                        fontWeight: "lighter",
+                      }}
+                    >
+                      Condition: {e.description}
+                    </p>
+                  </CampaignCardBody>
+                </ChartCard_Insight>
+              </Link>
+            )
+        )
+      )}
       {dataArray.map(
         (e) =>
           hilighted != e.id && (

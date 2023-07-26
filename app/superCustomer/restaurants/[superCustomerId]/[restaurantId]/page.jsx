@@ -13,20 +13,28 @@ import Loader from "@/app/components/Loader";
 const Page = ({ params }) => {
   const { superCustomerId, restaurantId } = params;
   const [restaurantData, setRestaurantData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchRestaurants = async (superCustomerId, restaurantId) => {
-      const res = await fetch(
-        `/api/superCustomer/singleRestaurant/${superCustomerId}/${restaurantId}`,
-        {
-          cache: "no-store",
-        }
-      );
+      setIsLoading(true);
+      try {
+        const res = await fetch(
+          `/api/superCustomer/singleRestaurant/${superCustomerId}/${restaurantId}`,
+          {
+            cache: "no-store",
+          }
+        );
 
-      if (!res.ok) throw new Error("Something went wrong...");
+        if (!res.ok) throw new Error("Something went wrong...");
 
-      const data = await res.json();
-      setRestaurantData(data);
+        const data = await res.json();
+        setRestaurantData(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchRestaurants(superCustomerId, restaurantId);
   }, [superCustomerId, restaurantId]);
@@ -62,15 +70,15 @@ const Page = ({ params }) => {
           "@media screen and (min-width:800px)": {
             display: "grid",
             gridTemplateColumns: "1fr 2fr",
-            height: '551px',
+            height: "551px",
           },
         }}
       >
         <Share
           sx={{
             // maxWidth:'324px',
-            maxHeight:'551px',
-            p:'64px 26px',
+            maxHeight: "551px",
+            p: "64px 26px",
 
             "@media screen and (min-width:800px)": {
               // height:'551px',
@@ -90,32 +98,43 @@ const Page = ({ params }) => {
             flexDirection: "column",
             gap: "1rem",
             // maxWidth:'324px',
-            maxHeight:'551px',
+            maxHeight: "551px",
+            alignItems: isLoading ? "center" : undefined,
+            justifyContent: isLoading ? "center" : undefined,
           }}
         >
-          <Typography 
+          <Typography
             sx={{
-              p: '0 2rem',
+              p: "0 2rem",
             }}
-            variant="h3">
+            variant="h3"
+          >
             Ongoing campaigns, exclusively for you
           </Typography>
           <Box
             sx={{
               display: "grid",
               m: "0 1rem",
-              p: '1rem',
+              p: "1rem",
               gap: "1rem",
-              overflow: 'auto',
+              overflow: "auto",
               "@media screen and (min-width:800px)": {
                 gridTemplateColumns: "1fr 1fr",
               },
             }}
           >
             {!restaurantData.campaigns ? (
-              <Loader />
-              // <Typography>Loading...</Typography>
-              
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "100%",
+                  height: "100%",
+                }}
+              >
+                <Loader />
+              </div>
             ) : (
               restaurantData.campaigns.map((item, index) => (
                 <CampaignCard
