@@ -22,10 +22,9 @@ import Loader from "../Loader";
 function CampaignGrid({ children }) {
   const router = useRouter();
   const { restaurantOwnerId, restaurantId } = useStore();
-  const [data, setData] = useState([]);
   const [dataArray, setDataArray] = useState([]);
-  const [hilighted, setHilighted] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [sortByPin, setSortByPin] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,11 +34,14 @@ function CampaignGrid({ children }) {
         const filteredResult = result.campaigns.sort(
           (b, a) => Date.parse(a.endDate) - Date.parse(b.endDate)
         );
-        setData(filteredResult);
-
         filteredResult.sort((a, b) => (b.favorite ? 1 : -1));
 
-        setDataArray(filteredResult || []);
+        const dataArrayWithPinnedStatus = filteredResult.map((item) => ({
+          ...item,
+          pinned: item.favorite,
+        }));
+
+        setDataArray(dataArrayWithPinnedStatus || []);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -50,6 +52,10 @@ function CampaignGrid({ children }) {
   }, [restaurantOwnerId]);
 
   const theme = useTheme();
+  useEffect(() => {
+    setDataArray([...dataArray].sort((a, b) => (b.pinned ? 1 : -1)));
+  }, [sortByPin]);
+
 
   return (
     <Box
@@ -112,6 +118,7 @@ function CampaignGrid({ children }) {
                 text={e.name}
                 pinStatus={e.favorite}
                 showPin={true}
+                setClickPin={setSortByPin}
                 style={{
                   ":hover": {
                     color: "hotpink",

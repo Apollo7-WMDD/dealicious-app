@@ -2,9 +2,15 @@ import Pin from "@/app/components/svg/pin.svg";
 import { Typography, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 
-function ChartCardTitleInsights({ data, text, showPin, pinStatus }) {
+function ChartCardTitleInsights({
+  data,
+  text,
+  showPin,
+  pinStatus,
+  setClickPin,
+}) {
   const theme = useTheme();
-  const [pinned, setPinned] = useState(false);
+  const [pinned, setPinned] = useState(data._id);
 
   useEffect(() => {
     setPinned(pinStatus);
@@ -28,6 +34,9 @@ function ChartCardTitleInsights({ data, text, showPin, pinStatus }) {
       if (!res.ok) throw new Error(res.status);
 
       const dataRes = await res.json();
+      data.pinned = !data.pinned;
+      setClickPin((prev) => !prev);
+
     } catch (error) {
       console.log(error);
     }
