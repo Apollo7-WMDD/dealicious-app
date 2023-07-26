@@ -45,6 +45,7 @@ export const GET = async (request) => {
           offer: 1,
           type: 1,
           description: 1,
+          favorite: 1,
         },
       },
     ]);

@@ -7,6 +7,7 @@ import { useStore } from "@/lib/context/user_context/store";
 
 import ChartCard_Insight from "@/app/components/Card/ChartCard_Insight";
 import ChartCardTitle from "@/app/components/Chart/ChartCardTitle";
+import ChartCardTitleInsights from "../Chart/ChartCardTitleInsights";
 import CampaignCardBody from "../Chart/CampaignCardBody";
 
 // fetch imports
@@ -35,6 +36,9 @@ function CampaignGrid({ children }) {
           (b, a) => Date.parse(a.endDate) - Date.parse(b.endDate)
         );
         setData(filteredResult);
+
+        filteredResult.sort((a, b) => (b.favorite ? 1 : -1));
+
         setDataArray(filteredResult || []);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -45,21 +49,7 @@ function CampaignGrid({ children }) {
     fetchData();
   }, [restaurantOwnerId]);
 
-  useEffect(() => {
-    dataArray.sort((a, b) => a.pinStatus - b.pinStatus);
-  }, [hilighted]);
-
-  // console.log(data);
-  // console.log(dataArray);
   const theme = useTheme();
-  const getPinIdSelected = (id) => {
-    console.log("id is" + id);
-    setHilighted([...hilighted, id]);
-  };
-
-  const onPinClickB = (id) => {
-    setHilighted([...hilighted, id]);
-  };
 
   return (
     <Box
@@ -89,195 +79,87 @@ function CampaignGrid({ children }) {
             justifyContent: "center",
             alignItems: "center",
             gridColumn: "span 3",
+            minHeight: "90vh",
           }}
         >
           <Loader />
         </div>
       ) : (
-        dataArray.map(
-          (e) =>
-            hilighted == e.id && (
-              <Link
-                key={e._id}
-                sx={{
-                  textDecoration: "none",
-                  textAlign: "left",
-                  cursor: "pointer",
-                }}
-                onClick={
-                  // navigate
-                  // navigate(e.id)
-                  () => {
-                    router.push(
-                      `/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId}/${e._id}`
-                    );
-                  }
-                }
-              >
-                {/* {e.name} */}
-                <ChartCard_Insight
-                  key={e._id}
-                  style={{
-                    ":hover": {
-                      color: "hotpink",
-                    },
-                  }}
-                >
-                  <ChartCardTitle
-                    data={e}
-                    text={e.name}
-                    onClick={
-                      // navigate
-                      // navigate(e.id)
-                      () => {
-                        router.push(
-                          `/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId}/${e._id}`
-                        );
-                      }
-                    }
-                    pinStatus={hilighted == e._id ? true : false}
-                    pinIdSelected={getPinIdSelected}
-                    showPin={true}
-                    onPinClick={onPinClickB}
-                    style={{
-                      ":hover": {
-                        color: "hotpink",
-                      },
-                    }}
-                  ></ChartCardTitle>
-
-                  <CampaignCardBody>
-                    <p
-                      style={{
-                        margin: "0",
-                        fontWeight: "lighter",
-                      }}
-                    >
-                      Item: {e.offer}
-                    </p>
-                    <p
-                      style={{
-                        margin: "0",
-                        fontWeight: "lighter",
-                      }}
-                    >
-                      Duration:{" "}
-                      {new Date(e.startDate).toISOString().substring(0, 10)} to{" "}
-                      {new Date(e.endDate).toISOString().substring(0, 10)}
-                    </p>
-                    <p
-                      style={{
-                        margin: "0",
-                        fontWeight: "lighter",
-                      }}
-                    >
-                      Users: {e.allowNewCustomer ? "New Customers" : ""}
-                      {e.allowNewCustomer && e.allowSuperCustomer ? " & " : ""}
-                      {e.allowSuperCustomer ? "Super Customers" : ""}
-                    </p>
-                    <p
-                      style={{
-                        margin: "0",
-                        fontWeight: "lighter",
-                      }}
-                    >
-                      Condition: {e.description}
-                    </p>
-                  </CampaignCardBody>
-                </ChartCard_Insight>
-              </Link>
-            )
-        )
-      )}
-      {dataArray.map(
-        (e) =>
-          hilighted != e.id && (
-            <Link
+        dataArray.map((e) => (
+          <Link
+            key={e._id}
+            sx={{
+              textDecoration: "none",
+              textAlign: "left",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              router.push(
+                `/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId}/${e._id}`
+              );
+            }}
+          >
+            <ChartCard_Insight
               key={e._id}
-              sx={{
-                textDecoration: "none",
-                textAlign: "left",
-                cursor: "pointer",
+              style={{
+                ":hover": {
+                  color: "hotpink",
+                },
               }}
-              onClick={
-                // navigate
-                // navigate(e.id)
-                () => {
-                  router.push(
-                    `/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId}/${e._id}`
-                  );
-                }
-              }
             >
-              {/* {e.name} */}
-              <ChartCard_Insight
-                key={e._id}
+              <ChartCardTitleInsights
+                data={e}
+                text={e.name}
+                pinStatus={e.favorite}
+                showPin={true}
                 style={{
                   ":hover": {
                     color: "hotpink",
                   },
                 }}
-              >
-                <ChartCardTitle
-                  data={e}
-                  text={e.name}
-                  pinStatus={
-                    hilighted == e._id
-                      ? // (console.log("hilighted TRUE")) : (console.log("hilighted FASLE"))
-                        true
-                      : false
-                  }
-                  pinIdSelected={getPinIdSelected}
-                  showPin={true}
-                  onPinClick={onPinClickB}
-                  style={{
-                    ":hover": {
-                      color: "hotpink",
-                    },
-                  }}
-                ></ChartCardTitle>
+              ></ChartCardTitleInsights>
 
-                <CampaignCardBody>
-                  <p
-                    style={{
-                      margin: "0",
-                      fontWeight: "lighter",
-                    }}
-                  >
-                    Item: {e.offer}
-                  </p>
-                  <p
-                    style={{
-                      margin: "0",
-                      fontWeight: "lighter",
-                    }}
-                  >
-                    Duration:{" "}
-                    {new Date(e.startDate).toISOString().substring(0, 10)} to{" "}
-                    {new Date(e.endDate).toISOString().substring(0, 10)}
-                  </p>
-                  <p
-                    style={{
-                      margin: "0",
-                      fontWeight: "lighter",
-                    }}
-                  >
-                    Users: {e.allowNewCustomer ? "New Customers" : ""}
-                    {e.allowNewCustomer && e.allowSuperCustomer ? " & " : ""}
-                    {e.allowSuperCustomer ? "Super Customers" : ""}
-                  </p>
-                  <p
-                    style={{
-                      margin: "0",
-                      fontWeight: "lighter",
-                    }}
-                  >
-                    Condition: {e.description}
-                  </p>
-                </CampaignCardBody>
-              </ChartCard_Insight>
-            </Link>
-          )
+              <CampaignCardBody>
+                <p
+                  style={{
+                    margin: "0",
+                    fontWeight: "lighter",
+                  }}
+                >
+                  Item: {e.offer}
+                </p>
+                <p
+                  style={{
+                    margin: "0",
+                    fontWeight: "lighter",
+                  }}
+                >
+                  Duration:{" "}
+                  {new Date(e.startDate).toISOString().substring(0, 10)} to{" "}
+                  {new Date(e.endDate).toISOString().substring(0, 10)}
+                </p>
+                <p
+                  style={{
+                    margin: "0",
+                    fontWeight: "lighter",
+                  }}
+                >
+                  Users: {e.allowNewCustomer ? "New Customers" : ""}
+                  {e.allowNewCustomer && e.allowSuperCustomer ? " & " : ""}
+                  {e.allowSuperCustomer ? "Super Customers" : ""}
+                </p>
+                <p
+                  style={{
+                    margin: "0",
+                    fontWeight: "lighter",
+                  }}
+                >
+                  Condition: {e.description}
+                </p>
+              </CampaignCardBody>
+            </ChartCard_Insight>
+          </Link>
+        ))
       )}
     </Box>
   );

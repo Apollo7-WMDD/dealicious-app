@@ -1,6 +1,8 @@
 import PriceTag from "@/app/components/svg/dealIcon_priceTag_empty.svg";
 import Arrow from "@/app/components/svg/dealIcon_arrow.svg";
 
+import "./ButtonCampaign.css";
+
 const CampaignRecreateIcon = () => {
   return (
     <div

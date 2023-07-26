@@ -21,7 +21,7 @@ export const PATCH = async (request) => {
 
     await campaign.save();
 
-    return new NextResponse("Successfully updated the pin status", {
+    return new NextResponse(JSON.stringify({ message: "Pin toggled!" }), {
       status: 200,
     });
   } catch (err) {

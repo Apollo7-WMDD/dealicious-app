@@ -2,29 +2,37 @@ import Pin from "@/app/components/svg/pin.svg";
 import { Typography, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 
-function ChartCardTitle({
-  data,
-  text,
-  showPin,
-  pinStatus,
-  onPinClick,
-  pinIdSelected,
-}) {
+function ChartCardTitleInsights({ data, text, showPin, pinStatus }) {
   const theme = useTheme();
-  const [pinned, setPinned] = useState(pinStatus);
+  const [pinned, setPinned] = useState(false);
 
   useEffect(() => {
     setPinned(pinStatus);
   }, [pinStatus]);
 
-  if (pinStatus == true) {
-    // console.log(data);
-  }
-  const onClick = () => {
-    onPinClick(data);
-    pinIdSelected(data._id);
+  const onClick = async (e) => {
+    e.stopPropagation();
     setPinned(!pinned);
+
+    try {
+      const res = await fetch(
+        `/api/dashboard/insights/toggle_pin/${data._id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({}),
+        }
+      );
+      if (!res.ok) throw new Error(res.status);
+
+      const dataRes = await res.json();
+    } catch (error) {
+      console.log(error);
+    }
   };
+
   return (
     <div
       style={{
@@ -38,12 +46,12 @@ function ChartCardTitle({
       <Typography variant="h3">{text}</Typography>
 
       <Pin
+        className="pin-icon"
         style={{
           justifySelf: "end",
-
           display: showPin ? "block" : "none",
           fill: pinned ? theme.palette.primary[80] : "transparent",
-
+          transition: "all 0.2s ease-in-out",
           stroke: pinned
             ? theme.palette.primary[80]
             : theme.palette.background.alt,
@@ -54,4 +62,4 @@ function ChartCardTitle({
   );
 }
 
-export default ChartCardTitle;
+export default ChartCardTitleInsights;
