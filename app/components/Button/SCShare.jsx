@@ -13,6 +13,7 @@ import { useSession } from "next-auth/react";
 
 const SCShare = ({ text, width, superCustomerId, restaurantId, restaurantData }) => {
   const theme = useTheme();
+  const shadowColor = `${theme.palette.neutral[20]}1f`;
 
   // <Bug AP-220 #143 - SC Share button>
   const isProduction = process.env.NODE_ENV === "production";
@@ -39,7 +40,7 @@ const SCShare = ({ text, width, superCustomerId, restaurantId, restaurantData })
     width: 400,
     bgcolor: "background.paper",
     border: "2px solid #ff5938",
-    boxShadow: 24,
+    boxShadow: `0px 4px 20px 0px ${shadowColor}`,
     p: 4,
   };
 

@@ -5,6 +5,7 @@ import {
   Box,
   Typography,
   TextField,
+  useTheme,
 } from "@mui/material";
 import Link from "next/link";
 import SCActive from "../../components/Button/SCActive";
@@ -18,7 +19,8 @@ const CampaignCard = ({ props }) => {
   // const { data: session } = useSession();
   // const pathname = usePathname();
   // const restaurantId = pathname.split("/")[4];
-  
+  const theme = useTheme();
+  const shadowColor = `${theme.palette.neutral[20]}1f`;
   const [code, setCode] = useState('');
   const [validate, setValidate] = useState(false);
 
@@ -139,7 +141,7 @@ const CampaignCard = ({ props }) => {
     width: '600px',
     bgcolor: "background.paper",
     border: "2px solid #ff5938",
-    boxShadow: 24,
+    boxShadow: `0px 4px 20px 0px ${shadowColor}`,
     p: 4,
     borderRadius: "10px",
   };
@@ -190,7 +192,7 @@ const formattedEndDate = formatDate(props.endDate);
         p:'1rem',
         // m:'1rem',
         borderRadius: "10px",
-        boxShadow: 10,
+        boxShadow: `0px 4px 20px 0px ${shadowColor}`,
         maxWidth: "auto",
         display: "flex",
         flexDirection: "column",

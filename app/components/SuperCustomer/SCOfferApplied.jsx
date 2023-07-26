@@ -1,12 +1,13 @@
 "use client";
 import { React, useState } from "react";
-import { Box, Typography, Modal } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import SingleButton from "../Button/SingleButton";
 
 const Share = ({ props, status }) => {
-
+    const theme = useTheme();
+    const shadowColor = `${theme.palette.neutral[20]}1f`;
     const { data: session } = useSession();
     const pathname = usePathname();
     const restaurantId = pathname.split("/")[4];
@@ -113,7 +114,7 @@ const Share = ({ props, status }) => {
                         flexDirection: "column",
                         borderRadius: "5%",
                         border: "1px solid #ff5938",
-                        boxShadow: 24,
+                        boxShadow: `0px 4px 20px 0px ${shadowColor}`,
                         p:"1rem",
                         alignItems:"center",
                     }}
