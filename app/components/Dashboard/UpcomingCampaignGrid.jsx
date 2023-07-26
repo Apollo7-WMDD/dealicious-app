@@ -8,33 +8,36 @@ import CampaignCardBody from "../Chart/CampaignCardBody";
 
 // fetch imports
 import { fetchAllCampaigns } from "@/lib/fetching/campaigns/data";
+import Loader from "../Loader";
 
 function CampaignGrid({ onPinClickB, children }) {
+  const theme = useTheme();
   const { restaurantOwnerId } = useStore();
   const [data, setData] = useState([]);
   const [dataArray, setDataArray] = useState([]);
-  
-
-  // console.log(restaurantOwnerId);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetchAllCampaigns(restaurantOwnerId);
-      const filteredResult =
-      result.campaigns.filter((e) => Date.parse(e.startDate)  > Date.now());
-      filteredResult.sort((a,b)=> Date.parse(a.startDate) - Date.parse(b.startDate))
-      console.log( filteredResult);
-      setData(filteredResult);
-      setDataArray(filteredResult || []);
-      // setDataArray(result.campaigns);
+      setIsLoading(true);
+      try {
+        const result = await fetchAllCampaigns(restaurantOwnerId);
+        const filteredResult = result.campaigns.filter(
+          (e) => Date.parse(e.startDate) > Date.now()
+        );
+        filteredResult.sort(
+          (a, b) => Date.parse(a.startDate) - Date.parse(b.startDate)
+        );
+        setData(filteredResult);
+        setDataArray(filteredResult || []);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchData();
   }, [restaurantOwnerId]);
-
-  // console.log(data);
-  console.log(dataArray);
-  const theme = useTheme();
-
 
   return (
     <Box
@@ -56,60 +59,62 @@ function CampaignGrid({ onPinClickB, children }) {
         },
       }}
     >
-      {dataArray.map((e) => (
-        <ChartCard key={e._id}>
-          <ChartCardTitle
-            data={e}
-            text={e.name}
-            
-            // pinStatus={hilighted == e._id ? 
-            //   // (console.log("hilighted TRUE")) : (console.log("hilighted FASLE"))
-            //   true : false
-            // }
-            // pinIdSelected={getPinIdSelected}
-            // showPin={true}
-            // onPinClick={onPinClickB}
-          ></ChartCardTitle>
+      {isLoading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gridColumn: "span 3",
+          }}
+        >
+          <Loader />
+        </div>
+      ) : (
+        dataArray.map((e) => (
+          <ChartCard key={e._id}>
+            <ChartCardTitle data={e} text={e.name}></ChartCardTitle>
 
-          <CampaignCardBody>
-            <p
-              style={{
-                margin: "0",
-                fontWeight: "lighter",
-              }}
-            >
-              Item: {e.offer}
-            </p>
-            <p
-              style={{
-                margin: "0",
-                fontWeight: "lighter",
-              }}
-            >
-              Duration: {new Date(e.startDate).toISOString().substring(0, 10)}{" "}
-              to {new Date(e.endDate).toISOString().substring(0, 10)}
-            </p>
-            <p
-              style={{
-                margin: "0",
-                fontWeight: "lighter",
-              }}
-            >
-              Users: {e.allowNewCustomer ? "New Customers" : ""}
-              {e.allowNewCustomer && e.allowSuperCustomer ? " & " : ""}
-              {e.allowSuperCustomer ? "Super Customers" : ""}
-            </p>
-            <p
-              style={{
-                margin: "0",
-                fontWeight: "lighter",
-              }}
-            >
-              Condition: {e.description}
-            </p>
-          </CampaignCardBody>
-        </ChartCard>
-      ))}
+            <CampaignCardBody>
+              <p
+                style={{
+                  margin: "0",
+                  fontWeight: "lighter",
+                }}
+              >
+                Item: {e.offer}
+              </p>
+              <p
+                style={{
+                  margin: "0",
+                  fontWeight: "lighter",
+                }}
+              >
+                Duration: {new Date(e.startDate).toISOString().substring(0, 10)}{" "}
+                to {new Date(e.endDate).toISOString().substring(0, 10)}
+              </p>
+              <p
+                style={{
+                  margin: "0",
+                  fontWeight: "lighter",
+                }}
+              >
+                Users: {e.allowNewCustomer ? "New Customers" : ""}
+                {e.allowNewCustomer && e.allowSuperCustomer ? " & " : ""}
+                {e.allowSuperCustomer ? "Super Customers" : ""}
+              </p>
+              <p
+                style={{
+                  margin: "0",
+                  fontWeight: "lighter",
+                }}
+              >
+                Condition: {e.description}
+              </p>
+            </CampaignCardBody>
+          </ChartCard>
+        ))
+      )}
     </Box>
   );
 }

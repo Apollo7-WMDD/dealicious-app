@@ -1,5 +1,5 @@
 "use client";
-import {Box, Typography  } from '@mui/material';
+import { Box, Typography } from "@mui/material";
 import { usePathname } from "next/navigation";
 import Header from "@/app/components/Header/Header";
 import { useState, useEffect } from "react";
@@ -54,18 +54,22 @@ const Page = async () => {
       <MainGrid>
         <ChartCard gridColumn={"span 2"}>
           <ChartCardTitle text={"Total Revenue"}></ChartCardTitle>
-          {/* <Box>
-            <Typography variant="h3">{dataArray.name}</Typography>
-          </Box> */}
           <LineChart></LineChart>
         </ChartCard>
         <ChartCard gridColumn={"span 1"}>
           <ChartCardTitle text={"Number of:"} pinStatus={""}></ChartCardTitle>
-          <DoughnutChart_Single_NumCustomer campaignId={campaignId}></DoughnutChart_Single_NumCustomer>
+          <DoughnutChart_Single_NumCustomer
+            campaignId={campaignId}
+          ></DoughnutChart_Single_NumCustomer>
         </ChartCard>
         <ChartCard gridColumn={"span 1"}>
-          <ChartCardTitle text={"Customer Spending"} pinStatus={""}></ChartCardTitle>
-          <DoughnutChart_Single_SpendingCustomer campaignId={campaignId}></DoughnutChart_Single_SpendingCustomer>
+          <ChartCardTitle
+            text={"Customer Spending"}
+            pinStatus={""}
+          ></ChartCardTitle>
+          <DoughnutChart_Single_SpendingCustomer
+            campaignId={campaignId}
+          ></DoughnutChart_Single_SpendingCustomer>
         </ChartCard>
       </MainGrid>
     </>

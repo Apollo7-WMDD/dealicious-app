@@ -48,9 +48,6 @@ function SideBarItem() {
     getRestaurantId();
   }, []);
   const theme = useTheme();
-
-  console.log("This is the restaurantOwnerId: ", restaurantOwnerId);
-  console.log("This is the restaurantId: ", restaurantId);
   const router = useRouter();
 
   const navItems = [

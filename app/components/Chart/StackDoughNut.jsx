@@ -12,37 +12,41 @@ import { useEffect, useState, useRef } from "react";
 import { useStore } from "@/lib/context/user_context/store";
 import Rectangle from "@/app/components/svg/Rectangle.svg";
 
-// ChartJS.register(
-//   ArcElement,
-//   Tooltip,
-//   Legend,
-//   defaults,
-// );
+// loader
+import Loader from "../Loader";
 
 function StackDoughNut() {
   const { restaurantOwnerId } = useStore();
   const [data, setData] = useState([]);
   const [campaignArray, setCampaignArray] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const theme = useTheme();
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetchTopSixCampaigns(restaurantOwnerId).then(
-        (res) => {
-          let formattedData = [];
-          res.campaigns.forEach((element) => {
-            let a = {
-              campaignName: element.campaignName,
-              totalSpending: element.totalSpending,
-            };
-            formattedData.push(a);
-          });
-          setCampaignArray(formattedData);
-          return res;
-        }
-      );
+      setIsLoading(true);
+      try {
+        const result = await fetchTopSixCampaigns(restaurantOwnerId).then(
+          (res) => {
+            let formattedData = [];
+            res.campaigns.forEach((element) => {
+              let a = {
+                campaignName: element.campaignName,
+                totalSpending: element.totalSpending,
+              };
+              formattedData.push(a);
+            });
+            setCampaignArray(formattedData);
+            return res;
+          }
+        );
 
-      setData(result);
+        setData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchData();
   }, [restaurantOwnerId]);
@@ -50,10 +54,6 @@ function StackDoughNut() {
   defaults.font.family = theme.typography.fontFamily;
   defaults.font.size = theme.typography.fontSize;
 
-  console.log(data);
-  // console.log(campaignArray);
-  // console.log(data.campaigns[0].campaignName);
-  // console.log(data.campaigns[0].totalSpending);
   let indexColor = -1;
   const colorArray = [
     theme.palette.primary[80],
@@ -114,8 +114,9 @@ function StackDoughNut() {
   return (
     <Box
       sx={{
-        display: "grid",
+        display: isLoading ? "flex" : "grid",
         width: "100%",
+        height: "100%",
         gap: "0.5rem",
         gridTemplateColumns: "repeat(1, 1fr)",
         [theme.breakpoints.down("lg")]: {
@@ -124,124 +125,141 @@ function StackDoughNut() {
         [theme.breakpoints.down("md")]: {
           gridTemplateColumns: "repeat(1, 1fr)",
         },
+        justifyContent: isLoading ? "center" : undefined,
+        alignItems: isLoading ? "center" : undefined,
       }}
     >
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: "repeat(2, 1fr)",
-          marginTop: "1.5rem",
-          textAlign: "center",
-
-          [theme.breakpoints.down("lg")]: {
-            gridTemplateColumns: "repeat(1, 1fr)",
-          },
-
-          [theme.breakpoints.down("md")]: {
-            gridTemplateColumns: "repeat(2, 1fr)",
-          },
-        }}
-      >
-        <Box>
-          <Typography variant="h5">Total Revenue</Typography>
-          <Typography variant="h3">{data.totalRevenue}</Typography>
-        </Box>
-        <Box>
-          <Typography variant="h5">Customers </Typography>
-          <Typography variant="h3">{data.totalCustomers}</Typography>
-        </Box>
-      </Box>
-      <Box
-        sx={{
-          marginTop: "1.5rem",
-          width: "100%",
-          display: "grid",
-          gridTemplateColumns: "repeat(1,1fr)",
-          gridTemplateRows: "repeat(1,1fr)",
-          justifyItems: "center",
-          [theme.breakpoints.down("lg")]: {
-            gridTemplateRows: "repeat(2,auto)",
-          },
-          [theme.breakpoints.down("md")]: {
-            gridTemplateRows: "repeat(1,auto)",
-          },
-        }}
-      >
-        <Box
-          sx={{
-            width: "70%",
-            justifyContent: "start",
-            alignItems: "start",
-            //position:"absolute", zIndex:"1" ,
-            gridRow: "1/-1",
-            gridColumn: "1/-1",
-            zIndex: -1,
-            [theme.breakpoints.down("lg")]: {
-              width: "100%",
-              // gridTemplateColumns: "repeat(1, 1fr)",
-            },
-            [theme.breakpoints.down("md")]: {
-              gridRow: "1",
-              // gridTemplateColumns: "repeat(1, 1fr)",
-            },
+      {isLoading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gridColumn: "span 3",
           }}
         >
-          {campaignArray.map((e) => (
-            <Box
-              key={e.campaignName}
-              sx={{ display: "flex", alignItems: "center", gap: "0.15rem" }}
-            >
-              {/* {indexColor=-1} */}
-              <Rectangle
-                indexColor={indexColor++}
-                style={{
-                  // color:"hotpink"
+          <Loader />
+        </div>
+      ) : (
+        <>
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2, 1fr)",
+              marginTop: "1.5rem",
+              textAlign: "center",
 
-                  color: colorArray[indexColor],
-                  display: "inline-block",
-                }}
-              />
+              [theme.breakpoints.down("lg")]: {
+                gridTemplateColumns: "repeat(1, 1fr)",
+              },
 
-              <p
-                style={{
-                  textAlign: "left",
-                  margin: "0",
-                  display: "inline",
-                  fontSize: 14,
-                }}
-              >
-                {e.campaignName}
-              </p>
-            </Box>
-          ))}
-        </Box>
-
-        <Box
-          sx={{
-            gridRow: "1/-1",
-            gridColumn: "1/-1",
-            [theme.breakpoints.down("lg")]: {
-              width:"100%"
-              // gridTemplateColumns: "repeat(1, 1fr)",
-            },
-            [theme.breakpoints.down("md")]: {
-              gridRow: "2",
-              // gridTemplateColumns: "repeat(1, 1fr)",
-            },
-          }}
-        >
-          <Doughnut
-            data={dataDoughnut}
-            options={config}
-            style={{
-              width: "100%",
-              minHeight: "250px",
-              // gridRow: "1/-1",
-              // gridColumn: "1/-1",
+              [theme.breakpoints.down("md")]: {
+                gridTemplateColumns: "repeat(2, 1fr)",
+              },
             }}
-          ></Doughnut>
-        </Box>
-      </Box>
+          >
+            <Box>
+              <Typography variant="h5">Total Revenue</Typography>
+              <Typography variant="h3">{data.totalRevenue}</Typography>
+            </Box>
+            <Box>
+              <Typography variant="h5">Customers </Typography>
+              <Typography variant="h3">{data.totalCustomers}</Typography>
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              marginTop: "1.5rem",
+              width: "100%",
+              display: "grid",
+              gridTemplateColumns: "repeat(1,1fr)",
+              gridTemplateRows: "repeat(1,1fr)",
+              justifyItems: "center",
+              [theme.breakpoints.down("lg")]: {
+                gridTemplateRows: "repeat(2,auto)",
+              },
+              [theme.breakpoints.down("md")]: {
+                gridTemplateRows: "repeat(1,auto)",
+              },
+            }}
+          >
+            <Box
+              sx={{
+                width: "70%",
+                justifyContent: "start",
+                alignItems: "start",
+                //position:"absolute", zIndex:"1" ,
+                gridRow: "1/-1",
+                gridColumn: "1/-1",
+                zIndex: -1,
+                [theme.breakpoints.down("lg")]: {
+                  width: "100%",
+                  // gridTemplateColumns: "repeat(1, 1fr)",
+                },
+                [theme.breakpoints.down("md")]: {
+                  gridRow: "1",
+                  // gridTemplateColumns: "repeat(1, 1fr)",
+                },
+              }}
+            >
+              {campaignArray.map((e) => (
+                <Box
+                  key={e.campaignName}
+                  sx={{ display: "flex", alignItems: "center", gap: "0.15rem" }}
+                >
+                  {/* {indexColor=-1} */}
+                  <Rectangle
+                    indexColor={indexColor++}
+                    style={{
+                      // color:"hotpink"
+
+                      color: colorArray[indexColor],
+                      display: "inline-block",
+                    }}
+                  />
+
+                  <p
+                    style={{
+                      textAlign: "left",
+                      margin: "0",
+                      display: "inline",
+                      fontSize: 14,
+                    }}
+                  >
+                    {e.campaignName}
+                  </p>
+                </Box>
+              ))}
+            </Box>
+
+            <Box
+              sx={{
+                gridRow: "1/-1",
+                gridColumn: "1/-1",
+                [theme.breakpoints.down("lg")]: {
+                  width: "100%",
+                  // gridTemplateColumns: "repeat(1, 1fr)",
+                },
+                [theme.breakpoints.down("md")]: {
+                  gridRow: "2",
+                  // gridTemplateColumns: "repeat(1, 1fr)",
+                },
+              }}
+            >
+              <Doughnut
+                data={dataDoughnut}
+                options={config}
+                style={{
+                  width: "100%",
+                  minHeight: "250px",
+                  // gridRow: "1/-1",
+                  // gridColumn: "1/-1",
+                }}
+              ></Doughnut>
+            </Box>
+          </Box>
+        </>
+      )}
     </Box>
   );
 }

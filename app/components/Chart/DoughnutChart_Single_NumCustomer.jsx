@@ -9,35 +9,36 @@ import { Doughnut } from "react-chartjs-2";
 import { useTheme, Typography } from "@mui/material";
 import { fetchNumberOfCustomersSingle } from "../../../lib/fetching/insights/data";
 import { useEffect, useState } from "react";
-// import { useStore } from "@/lib/context/user_context/store";
+import Loader from "../Loader";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-function DoughnutChart_NumCustomer({campaignId}) {
-  
-  // const { restaurantOwnerId } = useStore();
+function DoughnutChart_NumCustomer({ campaignId }) {
   const [data, setData] = useState([]);
-  console.log(campaignId);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetchNumberOfCustomersSingle(campaignId);
-      setData(result);
+      setIsLoading(true);
+      try {
+        const result = await fetchNumberOfCustomersSingle(campaignId);
+        setData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchData();
   }, [campaignId]);
 
-  console.log(data);
-
   const formatData = Object.values(data).slice(1);
-  console.log(formatData);
 
   const theme = useTheme();
   defaults.font.family = theme.typography.fontFamily;
   defaults.font.size = theme.typography.fontSize;
 
   const doughnutFakeData = {
-    
     labels: ["Super Customers", "New Customers"],
     datasets: [
       {
@@ -94,29 +95,43 @@ function DoughnutChart_NumCustomer({campaignId}) {
         height: "100%",
       }}
     >
-      <Typography
-        variant="h3"
-        sx={{
-          gridColumn: "1/-1",
-          gridRow: "1/-1",
-          position: "absolute",
-          left: "22.5%",
-          zIndex: "1",
-        }}
-      >
-        {" "}
-        {Object.values(data).shift(1)}
-      </Typography>
-      <Doughnut
-        data={doughnutFakeData}
-        style={{
-          width: "100%",
-          height: "100%",
-          gridColumn: "1/-1",
-          gridRow: "1/-1",
-        }}
-        options={option}
-      />
+      {isLoading ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gridColumn: "1/-1",
+          }}
+        >
+          <Loader />
+        </div>
+      ) : (
+        <>
+          <Typography
+            variant="h3"
+            sx={{
+              gridColumn: "1/-1",
+              gridRow: "1/-1",
+              position: "absolute",
+              left: "22.5%",
+              zIndex: "1",
+            }}
+          >
+            {Object.values(data).shift(1)}
+          </Typography>
+          <Doughnut
+            data={doughnutFakeData}
+            style={{
+              width: "100%",
+              height: "100%",
+              gridColumn: "1/-1",
+              gridRow: "1/-1",
+            }}
+            options={option}
+          />
+        </>
+      )}
     </div>
   );
 }

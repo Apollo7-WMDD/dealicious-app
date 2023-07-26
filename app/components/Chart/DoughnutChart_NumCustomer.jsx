@@ -11,32 +11,38 @@ import { fetchNumberOf } from "../../../lib/fetching/insights/data";
 import { useEffect, useState } from "react";
 import { useStore } from "@/lib/context/user_context/store";
 
+// loader
+import Loader from "../Loader";
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function DoughnutChart_NumCustomer() {
   const { restaurantOwnerId } = useStore();
   const [data, setData] = useState([]);
-  console.log(restaurantOwnerId);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetchNumberOf(restaurantOwnerId);
-      setData(result);
+      setIsLoading(true);
+      try {
+        const result = await fetchNumberOf(restaurantOwnerId);
+        setData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchData();
   }, [restaurantOwnerId]);
 
-  console.log(data);
-
   const formatData = Object.values(data).slice(1);
-  console.log(formatData);
 
   const theme = useTheme();
   defaults.font.family = theme.typography.fontFamily;
   defaults.font.size = theme.typography.fontSize;
 
   const doughnutFakeData = {
-    
     labels: ["Super Customers", "New Customers"],
     datasets: [
       {
@@ -85,22 +91,39 @@ function DoughnutChart_NumCustomer() {
   // ! RESOLVE PLUGINS ISSUE FROM 'npm install --save chartjs-plugin-doughnutlabel'
   return (
     <div
-    style={{
-      maxHeight: "250px"
-    }}
-  >
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(1,1fr)",
+        position: "relative",
+        alignItems: "center",
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      {isLoading ? (
+        <div
+          style={{
+       maxHeight: "250px"
+          }}
+        >
+          <Loader />
+        </div>
+      ) : (
+        <>
     <Typography variant="h4" lineHeight="35px">Total = {Object.values(data).shift(1)}
       </Typography>
-      <Doughnut
-        data={doughnutFakeData}
-        style={{
-          width: "100%",
-          height: "100%",
-          gridColumn: "1/-1",
-          gridRow: "1/-1",
-        }}
-        options={option}
-      />
+          <Doughnut
+            data={doughnutFakeData}
+            style={{
+              width: "100%",
+              height: "100%",
+              gridColumn: "1/-1",
+              gridRow: "1/-1",
+            }}
+            options={option}
+          />
+        </>
+      )}
     </div>
   );
 }
