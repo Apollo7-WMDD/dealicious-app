@@ -26,35 +26,14 @@ import UpcomingCampaignGrid from "@/app/components/Dashboard/UpcomingCampaignGri
 
 import HilightWrap from "@/app/components/Dashboard/HilightWrap";
 
-// const showHilighted = (data)=>{
-//   console.log("showHilighted")
-//   console.log(data)
-// }
-
 const Page = () => {
   const theme = useTheme();
 
   const [hilighted, setHilighted] = useState({});
-  // useEffect(() => {
-  //   const getRestaurantId = async () => {
-  //     const data = await fetchRestaurantId(restaurantOwnerId);
-  //     setRestaurantId(data.restaurantId);
-  //   };
-
-  //   if (restaurantOwnerId) {
-  //     getRestaurantId();
-  //   }
-  // }, [restaurantOwnerId]);
-
-  // console.log("restaurantOwnerId", restaurantOwnerId);
-  // console.log("restaurantId", restaurantId);
 
   const onPinClickA = (hilighted) => {
     setHilighted(hilighted);
   };
-  console.log("hilight campaign is");
-  console.log(hilighted);
-  console.log(hilighted.startDate);
 
   return (
     <>
@@ -151,7 +130,7 @@ const Page = () => {
           <CampaignGrid onPinClickB={onPinClickA}></CampaignGrid>
 
           {/* //* UPCOMING CAMPAIGN */}
-          <SubHeader props={"Upcoming campaigns"} id={"upcoming"}/>
+          <SubHeader props={"Upcoming campaigns"} id={"upcoming"} />
           <UpcomingCampaignGrid></UpcomingCampaignGrid>
         </MainGrid>
       </Box>

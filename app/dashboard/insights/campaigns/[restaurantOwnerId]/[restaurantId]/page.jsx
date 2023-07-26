@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from "react";
 import HeaderGrid from "@/app/components/HeaderGrid";
 import Header from "@/app/components/Header/Header";
@@ -22,10 +22,7 @@ const Page = async () => {
       </HeaderGrid>
       <SubHeader props={"Select a Campaigns"} />
       <MainGrid>
-
-        <CampaignGrid_All 
-        //  onPinClickB={onPinClickA}
-        />
+        <CampaignGrid_All />
       </MainGrid>
     </>
   );

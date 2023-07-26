@@ -47,8 +47,6 @@ function StackDougnNutSpan1() {
   defaults.font.family = theme.typography.fontFamily;
   defaults.font.size = theme.typography.fontSize;
 
-  console.log(data);
-
   let indexColor = -1;
   const colorArray = [
     theme.palette.primary[80],
@@ -111,11 +109,11 @@ function StackDougnNutSpan1() {
       sx={{
         display: "grid",
         width: "100%",
+        height: isLoading ? "100%" : "auto",
         gap: "0.5rem",
         justifyContent: "center",
         gridTemplateColumns: "repeat(1, 1fr)",
         [theme.breakpoints.down("lg")]: {
-          // gridTemplateColumns: "1fr 2fr",
           gridTemplateRows: "repeat(1, 1fr)",
         },
         [theme.breakpoints.down("md")]: {
@@ -124,7 +122,16 @@ function StackDougnNutSpan1() {
       }}
     >
       {isLoading ? (
-        <Loader />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gridColumn: "span 3",
+          }}
+        >
+          <Loader />
+        </div>
       ) : (
         <>
           <Box

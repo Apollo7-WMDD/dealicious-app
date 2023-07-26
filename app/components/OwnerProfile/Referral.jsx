@@ -4,7 +4,6 @@ import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import QRCode from "qrcode";
 import { useState, useEffect } from "react";
-import LoaderSkeleton from "./Loader/LoaderSkeleton";
 import { fetchReferralSystem } from "@/lib/fetching/profile/data";
 import SingleButtonNoIcon from "../Button/SingleButtonNoIcon";
 
@@ -27,11 +26,11 @@ function Referral({ restaurantOwnerId }) {
   }, [restaurantOwnerId]);
 
   const printCode = () => {
-    const link = document.createElement('a');
-    link.download = 'qrcode.png';
+    const link = document.createElement("a");
+    link.download = "qrcode.png";
     link.href = qrCodeURL;
     link.click();
-  }
+  };
 
   return (
     <ChartCard content="Referral System" gridColumn="1 / 3">
@@ -44,19 +43,28 @@ function Referral({ restaurantOwnerId }) {
       >
         <SubHeader>Referral System</SubHeader>
         <Typography>
-          The Super Customers can earn 
-          {restaurantData ? `$${restaurantData.superCustomerPoints}` : <LoaderSkeleton />} points for each hundred dollars they spend at your business. They can redeem their points to get $1.00 discount per point.
+          The Super Customers can earn
+          {restaurantData
+            ? `$${restaurantData.superCustomerPoints}`
+            : null}{" "}
+          points for each hundred dollars they spend at your business. They can
+          redeem their points to get $1.00 discount per point.
         </Typography>
         <Box
           sx={{
             display: "flex",
             flexDirection: "row",
             // justifyContent: "flex-start",
-          }}>
+          }}
+        >
           <Typography>
-            {qrCodeURL ? <img src={qrCodeURL} alt="QR Code" /> : <LoaderSkeleton />}
+            {qrCodeURL ? <img src={qrCodeURL} alt="QR Code" /> : null}
           </Typography>
-          <SingleButtonNoIcon variant="outlined" text="Print Code" onClick={printCode}/>
+          <SingleButtonNoIcon
+            variant="outlined"
+            text="Print Code"
+            onClick={printCode}
+          />
         </Box>
       </Box>
     </ChartCard>
