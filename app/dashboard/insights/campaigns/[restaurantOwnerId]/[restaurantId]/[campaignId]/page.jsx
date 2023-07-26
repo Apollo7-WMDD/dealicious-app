@@ -12,11 +12,10 @@ import ChartCard from "@/app/components/Card/ChartCard";
 import ChartCardTitle from "@/app/components/Chart/ChartCardTitle";
 import DoughnutChart_Single_NumCustomer from "@/app/components/Chart/DoughnutChart_Single_NumCustomer";
 import DoughnutChart_Single_SpendingCustomer from "@/app/components/Chart/DoughnutChart_Single_SpendingCustomer";
-import SingleButton from '@/app/components/Button/SingleButton';
+import SingleButtonVariant from "@/app/components/Button/SingleButtonVariant";
 // fetch imports
 import { fetchAllCampaigns } from "@/lib/fetching/campaigns/data";
-import HeaderGrid from '@/app/components/HeaderGrid';
-
+import HeaderGrid from "@/app/components/HeaderGrid";
 
 const Page = async () => {
   const { restaurantOwnerId, restaurantId } = useStore();
@@ -48,7 +47,11 @@ const Page = async () => {
     <>
       <HeaderGrid>
         <Header props={"Insights"} />
-        <SingleButton text={"Recreate a Campaign"} onClick={onClick} width={"350px"} />
+        <SingleButtonVariant
+          text={"Recreate a Campaign"}
+          onClick={onClick}
+          width={"350px"}
+        />
       </HeaderGrid>
       <InputSubtitleDropdown text={subTitle} />
       <MainGrid>
@@ -77,4 +80,3 @@ const Page = async () => {
 };
 
 export default Page;
-
