@@ -100,16 +100,29 @@ const CampaignCard = ({ props }) => {
   }  
   
   const style = {
+    // position: "absolute",
+    // top: "50%",
+    // left: "50%",
+    // transform: "translate(-50%, -50%)",
+    // width: '600px',
+    // bgcolor: "background.paper",
+    // border: "2px solid #ff5938",
+    // boxShadow: `0px 4px 20px 0px ${shadowColor}`,
+    // p: 4,
+    // borderRadius: "10px",
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: '600px',
+    width: 400,
     bgcolor: "background.paper",
     border: "2px solid #ff5938",
+    borderRadius: "10px",
     boxShadow: `0px 4px 20px 0px ${shadowColor}`,
     p: 4,
-    borderRadius: "10px",
+    '@media screen and (min-width:800px)': {
+      width: 800,
+    },
   };
 
 const formatDate = (dateString) => {
@@ -167,7 +180,8 @@ const formattedEndDate = formatDate(props.endDate);
       </Box>
       <Modal
         sx={{
-          minWidth:'300px',
+          // minWidth:'300px',
+          // width:'200px',
         }}
         open={open}
         onClose={handleClose}
@@ -181,15 +195,19 @@ const formattedEndDate = formatDate(props.endDate);
           <Box
             sx={{
               display:'flex',
-              flexDirection:'row',
+              flexDirection:'column',
               gap:'1rem',
               alignItems:'center',
-              m:'1rem 0'
+              m:'1rem 0',
+              '@media screen and (min-width:800px)': {
+                display: 'flex',
+                flexDirection:'row',
+              },
             }}
           >
             <Box
               sx={{
-                flex:'1 0 40%',
+                // flex:'1 0 40%',
               }}
             >
               <img
