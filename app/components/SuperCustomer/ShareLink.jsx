@@ -1,10 +1,13 @@
 "use client";
 import React from "react";
 import StarIcon from "@mui/icons-material/Star";
-import { CardContent, Box, Typography } from "@mui/material";
+import { CardContent, Box, Typography, useTheme } from "@mui/material";
 import SCShare from "../../components/Button/SCShare";
 
 const Share = ({ props }) => {
+  const theme = useTheme();
+  const shadowColor = `${theme.palette.neutral[20]}1f`;
+
   return (
       <Box
         sx={{
@@ -17,7 +20,7 @@ const Share = ({ props }) => {
           border: 1,
           borderColor: '#ff5938',          
           borderRadius: "10px",
-          boxShadow: 20,
+          boxShadow: `0px 4px 20px 0px ${shadowColor}`,
         }}
       >
         <Box>

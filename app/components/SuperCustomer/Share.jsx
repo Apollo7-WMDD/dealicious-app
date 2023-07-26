@@ -1,9 +1,12 @@
 "use client";
 import React from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import SCShare from "../../components/Button/SCShare";
 
 const Share = ({ superCustomerId, restaurantId, restaurantData }) => {
+  const theme = useTheme();
+  const shadowColor = `${theme.palette.neutral[20]}1f`;
+
   return (
       <Box
         sx={{
@@ -16,7 +19,7 @@ const Share = ({ superCustomerId, restaurantId, restaurantData }) => {
           borderRadius: "10px",
           p:'1rem',
           borderRadius: "10px",
-          boxShadow: 10,
+          boxShadow: `0px 4px 20px 0px ${shadowColor}`,
         }}
       >
         <Typography variant="h2">
