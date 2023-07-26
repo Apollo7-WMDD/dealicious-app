@@ -103,26 +103,29 @@ function DoughnutChart_NumCustomer() {
       {isLoading ? (
         <div
           style={{
-       maxHeight: "250px"
+            maxHeight: "250px",
           }}
         >
           <Loader />
         </div>
       ) : (
-        <>
-    <Typography variant="h4" lineHeight="35px">Total = {Object.values(data).shift(1)}
-      </Typography>
-          <Doughnut
-            data={doughnutFakeData}
-            style={{
-              width: "100%",
-              height: "100%",
-              gridColumn: "1/-1",
-              gridRow: "1/-1",
-            }}
-            options={option}
-          />
-        </>
+        <div>
+          <Typography variant="h4" lineHeight="35px">
+            Total = {Object.values(data).shift(1)}
+          </Typography>
+          <div>
+            <Doughnut
+              data={doughnutFakeData}
+              style={{
+                width: "100%",
+                height: "100%",
+                gridColumn: "1/-1",
+                gridRow: "1/-1",
+              }}
+              options={option}
+            />
+          </div>
+        </div>
       )}
     </div>
   );
