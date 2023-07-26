@@ -1,14 +1,14 @@
 import React from "react";
 import { Button, Box, useTheme } from "@mui/material";
-import ButtonCampaignNew from "../Button/ButtonCampaignNew";
+import ButtonCampaignRecreate from "./ButtonCampaignRecreate";
 
-const SingleButton = ({ text, onClick, width }) => {
+const SingleButonVariant = ({ text, onClick, width }) => {
   const theme = useTheme();
   return (
     <Button
       variant="contained"
       size="medium"
-      startIcon={<ButtonCampaignNew />}
+      startIcon={<ButtonCampaignRecreate />}
       onClick={onClick}
       sx={{
         width: width,
@@ -41,4 +41,4 @@ const SingleButton = ({ text, onClick, width }) => {
   );
 };
 
-export default SingleButton;
+export default SingleButonVariant;
