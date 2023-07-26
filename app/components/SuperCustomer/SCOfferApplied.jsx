@@ -96,7 +96,7 @@ const Share = ({ props, status }) => {
         // >
             <Box
                 sx={{
-                    borderRadius: "5%",
+                    borderRadius: "10px",
                     // width:"400px"
                 }}
             >
@@ -104,16 +104,18 @@ const Share = ({ props, status }) => {
                     variant="h2"
                     sx={{
                         color:"#ff5938",
+                        m:'1rem 0',
                       }}
                 >Offer Applied!</Typography>
                 <Typography variant="p">We hope you have enjoyed your meal and come back soon.</Typography>
                 <Box
                     sx={{
+                        m:'1rem 0',
                         display:"flex",
                         gap:"1rem",
                         flexDirection: "column",
-                        borderRadius: "5%",
-                        border: "1px solid #ff5938",
+                        borderRadius: "10px",
+                        // border: "1px solid #ff5938",
                         boxShadow: `0px 4px 20px 0px ${shadowColor}`,
                         p:"1rem",
                         alignItems:"center",

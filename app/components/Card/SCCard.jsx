@@ -47,6 +47,7 @@ const SCCard = ({ props, superCustomerId }) => {
                   borderRadius: "50%",
                   width: "50px", // adjust the size as needed
                   height: "50px", // adjust the size as needed
+                  objectFit: "cover",
                 }}
                 alt="Logo"
               />

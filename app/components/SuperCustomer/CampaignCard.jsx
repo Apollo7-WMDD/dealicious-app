@@ -159,15 +159,11 @@ const formattedEndDate = formatDate(props.endDate);
         }}
       >
         <Typography variant="p">More information</Typography>
-        {/* <Link href="#">More information</Link>       */}
-        {/* <SingleButton text="Activate" width="144px" onClick={handleOpen}></SingleButton> */}
-        {/* <SCActive text="Activate" width="144px" onClick={handleOpen} />
-         */}
-         <SCActive
-            text="Activate"
-            width="auto"
-            onClick={handleOpen}
-          ></SCActive>
+        <SCActive
+          text="Activate"
+          width="auto"
+          onClick={handleOpen}
+        ></SCActive>
       </Box>
       <Modal
         sx={{
@@ -223,11 +219,17 @@ const formattedEndDate = formatDate(props.endDate);
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                 <Typography variant="p">{props.description}</Typography>
               </Typography>
-              <SingleButton
-                text="Activate"
-                width="auto"
-                onClick={handleOpenSecond}
-            ></SingleButton>
+              <Box
+                sx={{
+                  m:'1rem 0 0 0',
+                }}
+              >
+                <SingleButton
+                  text="Activate"
+                  width="auto"
+                  onClick={handleOpenSecond}
+                ></SingleButton>
+            </Box>
             </Box>            
           </Box>          
         </Box>
@@ -247,20 +249,39 @@ const formattedEndDate = formatDate(props.endDate);
             your message and receive the offer.
           </Typography>
           <Box
-            component="form"
             sx={{
-              "& > :not(style)": { m: 6, width: "6ch" },
+              display:'flex',
+              flexDirection:'column',
+              justifyContent:'center',
+              justifyItems:'center',
+              flexFlow:'wrap',
             }}
-            noValidate
-            autoComplete="off"
           >
-            <TextField onChange={(e)=>{setCode(e.target.value)}} id="standard-basic" variant="standard" />
+            <Box
+              component="form"
+              sx={{
+                "& > :not(style)": { m: 6, width: "6ch" },
+                flexGrow:1,
+                flexBasis:'100%',
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField 
+                onChange={(e)=>{setCode(e.target.value)}} 
+                id="standard-basic" 
+                variant="standard" 
+                sx={{
+                  fontSize: "2rem", // Set the font size to be double the default size
+                }}
+              />
+            </Box>
+            <SCSubmitBtn
+              text="Submit"
+              width="144px"
+              onClick={getCode}
+            ></SCSubmitBtn>
           </Box>
-          <SCSubmitBtn
-            text="Submit"
-            width="144px"
-            onClick={getCode}
-          ></SCSubmitBtn>
         </Box>
       </Modal>
       <Modal
@@ -274,7 +295,7 @@ const formattedEndDate = formatDate(props.endDate);
               props={props}
               status={validate}
             ></SCOfferApplied>
-        </Box>
+        </Box>        
       </Modal>
     </Box>
   );

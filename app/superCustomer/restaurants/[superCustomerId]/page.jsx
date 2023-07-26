@@ -4,6 +4,7 @@ import Header from "@/app/components/Header/Header";
 import SCCard from "@/app/components/Card/SCCard";
 import SCHeader from "@/app/components/Header/SCHeader";
 import SCFooter from "@/app/components/Footer/SCFooter";
+import Loader from "@/app/components/Loader";
 
 // material-ui imports
 import { Box, Button } from "@mui/material";
@@ -68,7 +69,17 @@ const Page = ({ params }) => {
           }}
         >
           {!restaurants ? (
-            <p></p>
+            <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              height: "100%",
+            }}
+            >
+              <Loader />
+            </div>
           ) : (
             restaurants.map((item, index) => (
               <SCCard
