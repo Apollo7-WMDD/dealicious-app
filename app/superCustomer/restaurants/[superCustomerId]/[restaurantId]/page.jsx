@@ -6,8 +6,8 @@ import SCFooter from "../../../../components/Footer/SCFooter";
 import PointsEarned from "../../../../components/SuperCustomer/PointsEarned";
 import Share from "../../../../components/SuperCustomer/Share";
 import CampaignCard from "@/app/components/SuperCustomer/CampaignCard";
-import { Box, Typography } from "@mui/material";
-import { useEffect, useState, useTheme } from "react";
+import { Box, Typography, useTheme } from "@mui/material";
+import { useEffect, useState } from "react";
 import Loader from "@/app/components/Loader";
 
 const Page = ({ params }) => {

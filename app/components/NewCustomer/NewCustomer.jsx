@@ -1,9 +1,11 @@
 "use client";
 import React from 'react';
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 
 const Share = ({ props }) => {
-  
+const theme = useTheme();
+const shadowColor = `${theme.palette.neutral[20]}1f`;
+
 return (
     <Box 
       sx={{
@@ -14,14 +16,14 @@ return (
         textAlign:'start',
         justifyContent: 'start',
         borderRadius: '10px',
-        boxShadow: 20,
+        boxShadow: `0px 4px 20px 0px ${shadowColor}`,
         p:'1rem',
         m:0,
       }}
     >
         <Typography variant="p">Experience culinar bliss with a special invitation from</Typography>
-        <Typography variant="h2">{props.firstname}</Typography>
-        <Typography variant="h2">{props.lastname}</Typography>
+        <Typography variant="h2">{props?.firstname}</Typography>
+        <Typography variant="h2">{props?.lastname}</Typography>
         <Typography variant="p">Activate your favourite campaign at our place and embark on a remarkable
         culinary adventure unlike any other</Typography>
     </Box>
