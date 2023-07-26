@@ -47,6 +47,7 @@ return (
                 borderRadius: "50%",
                 width: "90px", // adjust the size as needed
                 height: "90px", // adjust the size as needed
+                objectFit: "cover",
               }}
               alt="Logo"
             />

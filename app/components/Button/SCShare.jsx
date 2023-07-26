@@ -40,6 +40,7 @@ const SCShare = ({ text, width, superCustomerId, restaurantId, restaurantData })
     width: 400,
     bgcolor: "background.paper",
     border: "2px solid #ff5938",
+    borderRadius: "10px",
     boxShadow: `0px 4px 20px 0px ${shadowColor}`,
     p: 4,
   };
@@ -99,7 +100,8 @@ const SCShare = ({ text, width, superCustomerId, restaurantId, restaurantData })
           <Typography 
             variant="h3"
             sx={{
-              color: '#ff5938'
+              color: '#ff5938',
+              m:'1rem 0',
             }}
           >{username}</Typography>          
           <Typography
@@ -112,7 +114,7 @@ const SCShare = ({ text, width, superCustomerId, restaurantId, restaurantData })
               display: "flex",
               direction: "row",
               alignItems: "center",
-              m: "0 1rem",
+              m: "1rem 0",
               p: "0 0 2rem 0",
             }}
           >
@@ -123,6 +125,7 @@ const SCShare = ({ text, width, superCustomerId, restaurantId, restaurantData })
                   borderRadius: "50%",
                   width: "90px", // adjust the size as needed
                   height: "90px", // adjust the size as needed
+                  objectFit: "cover",
                 }}
                 alt="Logo"
               />
@@ -136,7 +139,8 @@ const SCShare = ({ text, width, superCustomerId, restaurantId, restaurantData })
                   padding: "0",
                 }}
               >
-                <Typography gutterBottom variant="h3" component="div">
+                <Typography gutterBottom variant="h3" component="div"
+                >
                   {restaurantData?.name}
                 </Typography>
                 <Typography variant="p" color="text.secondary">
@@ -156,7 +160,8 @@ const SCShare = ({ text, width, superCustomerId, restaurantId, restaurantData })
               display: "flex",
               alignItems: "flex-start",
               flexDirection: "column",
-              m: "0 1rem",
+              m: "0",
+              gap:'1rem',
             }}
           >
             <Typography variant="p" color="text.secondary">
@@ -179,39 +184,52 @@ const SCShare = ({ text, width, superCustomerId, restaurantId, restaurantData })
               url: url,
               title: "DEALicious share",
             }}
-          onClick={() => console.log("shared successfully!")}
+            onClick={handleClose}
           >
-            <Button
-              variant="contained"
-              size="medium"
-              startIcon={<Share />}
-              // onClick={onClick}
+            <Box
               sx={{
-                width: width,
-                height: "44px",
-                justifySelf: "end",
-                alignSelf: "center",
-                borderRadius: "12px",
-                backgroundColor: theme.palette.primary[80],
-                ":hover": {
-                  backgroundColor: theme.palette.primary[60],
-                },
-                [theme.breakpoints.down('lg')]: {
-                width: "265px",
-                fontSize: "16px",
-              },
-                [theme.breakpoints.down('md')]: {
-                  width: "180px",
-                  fontSize: "14px",
-                  lineHeight: "16px",
-                  margin: "1rem 0",
-                  // alignSelf: "start",
-                  justifySelf: "start",
-                }
+                justifyContent:'end',
+                display:'flex',
               }}
             >
-              <Typography variant="p">{text}</Typography>
-            </Button> 
+              <Button
+                variant="contained"
+                size="medium"
+                startIcon={<Share />}
+                // onClick={onClick}
+                sx={{
+                  width: width,
+                  height: "44px",
+                  // justifySelf: "end",
+                  // alignSelf: "end",
+                  borderRadius: "12px",
+                  // justifyContent:'end',
+                  // justifyItems:'end',
+                  // alignContent:'end',
+                  // alignSelf:'end',
+                  left:'0',
+                  m:'2rem 0 0 0',
+                  backgroundColor: theme.palette.primary[80],
+                  ":hover": {
+                    backgroundColor: theme.palette.primary[60],
+                  },
+                  [theme.breakpoints.down('lg')]: {
+                  width: "265px",
+                  fontSize: "16px",
+                },
+                  [theme.breakpoints.down('md')]: {
+                    width: "180px",
+                    fontSize: "14px",
+                    lineHeight: "16px",
+                    margin: "1rem 0",
+                    // alignSelf: "start",
+                    justifySelf: "start",
+                  }
+                }}
+              >
+                <Typography variant="p">{text}</Typography>
+              </Button> 
+            </Box>
           </RWebShare>
         </Box>
       </Modal>
