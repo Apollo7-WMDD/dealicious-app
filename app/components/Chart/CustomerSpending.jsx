@@ -85,6 +85,7 @@ function CustomerSpending() {
         position: "right",
       },
     },
+    cutout: "60%",
   };
 
   // ! RESOLVE PLUGINS ISSUE FROM 'npm install --save chartjs-plugin-doughnutlabel'

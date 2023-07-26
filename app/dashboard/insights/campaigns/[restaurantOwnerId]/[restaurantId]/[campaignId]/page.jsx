@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Header from "@/app/components/Header/Header";
 import { useState, useEffect } from "react";
 import { useStore } from "@/lib/context/user_context/store";
+import { useRouter } from "next/navigation";
 import InputSubtitleDropdown from "@/app/components/Input/InputSubtitleDropdown";
 import MainGrid from "@/app/components/MainGrid";
 import LineChart from "@/app/components/Chart/LineChart";
@@ -11,12 +12,15 @@ import ChartCard from "@/app/components/Card/ChartCard";
 import ChartCardTitle from "@/app/components/Chart/ChartCardTitle";
 import DoughnutChart_Single_NumCustomer from "@/app/components/Chart/DoughnutChart_Single_NumCustomer";
 import DoughnutChart_Single_SpendingCustomer from "@/app/components/Chart/DoughnutChart_Single_SpendingCustomer";
-
+import SingleButton from '@/app/components/Button/SingleButton';
 // fetch imports
 import { fetchAllCampaigns } from "@/lib/fetching/campaigns/data";
+import HeaderGrid from '@/app/components/HeaderGrid';
+
 
 const Page = async () => {
   const { restaurantOwnerId, restaurantId } = useStore();
+  const router = useRouter();
   const pathname = usePathname();
   const campaignId = pathname.split("/")[6];
   const [dataArray, setDataArray] = useState([]);
@@ -34,11 +38,19 @@ const Page = async () => {
     fetchData();
   }, []);
 
+  console.log(dataArray);
+
+  const onClick = () => {
+    router.push(`/dashboard/campaigns/recreate/${campaignId}`);
+  };
+
   return (
     <>
-      <Header props={"Insights"} />
+      <HeaderGrid>
+        <Header props={"Insights"} />
+        <SingleButton text={"Recreate a Campaign"} onClick={onClick} width={"350px"} />
+      </HeaderGrid>
       <InputSubtitleDropdown text={subTitle} />
-
       <MainGrid>
         <ChartCard gridColumn={"span 2"}>
           <ChartCardTitle text={"Total Revenue"}></ChartCardTitle>
@@ -65,3 +77,4 @@ const Page = async () => {
 };
 
 export default Page;
+

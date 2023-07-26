@@ -85,6 +85,7 @@ function DoughnutChart_NumCustomer() {
         position: "right",
       },
     },
+    cutout: "60%",
   };
 
   // ! RESOLVE PLUGINS ISSUE FROM 'npm install --save chartjs-plugin-doughnutlabel'
@@ -102,28 +103,15 @@ function DoughnutChart_NumCustomer() {
       {isLoading ? (
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gridColumn: "1/-1",
+       maxHeight: "250px"
           }}
         >
           <Loader />
         </div>
       ) : (
         <>
-          <Typography
-            variant="h3"
-            sx={{
-              gridColumn: "1/-1",
-              gridRow: "1/-1",
-              position: "absolute",
-              left: "22.5%",
-              zIndex: "1",
-            }}
-          >
-            {Object.values(data).shift(1)}
-          </Typography>
+    <Typography variant="h4" lineHeight="35px">Total = {Object.values(data).shift(1)}
+      </Typography>
           <Doughnut
             data={doughnutFakeData}
             style={{

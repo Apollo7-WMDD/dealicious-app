@@ -1,5 +1,5 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useStore } from "@/lib/context/user_context/store";
 import React, { useState, useEffect } from "react";
 import { useTheme } from '@mui/material/styles';
@@ -16,15 +16,10 @@ import CampaignForm1 from "@/app/components/Campaign/CampaignForm1";
 import CampaignForm2 from "@/app/components/Campaign/CampaignForm2";
 import { fetchSingleCampaign } from "@/lib/fetching/campaigns/data";
 
-
-const Page = () => {
+const Page = ({params}) => {
   const { restaurantId, restaurantOwnerId } = useStore();
   const router = useRouter();
-//   const { campaignId: campaignId } = router.query;
-//   const searchParams = useSearchParams();
-//   const campaignId = searchParams.get('campaignId'); 
-  const obj = { campaignId: '64b6e6f8806dc9d66fba26c8' };
-  const { campaignId } = obj;
+  const { campaignId } = params;
   console.log(campaignId);
 
   const theme = useTheme();
@@ -371,3 +366,4 @@ const Page = () => {
   );
 };
 export default Page;
+

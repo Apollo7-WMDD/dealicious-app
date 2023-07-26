@@ -36,7 +36,7 @@ function ChartCardTitle({
         width: "100%",
       }}
     >
-      <Typography variant="h4">{text}</Typography>
+      <Typography variant="h3">{text}</Typography>
 
       <Pin
         style={{

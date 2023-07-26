@@ -30,8 +30,8 @@ const AverageBill = () => {
         <Loader />
       ) : (
         <Box>
-        <Typography variant="h2" align="center">$ {Math.round(data.avgBillAmount)}</Typography>
-        <Typography variant="h6">Range</Typography>
+        <Typography lineHeight="77px" variant="h2" align="center">$ {Math.round(data.avgBillAmount)}</Typography>
+        <Typography marginBottom="10px" variant="h6">Range</Typography>
         <Typography variant="body1">
             Your bills usually go from $ {Math.round(data.minBillAmount)} to $ {Math.round(data.maxBillAmount)}.
             Monitoring the average bill size reveals popular menu items and guides strategies to maximize profitability and customer satisfaction.
