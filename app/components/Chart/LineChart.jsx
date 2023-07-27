@@ -40,13 +40,13 @@ function LineChart() {
   const [period, setPeriod] = useState("day");
   const [dateByCampaign, setDateByCampaign] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await fetchCustomerCampaignUsageByTime(restaurantOwnerId);
-      setData(result);
-    };
-    fetchData();
-  }, [restaurantOwnerId]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const result = await fetchCustomerCampaignUsageByTime(restaurantOwnerId);
+  //     setData(result);
+  //   };
+  //   fetchData();
+  // }, [restaurantOwnerId]);
 
   // const a = () => {
   //   for (const element in data) {

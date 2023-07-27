@@ -1,12 +1,12 @@
 import PriceTag from "@/app/components/svg/dealIcon_priceTag_empty.svg";
 import Arrow from "@/app/components/svg/dealIcon_arrow.svg";
 
-import "./ButtonCampaign.css";
+import styles from "./ButtonCampaign.module.css";
 
 const CampaignRecreateIcon = () => {
   return (
     <div
-      className="svg-icon-2"
+      className={styles.svg_icon_2}
       style={{
         position: "relative",
         display: "flex",
@@ -22,7 +22,7 @@ const CampaignRecreateIcon = () => {
           height: "35px",
           width: "35px",
         }}
-        className="svg-arrow-icon"
+        className={styles.svg_arrow_icon}
       />
     </div>
   );

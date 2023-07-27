@@ -17,7 +17,9 @@ export const GET = async (request) => {
     ).lean();
 
     if (!restaurant) {
-      return new NextResponse(JSON.stringify({ data: null }), { status: 200 });
+      return new NextResponse(JSON.stringify({ campaigns: [] }), {
+        status: 200,
+      });
     }
 
     const campaigns = await Campaign.aggregate([
@@ -51,12 +53,12 @@ export const GET = async (request) => {
     ]);
 
     const response = {
-      campaigns,
+      campaigns: campaigns || [],
     };
 
     return new NextResponse(JSON.stringify(response, null, 2), { status: 200 });
   } catch (err) {
-    console.log(err.message);
+    console.error("Error fetching data:", err.message);
     return new NextResponse("Database Error", { status: 500 });
   }
 };
