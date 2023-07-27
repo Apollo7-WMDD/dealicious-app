@@ -2,12 +2,12 @@
 
 import PriceTag from "@/app/components/svg/dealIcon_priceTag.svg";
 import Plus from "@/app/components/svg/dealIcon_plus.svg";
-import "./ButtonCampaign.css";
+import styles from "./ButtonCampaign.module.css";
 
 const CampaignNewIcon = () => {
   return (
     <div
-      className="svg-icon"
+      className={styles.svg_icon}
       style={{
         position: "relative",
         display: "flex",
@@ -22,7 +22,7 @@ const CampaignNewIcon = () => {
           height: "20px",
           width: "20px",
         }}
-        className="svg-plus-icon"
+        className={styles.svg_plus_icon}
       />
     </div>
   );

@@ -10,7 +10,43 @@ import CampaignCardBody from "../Chart/CampaignCardBody";
 import { fetchAllCampaigns } from "@/lib/fetching/campaigns/data";
 import Loader from "../Loader";
 
-function CampaignGrid({ onPinClickB, children }) {
+// Card for each campaign in a different sub-component
+function CampaignCard({ campaign }) {
+  const {
+    _id,
+    name,
+    offer,
+    startDate,
+    endDate,
+    allowNewCustomer,
+    allowSuperCustomer,
+    description,
+  } = campaign;
+  return (
+    <ChartCard key={_id}>
+      <ChartCardTitle data={campaign} text={name}></ChartCardTitle>
+      <CampaignCardBody>
+        <p style={{ margin: "0", fontWeight: "lighter" }}>Item: {offer}</p>
+        {startDate && endDate && (
+          <p style={{ margin: "0", fontWeight: "lighter" }}>
+            Duration: {new Date(startDate).toISOString().substring(0, 10)} to{" "}
+            {new Date(endDate).toISOString().substring(0, 10)}
+          </p>
+        )}
+        <p style={{ margin: "0", fontWeight: "lighter" }}>
+          Users: {allowNewCustomer ? "New Customers" : ""}
+          {allowNewCustomer && allowSuperCustomer ? " & " : ""}
+          {allowSuperCustomer ? "Super Customers" : ""}
+        </p>
+        <p style={{ margin: "0", fontWeight: "lighter" }}>
+          Condition: {description}
+        </p>
+      </CampaignCardBody>
+    </ChartCard>
+  );
+}
+
+function CampaignGrid() {
   const theme = useTheme();
   const { restaurantOwnerId } = useStore();
   const [data, setData] = useState([]);
@@ -22,16 +58,19 @@ function CampaignGrid({ onPinClickB, children }) {
       setIsLoading(true);
       try {
         const result = await fetchAllCampaigns(restaurantOwnerId);
-        const filteredResult = result.campaigns.filter(
-          (e) => Date.parse(e.startDate) > Date.now()
-        );
-        filteredResult.sort(
-          (a, b) => Date.parse(a.startDate) - Date.parse(b.startDate)
-        );
-        setData(filteredResult);
-        setDataArray(filteredResult || []);
+        if (result?.campaigns && result.campaigns.length > 0) {
+          const filteredResult = result.campaigns.filter(
+            (e) => Date.parse(e.startDate) > Date.now()
+          );
+          filteredResult.sort(
+            (a, b) => Date.parse(a.startDate) - Date.parse(b.startDate)
+          );
+          setDataArray(filteredResult);
+        } else {
+          setDataArray([]);
+        }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("fetching data:", error);
       } finally {
         setIsLoading(false);
       }
@@ -48,7 +87,6 @@ function CampaignGrid({ onPinClickB, children }) {
         width: "100%",
         gap: "1.5rem",
         gridAutoFlow: "row dense",
-        // margin: "1.5rem 0",
         [theme.breakpoints.down("lg")]: {
           gridColumn: "span 2",
           gridTemplateColumns: "repeat(2, 1fr)",
@@ -70,49 +108,20 @@ function CampaignGrid({ onPinClickB, children }) {
         >
           <Loader />
         </div>
+      ) : dataArray.length === 0 ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gridColumn: "span 3",
+          }}
+        >
+          <Loader />
+        </div>
       ) : (
-        dataArray.map((e) => (
-          <ChartCard key={e._id}>
-            <ChartCardTitle data={e} text={e.name}></ChartCardTitle>
-
-            <CampaignCardBody>
-              <p
-                style={{
-                  margin: "0",
-                  fontWeight: "lighter",
-                }}
-              >
-                Item: {e.offer}
-              </p>
-              <p
-                style={{
-                  margin: "0",
-                  fontWeight: "lighter",
-                }}
-              >
-                Duration: {new Date(e.startDate).toISOString().substring(0, 10)}{" "}
-                to {new Date(e.endDate).toISOString().substring(0, 10)}
-              </p>
-              <p
-                style={{
-                  margin: "0",
-                  fontWeight: "lighter",
-                }}
-              >
-                Users: {e.allowNewCustomer ? "New Customers" : ""}
-                {e.allowNewCustomer && e.allowSuperCustomer ? " & " : ""}
-                {e.allowSuperCustomer ? "Super Customers" : ""}
-              </p>
-              <p
-                style={{
-                  margin: "0",
-                  fontWeight: "lighter",
-                }}
-              >
-                Condition: {e.description}
-              </p>
-            </CampaignCardBody>
-          </ChartCard>
+        dataArray.map((campaign) => (
+          <CampaignCard key={campaign._id} campaign={campaign} />
         ))
       )}
     </Box>

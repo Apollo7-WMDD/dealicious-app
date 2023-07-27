@@ -26,24 +26,23 @@ function StackDoughNut() {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const result = await fetchTopSixCampaigns(restaurantOwnerId).then(
-          (res) => {
-            let formattedData = [];
-            res.campaigns.forEach((element) => {
-              let a = {
-                campaignName: element.campaignName,
-                totalSpending: element.totalSpending,
-              };
-              formattedData.push(a);
-            });
-            setCampaignArray(formattedData);
-            return res;
-          }
-        );
+        const result = await fetchTopSixCampaigns(restaurantOwnerId);
 
-        setData(result);
+        if (result && result.campaigns) {
+          const formattedData = result.campaigns.map((element) => ({
+            campaignName: element.campaignName,
+            totalSpending: element.totalSpending,
+          }));
+          setCampaignArray(formattedData);
+        } else {
+          setCampaignArray([]);
+        }
+
+        setData(result || {});
       } catch (error) {
         console.error("Error fetching data:", error);
+        setData({});
+        setCampaignArray([]);
       } finally {
         setIsLoading(false);
       }

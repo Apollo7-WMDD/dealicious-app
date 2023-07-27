@@ -12,14 +12,12 @@ import { fetchAllCampaigns } from "@/lib/fetching/campaigns/data";
 // loader
 import Loader from "../Loader";
 
-function CampaignGrid({ onPinClickB, children }) {
+function CampaignGrid({ onPinClickB }) {
   const { restaurantOwnerId } = useStore();
   const [data, setData] = useState([]);
   const [dataArray, setDataArray] = useState([]);
   const [hilighted, setHilighted] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-
-  // console.log(restaurantOwnerId);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,7 +32,7 @@ function CampaignGrid({ onPinClickB, children }) {
         setData(filteredResult);
         setDataArray(filteredResult || []);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("fetching data:", error);
       } finally {
         setIsLoading(false);
       }
@@ -78,13 +76,24 @@ function CampaignGrid({ onPinClickB, children }) {
         >
           <Loader />
         </div>
+      ) : dataArray.length === 0 ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gridColumn: "span 3",
+          }}
+        >
+          <Loader />
+        </div>
       ) : (
         dataArray.map((e) => (
           <ChartCard key={e._id}>
             <ChartCardTitle
               data={e}
               text={e.name}
-              pinStatus={hilighted == e._id ? true : false}
+              pinStatus={hilighted === e._id ? true : false}
               pinIdSelected={getPinIdSelected}
               showPin={true}
               onPinClick={onPinClickB}
