@@ -32,7 +32,7 @@ const Page = () => {
       <Home />
       {status === "loading" ? (
         <Loader />
-      ) : status === "authenticated" && session ? (
+      ) : status === "authenticated" && session.user.id ? (
         <div>
           <Link
             href={`/dashboard/campaigns/active/${session?.user.id}/#ongoing`}
