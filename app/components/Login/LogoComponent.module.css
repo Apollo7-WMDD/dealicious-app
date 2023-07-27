@@ -1,0 +1,15 @@
+@keyframes fadeInOutTranslate {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate(0px, -10px);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+
+.logo {
+  animation: fadeInOutTranslate 2s ease-in-out infinite;
+}

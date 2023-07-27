@@ -1,6 +1,7 @@
 "use client";
 
 import LoginComponent from "@/app/components/Login/Login";
+import LogoComponent from "@/app/components/Login/LogoComponent";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -18,22 +19,12 @@ const Login = ({ params }) => {
         router.push(`/superCustomer/restaurants/${session?.user.id}`);
       }
     }
-  }, [session]);
-
-  // ADD USER TO THE DATABASE
-  const handleSubmit = async function (e) {
-    e.preventDefault();
-    const formData = {
-      email: e.target.email.value,
-      password: e.target.password.value,
-    };
-    // signIn("credentials", formData);
-  };
+  }, [session, status]);
 
   return (
     <>
       {status === "authenticated" ? (
-        <div>Authenticated!</div>
+        <LogoComponent />
       ) : (
         <>
           <LoginComponent></LoginComponent>
