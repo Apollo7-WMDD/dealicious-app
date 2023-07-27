@@ -1,28 +1,43 @@
 "use client";
-import { React, useState } from 'react';
-import Link from "next/link";
-import { Box, Button, Menu, MenuItem, Fade, useTheme, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  Menu,
+  MenuItem,
+  Fade,
+  useTheme,
+  Typography,
+} from "@mui/material";
 import Arrowdown from "@/app/components/svg/arrowdown.svg";
 import { useSession, signOut } from "next-auth/react";
+import { useRouter } from "next/navigation.js";
 
 const SelectComponent = () => {
-  // const handleLogout = () => {
-  //   // Add your logout logic here
-  //   alert("Logout clicked!");
-  // };
-  const theme = useTheme();  
+  const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
+  const { data: session } = useSession();
+  const router = useRouter();
 
   let open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  
+
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
-  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (!session) {
+      router.push("/");
+    }
+  }, [session]);
+
+  const handleSignOut = () => {
+    signOut();
+    router.push("/");
+  };
 
   return (
     <Box>
@@ -55,12 +70,10 @@ const SelectComponent = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
         TransitionComponent={Fade}
-        sx={{ width: '100%' }}
+        sx={{ width: "100%" }}
       >
-        <MenuItem onClick={signOut}>
-          <Link href={`/`}>
-            <Typography variant="p">Log out</Typography>
-          </Link>
+        <MenuItem onClick={handleSignOut}>
+          <Typography variant="p">Log out</Typography>
         </MenuItem>
       </Menu>
     </Box>
