@@ -8,14 +8,36 @@ import Header from "@/app/components/Header/Header";
 import InputButton from "@/app/components/Button/InputButton";
 import ViewNewCampaign from "@/app/components/Campaign/ViewNewCampaign";
 import { Box, Modal, Grid } from "@mui/material";
-import InputTextarea from "@/app/components/Input/InputTextarea";
+import InputTextareaWithButton from "@/app/components/Input/InputTextareaWithButton";
 import Notification from "@/app/components/Card/Notification";
 import CampaignImage from "@/app/components/Campaign/CampaignImage";
 import CampaignForm1 from "@/app/components/Campaign/CampaignForm1";
 import CampaignForm2 from "@/app/components/Campaign/CampaignForm2";
 import Loader from "@/app/components/Loader";
 
+import { aiGenerate } from "@/lib/AI/openAI";
+import Link from "next/link";
+
 const Page = () => {
+  // AI GENERATED CAMPAIGN ADVERTISEMENT
+  const [aiResult, setAiResult] = useState(null);
+
+  const getDataToAI = async () => {
+    console.log(formData);
+    const fetchAI = async () => {
+      try {
+        setAiResult("loading...")
+        const result = await aiGenerate(formData);
+        setAiResult(await result.json());
+        // setAiResult(result.json());
+        console.log(aiResult);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } 
+    };
+    fetchAI();
+  };
+
   const { restaurantId, restaurantOwnerId } = useStore();
   const router = useRouter();
   const [campaigns, setCampaigns] = useState([]);
@@ -326,13 +348,15 @@ const Page = () => {
                 </Form>
 
                 <Form>
-                  <InputTextarea
-                    label="Write an attractive campaign advertisement or simply click here to have a compelling ad ready!"
-                    value={formData.description}
+                  <InputTextareaWithButton
+                    label={`Write an attractive campaign advertisement`}
+                    value={aiResult != null ? (aiResult) : (formData.description)}
                     onChange={inputValue}
+                    onClick={getDataToAI}
                     name="description"
                     id="description"
                     placeholder="campaign advertisement"
+                    buttonText= {aiResult == null ? ("or click here to have it auto-generated!") : ("generate again")}
                     error={formErrors.description}
                   />
                 </Form>

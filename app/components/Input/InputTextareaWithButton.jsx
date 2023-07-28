@@ -14,6 +14,8 @@ const InputTextarea = ({
   placeholder,
   error,
   type = "text",
+  onClick,
+  buttonText,
   ...props
 }) => {
   const theme = useTheme();
@@ -37,10 +39,15 @@ const InputTextarea = ({
         }}
       >
         {label && (
-        
+          <Box sx={{
+            display: 'flex',
+            mb: '1rem',
+            alignItems: 'center',
+          }}>
             <Typography
               htmlFor={id}
               sx={{
+                flexGrow: 1,
                 color: "#181818",
                 fontSize: "20px",
                 fontFamily: "Mukta",
@@ -51,7 +58,29 @@ const InputTextarea = ({
             >
               {label}
             </Typography>
-           
+            <Button variant="contained" 
+            sx={{
+              flexGrow: 0.5,
+              fontSize: '16px',
+              fontFamily: "Mukta",
+              boxShadow: 'none',
+              color: theme.palette.background.alt,
+              // backgroundColor: theme.palette.neutral,
+              backgroundColor: theme.palette.neutral[100],
+              borderRadius: '8px',
+              border: `3px solid ${theme.palette.primary[80]}`,
+              '&:hover': {
+                backgroundColor: theme.palette.neutral[80],
+                borderColor: '#FF2D2D',
+              },
+              '@media (max-width: 500px)': {
+                width: '100%'
+              },
+            }}
+            onClick={onClick}
+            >{buttonText}
+            </Button>
+          </Box>
         )}
         <TextField
           type={type}
