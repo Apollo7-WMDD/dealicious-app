@@ -27,6 +27,7 @@
     "dotenv": "^16.3.1",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.5",
+    "hamburger-react": "^2.5.0",
     "mongodb": "^5.6.0",
     "mongoose": "^7.2.3",
     "multer": "^1.4.5-lts.1",
