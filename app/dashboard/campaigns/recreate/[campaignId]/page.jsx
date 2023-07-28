@@ -15,8 +15,29 @@ import CampaignImage from "@/app/components/Campaign/CampaignImage";
 import CampaignForm1 from "@/app/components/Campaign/CampaignForm1";
 import CampaignForm2 from "@/app/components/Campaign/CampaignForm2";
 import { fetchSingleCampaign } from "@/lib/fetching/campaigns/data";
+import { aiGenerate } from "@/lib/AI/openAI";
 
 const Page = ({params}) => {
+
+  const [aiResult, setAiResult] = useState(null);
+  // const aiResult = aiGenerate();
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setIsLoading(true);
+  //     try {
+  //       const result = await aiGenerate();
+  //       setAiResult(result.json());
+  //       console.log(aiResult);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
+
+
   const { restaurantId, restaurantOwnerId } = useStore();
   const router = useRouter();
   const { campaignId } = params;
