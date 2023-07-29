@@ -1,18 +1,17 @@
-
-import React from "react";
+import React, { useState } from "react";
 import { Box, useTheme, Typography } from "@mui/material";
 import Link from "next/link";
 import DealIcon from "@/app/components/svg/scdealicon.svg";
 import ScanCode from "@/app/components/svg/scanCode.svg";
 import { usePathname } from "next/navigation";
 import SCProfile from "@/app/components/Header/SCProfile";
+import { Sling as Hamburger } from 'hamburger-react';
 
 function SCHeader() {
   const theme = useTheme();
   const pathname = usePathname();
   const superCustomerId = pathname.split("/")[3];
-
-  const [age, setAge] = React.useState('');
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <Box
@@ -39,7 +38,7 @@ function SCHeader() {
           flexDirection:'row',
           alignItems:'center',
           gap:'3rem',
-          m:"1rem 5rem"
+          m:"1rem 2rem",
         }}
       >
         <Box
@@ -47,7 +46,11 @@ function SCHeader() {
             display:'flex',
             flexDirection:'row',
             alignItems:'center',
-            gap:'0.5rem'
+            gap:'0.5rem',
+
+            '@media (max-width: 800px)': {
+              display: 'none',
+            },
           }}
         >
           <ScanCode
@@ -64,7 +67,11 @@ function SCHeader() {
             display:'flex',
             flexDirection:'row',
             alignItems:'center',
-            gap:'0.5rem'
+            gap:'0.5rem',
+
+            '@media (max-width: 800px)': {
+              display: 'none',
+            },
           }}
         >
           <Link 
@@ -72,8 +79,7 @@ function SCHeader() {
             style={{ 
               textDecoration: "none",
               '&:visited': {
-              textDecoration: 'none', // Text decoration for visited links
-              // Add any additional styles for visited links if needed
+              textDecoration: 'none',
               },
             }}
             href={`/superCustomer/restaurants/${superCustomerId}`}>
@@ -82,8 +88,66 @@ function SCHeader() {
             >My Restaurants</Typography>
           </Link>
         </Box>
-        <Box>
+        <Box
+          sx={{
+            '@media (max-width: 800px)': {
+              display: 'none',
+            },
+          }}
+        >
           <SCProfile />
+        </Box>
+        <Box
+          sx={{
+            display:'none',
+
+            '@media (max-width: 800px)': {
+              display: 'flex',
+            },
+          }}
+        >
+          <Hamburger
+            color={theme.palette.primary[80]} 
+            toggled={isMenuOpen}
+            toggle={setIsMenuOpen}
+          />
+          {isMenuOpen && (
+            <Box
+              sx={{
+                position: "absolute",
+                top: "78px",
+                right: "0",
+                backgroundColor: "#ffffff",
+                boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.1)",
+                padding: "1rem",
+              }}
+            >
+              <Box>
+                <Link
+                  underline="none"
+                  style={{
+                    textDecoration: "none",
+                    "&:visited": {
+                      textDecoration: "none",
+                    },
+                  }}
+                  href={`/superCustomer/restaurants/${superCustomerId}`}
+                >
+                  <Typography variant="p">My Restaurants</Typography>
+                </Link>
+              </Box>
+              <Box
+                sx={{
+                  display:'flex',
+                  flexDirection:'row',
+                  alignItems:'center',
+                  gap:'0.5rem',
+                }}
+              >
+                <Typography variant="p">Scan the Code</Typography>
+              </Box>
+            </Box>
+          )}
         </Box>
       </Box>
 
