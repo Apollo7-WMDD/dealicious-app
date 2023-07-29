@@ -5,7 +5,7 @@ import DealIcon from "@/app/components/svg/scdealicon.svg";
 import ScanCode from "@/app/components/svg/scanCode.svg";
 import { usePathname } from "next/navigation";
 import SCProfile from "@/app/components/Header/SCProfile";
-import { Sling as Hamburger } from 'hamburger-react';
+// import { Sling as Hamburger } from 'hamburger-react';
 
 function SCHeader() {
   const theme = useTheme();
