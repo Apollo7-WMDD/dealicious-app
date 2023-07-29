@@ -17,9 +17,9 @@ function ChartCard({ children, gridColumn }) {
         justifyContent: "start",
         alignItems: "center",
         flexShrink: 0,
-        [theme.breakpoints.down('sm')]: {
+        [theme.breakpoints.down("md")]: {
           gridColumn: "1/-1",
-        }
+        },
       }}
     >
       {children}

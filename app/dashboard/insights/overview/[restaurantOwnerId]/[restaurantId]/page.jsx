@@ -18,7 +18,6 @@ import SubHeader from "@/app/components/Header/SubHeader";
 import Grid from '@mui/material/Grid';
 import Hidden from '@mui/material/Hidden';
 
-
 const Page = async () => {
   return (
     <>
@@ -35,8 +34,8 @@ const Page = async () => {
       </Grid>
       
 
-      <MainGrid>
-        {/* First row */}
+      {/*====== SET GRID ======*/}
+      <MainGrid isComparing={false}>
         <ChartCard gridColumn={"span 1"}>
           <ChartCardTitle text={"Total Revenue"} pinStatus={""}></ChartCardTitle>
           <SingleLineChart fetchDataSource={fetchTotalRevenue}
