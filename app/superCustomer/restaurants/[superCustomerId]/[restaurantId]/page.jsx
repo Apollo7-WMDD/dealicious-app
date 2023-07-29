@@ -140,18 +140,7 @@ const Page = ({ params }) => {
               </div>
             ) : (
               restaurantData.campaigns.map((item, index) => (
-                <CampaignCard
-                  sx={
-                    {
-                      // flexGrow: '1',
-                      // flexShrink: '1',
-                      // flexBasis: '100%',
-                      // flex: '1 0 40%',
-                    }
-                  }
-                  key={index}
-                  props={item}
-                />
+                <CampaignCard key={index} props={item} />
               ))
             )}
           </Box>
