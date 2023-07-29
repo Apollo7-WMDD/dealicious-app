@@ -114,7 +114,7 @@ const CampaignCard = ({ props }) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: '600px',
     bgcolor: "background.paper",
     border: "2px solid #ff5938",
     borderRadius: "10px",
@@ -179,10 +179,6 @@ const formattedEndDate = formatDate(props.endDate);
         ></SCActive>
       </Box>
       <Modal
-        sx={{
-          // minWidth:'300px',
-          // width:'200px',
-        }}
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -206,9 +202,6 @@ const formattedEndDate = formatDate(props.endDate);
             }}
           >
             <Box
-              sx={{
-                // flex:'1 0 40%',
-              }}
             >
               <img
                 src={props.media[0]}
