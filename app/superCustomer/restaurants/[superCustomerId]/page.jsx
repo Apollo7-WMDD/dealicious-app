@@ -20,8 +20,6 @@ const Page = ({ params }) => {
   const [restaurants, setRestaurants] = useState([]);
   const { superCustomerId } = params;
 
-  console.log(restaurants);
-
   useEffect(() => {
     const fetchRestaurants = async (superCustomerId) => {
       const res = await fetch(
@@ -39,17 +37,17 @@ const Page = ({ params }) => {
 
   return (
     <Box
-      // sx={{
-      //   position: 'relative',
-      //   minHeight: '100vh',
-      // }}
+    // sx={{
+    //   position: 'relative',
+    //   minHeight: '100vh',
+    // }}
     >
       <SCHeader />
       <Box
         sx={{
           p: "2rem",
-          position: 'relative',
-          minHeight: '100vh',
+          position: "relative",
+          minHeight: "100vh",
         }}
       >
         <Header props={"My Restaurants"} />
@@ -58,25 +56,25 @@ const Page = ({ params }) => {
             display: "flex",
             flexDirection: "column",
             gap: "24px",
-            m:'32px 0 32px 0',
-            alignItems: 'center',
-            width: '100%',
+            m: "32px 0 32px 0",
+            alignItems: "center",
+            width: "100%",
 
-            '@media screen and (min-width:800px)': {
-              display: 'flex',
-              flexDirection:'row',
+            "@media screen and (min-width:800px)": {
+              display: "flex",
+              flexDirection: "row",
             },
           }}
         >
           {!restaurants ? (
             <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-              height: "100%",
-            }}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                height: "100%",
+              }}
             >
               <Loader />
             </div>
@@ -91,15 +89,15 @@ const Page = ({ params }) => {
           )}
         </Box>
       </Box>
-      <SCFooter 
+      <SCFooter
         sx={{
           bottom: 0,
-          position: 'fixed',
-          width:'100%',
-          left:0,
-          bottom:0,
-          right:0,
-          zindex:1000,
+          position: "fixed",
+          width: "100%",
+          left: 0,
+          bottom: 0,
+          right: 0,
+          zindex: 1000,
         }}
       />
     </Box>
