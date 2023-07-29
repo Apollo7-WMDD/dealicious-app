@@ -22,9 +22,8 @@ import DoughnutChart_Single_Point from "@/app/components/Chart/DoughnutChart_Sin
 // fetch imports
 import { fetchAllCampaigns } from "@/lib/fetching/campaigns/data";
 
-import HeaderGrid from "@/app/components/HeaderGrid";
 import Loader from "@/app/components/Loader";
-
+import LineChart from "@/app/components/Chart/LineChart";
 
 const Page = async () => {
   const { restaurantOwnerId, restaurantId } = useStore();
@@ -40,7 +39,6 @@ const Page = async () => {
   const [campaignCompare, setCampaignCompare] = useState("");
 
   const theme = useTheme();
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,10 +56,9 @@ const Page = async () => {
         setIsLoading(false);
       }
     };
-    
+
     fetchData();
   }, [isComparing]);
-  
 
   const onClick = () => {
     router.push(`/dashboard/campaigns/recreate/${campaignId}`);
@@ -69,7 +66,6 @@ const Page = async () => {
 
   return (
     <>
-
       {isLoading ? (
         <Loader />
       ) : (
@@ -87,7 +83,6 @@ const Page = async () => {
             <ChartCard gridColumn={"span 2"}>
               <ChartCardTitle text={"Total Revenue"}></ChartCardTitle>
               <LineChart></LineChart>
-
             </ChartCard>
             <ChartCard gridColumn={"span 1"}>
               <ChartCardTitle
@@ -98,7 +93,6 @@ const Page = async () => {
               <DoughnutChart_Single_NumCustomer
                 campaignId={campaignId}
               ></DoughnutChart_Single_NumCustomer>
-
             </ChartCard>
             <ChartCard gridColumn={"span 1"}>
               <ChartCardTitle
@@ -113,7 +107,6 @@ const Page = async () => {
           </MainGrid>
         </>
       )}
-
     </>
   );
 };
