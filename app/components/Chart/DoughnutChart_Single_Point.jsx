@@ -7,14 +7,14 @@ import {
 } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { useTheme, Typography } from "@mui/material";
-import { fetchSpendingCustomersSingle } from "../../../lib/fetching/insights/data";
+import { fetchPointsSingle } from "../../../lib/fetching/insights/data";
 import { useEffect, useState } from "react";
 
 import Loader from "../Loader";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-function DoughnutChart_NumCustomer({ campaignId }) {
+function DoughnutChart_Single_Point({restaurantOwnerId}) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -22,7 +22,7 @@ function DoughnutChart_NumCustomer({ campaignId }) {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const result = await fetchSpendingCustomersSingle(campaignId);
+        const result = await fetchPointsSingle(restaurantOwnerId);
         setData(result);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -31,23 +31,24 @@ function DoughnutChart_NumCustomer({ campaignId }) {
       }
     };
     fetchData();
-  }, [campaignId]);
+  }, [restaurantOwnerId]);
 
   const formatData = Object.values(data).slice(1);
+  console.log('Points Data', data);
 
   const theme = useTheme();
   defaults.font.family = theme.typography.fontFamily;
   defaults.font.size = theme.typography.fontSize;
 
   const doughnutFakeData = {
-    labels: ["Super Customers", "New Customers"],
+    labels: ["Total", "Redeemed"],
     datasets: [
       {
-        data: formatData,
+        data: [data.totalPoints, data.totalRedeemedPoints],
         backgroundColor: [
           theme.palette.primary[80],
           theme.palette.primary[100],
-          theme.palette.primary[60],
+          // theme.palette.primary[60],
         ],
         borderColor: ["transparent", "transparent", "transparent"],
         color: [
@@ -109,7 +110,7 @@ function DoughnutChart_NumCustomer({ campaignId }) {
         </div>
       ) : (
         <>
-          <Typography variant="h4" lineHeight="35px">Total = $ {formatNumber(Object.values(data).shift(1))}</Typography>
+          <Typography variant="h4" lineHeight="35px">Total = {formatNumber(Object.values(data).shift(1))}</Typography>
           <Doughnut
             data={doughnutFakeData}
             style={{
@@ -126,4 +127,4 @@ function DoughnutChart_NumCustomer({ campaignId }) {
   );
 }
 
-export default DoughnutChart_NumCustomer;
+export default DoughnutChart_Single_Point;

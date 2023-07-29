@@ -2,28 +2,30 @@ import { NextResponse } from "next/server";
 import connect from "@/utils/database";
 import mongoose from "mongoose";
 import Restaurant from "@/models/restaurant";
-import Campaign from "@/models/campaign";
 import Spending from "@/models/spending";
 
 export const GET = async (request) => {
   const url = new URL(request.url);
-  const restaurantOwner = url.pathname.split("/")[5];
+  const campaignId = url.pathname.split("/")[5];
 
   try {
     await connect();
 
-    // Find restaurantId from the restaurant collection
-    const restaurant = await Restaurant.findOne(
-      { userId: restaurantOwner },
-      { _id: 1 }
-    ).lean();
+    const pipeline = [
+      {
+        $match: {
+          campaignId: new mongoose.Types.ObjectId(campaignId),
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          totalRevenue: { $sum: "$billamount" },
+        },
+      },
+    ];
 
-    if (!restaurant) {
-      return new NextResponse(JSON.stringify({ data: null }), { status: 200 });
-    }
-
-    // Generate the usage data for each campaign
-    //  const usage_campaign = await generateUsageData("cid");
+    const [result] = await Spending.aggregate(pipeline).allowDiskUse(true);
 
     let prevRevenue = 20;
     const daily = Array.from({ length: 30 }, (_, i) => {
@@ -37,6 +39,7 @@ export const GET = async (request) => {
       };
     }).reverse();
 
+  
     prevRevenue = 100;  
     const weekly = Array.from({ length: 12 }, (_, i) => {
       const startOfWeek = new Date();
@@ -49,18 +52,25 @@ export const GET = async (request) => {
       };
     }).reverse();  
 
-    prevRevenue = 1500;  
+    prevRevenue = 500;  
     const monthly = Array.from({ length: 12 }, (_, i) => {
       const date = new Date();
       date.setMonth(date.getMonth() - i);
-      prevRevenue -= Math.random() * 100;  
+      prevRevenue -= Math.random() * 50;  
       return {
         month: new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().split('T')[0],
         totalRevenue: prevRevenue,
       };
     }).reverse();
 
-    return new NextResponse(JSON.stringify({ daily, weekly, monthly }), { 
+    const response = {
+      totalRevenue: result ? result.totalRevenue : 0,
+      daily,
+      weekly,
+      monthly,
+    };
+
+    return new NextResponse(JSON.stringify(response, null, 2), {
       status: 200,
     });
   } catch (err) {
