@@ -173,10 +173,7 @@ function SideBarItem() {
                 currentURL[2] == `campaigns` && (
                   <SubItem list={campaignSubItems}></SubItem>
                 )}
-              {/* {(sideBarItemActive === activeLink &&
-                (activeLink == `campaigns/upcoming`) && (
-                  <SubItem list={campaignSubItems}></SubItem>
-                ))} */}
+             
               {currentURL[2] === activeLinkSplit[1] &&
                 currentURL[2] == `insights` && (
                   <SubItemInsight list={insightSubItems}></SubItemInsight>

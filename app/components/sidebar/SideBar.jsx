@@ -6,6 +6,7 @@ import { Box, Drawer, Typography, Divider } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
 import { useStore } from "../../../lib/context/sidebar_context/store.js";
 import SideBarItem from "./SideBarItem.jsx";
+import SideBarItemMobile from "./SideBarItemMobile.jsx";
 import SideBarUtilButton from "./SideBarUtilButton.jsx";
 import { useTheme } from "@mui/material";
 import TodayInfo from "./TodayInfo.jsx";
@@ -18,7 +19,7 @@ function SideBar() {
 
   return (
     <>
-      {isNonMobile && (
+      {isNonMobile ? (
         <Drawer
           open={isSidebarOpen}
           // open={true} //change this to use isSidebarOpen
@@ -68,6 +69,38 @@ function SideBar() {
             <SideBarUtilButton />
           </Box>
         </Drawer>
+      ) : (
+        <Box
+          sx={{
+            display: "block",
+            position: "fixed",
+            bottom: "0",
+            height: "80px",
+            borderRadius: "8px",
+            // backgroundColor: theme.palette.primary[100],
+            backgroundColor: theme.palette.background.default,
+            boxShadow: `0px -4px 20px ${shadowColor}`,
+            width: "100%",
+            zIndex: "100",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column ",
+              justifyContent: "center",
+              height: "100%",
+            }}
+          >
+            <Box  >
+            
+              <SideBarItemMobile />
+            
+            </Box>
+
+            {/* <SideBarUtilButton /> */}
+          </Box>
+        </Box>
       )}
     </>
   );
