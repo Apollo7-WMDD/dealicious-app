@@ -2,6 +2,7 @@
 
 import { Box, useTheme, Typography } from "@mui/material";
 import DealIcon from "@/app/components/svg/scdealicon.svg";
+import DealiciousLogo from "@/app/components/svg/dealiciouslogoNoPadding.svg";
 
 function SCFooter() {
   const theme = useTheme();
@@ -9,7 +10,7 @@ function SCFooter() {
 
         <Box
             sx={{
-                bgcolor: '#474747',//theme.palette.primary[60],
+                bgcolor: theme.palette.neutral[40],
                 color: 'white',
                 height: "78px",
                 display: 'flex',
@@ -37,8 +38,12 @@ function SCFooter() {
                         },
                     }}
                 >
-                    <DealIcon />
-                    <Typography>dealicious</Typography>
+                    
+                    <DealiciousLogo  style={{height:"50", width:"100"}}/>
+                    
+                    
+                    {/* <DealIcon /> */}
+                    {/* <Typography>dealicious</Typography> */}
                 </Box>  
                 <Typography variant="p">&copy; 2023{" "} Team Apollo7. All Rights Reserved.</Typography>
             </Box>      
