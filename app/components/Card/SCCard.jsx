@@ -1,10 +1,13 @@
 "use client";
 import StarIcon from "@/app/components/svg/star.svg";
-import { Card, CardContent, Box, Typography } from "@mui/material";
+import { Card, CardContent, Box, Typography, useTheme } from "@mui/material";
 import Link from "next/link";
 
 const SCCard = ({ props, superCustomerId }) => {
   // console.log("This is the props SC!!!!", superCustomerId);
+  const theme = useTheme();
+  const shadowColor = `${theme.palette.neutral[20]}1f`;
+
   return (
     <Box>
       <Link
@@ -15,7 +18,7 @@ const SCCard = ({ props, superCustomerId }) => {
         <Card
           sx={{
             borderRadius: "10px",
-            boxShadow: 10,
+            boxShadow: `0px 4px 20px 0px ${shadowColor}`,
             Width:'350px',
             Height:'500px',
           }}
@@ -44,6 +47,7 @@ const SCCard = ({ props, superCustomerId }) => {
                   borderRadius: "50%",
                   width: "50px", // adjust the size as needed
                   height: "50px", // adjust the size as needed
+                  objectFit: "cover",
                 }}
                 alt="Logo"
               />

@@ -1,0 +1,67 @@
+/* //////////////////// CREATE NEW CAMPAIGN SVG ///////////////////////// */
+@keyframes rotateBouncyAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-35deg);
+  }
+  100% {
+    transform: rotate(5deg);
+  }
+}
+
+.svg_icon {
+  animation: rotateBouncyAnimation 2000ms cubic-bezier(0.68, -0.55, 0.265, 1.55)
+    infinite alternate;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+.svg_plus_icon {
+  animation: rotate 1050ms cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite
+    alternate;
+}
+
+/* //////////////////// RECREATE CAMPAIGN SVG ///////////////////////// */
+@keyframes bouncyAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-20deg);
+  }
+  50% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.svg_icon_2 {
+  animation: bouncyAnimation 1100ms cubic-bezier(0.65, 0.05, 0.36, 1) infinite
+    alternate;
+}
+
+@keyframes rotateArrow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-180deg);
+  }
+}
+
+.svg_arrow_icon {
+  transform-origin: center;
+  animation: rotateArrow 1100ms cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite
+    alternate;
+}

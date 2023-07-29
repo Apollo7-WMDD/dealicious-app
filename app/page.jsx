@@ -18,10 +18,13 @@ const Page = () => {
   const { setRestaurantOwner, restaurantOwnerId } = useStore();
   const theme = useTheme();
 
+  console.log("session", session?.user?.id);
+  console.log("status", status);
+
   useEffect(() => {
     const getRestaurantOwnerId = async () => {
       if (status === "authenticated") {
-        setRestaurantOwner(session.user.id);
+        setRestaurantOwner(session?.user?.id);
       }
     };
     getRestaurantOwnerId();
@@ -32,43 +35,7 @@ const Page = () => {
       <Home />
       {status === "loading" ? (
         <Loader />
-      ) : status === "authenticated" && session ? (
-        <div>
-          <Link
-            href={`/dashboard/campaigns/active/${session?.user.id}/#ongoing`}
-          >
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: theme.palette.primary[80],
-                marginTop: "20px",
-                marginRight: "20px",
-                ":hover": {
-                  backgroundColor: "white",
-                  color: theme.palette.primary[80],
-                },
-              }}
-            >
-              Dashboard
-            </Button>
-          </Link>
-          <Button
-            onClick={signOut}
-            variant="contained"
-            sx={{
-              backgroundColor: theme.palette.primary[80],
-              marginTop: "20px",
-              marginRight: "20px",
-              ":hover": {
-                backgroundColor: "white",
-                color: theme.palette.primary[80],
-              },
-            }}
-          >
-            Sign Out
-          </Button>
-        </div>
-      ) : (
+      ) : session?.user?.id === undefined && !session ? (
         <>
           <Link href={`/login/owner`}>
             <Button
@@ -119,6 +86,22 @@ const Page = () => {
             </Button>
           </Link>
         </>
+      ) : (
+        <Button
+          onClick={signOut}
+          variant="contained"
+          sx={{
+            backgroundColor: theme.palette.primary[80],
+            marginTop: "20px",
+            marginRight: "20px",
+            ":hover": {
+              backgroundColor: "white",
+              color: theme.palette.primary[80],
+            },
+          }}
+        >
+          Sign Out
+        </Button>
       )}
     </main>
   );

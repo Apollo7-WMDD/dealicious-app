@@ -14,10 +14,10 @@ const Loader = () => {
       }}
     >
       <Image
-        src="/assets/SpinnerLoader.gif"
+        src="/assets/Loading-100px.gif"
         alt="loading"
-        width={200}
-        height={200}
+        width={100}
+        height={100}
       />
     </div>
   );

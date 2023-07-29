@@ -8,19 +8,43 @@ import Header from "@/app/components/Header/Header";
 import InputButton from "@/app/components/Button/InputButton";
 import ViewNewCampaign from "@/app/components/Campaign/ViewNewCampaign";
 import { Box, Modal, Grid } from "@mui/material";
-import InputTextarea from "@/app/components/Input/InputTextarea";
+import InputTextareaWithButton from "@/app/components/Input/InputTextareaWithButton";
 import Notification from "@/app/components/Card/Notification";
 import CampaignImage from "@/app/components/Campaign/CampaignImage";
 import CampaignForm1 from "@/app/components/Campaign/CampaignForm1";
 import CampaignForm2 from "@/app/components/Campaign/CampaignForm2";
+import Loader from "@/app/components/Loader";
 
 
+import { aiGenerate } from "@/app/api/dashboard/campaigns/openAI/route";
+
+import Link from "next/link";
 
 const Page = () => {
+  // AI GENERATED CAMPAIGN ADVERTISEMENT
+  const [aiResult, setAiResult] = useState(null);
+
+  const getDataToAI = async () => {
+    console.log(formData);
+    const fetchAI = async () => {
+      try {
+        setAiResult("loading...")
+        const result = await aiGenerate(formData);
+        setAiResult(await result.json());
+        // setAiResult(result.json());
+        console.log(aiResult);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } 
+    };
+    fetchAI();
+  };
+
   const { restaurantId, restaurantOwnerId } = useStore();
   const router = useRouter();
   const [campaigns, setCampaigns] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [formErrors, setFormErrors] = useState({});
   const [formData, setFormData] = useState({
     restaurantId: restaurantId,
@@ -43,7 +67,6 @@ const Page = () => {
     favorite: false,
     autoDescription: "No auto description",
   });
-
 
   // The first save button - submit the form
   const handleSubmit = (e) => {
@@ -87,38 +110,35 @@ const Page = () => {
   ////////////////////// Final Submit button for campaign preview /////////////////////
   const handleFinalSubmit = async (e) => {
     e.preventDefault();
-  
+    setIsLoading(true);
+
     if (selectedFile) {
       const reader = new FileReader();
       reader.readAsDataURL(selectedFile);
-  
+
       reader.onloadend = async () => {
         const base64String = reader.result;
-  
+
         try {
-          const response = await fetch(
-            `/api/image/upload`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ file: base64String }),
-            }
-          );
-  
+          const response = await fetch(`/api/image/upload`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ file: base64String }),
+          });
+
           if (response.ok) {
             console.log("image uploaded successfully!");
             const data = await response.json();
-  
+
             const newFormData = {
               ...formData,
-              media: data.secure_url, 
+              media: data.secure_url,
             };
             setFormData(newFormData);
-            
-  
-            // then POST the formData 
+
+            // then POST the formData
             try {
               const response = await fetch(
                 `/api/dashboard/campaigns/new/${restaurantId}`,
@@ -130,29 +150,28 @@ const Page = () => {
                   body: JSON.stringify(newFormData),
                 }
               );
-        
+
               if (response.ok) {
                 console.log("Campaign created successfully!");
-                console.log(newFormData)
+                console.log(newFormData);
+                setIsLoading(false);
                 setShowNotification(true);
               }
             } catch (error) {
               console.log("Error creating campaign:", error.message);
             }
-  
           }
         } catch (error) {
           console.log("Error uploading image:", error.message);
         }
       };
-  
+
       reader.onerror = (error) => {
         console.log("Error reading file:", error);
       };
     }
   };
-  
-  
+
   //////////////////////////////////////////////////////////////////////
 
   const [showNotification, setShowNotification] = useState(false);
@@ -192,7 +211,6 @@ const Page = () => {
       endDate: endDate ? endDate : null,
     }));
   };
-
 
   //SC AND NC allowed
   const toggleAllowNewCustomer = () => {
@@ -235,7 +253,6 @@ const Page = () => {
     setSelectedFile(file);
   };
 
-
   const removeImage = () => {
     setImagePreview(null);
     localStorage.removeItem("media");
@@ -250,90 +267,116 @@ const Page = () => {
   return (
     <>
       <div>
-        <Modal open={showNotification} onClose={closeNotification}>
-          <Box
-            sx={{
+        {isLoading ? (
+          <div
+            style={{
               display: "flex",
-              flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
               minHeight: "100vh",
-              p: 4,
-              width: "100%",
+              width: "100vw",
             }}
           >
-            <Notification
-              header="Congratulations!"
-              text="You successfully created a new campaign. You can examine its real time outcomes."
-              buttonText="Go to Campaigns"
-              buttonAction={onClick}
-            />
-          </Box>
-        </Modal>
-        {isSubmitted ? (
-          <ViewNewCampaign
-            formData={formData}
-            handleFinalSubmit={handleFinalSubmit}
-            handleEditProp={handleEdit}
-            setFormData={setFormData}
-          />
+            <Loader />
+          </div>
         ) : (
           <>
-            <Header>Create a New Campaign</Header>
-            <Form>
-              <Grid container spacing={2} sx={{ marginBottom: { md: "40px" } }}>
-                <Grid item xs={12} md={8}>
-                  <CampaignForm1
+            <Modal open={showNotification} onClose={closeNotification}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  minHeight: "100vh",
+                  p: 4,
+                  width: "100%",
+                }}
+              >
+                <Notification
+                  header="Congratulations!"
+                  text="You successfully created a new campaign. You can examine its real time outcomes."
+                  buttonText="Go to Campaigns"
+                  buttonAction={onClick}
+                />
+              </Box>
+            </Modal>
+            {isSubmitted ? (
+              <ViewNewCampaign
+                formData={formData}
+                handleFinalSubmit={handleFinalSubmit}
+                handleEditProp={handleEdit}
+                setFormData={setFormData}
+              />
+            ) : (
+              <>
+                <Header>Create a New Campaign</Header>
+                <Form>
+                  <Grid
+                    container
+                    spacing={2}
+                    sx={{ marginBottom: { md: "40px" } }}
+                  >
+                    <Grid item xs={12} md={8}>
+                      <CampaignForm1
+                        formData={formData}
+                        formErrors={formErrors}
+                        handleInputChange={inputValue}
+                        handleDateChange={dateValue}
+                        handletypeValue={typeValue}
+                        handleAllowNewCustomerToggle={toggleAllowNewCustomer}
+                        handleAllowSuperCustomerToggle={
+                          toggleAllowSuperCustomer
+                        }
+                      />
+                    </Grid>
+                    <Grid item xs={12} md={4}>
+                      <CampaignImage
+                        imagePreview={imagePreview}
+                        handleUploadMenu={uploadMenu}
+                        handleRemoveImage={removeImage}
+                      />
+                    </Grid>
+                  </Grid>
+
+                  <CampaignForm2
                     formData={formData}
                     formErrors={formErrors}
-                    handleInputChange={inputValue}
-                    handleDateChange={dateValue}
-                    handletypeValue={typeValue}
-                    handleAllowNewCustomerToggle={toggleAllowNewCustomer}
-                    handleAllowSuperCustomerToggle={toggleAllowSuperCustomer}
+                    toggleExpiredByNumber={toggleExpiredByNumber}
+                    inputValue={inputValue}
+                    inspirationVisible={inspirationVisible}
+                    setInspirationVisible={setInspirationVisible}
                   />
-                </Grid>
-                <Grid item xs={12} md={4}>
-                  <CampaignImage
-                    imagePreview={imagePreview}
-                    handleUploadMenu={uploadMenu}
-                    handleRemoveImage={removeImage}
+                </Form>
+
+                <Form>
+                  <InputTextareaWithButton
+                    label={`Write an attractive campaign advertisement`}
+                    value={aiResult != null ? (aiResult) : (formData.description)}
+                    onChange={inputValue}
+                    onClick={getDataToAI}
+                    name="description"
+                    id="description"
+                    placeholder="campaign advertisement"
+                    buttonText= {aiResult == null ? ("or click here to have it auto-generated!") : ("generate again")}
+                    error={formErrors.description}
                   />
-                </Grid>
-              </Grid>
+                </Form>
 
-              <CampaignForm2 
-                formData={formData}
-                formErrors={formErrors}
-                toggleExpiredByNumber={toggleExpiredByNumber}
-                inputValue={inputValue}
-                inspirationVisible={inspirationVisible}
-                setInspirationVisible={setInspirationVisible}
-              />
-            </Form>
-
-            <Form>
-              <InputTextarea
-                label="Write an attractive campaign advertisement or simply click here to have a compelling ad ready!"
-                value={formData.description}
-                onChange={inputValue}
-                name="description"
-                id="description"
-                placeholder="campaign advertisement"
-                error={formErrors.description}
-              />
-            </Form>
-
-            <InputButton
-              onFirstButtonClick={(e) => {
-                e.preventDefault();
-                router.push(`/dashboard/campaigns/active/${restaurantOwnerId}`);
-              }}
-              onSecondButtonClick={handleSubmit}
-              firstButtonText="Cancel"
-              secondButtonText="Create"
-              type="submit"
-            />
+                <InputButton
+                  onFirstButtonClick={(e) => {
+                    e.preventDefault();
+                    router.push(
+                      `/dashboard/campaigns/active/${restaurantOwnerId}`
+                    );
+                  }}
+                  onSecondButtonClick={handleSubmit}
+                  firstButtonText="Cancel"
+                  secondButtonText="Create"
+                  type="submit"
+                />
+              </>
+            )}
           </>
         )}
       </div>

@@ -26,35 +26,14 @@ import UpcomingCampaignGrid from "@/app/components/Dashboard/UpcomingCampaignGri
 
 import HilightWrap from "@/app/components/Dashboard/HilightWrap";
 
-// const showHilighted = (data)=>{
-//   console.log("showHilighted")
-//   console.log(data)
-// }
-
 const Page = () => {
   const theme = useTheme();
 
   const [hilighted, setHilighted] = useState({});
-  // useEffect(() => {
-  //   const getRestaurantId = async () => {
-  //     const data = await fetchRestaurantId(restaurantOwnerId);
-  //     setRestaurantId(data.restaurantId);
-  //   };
-
-  //   if (restaurantOwnerId) {
-  //     getRestaurantId();
-  //   }
-  // }, [restaurantOwnerId]);
-
-  // console.log("restaurantOwnerId", restaurantOwnerId);
-  // console.log("restaurantId", restaurantId);
 
   const onPinClickA = (hilighted) => {
     setHilighted(hilighted);
   };
-  console.log("hilight campaign is");
-  console.log(hilighted);
-  console.log(hilighted.startDate);
 
   return (
     <>
@@ -70,7 +49,7 @@ const Page = () => {
         </HeaderGrid>
 
         <SubHeader props={"Ongoing campaigns"} />
-        <MainGrid>
+        <MainGrid isComparing={false}>
           <ChartCard gridColumn={"span 1"}>
             <ChartCardTitle text={"Overview"} pinStatus={""}></ChartCardTitle>
             <StackDougnNutSpan1></StackDougnNutSpan1>
@@ -129,16 +108,7 @@ const Page = () => {
                   >
                     Condition: {hilighted.description}
                   </p>
-                  <p
-                    style={{
-                      color: "red",
-                      margin: "0",
-                      fontSize: 10,
-                      textAlign: "right",
-                    }}
-                  >
-                    chart is mock up
-                  </p>
+               
                   <LineChart></LineChart>
                 </div>
               </div>
@@ -151,7 +121,7 @@ const Page = () => {
           <CampaignGrid onPinClickB={onPinClickA}></CampaignGrid>
 
           {/* //* UPCOMING CAMPAIGN */}
-          <SubHeader props={"Upcoming campaigns"} id={"upcoming"}/>
+          <SubHeader props={"Upcoming campaigns"} id={"upcoming"} />
           <UpcomingCampaignGrid></UpcomingCampaignGrid>
         </MainGrid>
       </Box>

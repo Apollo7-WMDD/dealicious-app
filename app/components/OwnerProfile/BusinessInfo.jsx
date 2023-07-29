@@ -7,7 +7,6 @@ import InputValue from "../Profile/InputValue";
 
 // fetch imports
 import { fetchBusinessInfo } from "@/lib/fetching/profile/data";
-import LoaderSkeleton from "./Loader/LoaderSkeleton";
 
 function BusinessInfo({ restaurantOwnerId }) {
   const [restaurantData, setRestaurantData] = useState(null);
@@ -65,10 +64,7 @@ function BusinessInfo({ restaurantOwnerId }) {
         </Box>
       </Box>
     </ChartCard>
-  ) : (
-    <LoaderSkeleton />
-  );
-  // );
+  ) : null;
 }
 
 export default BusinessInfo;

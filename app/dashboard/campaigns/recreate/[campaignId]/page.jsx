@@ -1,5 +1,5 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useStore } from "@/lib/context/user_context/store";
 import React, { useState, useEffect } from "react";
 import { useTheme } from '@mui/material/styles';
@@ -10,21 +10,41 @@ import InputButton from "@/app/components/Button/InputButton";
 import ViewNewCampaign from "@/app/components/Campaign/ViewNewCampaign";
 import { Box, Modal, Grid } from "@mui/material";
 import InputTextarea from "@/app/components/Input/InputTextarea";
+import InputTextareaWithButton from "@/app/components/Input/InputTextareaWithButton";
 import Notification from "@/app/components/Card/Notification";
 import CampaignImage from "@/app/components/Campaign/CampaignImage";
 import CampaignForm1 from "@/app/components/Campaign/CampaignForm1";
 import CampaignForm2 from "@/app/components/Campaign/CampaignForm2";
 import { fetchSingleCampaign } from "@/lib/fetching/campaigns/data";
 
+import { aiGenerate } from "@/app/api/dashboard/campaigns/openAI/route";
 
-const Page = () => {
+
+const Page = ({params}) => {
+ // AI GENERATED CAMPAIGN ADVERTISEMENT
+ const [aiResult, setAiResult] = useState(null);
+
+ const getDataToAI = async () => {
+   console.log(formData);
+   const fetchAI = async () => {
+     try {
+       setAiResult("loading...")
+       const result = await aiGenerate(formData);
+       setAiResult(await result.json());
+       // setAiResult(result.json());
+       console.log(aiResult);
+     } catch (error) {
+       console.error("Error fetching data:", error);
+     } 
+   };
+   fetchAI();
+ };
+
+
+
   const { restaurantId, restaurantOwnerId } = useStore();
   const router = useRouter();
-//   const { campaignId: campaignId } = router.query;
-//   const searchParams = useSearchParams();
-//   const campaignId = searchParams.get('campaignId'); 
-  const obj = { campaignId: '64b6e6f8806dc9d66fba26c8' };
-  const { campaignId } = obj;
+  const { campaignId } = params;
   console.log(campaignId);
 
   const theme = useTheme();
@@ -56,20 +76,23 @@ const Page = () => {
   const [campaignData, setCampaignData] = useState(null);
   useEffect(() => {
     const getCampaignData = async () => {
-        const data = await fetchSingleCampaign(campaignId);
-        console.log(data);
-        const { campaignInfo } = data;
-        setCampaignData(campaignInfo);
-
-        setFormData(prevFormData => ({
-            ...prevFormData,
-            ...campaignInfo,
-            startDate: new Date(campaignInfo.startDate).toISOString().slice(0,10),
-            endDate: new Date(campaignInfo.endDate).toISOString().slice(0,10),
-        }));
+      const data = await fetchSingleCampaign(campaignId);
+      console.log(data);
+      const { campaignInfo } = data;
+      setCampaignData(campaignInfo);
+  
+      const { description, ...restCampaignInfo } = campaignInfo;
+  
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        ...restCampaignInfo,
+        startDate: new Date(campaignInfo.startDate).toISOString().slice(0,10),
+        endDate: new Date(campaignInfo.endDate).toISOString().slice(0,10),
+      }));
     };
     getCampaignData();
   }, [restaurantId]);
+  
 
 
   // The first save button - submit the form
@@ -143,9 +166,8 @@ const Page = () => {
               media: data.secure_url, 
             };
             setFormData(newFormData);
-            
   
-            // then POST the formData 
+            // POST the newFormData
             try {
               const response = await fetch(
                 `/api/dashboard/campaigns/new/${restaurantId}`,
@@ -157,7 +179,7 @@ const Page = () => {
                   body: JSON.stringify(newFormData),
                 }
               );
-        
+      
               if (response.ok) {
                 console.log("Campaign created successfully!");
                 console.log(newFormData)
@@ -166,7 +188,6 @@ const Page = () => {
             } catch (error) {
               console.log("Error creating campaign:", error.message);
             }
-  
           }
         } catch (error) {
           console.log("Error uploading image:", error.message);
@@ -176,8 +197,31 @@ const Page = () => {
       reader.onerror = (error) => {
         console.log("Error reading file:", error);
       };
+    } else {
+      // no image is uploaded, just post the formData
+      try {
+        const response = await fetch(
+          `/api/dashboard/campaigns/new/${restaurantId}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),  
+          }
+        );
+  
+        if (response.ok) {
+          console.log("Campaign created successfully!");
+          console.log(formData)  
+          setShowNotification(true);
+        }
+      } catch (error) {
+        console.log("Error creating campaign:", error.message);
+      }
     }
   };
+  
   
   
   //////////////////////////////////////////////////////////////////////
@@ -342,16 +386,17 @@ const Page = () => {
             </Form>
 
             <Form>
-              <InputTextarea
-                label="Write an attractive campaign advertisement or simply click here to have a compelling ad ready!"
-                value={formData.description}
-                onChange={inputValue}
-                name="description"
-                id="description"
-                placeholder="campaign advertisement"
-                error={formErrors.description}
-                inputstyles={{color: theme.palette.primary[80]}}
-              />
+            <InputTextareaWithButton
+                    label={`Write an attractive campaign advertisement`}
+                    value={aiResult != null ? (aiResult) : (formData.description)}
+                    onChange={inputValue}
+                    onClick={getDataToAI}
+                    name="description"
+                    id="description"
+                    placeholder="campaign advertisement"
+                    buttonText= {aiResult == null ? ("or click here to have it auto-generated!") : ("generate again")}
+                    error={formErrors.description}
+                  />
             </Form>
 
             <InputButton
@@ -371,3 +416,4 @@ const Page = () => {
   );
 };
 export default Page;
+

@@ -1,16 +1,38 @@
-import { Box, Drawer, Typography, Divider, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { useStore } from "../../../lib/context/sidebar_context/store.js";
 import { useTheme } from "@mui/material";
 import LightModeOutlined from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlined from "@mui/icons-material/DarkModeOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 
+// sign out
+import { signOut, useSession } from "next-auth/react";
+
+// router
+import { useRouter } from "next/navigation.js";
+import { useEffect } from "react";
+
 function SideBarUtilButton() {
   const { isSidebarOpen, mode, setMode } = useStore();
+  const { data: session } = useSession();
   const theme = useTheme();
+  const router = useRouter();
+
+  console.log("this is the SESSION: ", session);
+
+  useEffect(() => {
+    if (!session) {
+      router.push("/");
+    }
+  }, [session]);
+
+  const handleSignOut = () => {
+    signOut();
+    router.push("/");
+  };
+
   return (
     <div>
-      {/* CHANGE THEME BUTTON */}
       <IconButton
         sx={{
           padding: ".5rem 3rem ",
@@ -40,7 +62,7 @@ function SideBarUtilButton() {
           justifyContent: "flex-start",
         }}
         // CREATE FUNCTION TO LOGOUT
-        onClick={() => console.log("LOG OUT")}
+        onClick={handleSignOut}
       >
         <LogoutIcon sx={{ fontSize: "1rem", marginRight: ".5rem" }} />
         Log out

@@ -5,20 +5,20 @@ import {
   Box,
   Typography,
   TextField,
+  useTheme,
 } from "@mui/material";
 import Link from "next/link";
 import SCActive from "../../components/Button/SCActive";
 import SingleButton from "../Button/SingleButton";
 import SCSubmitBtn from "../Button/SCSubmitBtn";
-// import { usePathname } from "next/navigation";
-// import { useSession } from "next-auth/react";
 import SCOfferApplied from "@/app/components/SuperCustomer/SCOfferApplied";
 
 const CampaignCard = ({ props }) => {
   // const { data: session } = useSession();
   // const pathname = usePathname();
   // const restaurantId = pathname.split("/")[4];
-  
+  const theme = useTheme();
+  const shadowColor = `${theme.palette.neutral[20]}1f`;
   const [code, setCode] = useState('');
   const [validate, setValidate] = useState(false);
 
@@ -66,38 +66,6 @@ const CampaignCard = ({ props }) => {
     setOpenThird(true);
   };  
 
-  // const handleOpenConfirm = async () => {
-  //   const burnCodeInfo = {
-  //     username:
-  //       session.user.name ||
-  //       `${session.user?.firstname} ${session.user?.lastname}`,
-  //     campaignname: props.name,
-  //     offer: props.offer,
-  //     burned: false,
-  //     restaurantId: restaurantId,
-  //     campaignId: props._id,
-  //   };
-  //   try {
-  //     const res = await fetch(`/api/burnCode/customers/${restaurantId}`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(burnCodeInfo),
-  //     });
-  //     if (!res.ok) {
-  //       const data = await res.text();
-  //       throw new Error(data);
-  //     }
-  //     const data = await res.json();
-  //     console.log("Success! ", data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  //   setOpenConfirm(true);
-  //   setOpenSecond(false);
-  // };
-
   // 1st Modal
   const handleOpen = () => {
     setOpen(true);
@@ -132,6 +100,16 @@ const CampaignCard = ({ props }) => {
   }  
   
   const style = {
+    // position: "absolute",
+    // top: "50%",
+    // left: "50%",
+    // transform: "translate(-50%, -50%)",
+    // width: '600px',
+    // bgcolor: "background.paper",
+    // border: "2px solid #ff5938",
+    // boxShadow: `0px 4px 20px 0px ${shadowColor}`,
+    // p: 4,
+    // borderRadius: "10px",
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -139,30 +117,14 @@ const CampaignCard = ({ props }) => {
     width: '600px',
     bgcolor: "background.paper",
     border: "2px solid #ff5938",
-    boxShadow: 24,
-    p: 4,
     borderRadius: "10px",
+    boxShadow: `0px 4px 20px 0px ${shadowColor}`,
+    p: 4,
+    '@media screen and (min-width:800px)': {
+      width: 800,
+    },
   };
 
-// console.log('👍 this is the code'+code);
-/*const formatDate = (dateString) => {
-  const options = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  };
-
-  const formattedDate = new Date(dateString).toLocaleDateString(undefined, options);
-
-  // Convert the day to the correct ordinal suffix (e.g., 1st, 2nd, 3rd, 4th, etc.)
-  const day = new Date(dateString).getDate();
-  const daySuffix =
-    day >= 11 && day <= 13
-      ? 'th'
-      : ['st', 'nd', 'rd', 'th'][Math.min((day - 1) % 10, 3)];
-
-  return formattedDate.replace(/\d{1,2}$/, (day) => day + daySuffix);
-};*/
 const formatDate = (dateString) => {
   const options = {
     year: 'numeric',
@@ -190,7 +152,7 @@ const formattedEndDate = formatDate(props.endDate);
         p:'1rem',
         // m:'1rem',
         borderRadius: "10px",
-        boxShadow: 10,
+        boxShadow: `0px 4px 20px 0px ${shadowColor}`,
         maxWidth: "auto",
         display: "flex",
         flexDirection: "column",
@@ -209,13 +171,14 @@ const formattedEndDate = formatDate(props.endDate);
           gap:'1rem',
         }}
       >
-        <Link href="#">More information</Link>      
-        <SCActive text="Active" width="144px" onClick={handleOpen} />
+        <Typography variant="p">More information</Typography>
+        <SCActive
+          text="Activate"
+          width="auto"
+          onClick={handleOpen}
+        ></SCActive>
       </Box>
       <Modal
-        sx={{
-          minWidth:'300px',
-        }}
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -228,16 +191,17 @@ const formattedEndDate = formatDate(props.endDate);
           <Box
             sx={{
               display:'flex',
-              flexDirection:'row',
+              flexDirection:'column',
               gap:'1rem',
               alignItems:'center',
-              m:'1rem 0'
+              m:'1rem 0',
+              '@media screen and (min-width:800px)': {
+                display: 'flex',
+                flexDirection:'row',
+              },
             }}
           >
             <Box
-              sx={{
-                flex:'1 0 40%',
-              }}
             >
               <img
                 src={props.media[0]}
@@ -266,11 +230,17 @@ const formattedEndDate = formatDate(props.endDate);
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                 <Typography variant="p">{props.description}</Typography>
               </Typography>
-              <SingleButton
-                text="Activate"
-                width="auto"
-                onClick={handleOpenSecond}
-            ></SingleButton>
+              <Box
+                sx={{
+                  m:'1rem 0 0 0',
+                }}
+              >
+                <SingleButton
+                  text="Activate"
+                  width="auto"
+                  onClick={handleOpenSecond}
+                ></SingleButton>
+            </Box>
             </Box>            
           </Box>          
         </Box>
@@ -290,20 +260,39 @@ const formattedEndDate = formatDate(props.endDate);
             your message and receive the offer.
           </Typography>
           <Box
-            component="form"
             sx={{
-              "& > :not(style)": { m: 6, width: "6ch" },
+              display:'flex',
+              flexDirection:'column',
+              justifyContent:'center',
+              justifyItems:'center',
+              flexFlow:'wrap',
             }}
-            noValidate
-            autoComplete="off"
           >
-            <TextField onChange={(e)=>{setCode(e.target.value)}} id="standard-basic" variant="standard" />
+            <Box
+              component="form"
+              sx={{
+                "& > :not(style)": { m: 6, width: "6ch" },
+                flexGrow:1,
+                flexBasis:'100%',
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField 
+                onChange={(e)=>{setCode(e.target.value)}} 
+                id="standard-basic" 
+                variant="standard" 
+                sx={{
+                  fontSize: "2rem", // Set the font size to be double the default size
+                }}
+              />
+            </Box>
+            <SCSubmitBtn
+              text="Submit"
+              width="144px"
+              onClick={getCode}
+            ></SCSubmitBtn>
           </Box>
-          <SCSubmitBtn
-            text="Submit"
-            width="144px"
-            onClick={getCode}
-          ></SCSubmitBtn>
         </Box>
       </Modal>
       <Modal
@@ -317,7 +306,7 @@ const formattedEndDate = formatDate(props.endDate);
               props={props}
               status={validate}
             ></SCOfferApplied>
-        </Box>
+        </Box>        
       </Modal>
     </Box>
   );

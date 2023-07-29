@@ -23,9 +23,44 @@ export const GET = async (request) => {
     }
 
     // Generate the usage data for each campaign
-    const usage_campaign = await generateUsageData("cid");
+    //  const usage_campaign = await generateUsageData("cid");
 
-    return new NextResponse(JSON.stringify({ usage_campaign }), {
+    let prevRevenue = 20;
+    const daily = Array.from({ length: 30 }, (_, i) => {
+      const date = new Date();
+      date.setDate(date.getDate() - i);
+      const formattedDate = date.toISOString().split('T')[0]; 
+      prevRevenue -= Math.floor(Math.random() * 2);  
+      return {
+        date: formattedDate,
+        totalRevenue: prevRevenue,
+      };
+    }).reverse();
+
+    prevRevenue = 100;  
+    const weekly = Array.from({ length: 12 }, (_, i) => {
+      const startOfWeek = new Date();
+      startOfWeek.setDate(startOfWeek.getDate() - i * 7);
+      const endOfWeek = new Date(startOfWeek);
+      prevRevenue -= Math.random() * 10;  
+      return {
+        week: endOfWeek.toISOString().split('T')[0],
+        totalRevenue: prevRevenue,
+      };
+    }).reverse();  
+
+    prevRevenue = 1500;  
+    const monthly = Array.from({ length: 12 }, (_, i) => {
+      const date = new Date();
+      date.setMonth(date.getMonth() - i);
+      prevRevenue -= Math.random() * 100;  
+      return {
+        month: new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().split('T')[0],
+        totalRevenue: prevRevenue,
+      };
+    }).reverse();
+
+    return new NextResponse(JSON.stringify({ daily, weekly, monthly }), { 
       status: 200,
     });
   } catch (err) {
@@ -33,35 +68,3 @@ export const GET = async (request) => {
     return new NextResponse("Database Error", { status: 500 });
   }
 };
-
-// Helper function to generate usage data for a campaign
-async function generateUsageData(_cid) {
-  const usage = {
-    day: await generateData(8),
-    week: await generateData(6),
-    month: await generateData(9),
-  };
-  return usage;
-}
-
-//  function to generate  usage data
-function generateData(count) {
-  const today = new Date();
-  const data = [];
-  for (let i = count - 1; i >= 0; i--) {
-    const date = new Date(today);
-    date.setDate(today.getDate() - i);
-    const formattedDate = formatDate(date);
-    const value = Math.floor(Math.random() * 20);
-    data.push({ x: formattedDate, y: value });
-  }
-  return data;
-}
-
-//  function to format date as "YYYY-MM-DD"
-function formatDate(date) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}

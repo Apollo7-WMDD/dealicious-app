@@ -6,60 +6,48 @@ import LineChart from "../Chart/LineChart";
 
 function HilightWrap() {
   const { restaurantOwnerId } = useStore();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetchAllCampaigns(restaurantOwnerId);
-      console.log(result);
-      setData(result ? result?.campaigns[0] : []);
+      try {
+        const result = await fetchAllCampaigns(restaurantOwnerId);
+        if (result && result.campaigns && result.campaigns.length > 0) {
+          setData(result.campaigns[0]);
+        } else {
+          setData(null);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setData(null);
+      }
     };
     fetchData();
   }, [restaurantOwnerId]);
 
-  console.log(data);
+  const prgphStyle = {
+    margin: "0",
+    fontWeight: "lighter",
+  };
 
   return (
     <div style={{ width: "100%" }}>
       <div>
         <Typography variant="h5">{data?.name}</Typography>
-        <p
-          style={{
-            margin: "0",
-            fontWeight: "lighter",
-          }}
-        >
-          Item: {data?.offer}
-        </p>
-        {data?._id != undefined && (
-          <p
-            style={{
-              margin: "0",
-              fontWeight: "lighter",
-            }}
-          >
+        <p style={prgphStyle}>Item: {data?.offer}</p>
+        {data?._id != null && (
+          <p style={prgphStyle}>
             Duration: {new Date(data.startDate).toISOString().substring(0, 10)}{" "}
             to {new Date(data.endDate).toISOString().substring(0, 10)}
           </p>
         )}
 
-        <p
-          style={{
-            margin: "0",
-            fontWeight: "lighter",
-          }}
-        >
+        <p style={prgphStyle}>
           Users: {data?.allowNewCustomer ? "New Customers" : ""}
           {data?.allowNewCustomer && data?.allowSuperCustomer ? " & " : ""}
           {data?.allowSuperCustomer ? "Super Customers" : ""}
         </p>
-        <p
-          style={{
-            margin: "0",
-            fontWeight: "lighter",
-          }}
-        >
-          Condition: {data?.description}
-        </p>
+        <p style={prgphStyle}>Condition: {data?.description}</p>
         <p
           style={{
             color: "red",

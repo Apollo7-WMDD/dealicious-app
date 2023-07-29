@@ -17,7 +17,7 @@ export const GET = async (request) => {
     );
 
     if (!restaurant) {
-      return new NextResponse(JSON.stringify({ data: null }), { status: 200 });
+      return new NextResponse(JSON.stringify({ data: {} }), { status: 200 });
     }
 
     const restaurantId = restaurant._id;
@@ -66,6 +66,10 @@ export const GET = async (request) => {
       totalRevenue,
       totalCustomers,
     };
+
+    if (campaigns.length === 0) {
+      response.campaigns = [];
+    }
 
     return new NextResponse(JSON.stringify(response, null, 2), {
       status: 200,

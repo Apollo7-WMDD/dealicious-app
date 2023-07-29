@@ -19,7 +19,7 @@ export const GET = async (request) => {
     ).lean();
 
     if (!restaurant) {
-      return new NextResponse(JSON.stringify({ data: null }), { status: 200 });
+      return new NextResponse(JSON.stringify({ data: [] }), { status: 200 });
     }
 
     // Retrieve all the campaigns for the restaurant and get the name and campaignId
@@ -32,62 +32,67 @@ export const GET = async (request) => {
 
     // Generate the usage data for each campaign
     const campaignsDataPromises = campaignIdsList.map(async (campaignId) => {
-      const campaign = await Campaign.findById(campaignId, { name: 1 }).lean();
-      const usage = await generateUsageData(campaignId);
+      try {
+        const campaign = await Campaign.findById(campaignId, {
+          name: 1,
+        }).lean();
+        const usage = generateUsageData(campaignId);
 
-      // const campaignRedeemDate = await Spending.find(
-      //   { campaignId: campaignId },
-      //   { dateRedeemed: true }
-      // ).lean();
-      //  const campaignCount = await Spending.countDocuments({
-      //     campaignId: campaignId,
-      //   });
-      return {
-        campaignId,
-        campaignName: campaign.name,
-        usage,
-        // campaignCount,
-        // campaignRedeemDate,
-        // ! data to send have to be count of how many time spending happen for this campaignID + timestamp of it
-      };
+        return {
+          campaignId,
+          campaignName: campaign.name,
+          usage,
+        };
+      } catch (error) {
+        console.error(
+          `Error fetching campaign data for campaignId ${campaignId}:`,
+          error
+        );
+        return null;
+      }
     });
 
     const campaignsData = await Promise.all(campaignsDataPromises);
 
-    return new NextResponse(JSON.stringify({ data: campaignsData }), {
+    // Filter out any null values
+    const filteredCampaignsData = campaignsData.filter((data) => data !== null);
+
+    return new NextResponse(JSON.stringify({ data: filteredCampaignsData }), {
       status: 200,
     });
   } catch (err) {
-    console.log(err.message);
+    console.error("Error fetching data:", err.message);
     return new NextResponse("Database Error", { status: 500 });
   }
 };
 
 // Helper function to generate usage data for a campaign
-async function generateUsageData(campaignId) {
+function generateUsageData() {
   const usage = {
-    day: await generateData(30,20),
-    week: await generateData(12,140),
-    month: await generateData(6,400),
+    day: generateData(30, 20),
+    week: generateData(12, 140),
+    month: generateData(6, 400),
   };
   return usage;
 }
 
-//  function to generate  usage data
+// function to generate usage data
 function generateData(count, amt) {
   const today = new Date();
   const data = [];
+  let prevValue = 35;
   for (let i = count - 1; i >= 0; i--) {
     const date = new Date(today);
     date.setDate(today.getDate() - i);
     const formattedDate = formatDate(date);
-    const value = Math.floor(Math.random() * amt);
+    const value = prevValue + Math.floor(Math.random() * amt);
+    prevValue = value + Math.floor(Math.random() * 100) - 50;
     data.push({ x: formattedDate, y: value });
   }
   return data;
 }
 
-//  function to format date as "YYYY-MM-DD"
+// function to format date as "YYYY-MM-DD"
 function formatDate(date) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");

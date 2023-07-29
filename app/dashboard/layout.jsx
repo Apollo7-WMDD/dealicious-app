@@ -1,4 +1,5 @@
 import Footer from "../components/Footer";
+import SCfootter from '@/app/components/Footer/SCFooter'
 import SideBar from "../components/sidebar/SideBar";
 
 const DashboardLayout = ({ children }) => {
@@ -10,7 +11,8 @@ const DashboardLayout = ({ children }) => {
           <div style={{ margin: "2rem 1rem 0 1rem"}}>
             {children}
           </div>
-          <Footer />
+          <SCfootter/>
+          {/* <Footer /> */}
         </div>
       </div>
     </div>

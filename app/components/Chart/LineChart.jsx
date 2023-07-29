@@ -9,7 +9,7 @@ import {
   Tooltip,
   Legend,
   TimeScale,
-  defaults
+  defaults,
 } from "chart.js";
 // import ChartDataLabels from "chartjs-plugin-datalabels";
 import { fetchCustomerCampaignUsageByTime } from "../../../lib/fetching/insights/data";
@@ -39,21 +39,14 @@ function LineChart() {
   const [data, setData] = useState([]);
   const [period, setPeriod] = useState("day");
   const [dateByCampaign, setDateByCampaign] = useState([]);
-  console.log(restaurantOwnerId);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await fetchCustomerCampaignUsageByTime(restaurantOwnerId);
-      setData(result);
-    };
-    fetchData();
-  }, [restaurantOwnerId]);
-
-  console.log(data);
-  // console.log(Object.values(data)[0]);
-  // console.log(Object.values(data)[0][0].usage.day);
-  // console.log(Object.values(data)[0][0].campaignName);
-  // console.log(Object.values(data)[0][0].campaignName);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const result = await fetchCustomerCampaignUsageByTime(restaurantOwnerId);
+  //     setData(result);
+  //   };
+  //   fetchData();
+  // }, [restaurantOwnerId]);
 
   // const a = () => {
   //   for (const element in data) {
@@ -70,7 +63,6 @@ function LineChart() {
   //   }
 
   // };
-  // console.log(a);
 
   // useEffect(() => {
   //   const fetchData =  () => {
@@ -79,8 +71,6 @@ function LineChart() {
   //   };
   //   fetchData();
   // }, [data]);
-
-  // console.log(data);
 
   // function formatData(data) {
   //   for (const element in data) {
@@ -111,14 +101,6 @@ function LineChart() {
 
   // }, [data]);
 
-  // console.log(dateByCampaign);
-  // console.log(
-  //   dateByCampaign.forEach((element) => {
-  //     console.log(element.daily);
-  //     console.log(element.name);
-  //   })
-  // );
-
   //! experiment with get each spending collection and then get the date from each spending collection > with that date, check how many of them are on the same day
 
   // const dateByCampaign = [];
@@ -129,7 +111,6 @@ function LineChart() {
 
   //   });
   // }
-  // console.log(dateByCampaign);
 
   const theme = useTheme();
 
@@ -253,24 +234,6 @@ function LineChart() {
       showDataset2 = dailyDataSet2;
   }
 
-  // const dailyDataSetTest = dateByCampaign[0].name;
-  // console.log(dailyDataSetTest);
-  // const nameDataSetTest = dateByCampaign[0].daily
-  // console.log(nameDataSetTest)
-  // const dailyDataSet1 = dateByCampaign[0].daily;
-  // const nameDataSet1 = dateByCampaign[0].name;
-  // const nameDataSet2 = dateByCampaign[1].name;
-  // const dailyDataSet2 = dateByCampaign[1].daily;
-  // console.log(dailyDataSet1);
-  // console.log(nameDataSet1);
-
-  // const weeklyDataSet1 = dateByCampaign[0].weekly;
-
-  // const weeklyDataSet2 = dateByCampaign[1].weekly;
-  // const monthlyDataSet1 = dateByCampaign[0].monthly;
-
-  // const monthlyDataSet2 = dateByCampaign[1].monthly;
-
   const lineChartData = {
     // labels,
     datasets: [
@@ -295,7 +258,6 @@ function LineChart() {
     ],
   };
 
-  console.log(period);
   const options = {
     responsive: true,
     maintainAspectRatio: false,
@@ -312,34 +274,34 @@ function LineChart() {
     scales: {
       y: {
         ticks: {
-          callback: function(val, index) {
+          callback: function (val, index) {
             // Hide every 5th tick label
-            return index % 3 === 0 ? this.getLabelForValue(val)  : '';
-            
+            return index % 3 === 0 ? this.getLabelForValue(val) : "";
           },
-          
+
           color: theme.palette.background.alt,
         },
-        border:{
+        border: {
           color: theme.palette.background.alt,
         },
         beginAtZero: true,
         display: true,
-        
+
         grid: {
           display: false,
-        }
+        },
       },
       x: {
         ticks: {
-          callback: function(val, index) {
+          callback: function (val, index) {
             // Hide every 5th tick label
-            return index % 5 === 0 ? this.getLabelForValue(val).split(',')[0]  : '';
-            
+            return index % 5 === 0
+              ? this.getLabelForValue(val).split(",")[0]
+              : "";
           },
           color: theme.palette.background.alt,
         },
-        border:{
+        border: {
           color: theme.palette.background.alt,
         },
         type: "time",
@@ -348,7 +310,6 @@ function LineChart() {
         },
         grid: {
           display: false,
-        
         },
         adapters: {
           date: {
