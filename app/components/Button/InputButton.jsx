@@ -1,7 +1,8 @@
 import React from 'react';
-import { Box, Button } from '@mui/material';
+import { Box, Button, useTheme } from '@mui/material';
 
 const InputButton = ({ onFirstButtonClick, onSecondButtonClick, firstButtonText, secondButtonText }) => {
+  const theme = useTheme();
   return (
     <Box
       sx={{
@@ -30,7 +31,6 @@ const InputButton = ({ onFirstButtonClick, onSecondButtonClick, firstButtonText,
           alignItems: 'center',
           gap: '8px',
           borderRadius: '8px',
-          backgroundColor: '#FEFEFE !important',
           border: '3px solid #454545 !important',
           color: '#454545',
           fontSize: '20px',
@@ -39,9 +39,11 @@ const InputButton = ({ onFirstButtonClick, onSecondButtonClick, firstButtonText,
           fontWeight: 700,
           lineHeight: '24px',
           letterSpacing: '-0.12px',
+          backgroundColor: '#FEFEFE !important',
           '&:hover': {
-            backgroundColor: '#FEFEFE !important',
+            backgroundColor: '#454545 !important',
             borderColor: '#454545 !important',
+            color: '#FEFEFE !important',
           },
           '@media (max-width: 500px)': {
             width: '100%'
@@ -62,7 +64,6 @@ const InputButton = ({ onFirstButtonClick, onSecondButtonClick, firstButtonText,
           alignItems: 'center',
           gap: '8px',
           borderRadius: '8px',
-          backgroundColor: '#FF5938 !important',
           color: '#FEFEFE',
           fontSize: '20px',
           fontFamily: 'Ubuntu',
@@ -70,9 +71,11 @@ const InputButton = ({ onFirstButtonClick, onSecondButtonClick, firstButtonText,
           fontWeight: 700,
           lineHeight: '24px',
           letterSpacing: '-0.12px',
-          '&:hover': {
-            backgroundColor: '#FF5938 !important',
+          backgroundColor: theme.palette.primary[80],
+          ":hover": {
+            backgroundColor: "#FF2D2D",
             borderColor: '#454545 !important',
+            boxShadow: "none",
           },
           '@media (max-width: 500px)': {
             width: '100%'

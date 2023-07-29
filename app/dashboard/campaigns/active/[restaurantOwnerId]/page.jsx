@@ -49,7 +49,7 @@ const Page = () => {
         </HeaderGrid>
 
         <SubHeader props={"Ongoing campaigns"} />
-        <MainGrid>
+        <MainGrid isComparing={false}>
           <ChartCard gridColumn={"span 1"}>
             <ChartCardTitle text={"Overview"} pinStatus={""}></ChartCardTitle>
             <StackDougnNutSpan1></StackDougnNutSpan1>
