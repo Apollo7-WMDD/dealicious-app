@@ -12,7 +12,7 @@ const CreateNewCampaign = () => {
   };
   return (
     <SingleButton
-      text={"Create new campaign"}
+      text={"Create a Campaign"}
       onClick={onClick}
       width={"350px"}
     ></SingleButton>
