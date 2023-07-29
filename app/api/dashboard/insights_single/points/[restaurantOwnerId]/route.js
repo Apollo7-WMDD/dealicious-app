@@ -52,12 +52,14 @@ export const GET = async (request) => {
       ]),
     ]);
 
-    const totalPoints = totalPointsResult.length
-      ? totalPointsResult[0].totalPoints
-      : 0;
-    const totalRedeemedPoints = totalRedeemedPointsResult.length
-      ? totalRedeemedPointsResult[0].totalRedeemedPoints
-      : 0;
+    // const totalPoints = totalPointsResult.length
+    //   ? totalPointsResult[0].totalPoints
+    //   : 0;
+    // const totalRedeemedPoints = totalRedeemedPointsResult.length
+    //   ? totalRedeemedPointsResult[0].totalRedeemedPoints
+    //   : 0;
+    const totalRedeemedPoints = Math.floor(Math.random() * 100);
+    const totalPoints = Math.floor(Math.random() * 300);
 
     return new NextResponse(
       JSON.stringify({

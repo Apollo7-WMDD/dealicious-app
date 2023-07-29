@@ -7,17 +7,21 @@ import { useStore } from "@/lib/context/user_context/store";
 import { useRouter } from "next/navigation";
 import InputSubtitleDropdown from "@/app/components/Input/InputSubtitleDropdown";
 import MainGrid from "@/app/components/MainGrid";
-import LineChart from "@/app/components/Chart/LineChart";
 import ChartCard from "@/app/components/Card/ChartCard";
 import ChartCardTitle from "@/app/components/Chart/ChartCardTitle";
 import DoughnutChart_Single_NumCustomer from "@/app/components/Chart/DoughnutChart_Single_NumCustomer";
 import DoughnutChart_Single_SpendingCustomer from "@/app/components/Chart/DoughnutChart_Single_SpendingCustomer";
 import SingleButtonVariant from "@/app/components/Button/SingleButtonVariant";
 import { useTheme } from "@emotion/react";
+import HeaderGrid from "@/app/components/HeaderGrid";
+import SingleLineChart from "@/app/components/Chart/SingleLineChart";
+import AverageBill from "@/app/components/Chart/AverageBill";
+import DoughnutChart_Single_Point from "@/app/components/Chart/DoughnutChart_Single_Point";
 
 // fetch imports
 import { fetchAllCampaigns } from "@/lib/fetching/campaigns/data";
-import HeaderGrid from "@/app/components/HeaderGrid";
+import { fetchTotalRevenueSingle, fetchCustomerCampaignTimeSingle, fetchNCbecameSC } from "@/lib/fetching/insights/data";
+
 
 const Page = async () => {
   const { restaurantOwnerId, restaurantId } = useStore();
@@ -84,7 +88,17 @@ const Page = async () => {
           <ChartCard gridColumn={isComparing ? "span 1" : "span 2"}>
             <ChartCardTitle text={"Total Revenue"}></ChartCardTitle>
             <div style={{ minHeight: "250px", width: "100%" }}>
-              <LineChart></LineChart>
+            <SingleLineChart fetchDataSource={fetchTotalRevenueSingle}
+            showTextSource={(data) => `$ 1.2k`}/>
+            {/* // showTextSource={(data) => `$ ${Math.round(data.totalRevenue)}`}/> */}
+            </div>
+          </ChartCard>
+          <ChartCard gridColumn={ isComparing ? "span 1" : "span 2"}>
+            <ChartCardTitle text={"Customer Campaign Usage By Time"}></ChartCardTitle>
+            <div style={{ minHeight: "250px", width: "100%" }}>
+            <SingleLineChart fetchDataSource={fetchCustomerCampaignTimeSingle}
+            showTextSource={(data) => `680`}/>
+            {/* // showTextSource={(data) => `$ ${Math.round(data.totalRevenue)}`}/> */}
             </div>
           </ChartCard>
           <ChartCard gridColumn={"span 1"}>
@@ -93,6 +107,25 @@ const Page = async () => {
               <DoughnutChart_Single_NumCustomer
                 campaignId={campaignId}
               ></DoughnutChart_Single_NumCustomer>
+            </div>
+          </ChartCard>
+          <ChartCard gridColumn={"span 1"}>
+            <ChartCardTitle
+              text={"Points"}
+              pinStatus={""}
+            ></ChartCardTitle>
+            <div style={{ minHeight: "350px", width: "100%" }}>
+              <DoughnutChart_Single_Point restaurantOwnerId={restaurantOwnerId}></DoughnutChart_Single_Point>
+            </div>
+          </ChartCard>
+          <ChartCard gridColumn={"span 1"}>
+            <ChartCardTitle
+              text={"NC that became SCs"}
+              pinStatus={""}
+            ></ChartCardTitle>
+            <div style={{ minHeight: "350px", width: "100%" }}>
+            <SingleLineChart fetchDataSource={fetchNCbecameSC}
+            showTextSource={(data) => `89`}/>
             </div>
           </ChartCard>
           <ChartCard gridColumn={"span 1"}>
@@ -106,13 +139,32 @@ const Page = async () => {
               ></DoughnutChart_Single_SpendingCustomer>
             </div>
           </ChartCard>
+          <ChartCard gridColumn={"span 1"}>
+            <ChartCardTitle
+              text={"Average Bill"}
+              pinStatus={""}
+            ></ChartCardTitle>
+            <div style={{ minHeight: "350px", width: "100%" }}>
+              <AverageBill campaignId={campaignId}></AverageBill>
+            </div>
+          </ChartCard>
+          
         </MainGrid>
         {isComparing && (
           <MainGrid isComparing={isComparing}>
             <ChartCard gridColumn={isComparing ? "span 1" : "span 2"}>
               <ChartCardTitle text={"Total Revenue"}></ChartCardTitle>
               <div style={{ minHeight: "250px", width: "100%" }}>
-                <LineChart></LineChart>
+              <SingleLineChart fetchDataSource={fetchTotalRevenueSingle}
+              showTextSource={(data) => `$ 0.9k`}/>
+              </div>
+            </ChartCard>
+            <ChartCard gridColumn={ isComparing ? "span 1" : "span 2"}>
+              <ChartCardTitle text={"Customer Campaign Usage By Time"}></ChartCardTitle>
+              <div style={{ minHeight: "250px", width: "100%" }}>
+              <SingleLineChart fetchDataSource={fetchCustomerCampaignTimeSingle}
+              showTextSource={(data) => `540`}/>
+              {/* // showTextSource={(data) => `$ ${Math.round(data.totalRevenue)}`}/> */}
               </div>
             </ChartCard>
             <ChartCard gridColumn={"span 1"}>
@@ -128,6 +180,25 @@ const Page = async () => {
             </ChartCard>
             <ChartCard gridColumn={"span 1"}>
               <ChartCardTitle
+                text={"Points"}
+                pinStatus={""}
+              ></ChartCardTitle>
+              <div style={{ minHeight: "350px", width: "100%" }}>
+                <DoughnutChart_Single_Point restaurantOwnerId={restaurantOwnerId}></DoughnutChart_Single_Point>
+              </div>
+            </ChartCard>
+            <ChartCard gridColumn={"span 1"}>
+              <ChartCardTitle
+                text={"NC that became SCs"}
+                pinStatus={""}
+              ></ChartCardTitle>
+              <div style={{ minHeight: "350px", width: "100%" }}>
+              <SingleLineChart fetchDataSource={fetchNCbecameSC}
+              showTextSource={(data) => `56`}/>
+              </div>
+            </ChartCard>
+            <ChartCard gridColumn={"span 1"}>
+              <ChartCardTitle
                 text={"Customer Spending"}
                 pinStatus={""}
               ></ChartCardTitle>
@@ -135,6 +206,15 @@ const Page = async () => {
                 <DoughnutChart_Single_SpendingCustomer
                   campaignId={campaignCompare}
                 ></DoughnutChart_Single_SpendingCustomer>
+              </div>
+            </ChartCard>
+            <ChartCard gridColumn={"span 1"}>
+              <ChartCardTitle
+                text={"Average Bill"}
+                pinStatus={""}
+              ></ChartCardTitle>
+              <div style={{ minHeight: "350px", width: "100%" }}>
+                <AverageBill campaignId={campaignCompare}></AverageBill>
               </div>
             </ChartCard>
           </MainGrid>
