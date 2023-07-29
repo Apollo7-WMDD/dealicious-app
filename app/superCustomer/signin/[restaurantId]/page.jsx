@@ -5,24 +5,36 @@ import { useStore } from "@/lib/context/user_context/store";
 import { fetchRestaurantCard } from "@/lib/fetching/profile/data";
 import { Box } from "@mui/material";
 import LoginComponent from "@/app/components/Login/Login";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const Page = (params) => {
     const router = useRouter();
-    const { status } = useSession();
-    const { restaurantId } = params;
+    const { data: session, status } = useSession(); 
+    const { restaurantId } = params.params;
+    const [restaurantData, setRestaurantData] = useState(null);
+    // const [hasSignedOut, setHasSignedOut] = useState(false);
+
+    // useEffect(() => {
+    //     if (!hasSignedOut) {
+    //       signOut({ callbackUrl: typeof window !== 'undefined' ? window.location.pathname : '' });
+    //       setHasSignedOut(true);
+    //     }
+    // }, []);
 
     useEffect(() => {
-        if (status === "authenticated") {
-            router.push(`/home/superCustomer`);
+        console.log('Session:', session);
+        console.log('Status:', status);
+        if (status === "authenticated" && session?.user) {
+            if (session.user.type === 'superCustomer') {
+                router.push(`/superCustomer/restaurants/${session.user.id}`);
+            }
         }
-    }, [status]);
-
-    const [restaurantData, setRestaurantData] = useState(null);
+    }, [session, status]);
 
     useEffect(() => {
         const getRestaurantData = async () => {
+            console.log(restaurantId);
             const data = await fetchRestaurantCard(restaurantId);
             const { restaurantInfo } = data;
             setRestaurantData(restaurantInfo);
@@ -30,17 +42,14 @@ const Page = (params) => {
         getRestaurantData();
     }, [restaurantId]);
 
-    console.log(restaurantId)
-    console.log(restaurantData)
-
     return (
         <>
-            <Box sx={{ 
+            <Box sx={{
                 display: "flex",
-                flexDirection: "row",
+                flexDirection: { xs: 'column', md: 'row' },
                 justifyContent: "center",
                 alignItems: "start",
-                gap: 7,
+                gap: 3,
                 m: 5,
             }}>
                 <SCRestaurantCard {...restaurantData} />
