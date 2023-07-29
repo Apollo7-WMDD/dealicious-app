@@ -53,6 +53,7 @@ export const GET = async (request) => {
           startDate: { $arrayElemAt: ["$campaign.startDate", 0] },
           endDate: { $arrayElemAt: ["$campaign.endDate", 0] },
           favorite: { $arrayElemAt: ["$campaign.favorite", 0] },
+          type: { $arrayElemAt: ["$campaign.type", 0] },
           totalSpending: 1,
         },
       },

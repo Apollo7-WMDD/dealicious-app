@@ -1,5 +1,5 @@
 "use client";
-import { Box, Link, useTheme } from "@mui/material";
+import { Box, Link, Typography, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -14,7 +14,9 @@ import CampaignCardBody from "../Chart/CampaignCardBody";
 import {
   fetchAllCampaigns,
   fetchTotalRevenueSingle,
+  // fetchCampaignsPreview
 } from "@/lib/fetching/campaigns/data";
+import { fetchCampaignsPreview } from "@/lib/fetching/insights/data";
 
 // loader
 import Loader from "../Loader";
@@ -31,6 +33,7 @@ function CampaignGrid({ children }) {
       setIsLoading(true);
       try {
         const result = await fetchAllCampaigns(restaurantOwnerId);
+        console.log(result);
         const filteredResult = result.campaigns.sort(
           (b, a) => Date.parse(a.endDate) - Date.parse(b.endDate)
         );
@@ -51,11 +54,11 @@ function CampaignGrid({ children }) {
     fetchData();
   }, [restaurantOwnerId]);
 
+  console.log(dataArray);
   const theme = useTheme();
   useEffect(() => {
     setDataArray([...dataArray].sort((a, b) => (b.pinned ? 1 : -1)));
   }, [sortByPin]);
-
 
   return (
     <Box
@@ -127,42 +130,61 @@ function CampaignGrid({ children }) {
               ></ChartCardTitleInsights>
 
               <CampaignCardBody>
-                <p
-                  style={{
-                    margin: "0",
-                    fontWeight: "lighter",
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: ".5rem",
+                    alignContent: "space-between",
                   }}
                 >
-                  Item: {e.offer}
-                </p>
-                <p
-                  style={{
-                    margin: "0",
-                    fontWeight: "lighter",
-                  }}
-                >
-                  Duration:{" "}
-                  {new Date(e.startDate).toISOString().substring(0, 10)} to{" "}
-                  {new Date(e.endDate).toISOString().substring(0, 10)}
-                </p>
-                <p
-                  style={{
-                    margin: "0",
-                    fontWeight: "lighter",
-                  }}
-                >
-                  Users: {e.allowNewCustomer ? "New Customers" : ""}
-                  {e.allowNewCustomer && e.allowSuperCustomer ? " & " : ""}
-                  {e.allowSuperCustomer ? "Super Customers" : ""}
-                </p>
-                <p
-                  style={{
-                    margin: "0",
-                    fontWeight: "lighter",
-                  }}
-                >
-                  Condition: {e.description}
-                </p>
+                  <Box sx={{}}>
+                    <Typography
+                      variant="h3"
+                      sx={{
+                        color: theme.palette.primary[80],
+                        textAlign: "center",
+                      }}
+                    >
+                      Revenue:
+                    </Typography>
+                    <Typography variant="h3" sx={{ textAlign: "center" }}>
+                      {e.spending}
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      gap: ".2rem",
+                      // , gridTemplateColumns: "repeat(2,1fr)"
+                    }}
+                  >
+                    <p
+                      style={{
+                        margin: "0",
+                        fontWeight: "lighter",
+                        flexBasis: "55%",
+                      }}
+                    >
+                      Start date:{" "}
+                      {new Date(e.startDate).toISOString().substring(0, 10)}
+                      {/* {new Date(e.endDate).toISOString().substring(0, 10)} */}
+                    </p>
+                    <p
+                      style={{
+                        margin: "0",
+                        fontWeight: "lighter",
+                        textAlign: "right",
+                        flexBasis: "55%",
+                      }}
+                    >
+                      End date:{" "}
+                      {/* {new Date(e.startDate).toISOString().substring(0, 10)} to{" "} */}
+                      {new Date(e.endDate).toISOString().substring(0, 10)}
+                    </p>
+                  </Box>
+                </Box>
               </CampaignCardBody>
             </ChartCard_Insight>
           </Link>

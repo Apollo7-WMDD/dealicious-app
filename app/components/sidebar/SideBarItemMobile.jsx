@@ -301,7 +301,9 @@ function SideBarItem() {
                     <SideBarSelect
                       style={{
                         position: "absolute",
-                        left: "30%",
+
+                        left: "25%",
+
                         zIndex: "-10",
                       }}
                     ></SideBarSelect>
