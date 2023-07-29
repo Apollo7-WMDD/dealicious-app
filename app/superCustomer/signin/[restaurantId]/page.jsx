@@ -26,9 +26,9 @@ const Page = (params) => {
         console.log('Session:', session);
         console.log('Status:', status);
         if (status === "authenticated" && session?.user) {
-            if (session.user.type === 'superCustomer') {
+            
                 router.push(`/superCustomer/restaurants/${session.user.id}`);
-            }
+            
         }
     }, [session, status]);
 
