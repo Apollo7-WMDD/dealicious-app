@@ -33,7 +33,6 @@ function CampaignGrid({ children }) {
       setIsLoading(true);
       try {
         const result = await fetchAllCampaigns(restaurantOwnerId);
-        console.log(result);
         const filteredResult = result.campaigns.sort(
           (b, a) => Date.parse(a.endDate) - Date.parse(b.endDate)
         );
