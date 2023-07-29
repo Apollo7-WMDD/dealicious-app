@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import Header from "@/app/components/Header/Header";
 
-
 import ChartCard from "@/app/components/Card/ChartCard";
 import MainGrid from "@/app/components/MainGrid";
 import DoughnutChart_NumCustomer from "../../../../../components/Chart/DoughnutChart_NumCustomer";
@@ -17,9 +16,7 @@ import CustomerSpending from "@/app/components/Chart/CustomerSpending";
 import { fetchTotalRevenue } from "@/lib/fetching/insights/data";
 import SingleLineChart from "@/app/components/Chart/SingleLineChart";
 
-
 import InputSubtitleDropdown from "@/app/components/Input/InputSubtitleDropdown";
-
 
 const Page = async () => {
   return (
@@ -28,7 +25,7 @@ const Page = async () => {
       <InputSubtitleDropdown />
 
       {/*====== SET GRID ======*/}
-      <MainGrid>
+      <MainGrid isComparing={false}>
         <ChartCard gridColumn={"span 1"}>
           <ChartCardTitle text={"Number of:"} pinStatus={""}></ChartCardTitle>
           <DoughnutChart_NumCustomer></DoughnutChart_NumCustomer>
@@ -56,15 +53,22 @@ const Page = async () => {
           <AverageBill></AverageBill>
         </ChartCard>
         <ChartCard gridColumn={"span 1"}>
-          <ChartCardTitle text={"Total Revenue"} pinStatus={""}></ChartCardTitle>
-          <SingleLineChart fetchDataSource={fetchTotalRevenue}
-          showTextSource={(data) => `$ ${Math.round(data.totalRevenue)}`}/>
+          <ChartCardTitle
+            text={"Total Revenue"}
+            pinStatus={""}
+          ></ChartCardTitle>
+          <SingleLineChart
+            fetchDataSource={fetchTotalRevenue}
+            showTextSource={(data) => `$ ${Math.round(data.totalRevenue)}`}
+          />
         </ChartCard>
 
         <ChartCard gridColumn={"span 1"}>
-          <ChartCardTitle text={"Customer Spending"} pinStatus={""}></ChartCardTitle>
+          <ChartCardTitle
+            text={"Customer Spending"}
+            pinStatus={""}
+          ></ChartCardTitle>
           <CustomerSpending></CustomerSpending>
-
         </ChartCard>
       </MainGrid>
     </>
