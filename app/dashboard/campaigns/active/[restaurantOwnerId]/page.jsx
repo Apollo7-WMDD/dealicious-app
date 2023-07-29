@@ -108,16 +108,7 @@ const Page = () => {
                   >
                     Condition: {hilighted.description}
                   </p>
-                  <p
-                    style={{
-                      color: "red",
-                      margin: "0",
-                      fontSize: 10,
-                      textAlign: "right",
-                    }}
-                  >
-                    chart is mock up
-                  </p>
+               
                   <LineChart></LineChart>
                 </div>
               </div>
