@@ -10,32 +10,34 @@ import InputButton from "@/app/components/Button/InputButton";
 import ViewNewCampaign from "@/app/components/Campaign/ViewNewCampaign";
 import { Box, Modal, Grid } from "@mui/material";
 import InputTextarea from "@/app/components/Input/InputTextarea";
+import InputTextareaWithButton from "@/app/components/Input/InputTextareaWithButton";
 import Notification from "@/app/components/Card/Notification";
 import CampaignImage from "@/app/components/Campaign/CampaignImage";
 import CampaignForm1 from "@/app/components/Campaign/CampaignForm1";
 import CampaignForm2 from "@/app/components/Campaign/CampaignForm2";
 import { fetchSingleCampaign } from "@/lib/fetching/campaigns/data";
-import { aiGenerate } from "@/lib/AI/openAI";
+import { aiGenerate } from "@/app/api/dashboard/campaigns/openAI/route";
+
 
 const Page = ({params}) => {
+ // AI GENERATED CAMPAIGN ADVERTISEMENT
+ const [aiResult, setAiResult] = useState(null);
 
-  const [aiResult, setAiResult] = useState(null);
-  // const aiResult = aiGenerate();
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     setIsLoading(true);
-  //     try {
-  //       const result = await aiGenerate();
-  //       setAiResult(result.json());
-  //       console.log(aiResult);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
+ const getDataToAI = async () => {
+   console.log(formData);
+   const fetchAI = async () => {
+     try {
+       setAiResult("loading...")
+       const result = await aiGenerate(formData);
+       setAiResult(await result.json());
+       // setAiResult(result.json());
+       console.log(aiResult);
+     } catch (error) {
+       console.error("Error fetching data:", error);
+     } 
+   };
+   fetchAI();
+ };
 
 
   const { restaurantId, restaurantOwnerId } = useStore();
@@ -358,16 +360,17 @@ const Page = ({params}) => {
             </Form>
 
             <Form>
-              <InputTextarea
-                label="Write an attractive campaign advertisement or simply click here to have a compelling ad ready!"
-                value={formData.description}
-                onChange={inputValue}
-                name="description"
-                id="description"
-                placeholder="campaign advertisement"
-                error={formErrors.description}
-                inputstyles={{color: theme.palette.primary[80]}}
-              />
+            <InputTextareaWithButton
+                    label={`Write an attractive campaign advertisement`}
+                    value={aiResult != null ? (aiResult) : (formData.description)}
+                    onChange={inputValue}
+                    onClick={getDataToAI}
+                    name="description"
+                    id="description"
+                    placeholder="campaign advertisement"
+                    buttonText= {aiResult == null ? ("or click here to have it auto-generated!") : ("generate again")}
+                    error={formErrors.description}
+                  />
             </Form>
 
             <InputButton

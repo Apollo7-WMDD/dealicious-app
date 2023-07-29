@@ -48,6 +48,7 @@ export const GET = async (request) => {
           type: 1,
           description: 1,
           favorite: 1,
+          spending: { $sum: "$spendings.billamount" },
         },
       },
     ]);

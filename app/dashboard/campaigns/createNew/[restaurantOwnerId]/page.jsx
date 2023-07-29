@@ -15,7 +15,7 @@ import CampaignForm1 from "@/app/components/Campaign/CampaignForm1";
 import CampaignForm2 from "@/app/components/Campaign/CampaignForm2";
 import Loader from "@/app/components/Loader";
 
-import { aiGenerate } from "@/lib/AI/openAI";
+import { aiGenerate } from "@/app/api/dashboard/campaigns/openAI/route";
 import Link from "next/link";
 
 const Page = () => {
