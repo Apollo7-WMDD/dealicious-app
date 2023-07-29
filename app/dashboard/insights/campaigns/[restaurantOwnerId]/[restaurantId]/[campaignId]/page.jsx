@@ -44,8 +44,10 @@ const Page = async () => {
       setDataArray(filteredResult[0] || []);
       setSubTitle(filteredResult[0].name);
     };
+    
     fetchData();
-  }, []);
+  }, [isComparing]);
+  
 
   const onClick = () => {
     router.push(`/dashboard/campaigns/recreate/${campaignId}`);
@@ -84,7 +86,7 @@ const Page = async () => {
           },
         }}
       >
-        <MainGrid isComparing={isComparing}>
+        <MainGrid key={isComparing ? 'comparing' : 'not-comparing'} isComparing={isComparing}>
           <ChartCard gridColumn={isComparing ? "span 1" : "span 2"}>
             <ChartCardTitle text={"Total Revenue"}></ChartCardTitle>
             <div style={{ minHeight: "250px", width: "100%" }}>
