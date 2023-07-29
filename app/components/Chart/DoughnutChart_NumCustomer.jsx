@@ -6,7 +6,7 @@ import {
   defaults,
 } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import { useTheme, Typography } from "@mui/material";
+import { useTheme, Typography, Box } from "@mui/material";
 import { fetchNumberOf } from "../../../lib/fetching/insights/data";
 import { useEffect, useState } from "react";
 import { useStore } from "@/lib/context/user_context/store";
@@ -109,26 +109,24 @@ function DoughnutChart_NumCustomer() {
           <Loader />
         </div>
       ) : (
-        <div>
-          <Typography variant="h4" lineHeight="35px">
+        <>
+          <Typography variant="h4" lineHeight="35px" style={{ position: 'absolute', top: 0 }}>
             Total = {Object.values(data).shift(1)}
           </Typography>
-          <div>
-            <Doughnut
-              data={doughnutFakeData}
-              style={{
-                width: "100%",
-                height: "100%",
-                gridColumn: "1/-1",
-                gridRow: "1/-1",
-              }}
-              options={option}
-            />
-          </div>
-        </div>
+          <Doughnut
+            data={doughnutFakeData}
+            style={{
+              width: "100%",
+              height: "100%",
+              gridColumn: "1/-1",
+              gridRow: "1/-1",
+            }}
+            options={option}
+          />
+        </>
       )}
     </div>
-  );
+  );  
 }
 
 export default DoughnutChart_NumCustomer;

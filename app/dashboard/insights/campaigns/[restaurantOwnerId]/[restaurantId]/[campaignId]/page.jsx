@@ -13,6 +13,8 @@ import ChartCardTitle from "@/app/components/Chart/ChartCardTitle";
 import DoughnutChart_Single_NumCustomer from "@/app/components/Chart/DoughnutChart_Single_NumCustomer";
 import DoughnutChart_Single_SpendingCustomer from "@/app/components/Chart/DoughnutChart_Single_SpendingCustomer";
 import SingleButtonVariant from "@/app/components/Button/SingleButtonVariant";
+import { useTheme } from "@emotion/react";
+
 // fetch imports
 import { fetchAllCampaigns } from "@/lib/fetching/campaigns/data";
 import HeaderGrid from "@/app/components/HeaderGrid";
@@ -24,6 +26,10 @@ const Page = async () => {
   const campaignId = pathname.split("/")[6];
   const [dataArray, setDataArray] = useState([]);
   const [subTitle, setSubTitle] = useState("");
+  const [isComparing, setIsComparing] = useState(false);
+  const [campaignCompare, setCampaignCompare] = useState("");
+
+  const theme = useTheme();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,8 +42,6 @@ const Page = async () => {
     };
     fetchData();
   }, []);
-
-  console.log(dataArray);
 
   const onClick = () => {
     router.push(`/dashboard/campaigns/recreate/${campaignId}`);
@@ -53,28 +57,89 @@ const Page = async () => {
           width={"350px"}
         />
       </HeaderGrid>
-      <InputSubtitleDropdown text={subTitle} />
-      <MainGrid>
-        <ChartCard gridColumn={"span 2"}>
-          <ChartCardTitle text={"Total Revenue"}></ChartCardTitle>
-          <LineChart></LineChart>
-        </ChartCard>
-        <ChartCard gridColumn={"span 1"}>
-          <ChartCardTitle text={"Number of:"} pinStatus={""}></ChartCardTitle>
-          <DoughnutChart_Single_NumCustomer
-            campaignId={campaignId}
-          ></DoughnutChart_Single_NumCustomer>
-        </ChartCard>
-        <ChartCard gridColumn={"span 1"}>
-          <ChartCardTitle
-            text={"Customer Spending"}
-            pinStatus={""}
-          ></ChartCardTitle>
-          <DoughnutChart_Single_SpendingCustomer
-            campaignId={campaignId}
-          ></DoughnutChart_Single_SpendingCustomer>
-        </ChartCard>
-      </MainGrid>
+      <InputSubtitleDropdown
+        text={subTitle}
+        setIsComparing={setIsComparing}
+        setCampaignCompare={setCampaignCompare}
+        isComparing={isComparing}
+      />
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: isComparing
+            ? "repeat(2, 1fr)"
+            : "repeat(1, 1fr)",
+          gap: "1.5rem",
+          gridAutoFlow: "row dense",
+          margin: "1.5rem 0",
+          [theme.breakpoints.down("lg")]: {
+            gridTemplateColumns: "repeat(2, 1fr)",
+          },
+          [theme.breakpoints.down("md")]: {
+            gridTemplateColumns: "repeat(1, 1fr)",
+          },
+        }}
+      >
+        <MainGrid isComparing={isComparing}>
+          <ChartCard gridColumn={isComparing ? "span 1" : "span 2"}>
+            <ChartCardTitle text={"Total Revenue"}></ChartCardTitle>
+            <div style={{ minHeight: "250px", width: "100%" }}>
+              <LineChart></LineChart>
+            </div>
+          </ChartCard>
+          <ChartCard gridColumn={"span 1"}>
+            <ChartCardTitle text={"Number of:"} pinStatus={""}></ChartCardTitle>
+            <div style={{ minHeight: "350px", width: "100%" }}>
+              <DoughnutChart_Single_NumCustomer
+                campaignId={campaignId}
+              ></DoughnutChart_Single_NumCustomer>
+            </div>
+          </ChartCard>
+          <ChartCard gridColumn={"span 1"}>
+            <ChartCardTitle
+              text={"Customer Spending"}
+              pinStatus={""}
+            ></ChartCardTitle>
+            <div style={{ minHeight: "350px", width: "100%" }}>
+              <DoughnutChart_Single_SpendingCustomer
+                campaignId={campaignId}
+              ></DoughnutChart_Single_SpendingCustomer>
+            </div>
+          </ChartCard>
+        </MainGrid>
+        {isComparing && (
+          <MainGrid isComparing={isComparing}>
+            <ChartCard gridColumn={isComparing ? "span 1" : "span 2"}>
+              <ChartCardTitle text={"Total Revenue"}></ChartCardTitle>
+              <div style={{ minHeight: "250px", width: "100%" }}>
+                <LineChart></LineChart>
+              </div>
+            </ChartCard>
+            <ChartCard gridColumn={"span 1"}>
+              <ChartCardTitle
+                text={"Number of:"}
+                pinStatus={""}
+              ></ChartCardTitle>
+              <div style={{ minHeight: "350px", width: "100%" }}>
+                <DoughnutChart_Single_NumCustomer
+                  campaignId={campaignCompare}
+                ></DoughnutChart_Single_NumCustomer>
+              </div>
+            </ChartCard>
+            <ChartCard gridColumn={"span 1"}>
+              <ChartCardTitle
+                text={"Customer Spending"}
+                pinStatus={""}
+              ></ChartCardTitle>
+              <div style={{ minHeight: "350px", width: "100%" }}>
+                <DoughnutChart_Single_SpendingCustomer
+                  campaignId={campaignCompare}
+                ></DoughnutChart_Single_SpendingCustomer>
+              </div>
+            </ChartCard>
+          </MainGrid>
+        )}
+      </Box>
     </>
   );
 };

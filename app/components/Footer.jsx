@@ -13,6 +13,7 @@ const Footer = () => {
         // width: "inherit",
         fontSize: "1rem",
         padding: "1rem 2%",
+        overflowX: "hidden",
       }}
     >
       Dealicious &copy; 2023{" "}
