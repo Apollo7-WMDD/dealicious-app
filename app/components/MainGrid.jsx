@@ -8,6 +8,7 @@ function MainGrid({ children, isComparing }) {
       sx={{
         display: "grid",
         gridTemplateColumns: isComparing ? "repeat(1, 1fr)" : "repeat(3, 1fr)",
+        width: "100%",
         gap: "1.5rem",
         gridAutoFlow: "row dense",
         margin: "1.5rem 0",
