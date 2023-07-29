@@ -49,9 +49,6 @@ function DoughnutChart_NumCustomer({ campaignId }) {
           theme.palette.primary[100],
           theme.palette.primary[60],
         ],
-        // hoverBackgroundColor: [ theme.palette.primary[80],
-        // theme.palette.primary[100],
-        // theme.palette.primary[60],],
         borderColor: ["transparent", "transparent", "transparent"],
         color: [
           theme.palette.background.alt,
@@ -84,16 +81,19 @@ function DoughnutChart_NumCustomer({ campaignId }) {
     },
   };
 
+  function formatNumber(num) {
+    if(num >= 1000) {
+      return (num/1000).toFixed(1) + 'k'; // 
+    } else {
+      return num;
+    }
+  }
+
   // ! RESOLVE PLUGINS ISSUE FROM 'npm install --save chartjs-plugin-doughnutlabel'
   return (
     <div
       style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(1,1fr)",
-        position: "relative",
-        alignItems: "center",
-        width: "100%",
-        height: "100%",
+        maxHeight: "250px"
       }}
     >
       {isLoading ? (
@@ -109,19 +109,7 @@ function DoughnutChart_NumCustomer({ campaignId }) {
         </div>
       ) : (
         <>
-          <Typography
-            variant="h3"
-            sx={{
-              gridColumn: "1/-1",
-              gridRow: "1/-1",
-              position: "absolute",
-              left: "22.5%",
-              zIndex: "1",
-            }}
-          >
-            {" "}
-            {Object.values(data).shift(1)}
-          </Typography>
+          <Typography variant="h4" lineHeight="35px">Total = $ {formatNumber(Object.values(data).shift(1))}</Typography>
           <Doughnut
             data={doughnutFakeData}
             style={{

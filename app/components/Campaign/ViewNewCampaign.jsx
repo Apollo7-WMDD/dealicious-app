@@ -28,6 +28,12 @@ const ViewNewCampaign = ({ formData, handleFinalSubmit, handleEditProp, setFormD
       customerLimit = "Super customers";
     }    
 
+    let imageSrc;
+    if (formData.media && formData.media.length > 0) {
+      imageSrc = formData.media[0]; 
+    } else {
+      imageSrc = localStorage.getItem('media'); 
+    }
 
     return (
       <div>
@@ -59,7 +65,7 @@ const ViewNewCampaign = ({ formData, handleFinalSubmit, handleEditProp, setFormD
               alignItems: 'flex-start', 
               justifyContent: 'center' 
             }}>
-              <img src={localStorage.getItem('media')} alt="Campaign Image" style={{ Width: '100%', height: '100%', objectFit: 'cover', borderRadius:'8px' }}/>
+              <img src={imageSrc} alt="Campaign Image" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius:'8px' }}/>
             </Box>
             <Box sx={{ width: { xs: '100%', md: '55%' }, display: 'flex', flexDirection: 'column', gap: '12px'}}>
               <SubHeader>{formData.name}</SubHeader>

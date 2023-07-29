@@ -6,18 +6,15 @@ import {
   defaults,
 } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import { useTheme, Typography, Box } from "@mui/material";
-import { fetchNumberOf } from "../../../lib/fetching/insights/data";
+import { useTheme, Typography } from "@mui/material";
+import { fetchPointsSingle } from "../../../lib/fetching/insights/data";
 import { useEffect, useState } from "react";
-import { useStore } from "@/lib/context/user_context/store";
 
-// loader
 import Loader from "../Loader";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-function DoughnutChart_NumCustomer() {
-  const { restaurantOwnerId } = useStore();
+function DoughnutChart_Single_Point({restaurantOwnerId}) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -25,7 +22,7 @@ function DoughnutChart_NumCustomer() {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const result = await fetchNumberOf(restaurantOwnerId);
+        const result = await fetchPointsSingle(restaurantOwnerId);
         setData(result);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -37,24 +34,22 @@ function DoughnutChart_NumCustomer() {
   }, [restaurantOwnerId]);
 
   const formatData = Object.values(data).slice(1);
+  console.log('Points Data', data);
 
   const theme = useTheme();
   defaults.font.family = theme.typography.fontFamily;
   defaults.font.size = theme.typography.fontSize;
 
   const doughnutFakeData = {
-    labels: ["Super Customers", "New Customers"],
+    labels: ["Total", "Redeemed"],
     datasets: [
       {
-        data: formatData,
+        data: [data.totalPoints, data.totalRedeemedPoints],
         backgroundColor: [
           theme.palette.primary[80],
           theme.palette.primary[100],
-          theme.palette.primary[60],
+          // theme.palette.primary[60],
         ],
-        // hoverBackgroundColor: [ theme.palette.primary[80],
-        // theme.palette.primary[100],
-        // theme.palette.primary[60],],
         borderColor: ["transparent", "transparent", "transparent"],
         color: [
           theme.palette.background.alt,
@@ -85,34 +80,37 @@ function DoughnutChart_NumCustomer() {
         position: "right",
       },
     },
-    cutout: "60%",
   };
+
+  function formatNumber(num) {
+    if(num >= 1000) {
+      return (num/1000).toFixed(1) + 'k'; // 
+    } else {
+      return num;
+    }
+  }
 
   // ! RESOLVE PLUGINS ISSUE FROM 'npm install --save chartjs-plugin-doughnutlabel'
   return (
     <div
       style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(1,1fr)",
-        position: "relative",
-        alignItems: "center",
-        width: "100%",
-        height: "100%",
+        maxHeight: "250px"
       }}
     >
       {isLoading ? (
         <div
           style={{
-            maxHeight: "250px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gridColumn: "1/-1",
           }}
         >
           <Loader />
         </div>
       ) : (
         <>
-          <Typography variant="h4" lineHeight="35px" style={{ position: 'absolute', top: 0 }}>
-            Total = {Object.values(data).shift(1)}
-          </Typography>
+          <Typography variant="h4" lineHeight="35px">Total = {formatNumber(Object.values(data).shift(1))}</Typography>
           <Doughnut
             data={doughnutFakeData}
             style={{
@@ -126,7 +124,7 @@ function DoughnutChart_NumCustomer() {
         </>
       )}
     </div>
-  );  
+  );
 }
 
-export default DoughnutChart_NumCustomer;
+export default DoughnutChart_Single_Point;

@@ -16,6 +16,7 @@ import CampaignImage from "@/app/components/Campaign/CampaignImage";
 import CampaignForm1 from "@/app/components/Campaign/CampaignForm1";
 import CampaignForm2 from "@/app/components/Campaign/CampaignForm2";
 import { fetchSingleCampaign } from "@/lib/fetching/campaigns/data";
+
 import { aiGenerate } from "@/app/api/dashboard/campaigns/openAI/route";
 
 
@@ -38,6 +39,7 @@ const Page = ({params}) => {
    };
    fetchAI();
  };
+
 
 
   const { restaurantId, restaurantOwnerId } = useStore();
@@ -74,20 +76,23 @@ const Page = ({params}) => {
   const [campaignData, setCampaignData] = useState(null);
   useEffect(() => {
     const getCampaignData = async () => {
-        const data = await fetchSingleCampaign(campaignId);
-        console.log(data);
-        const { campaignInfo } = data;
-        setCampaignData(campaignInfo);
-
-        setFormData(prevFormData => ({
-            ...prevFormData,
-            ...campaignInfo,
-            startDate: new Date(campaignInfo.startDate).toISOString().slice(0,10),
-            endDate: new Date(campaignInfo.endDate).toISOString().slice(0,10),
-        }));
+      const data = await fetchSingleCampaign(campaignId);
+      console.log(data);
+      const { campaignInfo } = data;
+      setCampaignData(campaignInfo);
+  
+      const { description, ...restCampaignInfo } = campaignInfo;
+  
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        ...restCampaignInfo,
+        startDate: new Date(campaignInfo.startDate).toISOString().slice(0,10),
+        endDate: new Date(campaignInfo.endDate).toISOString().slice(0,10),
+      }));
     };
     getCampaignData();
   }, [restaurantId]);
+  
 
 
   // The first save button - submit the form
@@ -161,9 +166,8 @@ const Page = ({params}) => {
               media: data.secure_url, 
             };
             setFormData(newFormData);
-            
   
-            // then POST the formData 
+            // POST the newFormData
             try {
               const response = await fetch(
                 `/api/dashboard/campaigns/new/${restaurantId}`,
@@ -175,7 +179,7 @@ const Page = ({params}) => {
                   body: JSON.stringify(newFormData),
                 }
               );
-        
+      
               if (response.ok) {
                 console.log("Campaign created successfully!");
                 console.log(newFormData)
@@ -184,7 +188,6 @@ const Page = ({params}) => {
             } catch (error) {
               console.log("Error creating campaign:", error.message);
             }
-  
           }
         } catch (error) {
           console.log("Error uploading image:", error.message);
@@ -194,8 +197,31 @@ const Page = ({params}) => {
       reader.onerror = (error) => {
         console.log("Error reading file:", error);
       };
+    } else {
+      // no image is uploaded, just post the formData
+      try {
+        const response = await fetch(
+          `/api/dashboard/campaigns/new/${restaurantId}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),  
+          }
+        );
+  
+        if (response.ok) {
+          console.log("Campaign created successfully!");
+          console.log(formData)  
+          setShowNotification(true);
+        }
+      } catch (error) {
+        console.log("Error creating campaign:", error.message);
+      }
     }
   };
+  
   
   
   //////////////////////////////////////////////////////////////////////

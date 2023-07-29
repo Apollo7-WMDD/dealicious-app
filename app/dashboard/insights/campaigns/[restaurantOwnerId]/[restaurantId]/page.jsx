@@ -21,7 +21,7 @@ const Page = async () => {
         <CreateNewCampaign />
       </HeaderGrid>
       <SubHeader props={"Select a Campaigns"} />
-      <MainGrid>
+      <MainGrid isComparing={false}>
         <CampaignGrid_All />
       </MainGrid>
     </>
