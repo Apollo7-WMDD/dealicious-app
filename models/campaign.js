@@ -1,16 +1,10 @@
 import { Schema, model, models } from "mongoose";
-import dayjs from 'dayjs';
-// import utc from 'dayjs/plugin/utc';
-// import timezone from 'dayjs/plugin/timezone';
-
-// dayjs.extend(utc);
-// dayjs.extend(timezone);
+import dayjs from "dayjs";
 
 function getClientDate() {
-  console.log('dayjs().tz:', dayjs().tz);
+  console.log("dayjs().tz:", dayjs().tz);
   return dayjs().toDate();
 }
-
 
 const CampaignSchema = new Schema({
   restaurantId: {
@@ -79,13 +73,13 @@ const CampaignSchema = new Schema({
     required: [true, "Start Date is required"],
     validate: {
       isAsync: false,
-      validator: function() {
+      validator: function () {
         // console.log('Before getClientDate');
         return getClientDate(this.startDate);
       },
-      message: 'Start Date should be greater than or equal to the current date',
+      message: "Start Date should be greater than or equal to the current date",
     },
-  },  
+  },
   endDate: {
     type: Date,
     required: [true, "End Date is required!"],
@@ -104,7 +98,7 @@ const CampaignSchema = new Schema({
     required: [true, "Description is required"],
     trim: true,
   },
-  condition:{
+  condition: {
     type: String,
     required: [true, "Condition is required"],
     trim: true,
