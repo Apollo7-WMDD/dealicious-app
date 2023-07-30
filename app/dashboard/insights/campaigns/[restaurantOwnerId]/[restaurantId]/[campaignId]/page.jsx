@@ -21,6 +21,11 @@ import DoughnutChart_Single_Point from "@/app/components/Chart/DoughnutChart_Sin
 
 // fetch imports
 import { fetchAllCampaigns } from "@/lib/fetching/campaigns/data";
+import {
+  fetchTotalRevenueSingle,
+  fetchCustomerCampaignTimeSingle,
+  fetchNCbecameSC,
+} from "@/lib/fetching/insights/data";
 
 import Loader from "@/app/components/Loader";
 import LineChart from "@/app/components/Chart/LineChart";
@@ -32,9 +37,7 @@ const Page = async () => {
   const campaignId = pathname.split("/")[6];
   const [dataArray, setDataArray] = useState([]);
   const [subTitle, setSubTitle] = useState("");
-
   const [isLoading, setIsLoading] = useState(true);
-
   const [isComparing, setIsComparing] = useState(false);
   const [campaignCompare, setCampaignCompare] = useState("");
 
@@ -78,33 +81,190 @@ const Page = async () => {
               width={"350px"}
             />
           </HeaderGrid>
-          <InputSubtitleDropdown text={subTitle} />
-          <MainGrid>
-            <ChartCard gridColumn={"span 2"}>
-              <ChartCardTitle text={"Total Revenue"}></ChartCardTitle>
-              <LineChart></LineChart>
-            </ChartCard>
-            <ChartCard gridColumn={"span 1"}>
-              <ChartCardTitle
-                text={"Number of:"}
-                pinStatus={""}
-              ></ChartCardTitle>
+          <InputSubtitleDropdown
+            text={subTitle}
+            setIsComparing={setIsComparing}
+            setCampaignCompare={setCampaignCompare}
+            isComparing={isComparing}
+          />
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: isComparing
+                ? "repeat(2, 1fr)"
+                : "repeat(1, 1fr)",
+              gap: "1.5rem",
+              gridAutoFlow: "row dense",
+              margin: "1.5rem 0",
+              [theme.breakpoints.down("lg")]: {
+                gridTemplateColumns: "repeat(2, 1fr)",
+              },
+              [theme.breakpoints.down("md")]: {
+                gridTemplateColumns: "repeat(1, 1fr)",
+              },
+            }}
+          >
+            <MainGrid
+              key={isComparing ? "comparing" : "not-comparing"}
+              isComparing={isComparing}
+            >
+              <ChartCard gridColumn={isComparing ? "span 1" : "span 2"}>
+                <ChartCardTitle text={"Total Revenue"}></ChartCardTitle>
+                <div style={{ minHeight: "250px", width: "100%" }}>
+                  <SingleLineChart
+                    fetchDataSource={fetchTotalRevenueSingle}
+                    showTextSource={(data) => `$ 1.2k`}
+                  />
+                </div>
+              </ChartCard>
+              <ChartCard gridColumn={isComparing ? "span 1" : "span 2"}>
+                <ChartCardTitle
+                  text={"Customer Campaign Usage By Time"}
+                ></ChartCardTitle>
+                <div style={{ minHeight: "250px", width: "100%" }}>
+                  <SingleLineChart
+                    fetchDataSource={fetchCustomerCampaignTimeSingle}
+                    showTextSource={(data) => `680`}
+                  />
+                </div>
+              </ChartCard>
+              <ChartCard gridColumn={"span 1"}>
+                <ChartCardTitle
+                  text={"Number of:"}
+                  pinStatus={""}
+                ></ChartCardTitle>
+                <div style={{ minHeight: "350px", width: "100%" }}>
+                  <DoughnutChart_Single_NumCustomer
+                    campaignId={campaignId}
+                  ></DoughnutChart_Single_NumCustomer>
+                </div>
+              </ChartCard>
 
-              <DoughnutChart_Single_NumCustomer
-                campaignId={campaignId}
-              ></DoughnutChart_Single_NumCustomer>
-            </ChartCard>
-            <ChartCard gridColumn={"span 1"}>
-              <ChartCardTitle
-                text={"Customer Spending"}
-                pinStatus={""}
-              ></ChartCardTitle>
+              <ChartCard gridColumn={"span 1"}>
+                <ChartCardTitle text={"Points"} pinStatus={""}></ChartCardTitle>
+                <div style={{ minHeight: "350px", width: "100%" }}>
+                  <DoughnutChart_Single_Point
+                    restaurantOwnerId={restaurantOwnerId}
+                  ></DoughnutChart_Single_Point>
+                </div>
+              </ChartCard>
+              <ChartCard gridColumn={"span 1"}>
+                <ChartCardTitle
+                  text={"NC that became SCs"}
+                  pinStatus={""}
+                ></ChartCardTitle>
+                <div style={{ minHeight: "350px", width: "100%" }}>
+                  <SingleLineChart
+                    fetchDataSource={fetchNCbecameSC}
+                    showTextSource={(data) => `89`}
+                  />
+                </div>
+              </ChartCard>
 
-              <DoughnutChart_Single_SpendingCustomer
-                campaignId={campaignId}
-              ></DoughnutChart_Single_SpendingCustomer>
-            </ChartCard>
-          </MainGrid>
+              <ChartCard gridColumn={"span 1"}>
+                <ChartCardTitle
+                  text={"Customer Spending"}
+                  pinStatus={""}
+                ></ChartCardTitle>
+                <div style={{ minHeight: "350px", width: "100%" }}>
+                  <DoughnutChart_Single_SpendingCustomer
+                    campaignId={campaignId}
+                  ></DoughnutChart_Single_SpendingCustomer>
+                </div>
+              </ChartCard>
+              <ChartCard gridColumn={"span 1"}>
+                <ChartCardTitle
+                  text={"Average Bill"}
+                  pinStatus={""}
+                ></ChartCardTitle>
+                <div style={{ minHeight: "350px", width: "100%" }}>
+                  <AverageBill campaignId={campaignId}></AverageBill>
+                </div>
+              </ChartCard>
+            </MainGrid>
+            {isComparing && (
+              <MainGrid isComparing={isComparing}>
+                <ChartCard gridColumn={isComparing ? "span 1" : "span 2"}>
+                  <ChartCardTitle text={"Total Revenue"}></ChartCardTitle>
+                  <div style={{ minHeight: "250px", width: "100%" }}>
+                    <SingleLineChart
+                      fetchDataSource={fetchTotalRevenueSingle}
+                      showTextSource={(data) => `$ 0.9k`}
+                    />
+                  </div>
+                </ChartCard>
+                <ChartCard gridColumn={isComparing ? "span 1" : "span 2"}>
+                  <ChartCardTitle
+                    text={"Customer Campaign Usage By Time"}
+                  ></ChartCardTitle>
+                  <div style={{ minHeight: "250px", width: "100%" }}>
+                    <SingleLineChart
+                      fetchDataSource={fetchCustomerCampaignTimeSingle}
+                      showTextSource={(data) => `540`}
+                    />
+                    {/* // showTextSource={(data) => `$ ${Math.round(data.totalRevenue)}`}/> */}
+                  </div>
+                </ChartCard>
+                <ChartCard gridColumn={"span 1"}>
+                  <ChartCardTitle
+                    text={"Number of:"}
+                    pinStatus={""}
+                  ></ChartCardTitle>
+                  <div style={{ minHeight: "350px", width: "100%" }}>
+                    <DoughnutChart_Single_NumCustomer
+                      campaignId={campaignCompare}
+                    ></DoughnutChart_Single_NumCustomer>
+                  </div>
+                </ChartCard>
+
+                <ChartCard gridColumn={"span 1"}>
+                  <ChartCardTitle
+                    text={"Points"}
+                    pinStatus={""}
+                  ></ChartCardTitle>
+                  <div style={{ minHeight: "350px", width: "100%" }}>
+                    <DoughnutChart_Single_Point
+                      restaurantOwnerId={restaurantOwnerId}
+                    ></DoughnutChart_Single_Point>
+                  </div>
+                </ChartCard>
+                <ChartCard gridColumn={"span 1"}>
+                  <ChartCardTitle
+                    text={"NC that became SCs"}
+                    pinStatus={""}
+                  ></ChartCardTitle>
+                  <div style={{ minHeight: "350px", width: "100%" }}>
+                    <SingleLineChart
+                      fetchDataSource={fetchNCbecameSC}
+                      showTextSource={(data) => `56`}
+                    />
+                  </div>
+                </ChartCard>
+
+                <ChartCard gridColumn={"span 1"}>
+                  <ChartCardTitle
+                    text={"Customer Spending"}
+                    pinStatus={""}
+                  ></ChartCardTitle>
+                  <div style={{ minHeight: "350px", width: "100%" }}>
+                    <DoughnutChart_Single_SpendingCustomer
+                      campaignId={campaignCompare}
+                    ></DoughnutChart_Single_SpendingCustomer>
+                  </div>
+                </ChartCard>
+
+                <ChartCard gridColumn={"span 1"}>
+                  <ChartCardTitle
+                    text={"Average Bill"}
+                    pinStatus={""}
+                  ></ChartCardTitle>
+                  <div style={{ minHeight: "350px", width: "100%" }}>
+                    <AverageBill campaignId={campaignCompare}></AverageBill>
+                  </div>
+                </ChartCard>
+              </MainGrid>
+            )}
+          </Box>
         </>
       )}
     </>

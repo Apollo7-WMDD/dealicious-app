@@ -9,54 +9,46 @@ import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const Page = (params) => {
-    const router = useRouter();
-    const { data: session, status } = useSession(); 
-    const { restaurantId } = params.params;
-    const [restaurantData, setRestaurantData] = useState(null);
-    // const [hasSignedOut, setHasSignedOut] = useState(false);
+  const router = useRouter();
+  const { data: session, status } = useSession();
+  const { restaurantId } = params.params;
+  const [restaurantData, setRestaurantData] = useState(null);
 
-    // useEffect(() => {
-    //     if (!hasSignedOut) {
-    //       signOut({ callbackUrl: typeof window !== 'undefined' ? window.location.pathname : '' });
-    //       setHasSignedOut(true);
-    //     }
-    // }, []);
+  useEffect(() => {
+    console.log("Session:", session);
+    console.log("Status:", status);
+    if (status === "authenticated" && session?.user) {
+      router.push(`/superCustomer/restaurants/${session.user.id}`);
+    }
+  }, [session, status]);
 
-    useEffect(() => {
-        console.log('Session:', session);
-        console.log('Status:', status);
-        if (status === "authenticated" && session?.user) {
-            
-                router.push(`/superCustomer/restaurants/${session.user.id}`);
-            
-        }
-    }, [session, status]);
+  useEffect(() => {
+    const getRestaurantData = async () => {
+      console.log(restaurantId);
+      const data = await fetchRestaurantCard(restaurantId);
+      const { restaurantInfo } = data;
+      setRestaurantData(restaurantInfo);
+    };
+    getRestaurantData();
+  }, [restaurantId]);
 
-    useEffect(() => {
-        const getRestaurantData = async () => {
-            console.log(restaurantId);
-            const data = await fetchRestaurantCard(restaurantId);
-            const { restaurantInfo } = data;
-            setRestaurantData(restaurantInfo);
-        };
-        getRestaurantData();
-    }, [restaurantId]);
-
-    return (
-        <>
-            <Box sx={{
-                display: "flex",
-                flexDirection: { xs: 'column', md: 'row' },
-                justifyContent: "center",
-                alignItems: "start",
-                gap: 3,
-                m: 5,
-            }}>
-                <SCRestaurantCard {...restaurantData} />
-                <LoginComponent/>
-            </Box>
-        </>
-    );
+  return (
+    <>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          justifyContent: "center",
+          alignItems: "start",
+          gap: 3,
+          m: 5,
+        }}
+      >
+        <SCRestaurantCard {...restaurantData} />
+        <LoginComponent />
+      </Box>
+    </>
+  );
 };
 
 export default Page;
