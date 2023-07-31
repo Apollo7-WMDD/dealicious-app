@@ -1,4 +1,4 @@
-import { Box, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import { useStore } from "@/lib/context/user_context/store";
@@ -14,7 +14,6 @@ import Loader from "../Loader";
 
 function CampaignGrid({ onPinClickB }) {
   const { restaurantOwnerId } = useStore();
-  const [data, setData] = useState([]);
   const [dataArray, setDataArray] = useState([]);
   const [hilighted, setHilighted] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -29,7 +28,6 @@ function CampaignGrid({ onPinClickB }) {
             Date.parse(e.startDate) < Date.now() &&
             Date.parse(e.endDate) > Date.now()
         );
-        setData(filteredResult);
         setDataArray(filteredResult || []);
       } catch (error) {
         console.error("fetching data:", error);
@@ -85,7 +83,7 @@ function CampaignGrid({ onPinClickB }) {
             gridColumn: "span 3",
           }}
         >
-          <Loader />
+          <Typography variant="h2">No Upcoming campaigns...</Typography>
         </div>
       ) : (
         dataArray.map((e) => (
