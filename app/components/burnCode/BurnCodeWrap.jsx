@@ -13,7 +13,6 @@ function BurnCodeWrap({ render, setRender }) {
   const [data, setData] = useState({});
   const [openModal, setOpenModal] = useState(false);
   const [campaignCode, setCampaignCode] = useState({});
-
   const handleRenderUpdate = () => {
     setRender((prevRender) => prevRender + 1);
   };
