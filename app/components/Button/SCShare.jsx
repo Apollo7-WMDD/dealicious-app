@@ -11,14 +11,20 @@ import Phone from "@/app/components/svg/phone.svg";
 import URL from "@/app/components/svg/url.svg";
 import { useSession } from "next-auth/react";
 
-const SCShare = ({ text, width, superCustomerId, restaurantId, restaurantData }) => {
+const SCShare = ({
+  text,
+  width,
+  superCustomerId,
+  restaurantId,
+  restaurantData,
+}) => {
   const theme = useTheme();
   const shadowColor = `${theme.palette.neutral[20]}1f`;
 
   // <Bug AP-220 #143 - SC Share button>
   const isProduction = process.env.NODE_ENV === "production";
   const serverUrl = isProduction
-    ? process.env.NEXT_PUBLIC_SERVER_URL
+    ? "https://dealicious.site"
     : "http://localhost:3000";
 
   const url = `${serverUrl}/newCustomer/${restaurantId}/${superCustomerId}`;
@@ -46,13 +52,12 @@ const SCShare = ({ text, width, superCustomerId, restaurantId, restaurantData })
   };
 
   const { data: session } = useSession();
-  const username = `${session?.user?.firstname} ${session?.user?.lastname}`; 
+  const username = `${session?.user?.firstname} ${session?.user?.lastname}`;
   // const [user, setUserName] = useState("");
   // setUserName(username);
 
   // console.log(restaurantData)
   // console.log(username)
-
 
   return (
     <Box>
@@ -87,27 +92,23 @@ const SCShare = ({ text, width, superCustomerId, restaurantId, restaurantData })
       >
         <Typography variant="p">{text}</Typography>
       </Button>
-      <Modal
-        open={open} 
-        onClose={handleClose}
-      >
-        <Box
-          sx={style}        
-        >
+      <Modal open={open} onClose={handleClose}>
+        <Box sx={style}>
           <Typography variant="p">
             Experience culinary bliss with a special invitation from{" "}
           </Typography>
-          <Typography 
+          <Typography
             variant="h3"
             sx={{
-              color: '#ff5938',
-              m:'1rem 0',
+              color: "#ff5938",
+              m: "1rem 0",
             }}
-          >{username}</Typography>          
-          <Typography
-            variant ="p"
-            >
-            Activate your favourite campaign at our place and embark on a remarkable culinary adventure unlike any other.
+          >
+            {username}
+          </Typography>
+          <Typography variant="p">
+            Activate your favourite campaign at our place and embark on a
+            remarkable culinary adventure unlike any other.
           </Typography>
           <Box
             sx={{
@@ -131,29 +132,28 @@ const SCShare = ({ text, width, superCustomerId, restaurantId, restaurantData })
               />
             </Box>
             <Box
-                sx={{
-                  m: "0 0 0 1rem",
-                  textAlign: "start",
-                }}
-                style={{
-                  padding: "0",
-                }}
-              >
-                <Typography gutterBottom variant="h3" component="div"
-                >
-                  {restaurantData?.name}
-                </Typography>
-                <Typography variant="p" color="text.secondary">
-                  4.5{" "}
-                  <StarIcon
-                    sx={{
-                      m: 0,
-                      p: 0,
-                    }}
-                  />{" "}
-                  Peruvian * Cafe * Bistro
-                </Typography>
-            </Box>            
+              sx={{
+                m: "0 0 0 1rem",
+                textAlign: "start",
+              }}
+              style={{
+                padding: "0",
+              }}
+            >
+              <Typography gutterBottom variant="h3" component="div">
+                {restaurantData?.name}
+              </Typography>
+              <Typography variant="p" color="text.secondary">
+                4.5{" "}
+                <StarIcon
+                  sx={{
+                    m: 0,
+                    p: 0,
+                  }}
+                />{" "}
+                Peruvian * Cafe * Bistro
+              </Typography>
+            </Box>
           </Box>
           <Box
             sx={{
@@ -161,12 +161,14 @@ const SCShare = ({ text, width, superCustomerId, restaurantId, restaurantData })
               alignItems: "flex-start",
               flexDirection: "column",
               m: "0",
-              gap:'1rem',
+              gap: "1rem",
             }}
           >
             <Typography variant="p" color="text.secondary">
-              <Location /> {restaurantData?.address?.street}, {restaurantData?.address?.city},{" "}
-              {restaurantData?.address?.province}, {restaurantData?.address?.zipcode} <CopyIcon />
+              <Location /> {restaurantData?.address?.street},{" "}
+              {restaurantData?.address?.city},{" "}
+              {restaurantData?.address?.province},{" "}
+              {restaurantData?.address?.zipcode} <CopyIcon />
             </Typography>
             <Typography variant="p" color="text.secondary">
               <Clock /> Everyday: 5 pm - 10 pm
@@ -188,8 +190,8 @@ const SCShare = ({ text, width, superCustomerId, restaurantId, restaurantData })
           >
             <Box
               sx={{
-                justifyContent:'end',
-                display:'flex',
+                justifyContent: "end",
+                display: "flex",
               }}
             >
               <Button
@@ -207,28 +209,28 @@ const SCShare = ({ text, width, superCustomerId, restaurantId, restaurantData })
                   // justifyItems:'end',
                   // alignContent:'end',
                   // alignSelf:'end',
-                  left:'0',
-                  m:'2rem 0 0 0',
+                  left: "0",
+                  m: "2rem 0 0 0",
                   backgroundColor: theme.palette.primary[80],
                   ":hover": {
                     backgroundColor: theme.palette.primary[60],
                   },
-                  [theme.breakpoints.down('lg')]: {
-                  width: "265px",
-                  fontSize: "16px",
-                },
-                  [theme.breakpoints.down('md')]: {
+                  [theme.breakpoints.down("lg")]: {
+                    width: "265px",
+                    fontSize: "16px",
+                  },
+                  [theme.breakpoints.down("md")]: {
                     width: "180px",
                     fontSize: "14px",
                     lineHeight: "16px",
                     margin: "1rem 0",
                     // alignSelf: "start",
                     justifySelf: "start",
-                  }
+                  },
                 }}
               >
                 <Typography variant="p">{text}</Typography>
-              </Button> 
+              </Button>
             </Box>
           </RWebShare>
         </Box>
