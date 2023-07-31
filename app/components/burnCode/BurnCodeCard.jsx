@@ -12,22 +12,6 @@ const BurnCodeCard = ({ props, setOpenModal, setCampaignCode }) => {
   const theme = useTheme();
   const shadowColor = `${theme.palette.neutral[20]}1f`;
 
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #ff5938",
-    borderRadius: "10px",
-    boxShadow: `0px 4px 20px 0px ${shadowColor}`,
-    padding: "1rem",
-    "@media screen and (min-width:800px)": {
-      width: 800,
-    },
-  };
-
   return (
     <>
       <Box
@@ -67,7 +51,12 @@ const BurnCodeCard = ({ props, setOpenModal, setCampaignCode }) => {
             width="auto"
             onClick={() => {
               setOpenModal(true);
-              setCampaignCode(props?._id);
+              setCampaignCode({
+                id: props._id,
+                restaurantId: props.restaurantId,
+                campaignId: props.campaignId,
+                username: props.username,
+              });
             }}
           ></BurnBtn>
         </Box>

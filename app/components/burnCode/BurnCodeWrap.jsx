@@ -12,7 +12,8 @@ function BurnCodeWrap() {
   const { restaurantId } = useStore();
   const [data, setData] = useState({});
   const [openModal, setOpenModal] = useState(false);
-  const [campaignCode, setCampaignCode] = useState(null);
+  const [campaignCode, setCampaignCode] = useState({});
+  const [submit, setSubmit] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +21,7 @@ function BurnCodeWrap() {
       setData(result);
     };
     fetchData();
-  }, []);
+  }, [submit]);
 
   return (
     <>
@@ -70,6 +71,7 @@ function BurnCodeWrap() {
         setOpenModal={setOpenModal}
         restaurantId={restaurantId}
         campaignCode={campaignCode}
+        setSubmit={setSubmit}
       />
     </>
   );

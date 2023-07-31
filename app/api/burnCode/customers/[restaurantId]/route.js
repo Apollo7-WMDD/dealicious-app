@@ -14,7 +14,6 @@ export const GET = async (request) => {
 
     const restaurant = await Restaurant.findOne({
       _id: restaurantId,
-      burned: false,
     }).lean();
 
     if (!restaurant) {
@@ -23,12 +22,15 @@ export const GET = async (request) => {
 
     const burncodes = await Burncode.find({
       restaurantId: restaurantId,
+      burned: false,
     })
       .select({
         username: 1,
         campaignname: 1,
         offer: 1,
         burned: 1,
+        restaurantId: 1,
+        campaignId: 1,
       })
       .lean();
 
