@@ -8,12 +8,14 @@ import Loader from "../Loader";
 import BurnCodeCard from "./BurnCodeCard";
 import BurnCodeModal from "./BurnCodeModal";
 
-function BurnCodeWrap() {
+function BurnCodeWrap({ render, setRender }) {
   const { restaurantId } = useStore();
   const [data, setData] = useState({});
   const [openModal, setOpenModal] = useState(false);
   const [campaignCode, setCampaignCode] = useState({});
-  const [submit, setSubmit] = useState(false);
+  const handleRenderUpdate = () => {
+    setRender((prevRender) => prevRender + 1);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,7 +23,7 @@ function BurnCodeWrap() {
       setData(result);
     };
     fetchData();
-  }, [submit]);
+  }, [render]);
 
   return (
     <>
@@ -71,7 +73,7 @@ function BurnCodeWrap() {
         setOpenModal={setOpenModal}
         restaurantId={restaurantId}
         campaignCode={campaignCode}
-        setSubmit={setSubmit}
+        setRender={handleRenderUpdate}
       />
     </>
   );

@@ -18,7 +18,7 @@ export default function BurnCodeModal({
   setOpenModal,
   restaurantId,
   campaignCode,
-  setSubmit,
+  setRender,
 }) {
   const [amount, setAmount] = React.useState("");
 
@@ -75,12 +75,10 @@ export default function BurnCodeModal({
       } else {
         const data = await res.json();
         console.log("Success! ", data);
-        setSubmit(true);
+        setRender();
       }
     } catch (error) {
       console.log(error);
-    } finally {
-      setSubmit(false);
     }
   };
 
