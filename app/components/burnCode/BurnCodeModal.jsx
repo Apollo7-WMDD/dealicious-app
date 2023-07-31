@@ -18,18 +18,75 @@ export default function BurnCodeModal({
   setOpenModal,
   restaurantId,
   campaignCode,
+  setSubmit,
 }) {
   const [amount, setAmount] = React.useState("");
-  const handleClose = () => {
+
+  console.log("campaignCode: ", campaignCode);
+
+  const handleClose = async () => {
     setOpenModal(false);
-    setAmount("");
+    const burnCodeInfo = {
+      username: campaignCode.username,
+      campaignname: campaignCode.campaignname,
+      restaurantId: campaignCode.restaurantId,
+      billamount: amount,
+    };
+
+    try {
+      const res = await fetch(
+        `/api/burnCode/add_points/${campaignCode.campaignId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(burnCodeInfo),
+        }
+      );
+      if (!res.ok) {
+        const data = await res.text();
+        throw new Error(data);
+      } else {
+        const data = await res.json();
+        console.log("Success! ", data);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setAmount("");
+    }
+
+    try {
+      // update the burned status
+      const res = await fetch(
+        `/api/burnCode/add_points/${campaignCode.campaignId}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ burnCodeId: campaignCode.id }),
+        }
+      );
+      if (!res.ok) {
+        const data = await res.text();
+        throw new Error(data);
+      } else {
+        const data = await res.json();
+        console.log("Success! ", data);
+        setSubmit(true);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSubmit(false);
+    }
   };
 
   const handleChange = (event) => {
     setAmount(event.target.value);
   };
-
-  // const handleSubmit = async () => {};
 
   return (
     <div>
