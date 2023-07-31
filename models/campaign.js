@@ -20,7 +20,6 @@ const CampaignSchema = new Schema({
   },
   name: {
     type: String,
-    unique: [true, "Name already exists"],
     required: [true, "Name is required"],
     trim: true,
   },
