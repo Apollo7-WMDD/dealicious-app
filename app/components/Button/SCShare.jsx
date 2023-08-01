@@ -182,7 +182,7 @@ const SCShare = ({
           </Box>
           <RWebShare
             data={{
-              text: "Share with friends",
+              text: `I invite you to experience ${restaurantData?.name}. Activate your favourite campaign at the place and enjoy a DEALicious adventure!`,
               url: url,
               title: "DEALicious share",
             }}

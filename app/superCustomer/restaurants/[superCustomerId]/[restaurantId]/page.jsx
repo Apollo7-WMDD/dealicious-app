@@ -59,7 +59,22 @@ const Page = ({ params }) => {
           },
         }}
       >
-        <SCRestaurantCard {...restaurantData.restaurant} />
+        {!restaurantData.restaurant ? (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <Loader />
+          </div>
+          ):(
+            <SCRestaurantCard {...restaurantData.restaurant} />
+          ) }
+        {/* <SCRestaurantCard {...restaurantData.restaurant} /> */}
         <PointsEarned props={restaurantData.points}></PointsEarned>
       </Box>
       <Box
