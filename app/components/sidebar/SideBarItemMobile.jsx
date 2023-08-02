@@ -135,49 +135,6 @@ function SideBarItem() {
     },
   ];
 
-  // const campaignSubItems = [
-  //   {
-  //     text: "Ongoing",
-  //     link: `/dashboard/campaigns/active/${restaurantOwnerId}/#ongoing`,
-  //   },
-  //   {
-  //     text: "Upcoming",
-  //     link: `/dashboard/campaigns/active/${restaurantOwnerId}/#upcoming`,
-  //   },
-  // ];
-
-  // const insightSubItems = [
-  //   {
-  //     text: "Overview",
-  //     link: `/dashboard/insights/overview/${restaurantOwnerId}/${restaurantId}`,
-  //   },
-  //   {
-  //     text: "Campaigns",
-  //     // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-  //     link: `/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId} `,
-  //   },
-  //   {
-  //     text: "Customers",
-  //     // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-  //     link: `/dashboard/insights/customers/${restaurantOwnerId}/${restaurantId}`,
-  //   },
-  // ];
-  // const profileSubItems = [
-  //   {
-  //     text: "Profile",
-  //     link: `/dashboard/insights/overview/${restaurantOwnerId}/${restaurantId}`,
-  //   },
-  //   {
-  //     text: "logout",
-  //     // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-  //     link: `/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId} `,
-  //   },
-  //   {
-  //     text: "change theme",
-  //     // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-  //     link: `/dashboard/insights/customers/${restaurantOwnerId}/${restaurantId}`,
-  //   },
-  // ];
 
   useEffect(() => {
     setSideBarItemActive(pathname.substring(1));
@@ -309,6 +266,7 @@ function SideBarItem() {
                                 router.push(`${link}`);
                                 setOpenSubMenuInsights(false);
                                 setSideBarItemActive(activeLink);
+                                setHash("")
                               }}
                             >
                               <ListItemText>
@@ -366,6 +324,7 @@ function SideBarItem() {
                                 router.push(`${link}`);
                                 setOpenSubMenuOther(false);
                                 setSideBarItemActive(activeLink);
+                                setHash("")
                               }}
                             >
                               <ListItemText>
@@ -424,7 +383,7 @@ function SideBarItem() {
                       style={{
                         position: "absolute",
 
-                        left: "25%",
+                        left: "35%",
 
                         zIndex: "-10",
                       }}

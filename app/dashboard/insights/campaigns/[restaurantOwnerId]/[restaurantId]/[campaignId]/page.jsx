@@ -18,6 +18,7 @@ import HeaderGrid from "@/app/components/HeaderGrid";
 import SingleLineChart from "@/app/components/Chart/SingleLineChart";
 import AverageBill from "@/app/components/Chart/AverageBill";
 import DoughnutChart_Single_Point from "@/app/components/Chart/DoughnutChart_Single_Point";
+import Image from "next/image";
 
 // fetch imports
 import { fetchAllCampaigns } from "@/lib/fetching/campaigns/data";
@@ -29,8 +30,10 @@ import {
 
 import Loader from "@/app/components/Loader";
 import LineChart from "@/app/components/Chart/LineChart";
+import { useMediaQuery } from "@mui/material";
 
 const Page = async () => {
+  const isNonMobile = useMediaQuery("(min-width:600px)");
   const { restaurantOwnerId, restaurantId } = useStore();
   const router = useRouter();
   const pathname = usePathname();
@@ -73,14 +76,46 @@ const Page = async () => {
         <Loader />
       ) : (
         <>
-          <HeaderGrid>
+ {isNonMobile ? (
+        <HeaderGrid>
+          <Header props={"Insights"} />
+          {/* <CreateNewCampaign /> */}
+        </HeaderGrid>
+      ) : (
+        <Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              mb: "1.5rem",
+            }}
+          >
+            <Box>
+              <Image src="/logo.png" alt="logo" width={100} height={100} />
+            </Box>
+            {/* <CreateNewCampaign /> */}
+            <SingleButtonVariant
+              
+              text={isNonMobile ? "Recreate a Campaign" : ""}
+              onClick={onClick}
+              width={"350px"}
+            />
+          </Box>
+          <Header props={"Insights"} />
+        </Box>
+      )}
+
+          {/* <HeaderGrid>
             <Header props={"Insights"} />
             <SingleButtonVariant
               text={"Recreate a Campaign"}
               onClick={onClick}
               width={"350px"}
             />
-          </HeaderGrid>
+          </HeaderGrid> */}
+
+
           <InputSubtitleDropdown
             text={subTitle}
             setIsComparing={setIsComparing}
