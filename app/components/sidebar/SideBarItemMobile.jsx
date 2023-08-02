@@ -27,12 +27,8 @@ import { signOut } from "next-auth/react";
 // import { sub } from "date-fns";
 // import { set } from "mongoose";
 
-
-
 function SideBarItem() {
-
   const [hash, setHash] = useState("");
-
 
   useEffect(() => {
     const currentHash = window.location.hash.split("#")[1];
@@ -53,7 +49,7 @@ function SideBarItem() {
     setRestaurantOwner,
     setRestaurantId,
   } = useStoreOwner();
-  const { sideBarItemActive, setSideBarItemActive ,mode, setMode} = useStore();
+  const { sideBarItemActive, setSideBarItemActive, mode, setMode } = useStore();
   const pathname = usePathname();
   console.log("This is the pathname: ", pathname.split("/")[4]);
   useEffect(() => {
@@ -311,20 +307,22 @@ function SideBarItem() {
                             }}
                           >
                             <ListItemButton
-                              onClick={() => {
-
-                                if (text == "Change theme"){
-                                  setMode()
-                                }
-                                if (text == "Log out"){
-                                  signOut();
-                                  router.push("/");
-                                }
-
-                                router.push(`${link}`);
+                              onClick={async () => {
+                                // Common actions after the switch
                                 setOpenSubMenuOther(false);
                                 setSideBarItemActive(activeLink);
-                                setHash("")
+
+                                switch (text) {
+                                  case "Change theme":
+                                    setMode();
+                                    break;
+                                  case "Log out":
+                                    await signOut();
+                                    window.location.href = "/";
+                                    break;
+                                  default:
+                                    router.push(`${link}`);
+                                }
                               }}
                             >
                               <ListItemText>

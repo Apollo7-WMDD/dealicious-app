@@ -117,7 +117,9 @@ function CampaignGrid() {
             gridColumn: "span 3",
           }}
         >
+
           <Typography variant="h4" sx={{textAlign:"left"}}>No Upcoming campaigns...</Typography>
+
         </div>
       ) : (
         dataArray.map((campaign) => (
