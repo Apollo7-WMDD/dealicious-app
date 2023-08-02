@@ -25,11 +25,11 @@ function SideBarUtilButton() {
   //     router.push("/");
   //   }
   // }, []);
-  // useEffect(() => {
-  //   if (!session) {
-  //     router.push("/");
-  //   }
-  // }, [session]);
+  useEffect(() => {
+    if (!session) {
+      router.push("/");
+    }
+  }, [session]);
 
   const handleSignOut = () => {
     signOut();
