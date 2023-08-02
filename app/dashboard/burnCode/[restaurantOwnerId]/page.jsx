@@ -13,7 +13,7 @@ const Page = () => {
     <Box sx={{minHeight:"100vh"}}>
       <HeaderGrid>
         <Header props={"Burn a Code"} />
-        <CreateNewCampaign />
+        {/* <CreateNewCampaign /> */}
       </HeaderGrid>
       <BurnCodeWrap
         key={render ? "render" : "not-render"}

@@ -2,8 +2,14 @@ import React from "react";
 import { Button, Box, useTheme } from "@mui/material";
 import ButtonCampaignNew from "../Button/ButtonCampaignNew";
 
+
+
+
 const SingleButton = ({ text, onClick, width }) => {
+  
   const theme = useTheme();
+  
+  
   return (
     <Button
       variant="contained"
@@ -34,9 +40,14 @@ const SingleButton = ({ text, onClick, width }) => {
           // alignSelf: "start",
           justifySelf: "start",
         },
+        [theme.breakpoints.down("sm")]: {
+          width: "90px",
+        },
       }}
     >
-      {text}
+      
+      
+      {text} 
     </Button>
   );
 };

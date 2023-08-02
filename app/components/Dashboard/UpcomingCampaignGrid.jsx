@@ -112,12 +112,14 @@ function CampaignGrid() {
         <div
           style={{
             display: "flex",
-            justifyContent: "center",
+            justifyContent: "start",
             alignItems: "center",
             gridColumn: "span 3",
           }}
         >
-          <Typography variant="h2">No Upcoming campaigns...</Typography>
+
+          <Typography variant="h4" sx={{textAlign:"left"}}>No Upcoming campaigns...</Typography>
+
         </div>
       ) : (
         dataArray.map((campaign) => (

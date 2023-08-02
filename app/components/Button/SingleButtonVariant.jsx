@@ -34,6 +34,9 @@ const SingleButonVariant = ({ text, onClick, width }) => {
           // alignSelf: "start",
           justifySelf: "start",
         },
+        [theme.breakpoints.down("sm")]: {
+          width: "90px",
+        },
       }}
     >
       {text}

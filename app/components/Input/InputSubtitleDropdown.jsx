@@ -56,7 +56,7 @@ function InputSubtitleDropdown({
     <Stack
       direction={{ xs: "column", sm: "row" }}
       justifyContent="space-between"
-      alignItems="center"
+      alignItems="start"
     >
       <div>
         <Button
@@ -69,6 +69,7 @@ function InputSubtitleDropdown({
             padding: 0,
             typography: "h3",
             color: theme.palette.background.alt,
+            
           }}
         >
           {displayText == null

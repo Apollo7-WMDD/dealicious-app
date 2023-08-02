@@ -131,6 +131,7 @@ function SideBarItem() {
     },
   ];
 
+
   useEffect(() => {
     setSideBarItemActive(pathname.substring(1));
   }, [pathname]);
@@ -261,6 +262,7 @@ function SideBarItem() {
                                 router.push(`${link}`);
                                 setOpenSubMenuInsights(false);
                                 setSideBarItemActive(activeLink);
+                                setHash("")
                               }}
                             >
                               <ListItemText>
@@ -379,7 +381,7 @@ function SideBarItem() {
                       style={{
                         position: "absolute",
 
-                        left: "25%",
+                        left: "35%",
 
                         zIndex: "-10",
                       }}

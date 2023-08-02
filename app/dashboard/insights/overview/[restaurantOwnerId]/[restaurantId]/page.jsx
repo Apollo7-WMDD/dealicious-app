@@ -17,10 +17,43 @@ import InputSubtitleDropdown from "@/app/components/Input/InputSubtitleDropdown"
 import SubHeader from "@/app/components/Header/SubHeader";
 import Grid from "@mui/material/Grid";
 import Hidden from "@mui/material/Hidden";
+import { useMediaQuery, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
+import Image from "next/image";
+import CreateNewCampaign from "@/app/components/Dashboard/CreateNewCampaign";
+import HeaderGrid from "@/app/components/HeaderGrid";
+
 
 const Page = async () => {
+  const theme = useTheme();
+  const isNonMobile = useMediaQuery("(min-width:600px)");
   return (
     <>
+      {isNonMobile ? (
+        <HeaderGrid>
+          <Header props={"Insights"} />
+          {/* <CreateNewCampaign /> */}
+        </HeaderGrid>
+      ) : (
+        <Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              mb: "1.5rem",
+            }}
+          >
+            <Box>
+              <Image src="/logo.png" alt="logo" width={100} height={100} />
+            </Box>
+            <CreateNewCampaign />
+          </Box>
+          <Header props={"Insights"} />
+        </Box>
+      )}
+
+
       <Header props={"Insights"} />
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
@@ -67,7 +100,7 @@ const Page = async () => {
           ></ChartCardTitle>
           <LineChart></LineChart>
         </ChartCard>
-        
+
         <ChartCard gridColumn={"span 1"}>
           <ChartCardTitle text={"Number of:"} pinStatus={""}></ChartCardTitle>
           <DoughnutChart_NumCustomer></DoughnutChart_NumCustomer>

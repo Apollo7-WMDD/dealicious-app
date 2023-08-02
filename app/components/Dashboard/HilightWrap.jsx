@@ -27,37 +27,68 @@ function HilightWrap() {
 
   const prgphStyle = {
     margin: "0",
-    fontWeight: "lighter",
+    fontWeight: "bold",
   };
 
   return (
     <div style={{ width: "100%" }}>
       <div>
-        <Typography variant="h5">{data?.name}</Typography>
-        <p style={prgphStyle}>Item: {data?.offer}</p>
+        <Typography variant="h5" sx={{mt:"1rem"}}>{data?.name}</Typography>
+        <p style={prgphStyle}>
+          Item:
+          <p
+            style={{
+              margin: "0",
+              fontWeight: "lighter",
+              display: "inline",
+            }}
+          >{" "}
+            {data?.offer}
+          </p>
+        </p>
         {data?._id != null && (
           <p style={prgphStyle}>
-            Duration: {new Date(data.startDate).toISOString().substring(0, 10)}{" "}
-            to {new Date(data.endDate).toISOString().substring(0, 10)}
+            Duration:
+            <p
+              style={{
+                margin: "0",
+                fontWeight: "lighter",
+                display: "inline",
+              }}
+            >{" "}
+              {new Date(data.startDate).toISOString().substring(0, 10)} to{" "}
+              {new Date(data.endDate).toISOString().substring(0, 10)}
+            </p>
           </p>
         )}
 
         <p style={prgphStyle}>
-          Users: {data?.allowNewCustomer ? "New Customers" : ""}
-          {data?.allowNewCustomer && data?.allowSuperCustomer ? " & " : ""}
-          {data?.allowSuperCustomer ? "Super Customers" : ""}
+          Users:
+          <p
+            style={{
+              margin: "0",
+              fontWeight: "lighter",
+              display: "inline",
+            }}
+          >{" "}
+            {data?.allowNewCustomer ? "New Customers" : ""}
+            {data?.allowNewCustomer && data?.allowSuperCustomer ? " & " : ""}
+            {data?.allowSuperCustomer ? "Super Customers" : ""}
+          </p>
         </p>
-        <p style={prgphStyle}>Condition: {data?.description}</p>
-        <p
-          style={{
-            color: "red",
-            margin: "0",
-            fontSize: 10,
-            textAlign: "right",
-          }}
-        >
-          chart is mock up
+        <p style={prgphStyle}>
+          Condition:
+          <p
+            style={{
+              margin: "0",
+              fontWeight: "lighter",
+              display: "inline",
+            }}
+          >{" "}
+            {data?.description}
+          </p>
         </p>
+       
         <LineChart></LineChart>
       </div>
     </div>
