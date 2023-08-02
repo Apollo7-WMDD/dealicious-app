@@ -27,11 +27,19 @@ import { fetchRestaurantId } from "@/lib/fetching/restaurant/restaurant_id/data"
 // import { set } from "mongoose";
 
 function SideBarItem() {
-  const [hash, setHash] = useState(window.location.hash.split("#")[1]);
-  console.log(hash);
+  const [hash, setHash] = useState("");
 
   useEffect(() => {
-    setHash(window.location.hash.split("#")[1]);
+    const currentHash = window.location.hash.split("#")[1];
+    setHash(currentHash);
+
+    const handleHashChange = () => {
+      setHash(window.location.hash.split("#")[1]);
+    };
+    window.addEventListener("hashchange", handleHashChange);
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
   }, []);
   // const { data: session, status } = useSession();
   const {
@@ -199,13 +207,26 @@ function SideBarItem() {
                                 );
                               }}
                             >
-                              {(console.log("hash"),console.log(hash),console.log("link"),
-                              console.log(link.substring("1").split("/")[4].split("#")[1]))}
+                              {
+                                (console.log("hash"),
+                                console.log(hash),
+                                console.log("link"),
+                                console.log(
+                                  link
+                                    .substring("1")
+                                    .split("/")[4]
+                                    .split("#")[1]
+                                ))
+                              }
                               <ListItemText>
                                 <Typography
                                   sx={{
                                     borderBottom:
-                                      hash == link.substring("1").split("/")[4].split("#")[1]
+                                      hash ==
+                                      link
+                                        .substring("1")
+                                        .split("/")[4]
+                                        .split("#")[1]
                                         ? `.15rem solid ${theme.palette.primary[80]}`
                                         : "none",
                                   }}
