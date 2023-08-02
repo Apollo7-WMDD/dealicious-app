@@ -19,7 +19,9 @@ function SideBarUtilButton() {
   const router = useRouter();
 
   console.log("this is the SESSION: ", session);
+
   const handleSignOut = () => {
+    // router.push("/");
     signOut();
     router.push("/");
   };
