@@ -19,18 +19,6 @@ function SideBarUtilButton() {
   const router = useRouter();
 
   console.log("this is the SESSION: ", session);
-
-  // useEffect(() => {
-  //   if (!session) {
-  //     router.push("/");
-  //   }
-  // }, []);
-  // useEffect(() => {
-  //   if (!session) {
-  //     router.push("/");
-  //   }
-  // }, [session]);
-
   const handleSignOut = () => {
     signOut();
     router.push("/");
