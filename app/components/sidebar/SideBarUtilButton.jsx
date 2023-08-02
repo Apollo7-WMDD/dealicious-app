@@ -18,12 +18,9 @@ function SideBarUtilButton() {
   const theme = useTheme();
   const router = useRouter();
 
-  console.log("this is the SESSION: ", session);
-
-  const handleSignOut = () => {
-    // router.push("/");
-    signOut();
-    router.push("/");
+  const handleSignOut = async () => {
+    await signOut();
+    window.location.href = "/";
   };
 
   return (

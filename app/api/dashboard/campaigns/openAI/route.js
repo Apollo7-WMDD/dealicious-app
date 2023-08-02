@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Configuration, OpenAIApi } from "openai";
 
+
 // import { useNavigation } from "next/navigation";
 
 export const GET = async (req, res, 
@@ -34,13 +35,14 @@ export const GET = async (req, res,
 
   
   try {
-    
     // console.log("process.env.OPENAIKEY",process.env.OPENAIKEY)
+
     
     const AIKEY = process.env.OPENAIKEY;
     
     const configuration = new Configuration({
     });
+
 
     configuration.baseOptions.headers = {
       Authorization: `Bearer ${AIKEY}`,
