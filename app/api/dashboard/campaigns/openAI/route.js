@@ -9,7 +9,7 @@ export const GET = async (req, res) => {
   // const formCondition = req.url.split("query")[1].split("=")[3].split("+")[1];
   // const formStartDate = req.url.split("query")[1].split("=")[4].split("+")[1];
   // const formEndDate = req.url.split("query")[1].split("=")[5].split("+")[1];
-  
+ 
   try {
     // console.log("process.env.OPENAIKEY",process.env.OPENAIKEY)
 
