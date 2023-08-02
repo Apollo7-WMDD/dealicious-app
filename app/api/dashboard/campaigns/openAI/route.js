@@ -1,24 +1,19 @@
 import { NextResponse } from "next/server";
 import { Configuration, OpenAIApi } from "openai";
 
-
-
 export const GET = async (req, res) => {
-
   const formName = req.url.split("query")[1].split("=")[1].split("+")[1];
   const formOffer = req.url.split("query")[1].split("=")[2].split("+")[1];
   const formCondition = req.url.split("query")[1].split("=")[3].split("+")[1];
   const formStartDate = req.url.split("query")[1].split("=")[4].split("+")[1];
   const formEndDate = req.url.split("query")[1].split("=")[5].split("+")[1];
-  
-  try {
-    
-    // console.log("process.env.OPENAIKEY",process.env.OPENAIKEY)
-    
-    const AIKEY = process.env.OPENAIKEY;
 
-    const configuration = new Configuration({
-    });
+  try {
+    // console.log("process.env.OPENAIKEY",process.env.OPENAIKEY)
+
+    const AIKEY = process.env.API_KEY;
+
+    const configuration = new Configuration({});
 
     configuration.baseOptions.headers = {
       Authorization: `Bearer ${AIKEY}`,
