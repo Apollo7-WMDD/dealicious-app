@@ -15,11 +15,19 @@ import CampaignForm1 from "@/app/components/Campaign/CampaignForm1";
 import CampaignForm2 from "@/app/components/Campaign/CampaignForm2";
 import Loader from "@/app/components/Loader";
 
-
-import { aiGenerate } from "@/app/api/dashboard/campaigns/openAI/route";
-
 import Link from "next/link";
+const fetchOpenAIAPI = async (formData) => {
+  const url = `/api/dashboard/campaigns/openAI`;
 
+  const response = await fetch(url+`?query=name+${formData.name}=offer+${formData.offer}=condition+${formData.condition}=startDate+${formData.startDate}=endDate+${formData.endDate}`);
+
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+
+  const data = await response.json();
+  return data;
+};
 const Page = () => {
   // AI GENERATED CAMPAIGN ADVERTISEMENT
   const [aiResult, setAiResult] = useState(null);
@@ -27,14 +35,15 @@ const Page = () => {
   const getDataToAI = async () => {
     console.log(formData);
     const fetchAI = async () => {
+      setAiResult("loading...")
       try {
-        setAiResult("loading...")
-        const result = await aiGenerate(formData);
-        setAiResult(await result.json());
+        const result = await fetchOpenAIAPI(formData);
+        setAiResult(await result);
         // setAiResult(result.json());
         console.log(aiResult);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setAiResult(`"Error fetching data:", ${error}`)
       } 
     };
     fetchAI();

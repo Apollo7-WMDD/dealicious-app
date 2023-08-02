@@ -1,4 +1,4 @@
-import { Box, useTheme } from "@mui/material";
+import { Box, useTheme, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import { useStore } from "@/lib/context/user_context/store";
@@ -117,7 +117,7 @@ function CampaignGrid() {
             gridColumn: "span 3",
           }}
         >
-          <Loader />
+          <Typography variant="h2">No Ongoing campaigns...</Typography>
         </div>
       ) : (
         dataArray.map((campaign) => (

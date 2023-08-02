@@ -83,7 +83,7 @@ function CampaignGrid({ onPinClickB }) {
             gridColumn: "span 3",
           }}
         >
-          <Typography variant="h2">No Upcoming campaigns...</Typography>
+          <Typography variant="h2">No Ongoing campaigns...</Typography>
         </div>
       ) : (
         dataArray.map((e) => (
