@@ -30,12 +30,21 @@ import { signOut } from "next-auth/react";
 
 
 function SideBarItem() {
-  
-  const [hash, setHash] = useState(window.location.hash.split("#")[1]);
-  console.log(hash);
+
+  const [hash, setHash] = useState("");
+
 
   useEffect(() => {
-    setHash(window.location.hash.split("#")[1]);
+    const currentHash = window.location.hash.split("#")[1];
+    setHash(currentHash);
+
+    const handleHashChange = () => {
+      setHash(window.location.hash.split("#")[1]);
+    };
+    window.addEventListener("hashchange", handleHashChange);
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
   }, []);
   // const { data: session, status } = useSession();
   const {
