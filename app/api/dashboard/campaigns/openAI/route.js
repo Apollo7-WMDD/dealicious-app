@@ -27,6 +27,7 @@ export const GET = async (req, res) => {
 
   try {
     const AIKEY = process.env.OPENAIKEY;
+
     const configuration = new Configuration({});
 
     configuration.baseOptions.headers = {
