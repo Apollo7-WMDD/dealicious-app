@@ -78,7 +78,6 @@ function CampaignGrid() {
     fetchData();
   }, [restaurantOwnerId]);
 
-  console.log("dataArray.length", dataArray.length);
   return (
     <Box
       sx={{
@@ -98,13 +97,7 @@ function CampaignGrid() {
         },
       }}
     >
-      {dataArray.length === 0 ? (
-        <Box>
-          <Typography variant="h5">
-            No upcoming campaign at this moment
-          </Typography>
-        </Box>
-      ) : isLoading ? (
+      {isLoading ? (
         <div
           style={{
             display: "flex",
@@ -124,14 +117,13 @@ function CampaignGrid() {
             gridColumn: "span 3",
           }}
         >
-          <Loader />
+          <Typography variant="h2">No Ongoing campaigns...</Typography>
         </div>
       ) : (
         dataArray.map((campaign) => (
           <CampaignCard key={campaign._id} campaign={campaign} />
         ))
       )}
-      
     </Box>
   );
 }

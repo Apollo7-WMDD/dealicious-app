@@ -63,13 +63,7 @@ function CampaignGrid({ onPinClickB }) {
         },
       }}
     >
-      {dataArray.length === 0 ? (
-        <Box>
-          <Typography variant="h5">
-            No ongoing campaign at this moment
-          </Typography>
-        </Box>
-      ) : isLoading ? (
+      {isLoading ? (
         <div
           style={{
             display: "flex",
@@ -89,7 +83,7 @@ function CampaignGrid({ onPinClickB }) {
             gridColumn: "span 3",
           }}
         >
-          <Typography variant="h2">No Upcoming campaigns...</Typography>
+          <Typography variant="h2">No Ongoing campaigns...</Typography>
         </div>
       ) : (
         dataArray.map((e) => (
@@ -142,8 +136,6 @@ function CampaignGrid({ onPinClickB }) {
           </ChartCard>
         ))
       )}
-
-      
     </Box>
   );
 }
