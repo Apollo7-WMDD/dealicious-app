@@ -5,11 +5,11 @@ import { Configuration, OpenAIApi } from "openai";
 
 export const GET = async (req, res) => {
 
-  const formName = req.url.split("query")[1].split("=")[1].split("+")[1];
-  const formOffer = req.url.split("query")[1].split("=")[2].split("+")[1];
-  const formCondition = req.url.split("query")[1].split("=")[3].split("+")[1];
-  const formStartDate = req.url.split("query")[1].split("=")[4].split("+")[1];
-  const formEndDate = req.url.split("query")[1].split("=")[5].split("+")[1];
+  // const formName = req.url.split("query")[1].split("=")[1].split("+")[1];
+  // const formOffer = req.url.split("query")[1].split("=")[2].split("+")[1];
+  // const formCondition = req.url.split("query")[1].split("=")[3].split("+")[1];
+  // const formStartDate = req.url.split("query")[1].split("=")[4].split("+")[1];
+  // const formEndDate = req.url.split("query")[1].split("=")[5].split("+")[1];
   
   try {
     
@@ -33,7 +33,8 @@ export const GET = async (req, res) => {
         { role: "system", content: "You are a advertising expert." },
         {
           role: "user",
-          content: `Please write a great campaign advertising for a restaurant promoting a campaign name ${formName} with the offer ${formOffer} and the condition ${formCondition} that start ${formStartDate} and end at ${formEndDate} at roughly 20 words. Don't include restaurant name`,
+          content: `Please write a great campaign advertising for a mexican restaurant promoting a campaign that give away everybody a free taco at roughly 20 words. Don't include restaurant name`,
+          // content: `Please write a great campaign advertising for a restaurant promoting a campaign name ${formName} with the offer ${formOffer} and the condition ${formCondition} that start ${formStartDate} and end at ${formEndDate} at roughly 20 words. Don't include restaurant name`,
         },
       ],
     });
