@@ -2,7 +2,7 @@
 
 import { useStore } from "@/lib/context/user_context/store";
 import { fetchUserCodes } from "@/lib/fetching/burncode/data";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import Loader from "../Loader";
 import BurnCodeCard from "./BurnCodeCard";
@@ -21,6 +21,7 @@ function BurnCodeWrap({ render, setRender }) {
     const fetchData = async () => {
       const result = await fetchUserCodes(restaurantId);
       setData(result);
+      // console.log("data.burncodes", data.burncodes.length);
     };
     fetchData();
   }, [render]);
@@ -43,6 +44,12 @@ function BurnCodeWrap({ render, setRender }) {
           },
         }}
       >
+        {data?.burncodes?.length === 0 && (
+          <Box>
+            <Typography variant="h5">No request at this moment</Typography>
+          </Box>
+        )}
+
         {!data?.burncodes ? (
           <div
             style={{
