@@ -19,7 +19,6 @@ const Page = () => {
   const theme = useTheme();
 
   console.log("session", session?.user?.id);
-  console.log("status", status);
 
   useEffect(() => {
     const getRestaurantOwnerId = async () => {

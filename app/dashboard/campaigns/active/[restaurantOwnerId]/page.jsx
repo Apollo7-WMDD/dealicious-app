@@ -10,6 +10,7 @@ import Link from "next/link";
 import { Button, Box, useTheme, Typography } from "@mui/material";
 
 // components imports
+import Image from "next/image";
 import CreateNewCampaign from "@/app/components/Dashboard/CreateNewCampaign";
 import Header from "@/app/components/Header/Header";
 import SubHeader from "@/app/components/Header/SubHeader";
@@ -25,9 +26,11 @@ import CampaignGrid from "@/app/components/Dashboard/CampaignGrid";
 import UpcomingCampaignGrid from "@/app/components/Dashboard/UpcomingCampaignGrid";
 
 import HilightWrap from "@/app/components/Dashboard/HilightWrap";
+import { useMediaQuery } from "@mui/material";
 
 const Page = () => {
   const theme = useTheme();
+  const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const [hilighted, setHilighted] = useState({});
 
@@ -43,10 +46,32 @@ const Page = () => {
           justifyContent: "space-between",
         }}
       >
-        <HeaderGrid>
-          <Header props={"Campaigns"} />
-          <CreateNewCampaign />
-        </HeaderGrid>
+        {isNonMobile ? (
+          <HeaderGrid>
+            <Header props={"Campaigns"} />
+            <CreateNewCampaign />
+          </HeaderGrid>
+        ) : (
+          <Box>
+            <Box sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              mb: "1.5rem",
+            }}>
+              <Box>
+                <Image
+                  src="/logo.png"
+                  alt="logo"
+                  width={100}
+                  height={100}
+                />
+              </Box>
+              <CreateNewCampaign />
+            </Box>
+            <Header props={"Campaigns"} />
+          </Box>
+        )}
 
         <SubHeader props={"Ongoing campaigns"} />
         <MainGrid isComparing={false}>
@@ -65,50 +90,91 @@ const Page = () => {
             {hilighted._id != undefined ? (
               <div style={{ width: "100%" }}>
                 <div>
-                  <Typography variant="h5">{hilighted.name}</Typography>
+                  <Typography variant="h5" sx={{ mt: "1rem" }}>
+                    {hilighted.name}
+                  </Typography>
+                  <p
+                    style={{
+                      margin: "0",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Item:
+                    <p
+                      style={{
+                        margin: "0",
+                        fontWeight: "lighter",
+                        display: "inline",
+                      }}
+                    >
+                      {" "}
+                      {hilighted.offer}
+                    </p>
+                  </p>
+                  <p
+                    style={{
+                      margin: "0",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Duration:
+                    <p
+                      style={{
+                        margin: "0",
+                        fontWeight: "lighter",
+                        display: "inline",
+                      }}
+                    >
+                      {" "}
+                      {new Date(hilighted.startDate)
+                        .toISOString()
+                        .substring(0, 10)}{" "}
+                      to{" "}
+                      {new Date(hilighted.endDate)
+                        .toISOString()
+                        .substring(0, 10)}
+                    </p>
+                  </p>
+                  <p
+                    style={{
+                      margin: "0",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Users:
+                    <p
+                      style={{
+                        margin: "0",
+                        fontWeight: "lighter",
+                        display: "inline",
+                      }}
+                    >{" "}
+                      {hilighted.allowNewCustomer ? "New Customers" : ""}
+                      {hilighted.allowNewCustomer &&
+                      hilighted.allowSuperCustomer
+                        ? " & "
+                        : ""}
+                      {hilighted.allowSuperCustomer ? "Super Customers" : ""}
+                    </p>
+                  </p>
+                  <p
+                    style={{
+                      margin: "0",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Condition:
+                    <p
+                      style={{
+                        margin: "0",
+                        fontWeight: "lighter",
+                        display: "inline",
+                      }}
+                    >{" "}
+                      {hilighted.description}
+                    </p>
+                  </p>
 
-                  <p
-                    style={{
-                      margin: "0",
-                      fontWeight: "lighter",
-                    }}
-                  >
-                    Item: {hilighted.offer}
-                  </p>
-                  <p
-                    style={{
-                      margin: "0",
-                      fontWeight: "lighter",
-                    }}
-                  >
-                    Duration:{" "}
-                    {new Date(hilighted.startDate)
-                      .toISOString()
-                      .substring(0, 10)}{" "}
-                    to{" "}
-                    {new Date(hilighted.endDate).toISOString().substring(0, 10)}
-                  </p>
-                  <p
-                    style={{
-                      margin: "0",
-                      fontWeight: "lighter",
-                    }}
-                  >
-                    Users: {hilighted.allowNewCustomer ? "New Customers" : ""}
-                    {hilighted.allowNewCustomer && hilighted.allowSuperCustomer
-                      ? " & "
-                      : ""}
-                    {hilighted.allowSuperCustomer ? "Super Customers" : ""}
-                  </p>
-                  <p
-                    style={{
-                      margin: "0",
-                      fontWeight: "lighter",
-                    }}
-                  >
-                    Condition: {hilighted.description}
-                  </p>
-               
                   <LineChart></LineChart>
                 </div>
               </div>
