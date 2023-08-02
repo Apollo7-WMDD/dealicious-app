@@ -10,7 +10,6 @@ export const GET = async (request) => {
 
   try {
     await connect();
-
     const restaurant = await Restaurant.findOne(
       { userId: restaurantOwner },
       { _id: 1 }
