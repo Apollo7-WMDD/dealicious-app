@@ -23,10 +23,14 @@ import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { fetchRestaurantId } from "@/lib/fetching/restaurant/restaurant_id/data";
+import { signOut } from "next-auth/react";
 // import { sub } from "date-fns";
 // import { set } from "mongoose";
 
+
+
 function SideBarItem() {
+  
   const [hash, setHash] = useState(window.location.hash.split("#")[1]);
   console.log(hash);
 
@@ -40,7 +44,7 @@ function SideBarItem() {
     setRestaurantOwner,
     setRestaurantId,
   } = useStoreOwner();
-  const { sideBarItemActive, setSideBarItemActive } = useStore();
+  const { sideBarItemActive, setSideBarItemActive ,mode, setMode} = useStore();
   const pathname = usePathname();
   console.log("This is the pathname: ", pathname.split("/")[4]);
   useEffect(() => {
@@ -104,37 +108,67 @@ function SideBarItem() {
     {
       text: "Other",
       icon: <Threedots />,
-      link: `/dashboard/profile/${restaurantOwnerId}`,
+      subMenuOther: [
+        {
+          text: "Profile",
+          link: `/dashboard/profile/${restaurantOwnerId}`,
+        },
+        {
+          text: "Change theme",
+          // link: `/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId}`,
+        },
+        {
+          text: "Log out",
+          // link: `/dashboard/insights/customers/${restaurantOwnerId}/${restaurantId}`,
+        },
+      ],
+      // link: `/dashboard/profile/${restaurantOwnerId}`,
     },
   ];
 
-  const campaignSubItems = [
-    {
-      text: "Ongoing",
-      link: `/dashboard/campaigns/active/${restaurantOwnerId}/#ongoing`,
-    },
-    {
-      text: "Upcoming",
-      link: `/dashboard/campaigns/active/${restaurantOwnerId}/#upcoming`,
-    },
-  ];
+  // const campaignSubItems = [
+  //   {
+  //     text: "Ongoing",
+  //     link: `/dashboard/campaigns/active/${restaurantOwnerId}/#ongoing`,
+  //   },
+  //   {
+  //     text: "Upcoming",
+  //     link: `/dashboard/campaigns/active/${restaurantOwnerId}/#upcoming`,
+  //   },
+  // ];
 
-  const insightSubItems = [
-    {
-      text: "Overview",
-      link: `/dashboard/insights/overview/${restaurantOwnerId}/${restaurantId}`,
-    },
-    {
-      text: "Campaigns",
-      // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-      link: `/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId} `,
-    },
-    {
-      text: "Customers",
-      // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-      link: `/dashboard/insights/customers/${restaurantOwnerId}/${restaurantId}`,
-    },
-  ];
+  // const insightSubItems = [
+  //   {
+  //     text: "Overview",
+  //     link: `/dashboard/insights/overview/${restaurantOwnerId}/${restaurantId}`,
+  //   },
+  //   {
+  //     text: "Campaigns",
+  //     // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
+  //     link: `/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId} `,
+  //   },
+  //   {
+  //     text: "Customers",
+  //     // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
+  //     link: `/dashboard/insights/customers/${restaurantOwnerId}/${restaurantId}`,
+  //   },
+  // ];
+  // const profileSubItems = [
+  //   {
+  //     text: "Profile",
+  //     link: `/dashboard/insights/overview/${restaurantOwnerId}/${restaurantId}`,
+  //   },
+  //   {
+  //     text: "logout",
+  //     // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
+  //     link: `/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId} `,
+  //   },
+  //   {
+  //     text: "change theme",
+  //     // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
+  //     link: `/dashboard/insights/customers/${restaurantOwnerId}/${restaurantId}`,
+  //   },
+  // ];
 
   useEffect(() => {
     setSideBarItemActive(pathname.substring(1));
@@ -142,6 +176,7 @@ function SideBarItem() {
 
   const [openSubMenuCampaigns, setOpenSubMenuCampaigns] = useState(false);
   const [openSubMenuInsights, setOpenSubMenuInsights] = useState(false);
+  const [openSubMenuOther, setOpenSubMenuOther] = useState(false);
 
   return (
     <>
@@ -155,7 +190,14 @@ function SideBarItem() {
         }}
       >
         {navItems.map(
-          ({ text, icon, link, subMenuCampaigns, subMenuInsights }) => {
+          ({
+            text,
+            icon,
+            link,
+            subMenuCampaigns,
+            subMenuInsights,
+            subMenuOther,
+          }) => {
             const activeLink = `${link}`.substring("1");
             const activeLinkSplit = activeLink.split("/");
             const currentURL = pathname.split("/");
@@ -164,15 +206,14 @@ function SideBarItem() {
                 key={text}
                 style={{
                   // flexGrow:"1",
-                  paddingTop: "0",
-                  paddingBottom: "0",
+                  padding: "0",
                 }}
               >
                 {openSubMenuCampaigns == true && subMenuCampaigns != null ? (
                   <Box
                     sx={{
                       position: "absolute",
-                      bottom: "150%",
+                      bottom: "190%",
                       left: "40%",
                       backgroundColor: theme.palette.background.default,
                       borderRadius: "8px",
@@ -199,13 +240,26 @@ function SideBarItem() {
                                 );
                               }}
                             >
-                              {(console.log("hash"),console.log(hash),console.log("link"),
-                              console.log(link.substring("1").split("/")[4].split("#")[1]))}
+                              {
+                                (console.log("hash"),
+                                console.log(hash),
+                                console.log("link"),
+                                console.log(
+                                  link
+                                    .substring("1")
+                                    .split("/")[4]
+                                    .split("#")[1]
+                                ))
+                              }
                               <ListItemText>
                                 <Typography
                                   sx={{
                                     borderBottom:
-                                      hash == link.substring("1").split("/")[4].split("#")[1]
+                                      hash ==
+                                      link
+                                        .substring("1")
+                                        .split("/")[4]
+                                        .split("#")[1]
                                         ? `.15rem solid ${theme.palette.primary[80]}`
                                         : "none",
                                   }}
@@ -224,7 +278,7 @@ function SideBarItem() {
                   <Box
                     sx={{
                       position: "absolute",
-                      bottom: "150%",
+                      bottom: "190%",
                       left: "40%",
                       backgroundColor: theme.palette.background.default,
                       borderRadius: "8px",
@@ -267,34 +321,93 @@ function SideBarItem() {
                     </List>
                   </Box>
                 ) : null}
+                {openSubMenuOther == true && subMenuOther != null ? (
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      bottom: "190%",
+                      // left: "-30%",
+                      right: "40%",
+                      backgroundColor: theme.palette.background.default,
+                      borderRadius: "8px",
+                      padding: ".5rem",
+                      boxShadow: `0px 4px 20px ${shadowColor}`,
+                    }}
+                  >
+                    <List>
+                      {subMenuOther.map(({ text, link }) => {
+                        return (
+                          <ListItem
+                            key={text}
+                            style={{
+                              padding: "0",
+                            }}
+                          >
+                            <ListItemButton
+                              onClick={() => {
+
+                                if (text == "Change theme"){
+                                  setMode()
+                                }
+                                if (text == "Log out"){
+                                  signOut();
+                                  router.push("/");
+                                }
+
+                                router.push(`${link}`);
+                                setOpenSubMenuOther(false);
+                                setSideBarItemActive(activeLink);
+                              }}
+                            >
+                              <ListItemText>
+                                <Typography
+                                  sx={{
+                                    borderBottom:
+                                      currentURL[2] == text.toLowerCase()
+                                        ? `2px solid ${theme.palette.primary[80]}`
+                                        : "none",
+                                  }}
+                                >
+                                  {text}
+                                </Typography>
+                              </ListItemText>
+                            </ListItemButton>
+                          </ListItem>
+                        );
+                      })}
+                    </List>
+                  </Box>
+                ) : null}
 
                 <ListItemButton
                   onClick={() => {
                     if (subMenuCampaigns != null) {
                       setOpenSubMenuCampaigns(!openSubMenuCampaigns);
                       setOpenSubMenuInsights(false);
+                      setOpenSubMenuOther(false);
                       console.log("submenuCampaigns exist");
                     } else if (subMenuInsights != null) {
                       setOpenSubMenuInsights(!openSubMenuInsights);
+                      setOpenSubMenuCampaigns(false);
+                      setOpenSubMenuOther(false);
+                      console.log("submenuCampaigns exist");
+                    } else if (subMenuOther != null) {
+                      setOpenSubMenuOther(!openSubMenuOther);
+                      setOpenSubMenuInsights(false);
                       setOpenSubMenuCampaigns(false);
                       console.log("submenuCampaigns exist");
                     } else {
                       setOpenSubMenuInsights(false);
                       setOpenSubMenuCampaigns(false);
+                      setOpenSubMenuOther(false);
                       router.push(`${link}`);
                       setSideBarItemActive(activeLink);
                     }
                   }}
-                  sx={
-                    {
-                      // backgroundColor:
-                      // currentURL[2] === activeLinkSplit[1]
-                      //     ? theme.palette.primary[120]
-                      //     : "transparent",
-                      // padding: "0 2rem",
-                      // position: "relative",
-                    }
-                  }
+                  sx={{
+                    padding: "0",
+                    justifyContent: "center",
+                  }}
                 >
                   {(currentURL[2] === activeLinkSplit[1] ||
                     currentURL[2] === text.toLowerCase()) && (
@@ -320,15 +433,6 @@ function SideBarItem() {
                     {icon}
                   </ListItemIcon>
                 </ListItemButton>
-                {/* {currentURL[2] === activeLinkSplit[1] &&
-                currentURL[2] == `campaigns` && (
-                  <SubItem list={campaignSubItems}></SubItem>
-                )} */}
-
-                {/* {currentURL[2] === activeLinkSplit[1] &&
-                currentURL[2] == `insights` && (
-                  <SubItemInsight list={insightSubItems}></SubItemInsight>
-                )} */}
               </ListItem>
             );
           }
