@@ -1,4 +1,4 @@
-import { Box, useTheme } from "@mui/material";
+import { Box, useTheme, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import { useStore } from "@/lib/context/user_context/store";
@@ -78,6 +78,7 @@ function CampaignGrid() {
     fetchData();
   }, [restaurantOwnerId]);
 
+  console.log("dataArray.length", dataArray.length);
   return (
     <Box
       sx={{
@@ -97,7 +98,13 @@ function CampaignGrid() {
         },
       }}
     >
-      {isLoading ? (
+      {dataArray.length === 0 ? (
+        <Box>
+          <Typography variant="h5">
+            No upcoming campaign at this moment
+          </Typography>
+        </Box>
+      ) : isLoading ? (
         <div
           style={{
             display: "flex",
@@ -124,6 +131,7 @@ function CampaignGrid() {
           <CampaignCard key={campaign._id} campaign={campaign} />
         ))
       )}
+      
     </Box>
   );
 }
