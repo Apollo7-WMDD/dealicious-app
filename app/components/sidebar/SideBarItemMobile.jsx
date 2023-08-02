@@ -27,12 +27,8 @@ import { signOut } from "next-auth/react";
 // import { sub } from "date-fns";
 // import { set } from "mongoose";
 
-
-
 function SideBarItem() {
-
   const [hash, setHash] = useState("");
-
 
   useEffect(() => {
     const currentHash = window.location.hash.split("#")[1];
@@ -53,7 +49,7 @@ function SideBarItem() {
     setRestaurantOwner,
     setRestaurantId,
   } = useStoreOwner();
-  const { sideBarItemActive, setSideBarItemActive ,mode, setMode} = useStore();
+  const { sideBarItemActive, setSideBarItemActive, mode, setMode } = useStore();
   const pathname = usePathname();
   console.log("This is the pathname: ", pathname.split("/")[4]);
   useEffect(() => {
@@ -134,50 +130,6 @@ function SideBarItem() {
       // link: `/dashboard/profile/${restaurantOwnerId}`,
     },
   ];
-
-  // const campaignSubItems = [
-  //   {
-  //     text: "Ongoing",
-  //     link: `/dashboard/campaigns/active/${restaurantOwnerId}/#ongoing`,
-  //   },
-  //   {
-  //     text: "Upcoming",
-  //     link: `/dashboard/campaigns/active/${restaurantOwnerId}/#upcoming`,
-  //   },
-  // ];
-
-  // const insightSubItems = [
-  //   {
-  //     text: "Overview",
-  //     link: `/dashboard/insights/overview/${restaurantOwnerId}/${restaurantId}`,
-  //   },
-  //   {
-  //     text: "Campaigns",
-  //     // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-  //     link: `/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId} `,
-  //   },
-  //   {
-  //     text: "Customers",
-  //     // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-  //     link: `/dashboard/insights/customers/${restaurantOwnerId}/${restaurantId}`,
-  //   },
-  // ];
-  // const profileSubItems = [
-  //   {
-  //     text: "Profile",
-  //     link: `/dashboard/insights/overview/${restaurantOwnerId}/${restaurantId}`,
-  //   },
-  //   {
-  //     text: "logout",
-  //     // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-  //     link: `/dashboard/insights/campaigns/${restaurantOwnerId}/${restaurantId} `,
-  //   },
-  //   {
-  //     text: "change theme",
-  //     // WRONG WAITNG FOR RESTAURANTID TO RESOVLE
-  //     link: `/dashboard/insights/customers/${restaurantOwnerId}/${restaurantId}`,
-  //   },
-  // ];
 
   useEffect(() => {
     setSideBarItemActive(pathname.substring(1));
@@ -353,19 +305,22 @@ function SideBarItem() {
                             }}
                           >
                             <ListItemButton
-                              onClick={() => {
-
-                                if (text == "Change theme"){
-                                  setMode()
-                                }
-                                if (text == "Log out"){
-                                  signOut();
-                                  router.push("/");
-                                }
-
-                                router.push(`${link}`);
+                              onClick={async () => {
+                                // Common actions after the switch
                                 setOpenSubMenuOther(false);
                                 setSideBarItemActive(activeLink);
+
+                                switch (text) {
+                                  case "Change theme":
+                                    setMode();
+                                    break;
+                                  case "Log out":
+                                    await signOut();
+                                    window.location.href = "/";
+                                    break;
+                                  default:
+                                    router.push(`${link}`);
+                                }
                               }}
                             >
                               <ListItemText>
