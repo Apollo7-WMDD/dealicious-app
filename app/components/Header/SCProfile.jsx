@@ -34,9 +34,9 @@ const SelectComponent = () => {
     }
   }, [session]);
 
-  const handleSignOut = () => {
-    signOut();
-    router.push("/");
+  const handleSignOut = async () => {
+    await signOut();
+    window.location.href = "/";
   };
 
   return (

@@ -1,12 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import {
-  Modal,
-  Box,
-  Typography,
-  TextField,
-  useTheme,
-} from "@mui/material";
+import { Modal, Box, Typography, TextField, useTheme } from "@mui/material";
 import Link from "next/link";
 import SCActive from "../../components/Button/SCActive";
 import SingleButton from "../Button/SingleButton";
@@ -19,7 +13,7 @@ const CampaignCard = ({ props }) => {
   // const restaurantId = pathname.split("/")[4];
   const theme = useTheme();
   const shadowColor = `${theme.palette.neutral[20]}1f`;
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState("");
   const [validate, setValidate] = useState(false);
 
   const [open, setOpen] = useState(false);
@@ -28,7 +22,7 @@ const CampaignCard = ({ props }) => {
 
   const handleSubmit = async function () {
     try {
-      console.log('a')
+      console.log("a");
       const res = await fetch("/api/superCustomer/phoneAuth/1", {
         method: "POST",
         headers: {
@@ -49,14 +43,13 @@ const CampaignCard = ({ props }) => {
   };
 
   const getCode = async () => {
-
     const url = `/api/superCustomer/phoneAuth/${code}`;
     const response = await fetch(url);
-  
+
     if (!response.ok) {
       throw new Error(response.statusText);
     }
-  
+
     const data = await response.json();
     // console.log("👌👌👌"+data.validate);
     setValidate(data.validate);
@@ -64,15 +57,21 @@ const CampaignCard = ({ props }) => {
     setOpen(false);
     setOpenSecond(false);
     setOpenThird(true);
-  };  
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      getCode();
+    }
+  };
 
   // 1st Modal
   const handleOpen = () => {
     setOpen(true);
     setOpenSecond(false);
     setOpenThird(false);
-
-  }
+  };
   const handleClose = () => {
     setOpen(false);
     setOpenSecond(true);
@@ -91,14 +90,14 @@ const CampaignCard = ({ props }) => {
     setOpenSecond(false);
     setOpenThird(true);
   };
-  
+
   // 3th Modal
   const handleCloseThird = () => {
     setOpen(false);
     setOpenSecond(false);
     setOpenThird(false);
-  }  
-  
+  };
+
   const style = {
     // position: "absolute",
     // top: "50%",
@@ -120,36 +119,35 @@ const CampaignCard = ({ props }) => {
     borderRadius: "10px",
     boxShadow: `0px 4px 20px 0px ${shadowColor}`,
     p: 4,
-    '@media screen and (min-width:800px)': {
+    "@media screen and (min-width:800px)": {
       width: 800,
     },
   };
 
-const formatDate = (dateString) => {
-  const options = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+  const formatDate = (dateString) => {
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+
+    const date = new Date(dateString);
+
+    // Format the day without the ordinal suffix
+    const day = date.getDate();
+    const month = date.toLocaleString("default", { month: "long" });
+    const year = date.getFullYear();
+    const value = day + " " + month + "," + year;
+
+    return value; //date.toLocaleDateString(undefined, options).replace(/\d{1,2}$/, day);
   };
-
-  const date = new Date(dateString);
-
-  // Format the day without the ordinal suffix
-  const day = date.getDate();
-  const month = date.toLocaleString('default', { month: 'long' });
-  const year = date.getFullYear();
-  const value = day +" "+month+","+year;
-
-  return value;//date.toLocaleDateString(undefined, options).replace(/\d{1,2}$/, day);
-};
-const formattedStartDate = formatDate(props.startDate);
-const formattedEndDate = formatDate(props.endDate);
-
+  const formattedStartDate = formatDate(props.startDate);
+  const formattedEndDate = formatDate(props.endDate);
 
   return (
     <Box
       sx={{
-        p:'1rem',
+        p: "1rem",
         // m:'1rem',
         borderRadius: "10px",
         boxShadow: `0px 4px 20px 0px ${shadowColor}`,
@@ -162,27 +160,25 @@ const formattedEndDate = formatDate(props.endDate);
       <Typography variant="h3">{props.name}</Typography>
       <Typography variant="p">{props.offer}</Typography>
       <Box
-       sx={{
-          display:'flex',
-          flexDirection:'column',
-          textAlign:'end',
-          p:'1rem',
-          marginLeft: 'auto',
-          gap:'1rem',
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          textAlign: "end",
+          p: "1rem",
+          marginLeft: "auto",
+          gap: "1rem",
         }}
       >
         <Typography variant="p">More information</Typography>
-        <SCActive
-          text="Activate"
-          width="auto"
-          onClick={handleOpen}
-        ></SCActive>
+        <SCActive text="Activate" width="auto" onClick={handleOpen}></SCActive>
       </Box>
       <Modal
-        sx={{
-          // minWidth:'300px',
-          // width:'200px',
-        }}
+        sx={
+          {
+            // minWidth:'300px',
+            // width:'200px',
+          }
+        }
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -194,21 +190,23 @@ const formattedEndDate = formatDate(props.endDate);
           </Typography>
           <Box
             sx={{
-              display:'flex',
-              flexDirection:'column',
-              gap:'1rem',
-              alignItems:'center',
-              m:'1rem 0',
-              '@media screen and (min-width:800px)': {
-                display: 'flex',
-                flexDirection:'row',
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+              alignItems: "center",
+              m: "1rem 0",
+              "@media screen and (min-width:800px)": {
+                display: "flex",
+                flexDirection: "row",
               },
             }}
           >
             <Box
-              sx={{
-                // flex:'1 0 40%',
-              }}
+              sx={
+                {
+                  // flex:'1 0 40%',
+                }
+              }
             >
               <img
                 src={props.media[0]}
@@ -220,8 +218,8 @@ const formattedEndDate = formatDate(props.endDate);
             </Box>
             <Box
               sx={{
-                display:'flex',
-                flexDirection:'column',
+                display: "flex",
+                flexDirection: "column",
               }}
             >
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
@@ -229,7 +227,10 @@ const formattedEndDate = formatDate(props.endDate);
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                 {/* Date: {props.startDate} */}
-                Date: <Typography variant="p">{formattedStartDate} to {formattedEndDate}</Typography>
+                Date:{" "}
+                <Typography variant="p">
+                  {formattedStartDate} to {formattedEndDate}
+                </Typography>
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                 Time: <Typography variant="p">11:00AM to 8:00PM</Typography>
@@ -239,7 +240,7 @@ const formattedEndDate = formatDate(props.endDate);
               </Typography>
               <Box
                 sx={{
-                  m:'1rem 0 0 0',
+                  m: "1rem 0 0 0",
                 }}
               >
                 <SingleButton
@@ -247,9 +248,9 @@ const formattedEndDate = formatDate(props.endDate);
                   width="auto"
                   onClick={handleOpenSecond}
                 ></SingleButton>
+              </Box>
             </Box>
-            </Box>            
-          </Box>          
+          </Box>
         </Box>
       </Modal>
       <Modal
@@ -268,27 +269,30 @@ const formattedEndDate = formatDate(props.endDate);
           </Typography>
           <Box
             sx={{
-              display:'flex',
-              flexDirection:'column',
-              justifyContent:'center',
-              justifyItems:'center',
-              flexFlow:'wrap',
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              justifyItems: "center",
+              flexFlow: "wrap",
             }}
           >
             <Box
               component="form"
               sx={{
                 "& > :not(style)": { m: 6, width: "6ch" },
-                flexGrow:1,
-                flexBasis:'100%',
+                flexGrow: 1,
+                flexBasis: "100%",
               }}
               noValidate
               autoComplete="off"
             >
-              <TextField 
-                onChange={(e)=>{setCode(e.target.value)}} 
-                id="standard-basic" 
-                variant="standard" 
+              <TextField
+                onChange={(e) => {
+                  setCode(e.target.value);
+                }}
+                onKeyDown={handleKeyDown}
+                id="standard-basic"
+                variant="standard"
                 sx={{
                   fontSize: "2rem", // Set the font size to be double the default size
                 }}
@@ -309,11 +313,8 @@ const formattedEndDate = formatDate(props.endDate);
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <SCOfferApplied
-              props={props}
-              status={validate}
-            ></SCOfferApplied>
-        </Box>        
+          <SCOfferApplied props={props} status={validate}></SCOfferApplied>
+        </Box>
       </Modal>
     </Box>
   );

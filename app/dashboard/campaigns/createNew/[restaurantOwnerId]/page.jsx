@@ -21,9 +21,11 @@ const fetchOpenAIAPI = async (
   ) => {
   const url = `/api/dashboard/campaigns/openAI`;
 
+
   const response = await fetch(url
     // +`?query=name+${formData.name}=offer+${formData.offer}=condition+${formData.condition}=startDate+${formData.startDate}=endDate+${formData.endDate}`
     );
+
 
   if (!response.ok) {
     throw new Error(response.statusText);
@@ -39,18 +41,20 @@ const Page = () => {
   const getDataToAI = async () => {
     console.log(formData);
     const fetchAI = async () => {
-      setAiResult("loading...")
+      setAiResult("loading...");
       try {
+
         const result = await fetchOpenAIAPI(
           // formData
           );
         setAiResult(await result);
+
         // setAiResult(result.json());
         console.log(aiResult);
       } catch (error) {
         console.error("Error fetching data:", error);
-        setAiResult(`"Error fetching data:", ${error}`)
-      } 
+        setAiResult(`"Error fetching data:", ${error}`);
+      }
     };
     fetchAI();
   };
@@ -367,13 +371,17 @@ const Page = () => {
                 <Form>
                   <InputTextareaWithButton
                     label={`Write an attractive campaign advertisement`}
-                    value={aiResult != null ? (aiResult) : (formData.description)}
+                    value={aiResult != null ? aiResult : formData.description}
                     onChange={inputValue}
                     onClick={getDataToAI}
                     name="description"
                     id="description"
                     placeholder="campaign advertisement"
-                    buttonText= {aiResult == null ? ("or click here to have it auto-generated!") : ("generate again")}
+                    buttonText={
+                      aiResult == null
+                        ? "or click here to have it auto-generated!"
+                        : "generate again"
+                    }
                     error={formErrors.description}
                   />
                 </Form>
