@@ -16,13 +16,16 @@ import CampaignForm2 from "@/app/components/Campaign/CampaignForm2";
 import Loader from "@/app/components/Loader";
 
 import Link from "next/link";
-const fetchOpenAIAPI = async (formData) => {
+const fetchOpenAIAPI = async (
+  // formData
+  ) => {
   const url = `/api/dashboard/campaigns/openAI`;
 
-  const response = await fetch(
-    url +
-      `?query=name+${formData.name}=offer+${formData.offer}=condition+${formData.condition}=startDate+${formData.startDate}=endDate+${formData.endDate}`
-  );
+
+  const response = await fetch(url
+    // +`?query=name+${formData.name}=offer+${formData.offer}=condition+${formData.condition}=startDate+${formData.startDate}=endDate+${formData.endDate}`
+    );
+
 
   if (!response.ok) {
     throw new Error(response.statusText);
@@ -40,8 +43,12 @@ const Page = () => {
     const fetchAI = async () => {
       setAiResult("loading...");
       try {
-        const result = await fetchOpenAIAPI(formData);
-        setAiResult(result);
+
+        const result = await fetchOpenAIAPI(
+          // formData
+          );
+        setAiResult(await result);
+
         // setAiResult(result.json());
         console.log(aiResult);
       } catch (error) {
