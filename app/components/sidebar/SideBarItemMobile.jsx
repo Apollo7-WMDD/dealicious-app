@@ -130,8 +130,6 @@ function SideBarItem() {
       // link: `/dashboard/profile/${restaurantOwnerId}`,
     },
   ];
-
-
   useEffect(() => {
     setSideBarItemActive(pathname.substring(1));
   }, [pathname]);
