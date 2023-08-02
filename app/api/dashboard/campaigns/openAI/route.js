@@ -3,42 +3,30 @@ import { Configuration, OpenAIApi } from "openai";
 
 // import { useNavigation } from "next/navigation";
 
-export const GET = async (
-  req,
-  res
-  // searchParams
-) => {
-  //   const navigation = useNavigation();
-  //   const lang = navigation.searchParams.get('name');
-  // console.log(lang)
-  // console.log(searchParams)
-  const formName = req.url.split("?")[1].split("=")[1].split("&")[0];
+export const GET = async (req, res) => {
+  const formName = decodeURIComponent(
+    req.url.split("?")[1].split("=")[1].split("&")[0]
+  );
   console.log("🚀 ~ file: route.js:9 ~ GET ~ formName:", formName);
-  const formOffer = req.url.split("?")[1].split("=")[2].split("&")[0];
+  const formOffer = decodeURIComponent(
+    req.url.split("?")[1].split("=")[2].split("&")[0]
+  );
   console.log("🚀 ~ file: route.js:11 ~ GET ~ formOffer:", formOffer);
-  const formCondition = req.url.split("?")[1].split("=")[3].split("&")[0];
+  const formCondition = decodeURIComponent(
+    req.url.split("?")[1].split("=")[3].split("&")[0]
+  );
   console.log("🚀 ~ file: route.js:13 ~ GET ~ formCondition:", formCondition);
-  const formStartDate = req.url.split("?")[1].split("=")[4].split("&")[0];
+  const formStartDate = decodeURIComponent(
+    req.url.split("?")[1].split("=")[4].split("&")[0]
+  );
   console.log("🚀 ~ file: route.js:15 ~ GET ~ formStartDate:", formStartDate);
-  const formEndDate = req.url.split("?")[1].split("=")[5].split("&")[0];
+  const formEndDate = decodeURIComponent(
+    req.url.split("?")[1].split("=")[5].split("&")[0]
+  );
   console.log("🚀 ~ file: route.js:17 ~ GET ~ formEndDate:", formEndDate);
 
-  // console.log("req",req)
-  // console.log("req.url.searchParams",req.url.searchParams)
-  // console.log("req.url.URLSearchParams",req.url.URLSearchParams)
-  // console.log("req.URLSearchParams",req.URLSearchParams)
-  // console.log("req.localURLsOnly",req.localURLsOnly)
-  // console.log("req.url",req.url)
-  // console.log("req.url.URL",req.url.URL)
-  // console.log("req.METHOD",req.method)
-  // console.log("req.nextUrl",req.nextUrl)
-  // console.log("req.query",req.query)
-
   try {
-    // console.log("process.env.OPENAIKEY",process.env.OPENAIKEY)
-
     const AIKEY = process.env.OPENAIKEY;
-
     const configuration = new Configuration({});
 
     configuration.baseOptions.headers = {
