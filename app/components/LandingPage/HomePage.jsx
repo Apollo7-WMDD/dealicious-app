@@ -633,7 +633,14 @@ const HomePage = () => {
                 id="subject"
                 name="subject"
                 placeholder="Write something.."
-                style={{ height: "200px", width: "100%" }}
+                style={{
+                  height: "200px",
+                  width: "100%",
+                  padding: "0.5rem",
+                  borderRadius: "6px",
+                  borderColor: "#1c1e3a",
+                  resize: "none",
+                }}
               ></textarea>
             </div>
 
