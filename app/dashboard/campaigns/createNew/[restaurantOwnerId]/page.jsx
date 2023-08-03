@@ -21,33 +21,17 @@ import Link from "next/link";
 const fetchOpenAIAPI = async (formData) => {
   const url = `/api/dashboard/campaigns/openAI`;
 
-
-  // const response = await fetch(url
-  //   , {formData
-  //       }
-  //   );
-  // const response = await fetch(url
-  //   , { method: "GET",
-
-  //       body: {test: "test"},
-  //       // body: JSON.stringify(formData),
-  //       }
-  //   );
-
   const response = await fetch(url
     +`?name=${formData.name}&offer=${formData.offer}&condition=${formData.condition}&startDate=${formData.startDate}&endDate=${formData.endDate}`
     );
-  // const response = await fetch(url,{formData}    );
-  // const response = await fetch({ pathname: url, query: {test:'test'} });
-
 
   if (!response.ok) {
     throw new Error(response.statusText);
   }
-
   const data = await response.json();
   return data;
 };
+
 const Page = () => {
   // AI GENERATED CAMPAIGN ADVERTISEMENT
   const [aiResult, setAiResult] = useState(null);
@@ -102,7 +86,7 @@ const Page = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const errors = {};
-
+  
     if (!formData.name) {
       errors.name = "Campaign name is required.";
     }
@@ -115,18 +99,25 @@ const Page = () => {
     if (!formData.allowNewCustomer && !formData.allowSuperCustomer) {
       errors.customerType = "At least one customer type should be selected.";
     }
-
+    if (!formData.media) {
+      errors.media = "Image is required.";
+    }
+      
+    if (!imagePreview) {
+      errors.media = "Campaign image is required.";
+    }
+  
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
       return;
     }
     setFormErrors({});
-
+  
     localStorage.setItem("uploadedImageURL", localStorage.getItem("media"));
     localStorage.setItem("formData", JSON.stringify(formData));
     setIsSubmitted(true);
     console.log("formData1: first submit", formData);
-  };
+  };  
 
   const handleEdit = () => {
     const uploadedImageURL = localStorage.getItem("uploadedImageURL");
@@ -292,6 +283,9 @@ const Page = () => {
     });
   };
 
+
+  
+
   const [inspirationVisible, setInspirationVisible] = useState(true);
 
   return (
@@ -365,6 +359,7 @@ const Page = () => {
                         imagePreview={imagePreview}
                         handleUploadMenu={uploadMenu}
                         handleRemoveImage={removeImage}
+                        error={formErrors.media}
                       />
                     </Grid>
                   </Grid>

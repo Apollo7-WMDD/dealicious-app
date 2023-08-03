@@ -1,12 +1,13 @@
 import React from "react";
 import ImagePreview from "../Profile/ImagePreview";
 import PictureUploadCard from "../Button/PictureUploadCard";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const ViewCampaignImage = ({
   imagePreview,
   handleUploadMenu,
   handleRemoveImage,
+  error
 }) => {
   return (
     <>
@@ -37,6 +38,11 @@ const ViewCampaignImage = ({
             sx={{ height: { md: "320px" } }}
           />
         </Box>
+      )}
+      {error && (
+        <Typography variant="body2" color="error">
+          {error}
+        </Typography>
       )}
     </>
   );
