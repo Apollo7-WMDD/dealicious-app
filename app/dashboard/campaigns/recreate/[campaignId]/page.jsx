@@ -297,15 +297,20 @@ const Page = ({params}) => {
       console.error("No files found in fileList.");
       return;
     }
-
+  
     const file = fileList[0];
     const fileURL = URL.createObjectURL(file);
     localStorage.setItem("media", fileURL);
     setImagePreview(fileURL);
-
+  
     setSelectedFile(file);
+  
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      media: fileURL,
+    }));
   };
-
+  
 
   const removeImage = () => {
     setImagePreview(null);

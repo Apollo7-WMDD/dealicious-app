@@ -13,8 +13,8 @@ export const POST = async () => {
 
     client.messages.create({
         body: 'DEALicious This is your secret code: '+randomCode,
-        from: '+15416157617',
-        to: '+14372105501'})
+        from:'+16729030325',//from: '+15416157617',
+        to: '+17783215361'})//'+14372105501'})
       .then(message => console.log(message.sid));
 
     const newPhoneCode = new PhoneAuth({

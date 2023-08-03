@@ -53,16 +53,33 @@ const Page = ({ params }) => {
         <Header props={"My Restaurants"} />
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "24px",
-            m: "32px 0 32px 0",
+            display:'grid',
+            gap:'1rem',
+            gridTemplateColumns: "1fr",
+            // display: "flex",
+            // flexDirection: "column",
+            // gap: "24px",
+            // m: "32px 0 32px 0",
             alignItems: "center",
-            width: "100%",
-
+            // width: "100%",
+            margin: '4rem auto',
+            justifyItems: 'center',
+            alignItems: 'center',
+            
             "@media screen and (min-width:800px)": {
-              display: "flex",
-              flexDirection: "row",
+              gridTemplateColumns: "1fr 1fr",
+            //   display: "flex",
+            //   flexDirection: "row",
+            },
+            "@media screen and (min-width:1000px)": {
+              gridTemplateColumns: "1fr 1fr 1fr",
+            //   display: "flex",
+            //   flexDirection: "row",
+            },
+            "@media screen and (min-width:1200px)": {
+              gridTemplateColumns: "1fr 1fr 1fr 1fr",
+            //   display: "flex",
+            //   flexDirection: "row",
             },
           }}
         >
@@ -84,6 +101,28 @@ const Page = ({ params }) => {
                 key={index}
                 props={item}
                 superCustomerId={superCustomerId}
+                sx={{
+
+                  // display: "flex",
+                  // flexDirection: "column",
+                  // gap: "24px",
+                  // m: "32px 0 32px 0",
+                  // alignItems: "center",
+                  // width: "100%",
+                    // display: 'flex',
+                    // flexDirection: 'row',
+                    // flexWrap: 'nowrap',
+                    // flexBasis: '50%', // You can adjust this value as needed
+                    // Add more styles here if needed
+
+                  "@media screen and (min-width:800px)": {
+                    // display: "flex",
+                    // flexDirection: "row",
+                    // flexGrow: 1,
+                    // flexShrink: 0,
+                    // flexBasis: "50%",
+                  },
+                }}
               />
             ))
           )}

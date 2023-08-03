@@ -34,6 +34,20 @@ export const GET = async (request) => {
           ],
           as: "spendings",
         },
+
+        //   Spending.countDocuments({
+        //   campaignId: new mongoose.Types.ObjectId(campaignId),
+        // }),
+      },
+      {
+        $lookup: {
+          from: "spendings",
+          let: { campaignId: "$_id" },
+          pipeline: [
+            { $match: { $expr: { $eq: ["$campaignId", "$$campaignId"] } } },
+          ],
+          as: "count",
+        },
       },
       {
         $project: {
@@ -48,6 +62,7 @@ export const GET = async (request) => {
           description: 1,
           favorite: 1,
           spending: { $sum: "$spendings.billamount" },
+          count: { $size: "$count" },
         },
       },
     ]);
