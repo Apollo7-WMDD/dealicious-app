@@ -314,6 +314,9 @@ const CampaignCard = ({ props }) => {
       >
         <Box sx={style}>
           <SCOfferApplied props={props} status={validate}></SCOfferApplied>
+          <Typography id="modal-modal-title" variant="h3" sx={{ color:"#ff5938"}}>
+            Click here to close!
+          </Typography>
         </Box>
       </Modal>
     </Box>

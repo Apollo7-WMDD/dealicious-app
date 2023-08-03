@@ -4,6 +4,11 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import SingleButton from "../Button/SingleButton";
+import InputDropdown from "@/app/components/Input/InputDropdown";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 const Share = ({ props, status }) => {
     const theme = useTheme();
@@ -13,6 +18,24 @@ const Share = ({ props, status }) => {
     const restaurantId = pathname.split("/")[4];
     const [showCard, setShowCard] = useState(true);
     // const [open, setOpen] = useState(false);
+
+    // const campaignTypes = [
+    //     { value: "Happy hour", label: "Happy hour" },
+    //     { value: "Lunch only", label: "Lunch only" },
+    //     { value: "Buy one, get one", label: "Buy one, get one" },
+    //     { value: "Group dining", label: "Group dining" },
+    //     { value: "Birthday Party", label: "Birthday Party" },
+    //     { value: "Weekdays only", label: "Weekdays only" },
+    //     { value: "Special events", label: "Special events" },
+    //     { value: "Seasonal Menu", label: "Seasonal Menu" },
+    //     { value: "Demographic targeted", label: "Demographic targeted" },
+    //     { value: "Other", label: "Other" },
+    //   ];
+
+      const [age, setAge] = useState('');
+      const handleChange = (event) => {
+        setAge(event.target.value);
+      };
 
     const handleOpenConfirm = async () => {
     const burnCodeInfo = {
@@ -131,11 +154,33 @@ const Share = ({ props, status }) => {
                     >{renderStars()}</Box>
                     <Typography variant="p">Your Rating: {rating}/5</Typography>
                     <Typography variant="h4">What area do you think we should improve?</Typography>
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">To improve:</InputLabel>
+                        <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={age}
+                        label="To improve:"
+                        onChange={handleChange}
+                        >
+                        <MenuItem value={1}>Service</MenuItem>
+                        <MenuItem value={2}>Food Quality</MenuItem>
+                        <MenuItem value={3}>Menu Variety</MenuItem>
+                        <MenuItem value={4}>Ambiance</MenuItem>
+                        <MenuItem value={5}>Cleanliness</MenuItem>
+                        <MenuItem value={6}>Speed of Service</MenuItem>
+                        <MenuItem value={7}>Online Presence</MenuItem>
+                        <MenuItem value={8}>Feedback and Reviews</MenuItem>
+                        <MenuItem value={9}>Staff Training</MenuItem>
+                        <MenuItem value={10}>Sustainability</MenuItem>
+                        </Select>
+                    </FormControl>
                     <SingleButton
-                        text="Submit"
-                        width="144px"
-                        onClick={handleOpenConfirm}
-                    ></SingleButton>
+                    text="Submit"
+                    width="144px"
+                    onClick={handleOpenConfirm}
+                    >  
+                    </SingleButton>                 
                 </Box>
             </Box>
         // </Modal>
