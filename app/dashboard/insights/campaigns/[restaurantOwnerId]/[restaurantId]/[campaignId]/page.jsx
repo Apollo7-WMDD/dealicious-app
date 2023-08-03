@@ -35,6 +35,7 @@ import { data } from "autoprefixer";
 
 const Page = async () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const isMobile = !isNonMobile;
   const { restaurantOwnerId, restaurantId } = useStore();
   const router = useRouter();
   const pathname = usePathname();
@@ -66,8 +67,8 @@ const Page = async () => {
 
     fetchData();
   }, [isComparing]);
-console.log("dataArray")
-console.log(dataArray)
+  console.log("dataArray");
+  console.log(dataArray);
   const onClick = () => {
     router.push(`/dashboard/campaigns/recreate/${campaignId}`);
   };
@@ -78,44 +79,48 @@ console.log(dataArray)
         <Loader />
       ) : (
         <>
- {isNonMobile ? (
-        <HeaderGrid>
-          <Header props={"Insights"} />
-          {/* <CreateNewCampaign /> */}
-        </HeaderGrid>
-      ) : (
-        <Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              mb: "1.5rem",
-            }}
-          >
+          {isNonMobile ? (
+            <HeaderGrid>
+              <Header props={"Insights"} />
+              {/* <CreateNewCampaign /> */}
+              <SingleButtonVariant
+                text={isNonMobile ? "Recreate a Campaign" : ""}
+                onClick={onClick}
+                width={"350px"}
+              />
+            </HeaderGrid>
+          ) : (
             <Box>
-              <Image src="/logo.png" alt="logo" width={100} height={100} />
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  mb: "1.5rem",
+                }}
+              >
+                <Box>
+                  <Image src="/logo.png" alt="logo" width={100} height={100} />
+                </Box>
+                {/* <CreateNewCampaign /> */}
+                <SingleButtonVariant
+                  text={isNonMobile ? "Recreate a Campaign" : ""}
+                  onClick={onClick}
+                  width={"350px"}
+                />
+              </Box>
+              <Header props={"Insights"} />
             </Box>
-            {/* <CreateNewCampaign /> */}
-            <SingleButtonVariant
-              
-              text={isNonMobile ? "Recreate a Campaign" : ""}
-              onClick={onClick}
-              width={"350px"}
-            />
-          </Box>
-          <Header props={"Insights"} />
-        </Box>
-      )}
+          )}
 
-          <HeaderGrid>
+          {/* <HeaderGrid>
             <Header props={"Insights"} />
             <SingleButtonVariant
               text={"Recreate a Campaign"}
               onClick={onClick}
               width={"350px"}
             />
-          </HeaderGrid>
+          </HeaderGrid> */}
 
 
           <InputSubtitleDropdown
@@ -142,7 +147,7 @@ console.log(dataArray)
             }}
           >
             <MainGrid
-              key={isComparing ? "comparing" : "not-comparing"}
+              key={`${isComparing ? "comparing" : "not-comparing"}-${isMobile ? "mobile" : "non-mobile"}`} 
               isComparing={isComparing}
             >
               <ChartCard gridColumn={isComparing ? "span 1" : "span 2"}>
@@ -162,7 +167,8 @@ console.log(dataArray)
                 <div style={{ minHeight: "250px", width: "100%" }}>
                   <SingleLineChart
                     fetchDataSource={fetchCustomerCampaignTimeSingle}
-                    showTextSource={(data) => `${dataArray.count}`
+                    showTextSource={
+                      (data) => `${dataArray.count}`
                       // `680`
                     }
                     campaignId={campaignId}

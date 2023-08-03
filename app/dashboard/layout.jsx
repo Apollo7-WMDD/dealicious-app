@@ -8,7 +8,7 @@ const DashboardLayout = ({ children }) => {
       <div style={{ display: "flex" }}>
         <SideBar />
         <div style={{width: "100%" }}>
-          <div style={{ margin: "2rem 1rem 0 1rem"}}>
+          <div style={{ margin: "2rem auto 0 auto", maxWidth: "1164px", }}>
             {children}
           </div>
           <SCfootter/>

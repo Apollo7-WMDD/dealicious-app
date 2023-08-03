@@ -54,7 +54,7 @@ const Page = async () => {
       )}
 
 
-      <Header props={"Insights"} />
+      {/* <Header props={"Insights"} /> */}
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
           <InputSubtitleDropdown />

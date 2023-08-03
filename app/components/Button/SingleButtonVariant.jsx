@@ -11,6 +11,7 @@ const SingleButonVariant = ({ text, onClick, width }) => {
       startIcon={<ButtonCampaignRecreate />}
       onClick={onClick}
       sx={{
+        padding: "1rem 1rem",
         width: width,
         height: "70%",
         boxShadow: "none",
@@ -36,6 +37,7 @@ const SingleButonVariant = ({ text, onClick, width }) => {
         },
         [theme.breakpoints.down("sm")]: {
           width: "90px",
+          justifyContent: "end",
         },
       }}
     >
