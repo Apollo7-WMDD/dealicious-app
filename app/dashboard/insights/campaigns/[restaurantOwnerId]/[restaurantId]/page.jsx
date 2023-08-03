@@ -40,7 +40,7 @@ const Page = async () => {
             <Box>
               <Image src="/logo.png" alt="logo" width={100} height={100} />
             </Box>
-            <CreateNewCampaign />
+            {/* <CreateNewCampaign /> */}
           </Box>
           <Header props={"Insights"} />
         </Box>
