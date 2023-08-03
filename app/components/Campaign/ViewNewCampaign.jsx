@@ -29,11 +29,16 @@ const ViewNewCampaign = ({ formData, handleFinalSubmit, handleEditProp, setFormD
     }    
 
     let imageSrc;
-    if (formData.media && formData.media.length > 0) {
-      imageSrc = formData.media[0]; 
+    if (formData.media) {
+      if (Array.isArray(formData.media)) {
+        imageSrc = formData.media[0]; 
+      } else {
+        imageSrc = formData.media;
+      }
     } else {
       imageSrc = localStorage.getItem('media'); 
     }
+    
 
     return (
       <div>
