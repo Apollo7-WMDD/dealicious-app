@@ -35,6 +35,7 @@ import { data } from "autoprefixer";
 
 const Page = async () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const isMobile = !isNonMobile;
   const { restaurantOwnerId, restaurantId } = useStore();
   const router = useRouter();
   const pathname = usePathname();
@@ -121,6 +122,7 @@ const Page = async () => {
             />
           </HeaderGrid> */}
 
+
           <InputSubtitleDropdown
             text={subTitle}
             setIsComparing={setIsComparing}
@@ -145,7 +147,7 @@ const Page = async () => {
             }}
           >
             <MainGrid
-              key={isComparing ? "comparing" : "not-comparing"}
+              key={`${isComparing ? "comparing" : "not-comparing"}-${isMobile ? "mobile" : "non-mobile"}`} 
               isComparing={isComparing}
             >
               <ChartCard gridColumn={isComparing ? "span 1" : "span 2"}>

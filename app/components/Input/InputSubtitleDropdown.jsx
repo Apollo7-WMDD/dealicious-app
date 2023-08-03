@@ -54,7 +54,7 @@ function InputSubtitleDropdown({
 
   return (
     <Stack
-      direction={{ xs: "column", sm: "row" }}
+      direction="row"
       justifyContent="space-between"
       alignItems="start"
     >

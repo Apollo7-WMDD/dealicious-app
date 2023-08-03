@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Button, Menu, MenuItem, Fade, useTheme } from "@mui/material";
+import { Button, Menu, MenuItem, Fade, useTheme, useMediaQuery } from "@mui/material";
 
 import Arrowdown from "@/app/components/svg/arrowdown.svg";
 
@@ -10,6 +10,7 @@ function InputSubtitleDropdownCompare({
   setCampaignCompare,
 }) {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); 
   const [compareWith, setCompareWith] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -18,7 +19,6 @@ function InputSubtitleDropdownCompare({
     setAnchorEl(event.currentTarget);
   };
 
-  // CAMPAIGN SELECTOR
   const handleDelayedIsComparingUpdate = useCallback(
     (value, campaignCompare) => {
       setTimeout(() => {
@@ -32,9 +32,9 @@ function InputSubtitleDropdownCompare({
   const handleClose = useCallback(
     (event) => {
       event.stopPropagation();
-      setCompareWith(event.currentTarget.innerText || "Compare with:");
+      setCompareWith(event.currentTarget.innerText || (isMobile ? "VS" : "Compare with:"));
       if (
-        event.currentTarget.innerText === "Compare with:" ||
+        event.currentTarget.innerText === (isMobile ? "VS" : "Compare with:") ||
         !event.currentTarget.innerText
       ) {
         handleDelayedIsComparingUpdate(false, null);
@@ -44,7 +44,7 @@ function InputSubtitleDropdownCompare({
       }
       setAnchorEl(null);
     },
-    [handleDelayedIsComparingUpdate]
+    [handleDelayedIsComparingUpdate, isMobile]
   );
 
   return (
@@ -61,14 +61,16 @@ function InputSubtitleDropdownCompare({
           color: theme.palette.background.alt,
         }}
       >
-        {compareWith == null ? "Compare with: " : `${compareWith}`}
-
-        <Arrowdown
-          style={{
-            fontSize: "14px",
-            marginLeft: ".5rem",
-          }}
-        />
+        {compareWith == null ? (isMobile ? "VS" : "Compare with:") : `${compareWith}`}
+        
+        {!isMobile && (
+          <Arrowdown
+            style={{
+              fontSize: "14px",
+              marginLeft: ".5rem",
+            }}
+          />
+        )}
       </Button>
       <Menu
         id="fade-menu"
@@ -81,7 +83,7 @@ function InputSubtitleDropdownCompare({
         TransitionComponent={Fade}
         sx={{ width: "100%" }}
       >
-        <MenuItem onClick={handleClose}>Compare with:</MenuItem>
+        <MenuItem onClick={handleClose}>{isMobile ? "VS" : "Compare with:"}</MenuItem>
         {dataArray.map(
           (item) =>
             displayText !== item.name && (
