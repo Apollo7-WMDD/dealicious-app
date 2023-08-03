@@ -9,3 +9,42 @@ img {
 .pin-icon:hover {
   transform: scale(1.5);
 }
+
+/* LANDING PAGE STYLES */
+html {
+  scroll-behavior: smooth;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Ubuntu", sans-serif;
+}
+
+h2 {
+  font-size: 2.5rem;
+  color: #ff5938;
+}
+
+p,
+a,
+label {
+  font-family: "Mukta", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
