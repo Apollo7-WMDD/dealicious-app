@@ -9,7 +9,33 @@ const SCCard = ({ props, superCustomerId }) => {
   const shadowColor = `${theme.palette.neutral[20]}1f`;
 
   return (
-    <Box>
+    <Box
+      sx={{
+        maxWidth: '350px',
+        
+        // display: 'grid',
+        // flexDirection: 'row',
+        // flexWrap: 'wrap',
+        // flexBasis: '30%', 
+        // display: "flex",
+        // flexDirection: "column",
+        // gap: "24px",
+        // m: "32px 0 32px 0",
+        // alignItems: "center",
+        // width: "100%",
+          // display: 'flex',
+          // flexDirection: 'row',
+          // flexBasis: '50%', // You can adjust this value as needed
+          // Add more styles here if needed
+
+        "@media screen and (min-width:800px)": {
+          // gridTemplateColumns: "1fr 1fr 1fr 1fr",
+          // display: 'flex',
+          // flexDirection: 'row',
+          // flexBasis: '30%', // You can adjust this value as needed
+        },
+      }}
+    >
       <Link
         underline="none"
         href={`/superCustomer/restaurants/${superCustomerId}/${props._id}`}
@@ -21,6 +47,15 @@ const SCCard = ({ props, superCustomerId }) => {
             boxShadow: `0px 4px 20px 0px ${shadowColor}`,
             Width:'350px',
             Height:'500px',
+
+            "@media screen and (min-width:800px)": {
+              // display: 'flex',
+              // flexDirection: 'row',
+              // flexBasis: '30%', // You can adjust this value as needed
+              flexGrow: '1',
+              flexShrink: '0',
+              flexBasis: '30%',
+            },
           }}
         >
         <img
