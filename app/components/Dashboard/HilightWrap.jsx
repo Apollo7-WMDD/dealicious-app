@@ -2,18 +2,27 @@ import { fetchAllCampaigns } from "@/lib/fetching/campaigns/data";
 import { useStore } from "@/lib/context/user_context/store";
 import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
-import LineChart from "../Chart/LineChart";
+import { fetchTotalRevenueSingle } from "@/lib/fetching/insights/data";
+import SingleLineChart from "@/app/components/Chart/SingleLineChart";
 
 function HilightWrap() {
   const { restaurantOwnerId } = useStore();
   const [data, setData] = useState(null);
+  const [campaignId, setCampaignId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const result = await fetchAllCampaigns(restaurantOwnerId);
         if (result && result.campaigns && result.campaigns.length > 0) {
-          setData(result.campaigns[0]);
+          const filteredResult = result.campaigns.filter(
+            (e) =>
+              Date.parse(e.startDate) < Date.now() &&
+              Date.parse(e.endDate) > Date.now()
+          );
+          
+          setData(filteredResult[0]);
+          setCampaignId(filteredResult[0]._id);
         } else {
           setData(null);
         }
@@ -25,6 +34,10 @@ function HilightWrap() {
     fetchData();
   }, [restaurantOwnerId]);
 
+  console.log("hilightWrap - data", data);
+  console.log("hilightWrap - data._id", data?._id);
+  console.log("hilightWrap - data.description", data?.description);
+  console.log("hilightWrap - data.spending", data?.spending);
   const prgphStyle = {
     margin: "0",
     fontWeight: "bold",
@@ -33,7 +46,9 @@ function HilightWrap() {
   return (
     <div style={{ width: "100%" }}>
       <div>
-        <Typography variant="h5" sx={{mt:"1rem"}}>{data?.name}</Typography>
+        <Typography variant="h5" sx={{ mt: "1rem" }}>
+          {data?.name}
+        </Typography>
         <p style={prgphStyle}>
           Item:
           <p
@@ -42,7 +57,8 @@ function HilightWrap() {
               fontWeight: "lighter",
               display: "inline",
             }}
-          >{" "}
+          >
+            {" "}
             {data?.offer}
           </p>
         </p>
@@ -55,7 +71,8 @@ function HilightWrap() {
                 fontWeight: "lighter",
                 display: "inline",
               }}
-            >{" "}
+            >
+              {" "}
               {new Date(data.startDate).toISOString().substring(0, 10)} to{" "}
               {new Date(data.endDate).toISOString().substring(0, 10)}
             </p>
@@ -70,7 +87,8 @@ function HilightWrap() {
               fontWeight: "lighter",
               display: "inline",
             }}
-          >{" "}
+          >
+            {" "}
             {data?.allowNewCustomer ? "New Customers" : ""}
             {data?.allowNewCustomer && data?.allowSuperCustomer ? " & " : ""}
             {data?.allowSuperCustomer ? "Super Customers" : ""}
@@ -84,12 +102,18 @@ function HilightWrap() {
               fontWeight: "lighter",
               display: "inline",
             }}
-          >{" "}
+          >
+            {" "}
             {data?.description}
           </p>
         </p>
-       
-        <LineChart></LineChart>
+        <Typography variant="h5" sx={{ mt: "1rem", textAlign:"center" }}>Campaign revenue</Typography>
+        <SingleLineChart
+          fetchDataSource={fetchTotalRevenueSingle}
+          showTextSource={(s) => `$ ${data?.spending}`}
+          campaignId={data?._id}
+        />
+        {/* <LineChart></LineChart> */}
       </div>
     </div>
   );

@@ -27,6 +27,8 @@ import UpcomingCampaignGrid from "@/app/components/Dashboard/UpcomingCampaignGri
 
 import HilightWrap from "@/app/components/Dashboard/HilightWrap";
 import { useMediaQuery } from "@mui/material";
+import { fetchTotalRevenueSingle } from "@/lib/fetching/insights/data";
+import SingleLineChart from '@/app/components/Chart/SingleLineChart';
 
 const Page = () => {
   const theme = useTheme();
@@ -53,19 +55,16 @@ const Page = () => {
           </HeaderGrid>
         ) : (
           <Box>
-            <Box sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              mb: "1.5rem",
-            }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                mb: "1.5rem",
+              }}
+            >
               <Box>
-                <Image
-                  src="/logo.png"
-                  alt="logo"
-                  width={100}
-                  height={100}
-                />
+                <Image src="/logo.png" alt="logo" width={100} height={100} />
               </Box>
               <CreateNewCampaign />
             </Box>
@@ -148,7 +147,8 @@ const Page = () => {
                         fontWeight: "lighter",
                         display: "inline",
                       }}
-                    >{" "}
+                    >
+                      {" "}
                       {hilighted.allowNewCustomer ? "New Customers" : ""}
                       {hilighted.allowNewCustomer &&
                       hilighted.allowSuperCustomer
@@ -170,12 +170,19 @@ const Page = () => {
                         fontWeight: "lighter",
                         display: "inline",
                       }}
-                    >{" "}
+                    >
+                      {" "}
                       {hilighted.description}
                     </p>
                   </p>
-
-                  <LineChart></LineChart>
+                  <Typography variant="h5" sx={{ mt: "1rem", textAlign:"center" }}>Campaign revenue</Typography>
+                  <SingleLineChart
+                    fetchDataSource={fetchTotalRevenueSingle}
+                    showTextSource={(data) =>
+                      `$ ${hilighted.spending}`
+                    }
+                    campaignId={hilighted?._id}
+                  />
                 </div>
               </div>
             ) : (
