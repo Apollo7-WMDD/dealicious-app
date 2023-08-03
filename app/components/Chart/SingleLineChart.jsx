@@ -96,19 +96,19 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
   };
   let delayed;
   const options = {
-    // animation: {
-    //   onComplete: () => {
-    //     delayed = true;
-    //   },
-    //   delay: (context) => {
-    //     let delay = 0;
+    animation: {
+      onComplete: () => {
+        delayed = true;
+      },
+      delay: (context) => {
+        let delay = 0;
      
-    //     if (context.type == "data" && context.mode == "default" && !delayed) {
-    //       delay = context.dataIndex * 50;
-    //     }
-    //     return delay;
-    //   },
-    // },
+        if (context.type == "data" && context.mode == "default" && !delayed) {
+          delay = context.dataIndex * 50;
+        }
+        return delay;
+      },
+    },
 
    
 
