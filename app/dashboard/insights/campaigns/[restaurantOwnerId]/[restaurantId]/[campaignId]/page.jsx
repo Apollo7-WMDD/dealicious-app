@@ -106,14 +106,14 @@ const Page = async () => {
         </Box>
       )}
 
-          {/* <HeaderGrid>
+          <HeaderGrid>
             <Header props={"Insights"} />
             <SingleButtonVariant
               text={"Recreate a Campaign"}
               onClick={onClick}
               width={"350px"}
             />
-          </HeaderGrid> */}
+          </HeaderGrid>
 
 
           <InputSubtitleDropdown
