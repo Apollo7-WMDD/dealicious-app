@@ -26,39 +26,41 @@ export const GET = async (request) => {
     ];
 
     const [result] = await Spending.aggregate(pipeline).allowDiskUse(true);
-
-    let prevRevenue = 100;
+    
+    let prevRevenue = result?.totalRevenue/30;
+    
     const daily = Array.from({ length: 30 }, (_, i) => {
       const date = new Date();
       date.setDate(date.getDate() - i);
-      const formattedDate = date.toISOString().split('T')[0]; 
-      prevRevenue -= Math.floor(Math.random() * 5);  
+      const formattedDate = date.toISOString().split("T")[0];
+      prevRevenue -= Math.floor(Math.random() * 5);
       return {
         date: formattedDate,
         totalRevenue: prevRevenue,
       };
     }).reverse();
 
-  
-    prevRevenue = 800;  
+    prevRevenue = result?.totalRevenue/12;
     const weekly = Array.from({ length: 12 }, (_, i) => {
       const startOfWeek = new Date();
       startOfWeek.setDate(startOfWeek.getDate() - i * 7);
       const endOfWeek = new Date(startOfWeek);
-      prevRevenue -= Math.random() * 50;  
+      prevRevenue -= Math.random() * 50;
       return {
-        week: endOfWeek.toISOString().split('T')[0],
+        week: endOfWeek.toISOString().split("T")[0],
         totalRevenue: prevRevenue,
       };
-    }).reverse();  
+    }).reverse();
 
-    prevRevenue = 3000;  
+    prevRevenue = result?.totalRevenue/5;
     const monthly = Array.from({ length: 12 }, (_, i) => {
       const date = new Date();
       date.setMonth(date.getMonth() - i);
-      prevRevenue -= Math.random() * 200;  
+      prevRevenue -= Math.random() * 200;
       return {
-        month: new Date(date.getFullYear(), date.getMonth() + 1, 0).toISOString().split('T')[0],
+        month: new Date(date.getFullYear(), date.getMonth() + 1, 0)
+          .toISOString()
+          .split("T")[0],
         totalRevenue: prevRevenue,
       };
     }).reverse();

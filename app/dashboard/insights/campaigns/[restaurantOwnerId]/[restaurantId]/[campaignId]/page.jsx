@@ -31,6 +31,7 @@ import {
 import Loader from "@/app/components/Loader";
 import LineChart from "@/app/components/Chart/LineChart";
 import { useMediaQuery } from "@mui/material";
+import { data } from "autoprefixer";
 
 const Page = async () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -65,7 +66,8 @@ const Page = async () => {
 
     fetchData();
   }, [isComparing]);
-
+console.log("dataArray")
+console.log(dataArray)
   const onClick = () => {
     router.push(`/dashboard/campaigns/recreate/${campaignId}`);
   };
@@ -106,14 +108,14 @@ const Page = async () => {
         </Box>
       )}
 
-          {/* <HeaderGrid>
+          <HeaderGrid>
             <Header props={"Insights"} />
             <SingleButtonVariant
               text={"Recreate a Campaign"}
               onClick={onClick}
               width={"350px"}
             />
-          </HeaderGrid> */}
+          </HeaderGrid>
 
 
           <InputSubtitleDropdown
@@ -148,7 +150,8 @@ const Page = async () => {
                 <div style={{ minHeight: "250px", width: "100%" }}>
                   <SingleLineChart
                     fetchDataSource={fetchTotalRevenueSingle}
-                    showTextSource={(data) => `$ 1.2k`}
+                    showTextSource={(data) => `$ ${dataArray.spending}`}
+                    campaignId={campaignId}
                   />
                 </div>
               </ChartCard>
@@ -159,7 +162,10 @@ const Page = async () => {
                 <div style={{ minHeight: "250px", width: "100%" }}>
                   <SingleLineChart
                     fetchDataSource={fetchCustomerCampaignTimeSingle}
-                    showTextSource={(data) => `680`}
+                    showTextSource={(data) => `${dataArray.count}`
+                      // `680`
+                    }
+                    campaignId={campaignId}
                   />
                 </div>
               </ChartCard>
@@ -192,6 +198,7 @@ const Page = async () => {
                   <SingleLineChart
                     fetchDataSource={fetchNCbecameSC}
                     showTextSource={(data) => `89`}
+                    campaignId={campaignId}
                   />
                 </div>
               </ChartCard>
@@ -225,6 +232,7 @@ const Page = async () => {
                     <SingleLineChart
                       fetchDataSource={fetchTotalRevenueSingle}
                       showTextSource={(data) => `$ 0.9k`}
+                      campaignId={campaignId}
                     />
                   </div>
                 </ChartCard>
@@ -236,6 +244,7 @@ const Page = async () => {
                     <SingleLineChart
                       fetchDataSource={fetchCustomerCampaignTimeSingle}
                       showTextSource={(data) => `540`}
+                      campaignId={campaignId}
                     />
                     {/* // showTextSource={(data) => `$ ${Math.round(data.totalRevenue)}`}/> */}
                   </div>
@@ -272,6 +281,7 @@ const Page = async () => {
                     <SingleLineChart
                       fetchDataSource={fetchNCbecameSC}
                       showTextSource={(data) => `56`}
+                      campaignId={campaignId}
                     />
                   </div>
                 </ChartCard>
