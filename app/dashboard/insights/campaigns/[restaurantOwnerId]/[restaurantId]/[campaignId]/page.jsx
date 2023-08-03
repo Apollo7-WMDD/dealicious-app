@@ -34,6 +34,7 @@ import { useMediaQuery } from "@mui/material";
 
 const Page = async () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const isMobile = !isNonMobile;
   const { restaurantOwnerId, restaurantId } = useStore();
   const router = useRouter();
   const pathname = usePathname();
@@ -106,14 +107,14 @@ const Page = async () => {
         </Box>
       )}
 
-          <HeaderGrid>
+          {/* <HeaderGrid>
             <Header props={"Insights"} />
             <SingleButtonVariant
               text={"Recreate a Campaign"}
               onClick={onClick}
               width={"350px"}
             />
-          </HeaderGrid>
+          </HeaderGrid> */}
 
 
           <InputSubtitleDropdown
@@ -140,7 +141,7 @@ const Page = async () => {
             }}
           >
             <MainGrid
-              key={isComparing ? "comparing" : "not-comparing"}
+              key={`${isComparing ? "comparing" : "not-comparing"}-${isMobile ? "mobile" : "non-mobile"}`} 
               isComparing={isComparing}
             >
               <ChartCard gridColumn={isComparing ? "span 1" : "span 2"}>
