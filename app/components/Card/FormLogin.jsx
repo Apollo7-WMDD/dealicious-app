@@ -9,7 +9,7 @@ const FormLogin = ({ children, ...props }) => {
     <Box
       component="section"
       sx={{
-        borderRadius: "8px",
+        borderRadius: "12px",
         background: "#FEFEFE",
         boxShadow: `0px 4px 20px 0px ${shadowColor}`,
         flexDirection: "column",
@@ -17,10 +17,10 @@ const FormLogin = ({ children, ...props }) => {
         alignItems: "center",
         flexShrink: 0,
         display: "flex",
-        padding: "1rem 1.5rem",
+        padding: "1.5rem",
         flexGrow: 1,
-        maxWidth: "500px", 
-        width: '100%', 
+        maxWidth: "450px",
+        width: "100%",
       }}
       {...props}
     >

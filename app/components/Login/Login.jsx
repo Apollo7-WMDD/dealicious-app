@@ -8,6 +8,7 @@ import Divider from "@mui/material/Divider";
 import FormLogin from "../Card/FormLogin";
 import { signIn } from "next-auth/react";
 import SingleButtonNoIcon from "../Button/SingleButtonNoIcon";
+import Image from "next/image";
 
 function LoginComponent() {
   const theme = useTheme();
@@ -34,8 +35,8 @@ function LoginComponent() {
 
   return (
     <FormLogin>
-      <SubHeader>Login</SubHeader>
-      <Box sx={{ margin: 2 }}>
+      <Typography style={{ fontSize: "3rem" }}>Login</Typography>
+      <Box sx={{ width: "80%" }}>
         <InputText
           name="email"
           id="email"
@@ -44,7 +45,7 @@ function LoginComponent() {
           onChange={handleChange}
         />
       </Box>
-      <Box sx={{ marginBottom: 2 }}>
+      <Box sx={{ marginBottom: "2rem", width: "80%" }}>
         <InputText
           name="password"
           id="password"
@@ -54,31 +55,8 @@ function LoginComponent() {
           type="password"
         />
       </Box>
-      <SingleButtonNoIcon text="Log in" onClick={handleLogin} width="326px" />
-      <Typography
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          gap: 10,
-          margin: 1,
-        }}
-      >
-        <Button
-          onClick={() => handleLinkClick("Get login link")}
-          sx={{ cursor: "pointer", fontSize: "14px", textTransform: "none" }}
-        >
-          Get login link
-        </Button>
-        <Button
-          onClick={() => handleLinkClick("Reset password")}
-          sx={{ cursor: "pointer", fontSize: "14px", textTransform: "none" }}
-        >
-          Reset password
-        </Button>
-      </Typography>
-      <Box sx={{ my: 2 }}>
-        <Divider>OR</Divider>
-      </Box>
+      <SingleButtonNoIcon text="Log in" onClick={handleLogin} width="80%" />
+      <Box sx={{ my: 1 }}></Box>
       <Button
         onClick={() => signIn("google")}
         sx={{
@@ -96,9 +74,30 @@ function LoginComponent() {
         }}
         variant="outlined"
       >
-        <GoogleIcon />
+        <Image
+          src="/assets_landingPage/google.svg"
+          width="24"
+          height="24"
+          alt="logo"
+        />
         Google
       </Button>
+      <Box
+        sx={{
+          width: "80%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: "2rem",
+        }}
+      >
+        <Image
+          src="/assets_landingPage/loginLogo.svg"
+          width="110"
+          height="110"
+          alt="logo"
+        />
+      </Box>
     </FormLogin>
   );
 }
