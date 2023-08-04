@@ -13,9 +13,6 @@ import { useStore } from "@/lib/context/user_context/store";
 // import material ui
 import { Button, useTheme } from "@mui/material";
 
-// import loader
-import Loader from "../Loader";
-
 const HomePage = () => {
   const { data: session, status } = useSession();
   const { setRestaurantOwner, restaurantOwnerId } = useStore();
@@ -320,7 +317,7 @@ const HomePage = () => {
             <h1 className={styles.landing_main_title}>Taste of Growth!</h1>
           </div>
           {status === "loading" ? (
-            <Loader />
+            <></>
           ) : session?.user?.id === undefined && !session ? (
             <>
               <Link href={`/login/owner`}>
