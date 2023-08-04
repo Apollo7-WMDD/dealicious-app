@@ -15,9 +15,6 @@ function LoginComponent() {
     email: "",
     password: "",
   });
-
-  console.log("these are the credentials", credentials);
-
   const handleLogin = () => {
     console.log("Login button clicked");
     signIn("credentials", { ...credentials }, { redirect: false });
