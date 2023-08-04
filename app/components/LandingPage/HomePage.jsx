@@ -377,7 +377,15 @@ const HomePage = () => {
           <img src="/assets_landingPage/favicon.svg" alt="" />
 
           <div className={styles.why_us_text}>
-            <h2 className={styles.landing_why_us_tilte}>Why Us?</h2>
+            <h2
+              style={{
+                fontSize: "2.5rem",
+                color: "#ff5938",
+              }}
+              className={styles.landing_why_us_tilte}
+            >
+              Why Us?
+            </h2>
             <p>
               Dealicious is a web platform that provides an effective solution
               for Food Hospitalities to create referral marketing campaigns and
@@ -399,7 +407,15 @@ const HomePage = () => {
         <section
           className={`${styles.landing_section} ${styles.landing_features}`}
         >
-          <h2 className={styles.landing_section_title}>Features</h2>
+          <h2
+            className={styles.landing_section_title}
+            style={{
+              fontSize: "2.5rem",
+              color: "#ff5938",
+            }}
+          >
+            Features
+          </h2>
           <div className={styles.features_container}>
             <div className={styles.landing_feature}>
               <div className={styles.feature_container}>
@@ -455,7 +471,15 @@ const HomePage = () => {
       <section
         className={`${styles.landing_section} ${styles.landing_the_team}`}
       >
-        <h2 className={styles.landing_section_title}>The Team</h2>
+        <h2
+          style={{
+            fontSize: "2.5rem",
+            color: "#ff5938",
+          }}
+          className={styles.landing_section_title}
+        >
+          The Team
+        </h2>
         <div className={styles.members_container} id="the_team">
           <div className={styles.member}>
             <img src="/assets_landingPage/team/edgar.png" alt="" />
@@ -561,7 +585,15 @@ const HomePage = () => {
         id="contact"
         className={`${styles.landing_section} ${styles.landing_contact}`}
       >
-        <h2 className={styles.landing_section_title}>Contact Us</h2>
+        <h2
+          style={{
+            fontSize: "2.5rem",
+            color: "#ff5938",
+          }}
+          className={styles.landing_section_title}
+        >
+          Contact Us
+        </h2>
 
         <div className={styles.landing_ziyun}>
           <img
