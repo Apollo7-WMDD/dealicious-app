@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useStore } from "@/lib/context/user_context/store";
 import React, { useState, useEffect } from "react";
-import { useTheme } from '@mui/material/styles';
+import { useTheme } from "@mui/material/styles";
 // components
 import Form from "@/app/components/Card/Form";
 import Header from "@/app/components/Header/Header";
@@ -18,45 +18,38 @@ import CampaignForm2 from "@/app/components/Campaign/CampaignForm2";
 import { fetchSingleCampaign } from "@/lib/fetching/campaigns/data";
 
 import { aiGenerate } from "@/app/api/dashboard/campaigns/openAI/route";
+const fetchOpenAIAPI = async (formData) => {
+  const url = `/api/dashboard/campaigns/openAI`;
 
+  const response = await fetch(
+    url +
+      `?name=${formData.name}&offer=${formData.offer}&condition=${formData.condition}&startDate=${formData.startDate}&endDate=${formData.endDate}`
+  );
 
-const Page = ({params}) => {
- // AI GENERATED CAMPAIGN ADVERTISEMENT
- const [aiResult, setAiResult] = useState(null);
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
 
- const getDataToAI = async () => {
-   console.log(formData);
-   const fetchAI = async () => {
-     try {
-       setAiResult("loading...")
-       const result = await aiGenerate(formData);
-       setAiResult(await result.json());
-       // setAiResult(result.json());
-       console.log(aiResult);
-     } catch (error) {
-       console.error("Error fetching data:", error);
-     } 
-   };
-   fetchAI();
- };
+  const data = await response.json();
+  return data;
+};
 
-
-
+const Page = ({ params }) => {
   const { restaurantId, restaurantOwnerId } = useStore();
   const router = useRouter();
   const { campaignId } = params;
   console.log(campaignId);
-
   const theme = useTheme();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+
   const [formData, setFormData] = useState({
     restaurantId: restaurantId,
     superCustomerIdArray: [],
     name: "",
     status: "active",
     type: [],
-    offer: "No offer",
+    offer: "",
     allowSuperCustomer: false,
     allowNewCustomer: false,
     expiredByNumber: false,
@@ -72,7 +65,8 @@ const Page = ({params}) => {
     autoDescription: "No auto description",
   });
 
-//   fetch the campaign data and load the data
+  
+  //   fetch the campaign data and load the data
   const [campaignData, setCampaignData] = useState(null);
   useEffect(() => {
     const getCampaignData = async () => {
@@ -80,20 +74,52 @@ const Page = ({params}) => {
       console.log(data);
       const { campaignInfo } = data;
       setCampaignData(campaignInfo);
-  
+
       const { description, ...restCampaignInfo } = campaignInfo;
-  
-      setFormData(prevFormData => ({
+
+      setFormData((prevFormData) => ({
         ...prevFormData,
         ...restCampaignInfo,
-        startDate: new Date(campaignInfo.startDate).toISOString().slice(0,10),
-        endDate: new Date(campaignInfo.endDate).toISOString().slice(0,10),
+        startDate: new Date(campaignInfo.startDate).toISOString().slice(0, 10),
+        endDate: new Date(campaignInfo.endDate).toISOString().slice(0, 10),
       }));
     };
     getCampaignData();
   }, [restaurantId]);
-  
 
+  // AI GENERATED CAMPAIGN ADVERTISEMENT
+  const [aiResult, setAiResult] = useState(null);
+
+  const getDataToAI = async () => {
+    console.log(formData);
+    const fetchAI = async () => {
+      setFormData({
+        ...formData,
+        description:"loading...",
+      });
+      try {
+        const result = await fetchOpenAIAPI(formData);
+        setAiResult(await result);
+
+        setFormData({
+          ...formData,
+          description: await result,
+        });
+
+        console.log(aiResult);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setAiResult(`"Error fetching data:", ${error}`);
+        setFormData({
+          ...formData,
+          description: `"Error fetching data:", ${error}`,
+        });
+      }
+    };
+    fetchAI();
+  };
+
+  console.log(formData);
 
   // The first save button - submit the form
   const handleSubmit = (e) => {
@@ -137,36 +163,33 @@ const Page = ({params}) => {
   ////////////////////// Final Submit button for campaign preview /////////////////////
   const handleFinalSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (selectedFile) {
       const reader = new FileReader();
       reader.readAsDataURL(selectedFile);
-  
+
       reader.onloadend = async () => {
         const base64String = reader.result;
-  
+
         try {
-          const response = await fetch(
-            `/api/image/upload`,
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ file: base64String }),
-            }
-          );
-  
+          const response = await fetch(`/api/image/upload`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ file: base64String }),
+          });
+
           if (response.ok) {
             console.log("image uploaded successfully!");
             const data = await response.json();
-  
+
             const newFormData = {
               ...formData,
-              media: data.secure_url, 
+              media: data.secure_url,
             };
             setFormData(newFormData);
-  
+
             // POST the newFormData
             try {
               const response = await fetch(
@@ -179,10 +202,10 @@ const Page = ({params}) => {
                   body: JSON.stringify(newFormData),
                 }
               );
-      
+
               if (response.ok) {
                 console.log("Campaign created successfully!");
-                console.log(newFormData)
+                console.log(newFormData);
                 setShowNotification(true);
               }
             } catch (error) {
@@ -193,7 +216,7 @@ const Page = ({params}) => {
           console.log("Error uploading image:", error.message);
         }
       };
-  
+
       reader.onerror = (error) => {
         console.log("Error reading file:", error);
       };
@@ -207,13 +230,13 @@ const Page = ({params}) => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(formData),  
+            body: JSON.stringify(formData),
           }
         );
-  
+
         if (response.ok) {
           console.log("Campaign created successfully!");
-          console.log(formData)  
+          console.log(formData);
           setShowNotification(true);
         }
       } catch (error) {
@@ -221,9 +244,7 @@ const Page = ({params}) => {
       }
     }
   };
-  
-  
-  
+
   //////////////////////////////////////////////////////////////////////
 
   const [showNotification, setShowNotification] = useState(false);
@@ -264,7 +285,6 @@ const Page = ({params}) => {
     }));
   };
 
-
   //SC AND NC allowed
   const toggleAllowNewCustomer = () => {
     setFormData({
@@ -297,20 +317,19 @@ const Page = ({params}) => {
       console.error("No files found in fileList.");
       return;
     }
-  
+
     const file = fileList[0];
     const fileURL = URL.createObjectURL(file);
     localStorage.setItem("media", fileURL);
     setImagePreview(fileURL);
-  
+
     setSelectedFile(file);
-  
+
     setFormData((prevFormData) => ({
       ...prevFormData,
       media: fileURL,
     }));
   };
-  
 
   const removeImage = () => {
     setImagePreview(null);
@@ -367,7 +386,7 @@ const Page = ({params}) => {
                     handletypeValue={typeValue}
                     handleAllowNewCustomerToggle={toggleAllowNewCustomer}
                     handleAllowSuperCustomerToggle={toggleAllowSuperCustomer}
-                    inputstyles={{color: theme.palette.primary[80]}}
+                    inputstyles={{ color: theme.palette.primary[80] }}
                   />
                 </Grid>
                 <Grid item xs={12} md={4}>
@@ -379,29 +398,33 @@ const Page = ({params}) => {
                 </Grid>
               </Grid>
 
-              <CampaignForm2 
+              <CampaignForm2
                 formData={formData}
                 formErrors={formErrors}
                 toggleExpiredByNumber={toggleExpiredByNumber}
                 inputValue={inputValue}
                 inspirationVisible={inspirationVisible}
                 setInspirationVisible={setInspirationVisible}
-                inputstyles={{color: theme.palette.primary[80]}}
+                inputstyles={{ color: theme.palette.primary[80] }}
               />
             </Form>
 
             <Form>
-            <InputTextareaWithButton
-                    label={`Write an attractive campaign advertisement`}
-                    value={aiResult != null ? (aiResult) : (formData.description)}
-                    onChange={inputValue}
-                    onClick={getDataToAI}
-                    name="description"
-                    id="description"
-                    placeholder="campaign advertisement"
-                    buttonText= {aiResult == null ? ("or click here to have it auto-generated!") : ("generate again")}
-                    error={formErrors.description}
-                  />
+              <InputTextareaWithButton
+                label={`Write an attractive campaign advertisement`}
+                value={formData.description}
+                onChange={inputValue}
+                onClick={getDataToAI}
+                name="description"
+                id="description"
+                placeholder="campaign advertisement"
+                buttonText={
+                  aiResult == null
+                    ? "or click here to have it auto-generated!"
+                    : "generate again"
+                }
+                error={formErrors.description}
+              />
             </Form>
 
             <InputButton
@@ -421,4 +444,3 @@ const Page = ({params}) => {
   );
 };
 export default Page;
-

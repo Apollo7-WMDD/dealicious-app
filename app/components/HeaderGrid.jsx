@@ -9,6 +9,7 @@ function HeaderGrid({ children }) {
       sx={{
         display: "grid",
         gridTemplateColumns: "2fr 1fr",
+        alignItems: "center",
         width: "100%",
         gap: "1.5rem",
         gridAutoFlow: "row dense",
