@@ -21,25 +21,9 @@ import Link from "next/link";
 const fetchOpenAIAPI = async (formData) => {
   const url = `/api/dashboard/campaigns/openAI`;
 
-
-  // const response = await fetch(url
-  //   , {formData
-  //       }
-  //   );
-  // const response = await fetch(url
-  //   , { method: "GET",
-
-  //       body: {test: "test"},
-  //       // body: JSON.stringify(formData),
-  //       }
-  //   );
-
   const response = await fetch(url
     +`?name=${formData.name}&offer=${formData.offer}&condition=${formData.condition}&startDate=${formData.startDate}&endDate=${formData.endDate}`
     );
-  // const response = await fetch(url,{formData}    );
-  // const response = await fetch({ pathname: url, query: {test:'test'} });
-
 
   if (!response.ok) {
     throw new Error(response.statusText);
@@ -49,27 +33,7 @@ const fetchOpenAIAPI = async (formData) => {
   return data;
 };
 const Page = () => {
-  // AI GENERATED CAMPAIGN ADVERTISEMENT
-  const [aiResult, setAiResult] = useState(null);
-
-  const getDataToAI = async () => {
-    console.log(formData);
-    const fetchAI = async () => {
-      setAiResult("loading...");
-      try {
-
-        const result = await fetchOpenAIAPI(formData);
-        setAiResult(await result);
-
-        console.log(aiResult);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setAiResult(`"Error fetching data:", ${error}`);
-      }
-    };
-    fetchAI();
-  };
-
+  
   const { restaurantId, restaurantOwnerId } = useStore();
   const router = useRouter();
   const [campaigns, setCampaigns] = useState([]);
@@ -82,7 +46,7 @@ const Page = () => {
     name: "",
     status: "active",
     type: [],
-    offer: "No offer",
+    offer: "",
     allowSuperCustomer: false,
     allowNewCustomer: false,
     expiredByNumber: false,
@@ -97,6 +61,39 @@ const Page = () => {
     favorite: false,
     autoDescription: "No auto description",
   });
+
+  // AI GENERATED CAMPAIGN ADVERTISEMENT
+  const [aiResult, setAiResult] = useState(null);
+
+  const getDataToAI = async () => {
+    console.log(formData);
+    const fetchAI = async () => {
+      setFormData({
+        ...formData,
+        description:"loading...",
+      });
+      try {
+
+        const result = await fetchOpenAIAPI(formData);
+        setAiResult(await result);
+
+        setFormData({
+          ...formData,
+          description: await result,
+        });
+
+        console.log(aiResult);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setAiResult(`"Error fetching data:", ${error}`);
+        setFormData({
+          ...formData,
+          description: `"Error fetching data:", ${error}`,
+        });
+      }
+    };
+    fetchAI();
+  };
 
   // The first save button - submit the form
   const handleSubmit = (e) => {
@@ -382,7 +379,7 @@ const Page = () => {
                 <Form>
                   <InputTextareaWithButton
                     label={`Write an attractive campaign advertisement`}
-                    value={aiResult != null ? aiResult : formData.description}
+                    value={formData.description}
                     onChange={inputValue}
                     onClick={getDataToAI}
                     name="description"
