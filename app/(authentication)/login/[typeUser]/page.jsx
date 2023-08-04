@@ -1,6 +1,7 @@
 "use client";
 
 import LoginComponent from "@/app/components/Login/Login";
+import LoginDealicious from "@/app/components/Login/LoginDealicious";
 import LogoComponent from "@/app/components/Login/LogoComponent";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -27,7 +28,7 @@ const Login = ({ params }) => {
         <LogoComponent />
       ) : (
         <>
-          <LoginComponent></LoginComponent>
+          <LoginDealicious />
         </>
       )}
     </>
