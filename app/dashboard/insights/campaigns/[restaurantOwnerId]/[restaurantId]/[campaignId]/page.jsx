@@ -31,6 +31,7 @@ import {
 import Loader from "@/app/components/Loader";
 import LineChart from "@/app/components/Chart/LineChart";
 import { useMediaQuery } from "@mui/material";
+import DoughnutChart_NumCustomer from "@/app/components/Chart/DoughnutChart_NumCustomer";
 
 const Page = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -109,15 +110,6 @@ const Page = () => {
               <Header props={"Insights"} />
             </Box>
           )}
-
-          {/* <HeaderGrid>
-            <Header props={"Insights"} />
-            <SingleButtonVariant
-              text={"Recreate a Campaign"}
-              onClick={onClick}
-              width={"350px"}
-            />
-          </HeaderGrid> */}
 
           <InputSubtitleDropdown
             text={subTitle}
