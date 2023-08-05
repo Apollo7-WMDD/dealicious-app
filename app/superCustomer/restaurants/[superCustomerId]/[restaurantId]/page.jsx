@@ -109,8 +109,8 @@ const Page = ({ params }) => {
         <Box
           sx={{
             p: "1rem",
-            borderRadius: "10px",
-            boxShadow: `0px 4px 20px 0px ${shadowColor}`,
+            // borderRadius: "10px",
+            // boxShadow: `0px 4px 20px 0px ${shadowColor}`,
             maxWidth: "auto",
             display: "flex",
             flexDirection: "column",

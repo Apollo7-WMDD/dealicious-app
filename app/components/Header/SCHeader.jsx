@@ -85,6 +85,9 @@ function SCHeader() {
             href={`/superCustomer/restaurants/${superCustomerId}`}>
             <Typography 
               variant="p"
+              sx={{
+                color:'#000000',
+              }}
             >My Restaurants</Typography>
           </Link>
         </Box>

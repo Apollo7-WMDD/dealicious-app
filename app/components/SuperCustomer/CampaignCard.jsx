@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Modal, Box, Typography, TextField, useTheme } from "@mui/material";
 import Link from "next/link";
 import SCActive from "../../components/Button/SCActive";
-import SingleButton from "../Button/SingleButton";
+import SingleButtonSC from "../Button/SingleButtonSC";
 import SCSubmitBtn from "../Button/SCSubmitBtn";
 import SCOfferApplied from "@/app/components/SuperCustomer/SCOfferApplied";
 
@@ -169,8 +169,22 @@ const CampaignCard = ({ props }) => {
           gap: "1rem",
         }}
       >
-        <Typography variant="p">More information</Typography>
-        <SCActive text="Activate" width="auto" onClick={handleOpen}></SCActive>
+        <a 
+          underline="none"
+          style={{ 
+            textDecoration: "none",
+            '&:visited': {
+            textDecoration: 'none',
+            },
+          }} 
+          href="#" onClick={handleOpen}>
+          <Typography variant="p"
+            sx={{
+              color:'#000000',
+            }} 
+          >More information</Typography>
+        </a>
+        <SCActive text="Activate" height="3rem" width="10rem" onClick={handleOpen}></SCActive>
       </Box>
       <Modal
         sx={
@@ -243,11 +257,11 @@ const CampaignCard = ({ props }) => {
                   m: "1rem 0 0 0",
                 }}
               >
-                <SingleButton
+                <SingleButtonSC
                   text="Activate"
-                  width="auto"
+                  width="20rem"
                   onClick={handleOpenSecond}
-                ></SingleButton>
+                ></SingleButtonSC>
               </Box>
             </Box>
           </Box>
