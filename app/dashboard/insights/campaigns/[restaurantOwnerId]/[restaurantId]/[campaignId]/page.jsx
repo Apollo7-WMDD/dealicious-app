@@ -46,6 +46,7 @@ const Page = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isComparing, setIsComparing] = useState(false);
   const [campaignCompare, setCampaignCompare] = useState("");
+  const [campaignName, setCampaignName] = useState("Compare with:");
 
   const theme = useTheme();
 
@@ -126,6 +127,8 @@ const Page = () => {
             setIsComparing={setIsComparing}
             setCampaignCompare={setCampaignCompare}
             isComparing={isComparing}
+            campaignName={campaignName}
+            setCampaignName={setCampaignName}
           />
           <Box
             sx={{
@@ -145,9 +148,7 @@ const Page = () => {
             }}
           >
             <MainGrid
-              key={`${isComparing ? "comparing" : "not-comparing"}-${
-                isMobile ? "mobile" : "non-mobile"
-              }`}
+              key={isComparing ? "comparing" : "not-comparing"}
               isComparing={isComparing}
             >
               <ChartCard gridColumn={isComparing ? "span 1" : "span 2"}>
@@ -263,7 +264,7 @@ const Page = () => {
                     </svg>
                   </div>
                 )}
-                <MainGrid isComparing={isComparing}>
+                <MainGrid isComparing={isComparing} key={campaignCompare}>
                   <ChartCard gridColumn={isComparing ? "span 1" : "span 2"}>
                     <ChartCardTitle text={"Total Revenue"}></ChartCardTitle>
                     <div style={{ minHeight: "250px", width: "100%" }}>

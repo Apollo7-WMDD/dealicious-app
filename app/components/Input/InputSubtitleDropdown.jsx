@@ -15,7 +15,8 @@ function InputSubtitleDropdown({
   text,
   setIsComparing,
   setCampaignCompare,
-  isComparing,
+  campaignName,
+  setCampaignName,
 }) {
   const router = useRouter();
   const { restaurantOwnerId, restaurantId } = useStore();
@@ -114,6 +115,8 @@ function InputSubtitleDropdown({
           setIsComparing={setIsComparing}
           displayText={displayText}
           setCampaignCompare={setCampaignCompare}
+          campaignName={campaignName}
+          setCampaignName={setCampaignName}
         />
       )}
     </Stack>
