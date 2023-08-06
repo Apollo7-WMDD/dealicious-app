@@ -79,11 +79,12 @@ function DoughnutChart_NumCustomer({ campaignId }) {
         position: "right",
       },
     },
+    cutout: "60%",
   };
 
   function formatNumber(num) {
-    if(num >= 1000) {
-      return (num/1000).toFixed(1) + 'k'; // 
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1) + "k"; //
     } else {
       return num;
     }
@@ -93,23 +94,35 @@ function DoughnutChart_NumCustomer({ campaignId }) {
   return (
     <div
       style={{
-        maxHeight: "250px"
+        display: "grid",
+        gridTemplateColumns: "1fr",
+        position: "relative",
+        alignItems: "center",
+        width: "100%",
+        height: "100%",
+        minHeight: "350px",
       }}
     >
       {isLoading ? (
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gridColumn: "1/-1",
+            width: "100%",
           }}
         >
           <Loader />
         </div>
       ) : (
         <>
-          <Typography variant="h4" lineHeight="35px">Total = $ {formatNumber(Object.values(data).shift(1))}</Typography>
+          <Typography
+            variant="h4"
+            lineHeight="35px"
+            style={{
+              position: "absolute",
+              top: 0,
+            }}
+          >
+            Total = $ {formatNumber(Object.values(data).shift(1))}
+          </Typography>
           <Doughnut
             data={doughnutFakeData}
             style={{
@@ -117,6 +130,7 @@ function DoughnutChart_NumCustomer({ campaignId }) {
               height: "100%",
               gridColumn: "1/-1",
               gridRow: "1/-1",
+              marginTop: "2rem",
             }}
             options={option}
           />
