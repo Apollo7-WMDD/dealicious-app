@@ -8,9 +8,7 @@ import SCSubmitBtn from "../Button/SCSubmitBtn";
 import SCOfferApplied from "@/app/components/SuperCustomer/SCOfferApplied";
 
 const CampaignCard = ({ props }) => {
-  // const { data: session } = useSession();
-  // const pathname = usePathname();
-  // const restaurantId = pathname.split("/")[4];
+
   const theme = useTheme();
   const shadowColor = `${theme.palette.neutral[20]}1f`;
   const [code, setCode] = useState("");
@@ -99,21 +97,12 @@ const CampaignCard = ({ props }) => {
   };
 
   const style = {
-    // position: "absolute",
-    // top: "50%",
-    // left: "50%",
-    // transform: "translate(-50%, -50%)",
-    // width: '600px',
-    // bgcolor: "background.paper",
-    // border: "2px solid #ff5938",
-    // boxShadow: `0px 4px 20px 0px ${shadowColor}`,
-    // p: 4,
-    // borderRadius: "10px",
+
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: 500,
     bgcolor: "background.paper",
     border: "2px solid #ff5938",
     borderRadius: "10px",
@@ -139,7 +128,7 @@ const CampaignCard = ({ props }) => {
     const year = date.getFullYear();
     const value = day + " " + month + "," + year;
 
-    return value; //date.toLocaleDateString(undefined, options).replace(/\d{1,2}$/, day);
+    return value;
   };
   const formattedStartDate = formatDate(props.startDate);
   const formattedEndDate = formatDate(props.endDate);
@@ -148,7 +137,6 @@ const CampaignCard = ({ props }) => {
     <Box
       sx={{
         p: "1rem",
-        // m:'1rem',
         borderRadius: "10px",
         boxShadow: `0px 4px 20px 0px ${shadowColor}`,
         maxWidth: "auto",
@@ -167,6 +155,7 @@ const CampaignCard = ({ props }) => {
           p: "1rem",
           marginLeft: "auto",
           gap: "1rem",
+          marginTop: "auto",
         }}
       >
         <a 
@@ -187,12 +176,6 @@ const CampaignCard = ({ props }) => {
         <SCActive text="Activate" height="3rem" width="10rem" onClick={handleOpen}></SCActive>
       </Box>
       <Modal
-        sx={
-          {
-            // minWidth:'300px',
-            // width:'200px',
-          }
-        }
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
@@ -215,13 +198,7 @@ const CampaignCard = ({ props }) => {
               },
             }}
           >
-            <Box
-              sx={
-                {
-                  // flex:'1 0 40%',
-                }
-              }
-            >
+            <Box>
               <img
                 src={props.media[0]}
                 alt="new"
@@ -240,7 +217,6 @@ const CampaignCard = ({ props }) => {
                 Offer: <Typography variant="p">{props.offer}</Typography>
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                {/* Date: {props.startDate} */}
                 Date:{" "}
                 <Typography variant="p">
                   {formattedStartDate} to {formattedEndDate}
@@ -255,6 +231,7 @@ const CampaignCard = ({ props }) => {
               <Box
                 sx={{
                   m: "1rem 0 0 0",
+                  textAlign:'center',
                 }}
               >
                 <SingleButtonSC
@@ -283,11 +260,11 @@ const CampaignCard = ({ props }) => {
           </Typography>
           <Box
             sx={{
-              display: "flex",
-              flexDirection: "column",
+              display: "grid",
+              // flexDirection: "row",
               justifyContent: "center",
               justifyItems: "center",
-              flexFlow: "wrap",
+              flexFlow: "nowrap",
             }}
           >
             <Box
@@ -308,16 +285,27 @@ const CampaignCard = ({ props }) => {
                 id="standard-basic"
                 variant="standard"
                 sx={{
-                  fontSize: "2rem", // Set the font size to be double the default size
+                  fontSize: "2rem", 
                 }}
               />
             </Box>
+            <Box>
+            
             <SCSubmitBtn
               text="Submit"
               width="144px"
               onClick={getCode}
             ></SCSubmitBtn>
-          </Box>
+            </Box>
+            <Typography 
+              sx={{
+                m:'1rem',
+                // p:'5rem',
+              }}
+              variant="p">
+              For demo purpose, phone number is predefined
+            </Typography>
+          </Box>          
         </Box>
       </Modal>
       <Modal

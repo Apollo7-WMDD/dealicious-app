@@ -49,13 +49,14 @@ const Page = ({ params }) => {
           display: "flex",
           flexDirection: "column",
           gap: "1rem",
-          m: "2rem",
-          p: 0,
+          m: "1rem auto",
+          p: "1rem 2rem",
 
           "@media screen and (min-width:800px)": {
             display: "grid",
             gridTemplateColumns:'1fr 2fr',
-          },
+            maxWidth:'1400px',
+          }
         }}
       >
         <NewCustomer 
@@ -65,10 +66,10 @@ const Page = ({ params }) => {
       </Box>
       <Box
         sx={{
-          m: "2rem",
-          p: "1rem",
+          m: "0 auto",
+          p: "1rem 2rem 1rem 1rem",
           borderRadius: "10px",
-          boxShadow: `0px 4px 20px 0px ${shadowColor}`,
+          // boxShadow: `0px 4px 20px 0px ${shadowColor}`,
           maxWidth: "auto",
           display: "flex",
           flexDirection: "column",
@@ -77,11 +78,12 @@ const Page = ({ params }) => {
           maxHeight: "551px",
           alignItems: isLoading ? "center" : undefined,
           justifyContent: isLoading ? "center" : undefined,
+          maxWidth:'1400px',
         }}
       >
         <Typography
           sx={{
-            p: "0 2rem",
+            m:'0 1rem',
           }}
           variant="h3"
         >
@@ -90,7 +92,7 @@ const Page = ({ params }) => {
         <Box
           sx={{
             display: "grid",
-            m: "0 1rem",
+            // m: "0 1rem",
             p: "1rem",
             gap: "1rem",
             overflow: "auto",
