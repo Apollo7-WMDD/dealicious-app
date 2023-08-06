@@ -81,7 +81,7 @@ const Page = () => {
 
           <ChartCard gridColumn={"2/-1"}>
             <ChartCardTitle
-              text={"Hilighted Campaigns"}
+              text={"Highlighted Campaigns"}
               pinStatus={true}
               showPin={true}
             ></ChartCardTitle>
