@@ -15,7 +15,7 @@ const SingleButton = ({ text, onClick, width }) => {
       onClick={onClick}
       sx={{
         width: width,
-        height: "70%",
+        height: "2.75rem",
         boxShadow: "none",
         justifySelf: "end",
         alignSelf: "center",
@@ -27,11 +27,11 @@ const SingleButton = ({ text, onClick, width }) => {
         },
         [theme.breakpoints.down("lg")]: {
           width: "265px",
-          fontSize: "16px",
+        //   fontSize: "16px",
         },
         [theme.breakpoints.down("md")]: {
           width: "180px",
-          fontSize: "14px",
+        //   fontSize: "14px",
           lineHeight: "16px",
           margin: "1rem 0",
           // alignSelf: "start",
