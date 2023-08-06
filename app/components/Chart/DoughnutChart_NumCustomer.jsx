@@ -100,10 +100,10 @@ function DoughnutChart_NumCustomer() {
         position: "right",
       },
     },
-    cutout: "60%",
+    // cutout: "60%",
   };
 
-  // ! RESOLVE PLUGINS ISSUE FROM 'npm install --save chartjs-plugin-doughnutlabel'
+  
   return (
     <div
       style={{
