@@ -12,7 +12,7 @@ const DashboardLayout = ({ children }) => {
             style={{
               margin: "2rem auto 0 auto",
               maxWidth: "1164px",
-              // padding: "0 2%",
+              padding: "0 2%",
             }}
           >
             {children}
