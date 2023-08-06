@@ -61,7 +61,14 @@ function CampaignGrid({ children }) {
   useEffect(() => {
     setDataArray([...dataArray].sort((a, b) => (b.pinned ? 1 : -1)));
   }, [sortByPin]);
-
+  
+  function formatNumber(num) {
+    if(num >= 1000) {
+      return (num/1000).toFixed(1) + 'k'; // 
+    } else {
+      return num;
+    }
+  }
   return (
     <Box
       sx={{
@@ -170,7 +177,7 @@ function CampaignGrid({ children }) {
                         },
                       }}
                     >
-                      {e.spending}
+                      {`$${formatNumber(e.spending)}`}
                     </Typography>
                                   </Box>
               </CampaignCardBody>
