@@ -12,9 +12,9 @@ function SCFooter() {
             sx={{
                 bgcolor: theme.palette.neutral[40],
                 color: 'white',
-                height: "78px",
+                height: "8rem",
                 display: 'flex',
-                justifyContent: 'space-between',
+                justifyContent: 'space-evenly',
                 alignItems:'center',
                 m:0,
                 p:'0 1rem',
@@ -24,6 +24,7 @@ function SCFooter() {
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'space-between',
+                    height: "78px",
                 },
             }}
         >
