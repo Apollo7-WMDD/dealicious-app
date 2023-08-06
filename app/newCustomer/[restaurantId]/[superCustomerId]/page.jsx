@@ -69,12 +69,10 @@ const Page = ({ params }) => {
           m: "0 auto",
           p: "1rem 2rem 1rem 1rem",
           borderRadius: "10px",
-          // boxShadow: `0px 4px 20px 0px ${shadowColor}`,
           maxWidth: "auto",
           display: "flex",
           flexDirection: "column",
           gap: "1rem",
-          // maxWidth:'324px',
           maxHeight: "551px",
           alignItems: isLoading ? "center" : undefined,
           justifyContent: isLoading ? "center" : undefined,
@@ -92,7 +90,6 @@ const Page = ({ params }) => {
         <Box
           sx={{
             display: "grid",
-            // m: "0 1rem",
             p: "1rem",
             gap: "1rem",
             overflow: "auto",
