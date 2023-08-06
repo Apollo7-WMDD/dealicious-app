@@ -11,15 +11,8 @@ import { useMediaQuery } from "@mui/material";
 import { Box } from "@mui/material";
 import Image from "next/image";
 
-
-
 const Page = async () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
-  // const [hilighted, setHilighted] = useState({});
-
-  // const onPinClickA = (hilighted) => {
-  //   setHilighted(hilighted);
-  // };
   return (
     <>
       {isNonMobile ? (

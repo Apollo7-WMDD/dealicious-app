@@ -53,7 +53,6 @@ function CampaignGrid({ children }) {
     fetchData();
   }, [restaurantOwnerId]);
 
-  console.log(dataArray);
   const theme = useTheme();
   useEffect(() => {
     setDataArray([...dataArray].sort((a, b) => (b.pinned ? 1 : -1)));
