@@ -8,6 +8,8 @@ import {
   Legend,
   defaults,
 } from "chart.js";
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+
 import { Bar } from "react-chartjs-2";
 import { useTheme } from "@mui/material";
 import { fetchToImprove } from "../../../lib/fetching/insights/data";
@@ -58,12 +60,18 @@ function BarChart() {
 
   defaults.font.family = theme.typography.fontFamily;
   defaults.font.size = theme.typography.fontSize;
-  const options = {
+  const options = {   
+    layout: {
+      padding:{
+        top: 30,
+      } 
+  },
     responsive: true,
     maintainAspectRatio: false,
     scales: {
       y: {
         display: false,
+        
       },
       x: {
         title: {
@@ -73,18 +81,36 @@ function BarChart() {
         display: false,
       },
     },
-    plugins: {
+    plugins: {  
       labels: {
         display: false,
       },
       legend: {
+        display: true,
         position: "right",
+        labels: {
+          
+          useBorderRadius: true,
+          borderRadius: 4,
+          boxWidth: 15,
+          // usePointStyle: true,
+          // pointStyleWidth: 20,
+          // pointSytle: "star",
+          // pointSytle: "triangle",
+        },
       },
       title: {
         display: false,
       },
+      datalabels: {
+        anchor: 'end',
+        align: 'top',
+      }
     },
+    // plugins: [ChartDataLabels],
   };
+
+  const plugins = [ChartDataLabels]
   const labels = data.map((e) => e.label);
   let indexColor = -1;
   const barData = {
@@ -95,6 +121,7 @@ function BarChart() {
         theme.palette.primary[100],
         theme.palette.primary[60],
         theme.palette.primary[120],
+        theme.palette.primary[40],
       ];
       indexColor++;
       return {
@@ -115,6 +142,7 @@ function BarChart() {
         alignItems: "center",
         width: "100%",
         height: "100%",
+        marginTop: "1rem",
       }}
     >
       {isLoading ? (
@@ -132,6 +160,7 @@ function BarChart() {
         <Bar
           options={options}
           data={barData}
+          plugins={plugins}
           style={{ height: "100%", width: "100%", minHeight: "250px" }}
         />
       )}

@@ -64,7 +64,22 @@ function DoughnutChart_NumCustomer() {
       },
     ],
   };
-
+  
+  const centerText = {
+    id: 'centerText',
+    afterDatasetsDraw(chart, args, pluginOption){
+      const { ctx } = chart;
+      const text = Object.values(data).shift(1);
+      ctx.save();
+      const x = chart.getDatasetMeta(0).data[0].x
+      const y = chart.getDatasetMeta(0).data[0].y
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = 'bold 20px Ubuntu';
+      ctx.fillText (text, x, y);
+    }
+  }
+  const plugins = [centerText]
   const option = {
     responsive: true,
     maintainAspectRatio: false,
@@ -110,11 +125,12 @@ function DoughnutChart_NumCustomer() {
         </div>
       ) : (
         <>
-          <Typography variant="h4" lineHeight="35px" style={{ position: 'absolute', top: 0 }}>
+          {/* <Typography variant="h4" lineHeight="35px" style={{ position: 'absolute', top: 0 }}>
             Total = {Object.values(data).shift(1)}
-          </Typography>
+          </Typography> */}
           <Doughnut
             data={doughnutFakeData}
+            plugins={plugins}
             style={{
               width: "100%",
               height: "100%",
