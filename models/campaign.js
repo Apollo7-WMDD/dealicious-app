@@ -2,7 +2,6 @@ import { Schema, model, models } from "mongoose";
 import dayjs from "dayjs";
 
 function getClientDate() {
-  console.log("dayjs().tz:", dayjs().tz);
   return dayjs().toDate();
 }
 
