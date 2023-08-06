@@ -7,6 +7,7 @@ const DashboardLayout = ({ children }) => {
     <div>
       <div style={{ display: "flex" }}>
         <SideBar />
+
         <div style={{ width: "100%" }}>
           <div
             style={{
@@ -15,6 +16,7 @@ const DashboardLayout = ({ children }) => {
               // padding: "0 2%",
             }}
           >
+
             {children}
           </div>
           <SCfootter />
