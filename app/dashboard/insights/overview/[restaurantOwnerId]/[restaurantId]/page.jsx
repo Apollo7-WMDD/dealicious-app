@@ -59,9 +59,9 @@ const Page = async () => {
         <Grid item xs={12} md={8}>
           <InputSubtitleDropdown />
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Hidden smDown>
-            <SubHeader>Customer Data</SubHeader>
+        <Grid item xs={12} md={4} sx={{marginLeft:"0"}} >
+          <Hidden lgDown >
+            <SubHeader >Customer Data</SubHeader>
           </Hidden>
         </Grid>
       </Grid>
