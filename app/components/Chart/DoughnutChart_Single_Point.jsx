@@ -91,7 +91,7 @@ function DoughnutChart_Single_Point({ restaurantOwnerId }) {
         position: "right",
       },
     },
-    cutout: "60%",
+    // cutout: "60%",
   };
 
   function formatNumber(num) {
@@ -102,22 +102,11 @@ function DoughnutChart_Single_Point({ restaurantOwnerId }) {
     }
   }
 
-  console.log("Object.values(data)" + Object.values(data));
-  console.log("Object.values(data).shift(0)" + Object.values(data)[0]);
-  console.log("Object.values(data)[1]" + Object.values(data)[1]);
+  
   return (
     <div
       style={{
         display: "grid",
-//  ********************** MARIO'S CHANGE TODO: CHECK WITH TONY
-//         gridTemplateColumns: "1fr",
-//         position: "relative",
-//         alignItems: "center",
-//         justifyContent: "center",
-//         width: "100%",
-//         height: "100%",
-//         minHeight: "350px",
-//     **************************
         gridTemplateColumns: "repeat(1,1fr)",
         position: "relative",
         alignItems: "center",
@@ -127,11 +116,7 @@ function DoughnutChart_Single_Point({ restaurantOwnerId }) {
     >
       {isLoading ? (
         <div
-// *************
-          // style={{
-          //   width: "100%",
-          // }}
-// *************
+
         style={{
           maxHeight: "250px",
         }}
@@ -140,15 +125,7 @@ function DoughnutChart_Single_Point({ restaurantOwnerId }) {
         </div>
       ) : (
         <>
-{/* //  ********************** MARIO'S CHANGE TODO: CHECK WITH TONY
-//           <Typography
-//             variant="h4"
-//             lineHeight="35px"
-//             style={{ position: "absolute", top: 0 }}
-//           >
-//             Total = {formatNumber(Object.values(data).shift(1))}
-//           </Typography>
-// ****** */}
+
           <Doughnut
             data={doughnutFakeData}
             plugins={plugins}
@@ -157,7 +134,6 @@ function DoughnutChart_Single_Point({ restaurantOwnerId }) {
               height: "100%",
               gridColumn: "1/-1",
               gridRow: "1/-1",
-              marginTop: "2rem",
             }}
             options={option}
           />
