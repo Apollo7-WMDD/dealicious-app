@@ -1,12 +1,19 @@
-import React from 'react';
-import { Box, Typography, Grid } from '@mui/material';
+import React from "react";
+import { Box, Typography, Grid } from "@mui/material";
 import InputCheckbox from "@/app/components/Input/InputCheckbox";
 import InputText from "@/app/components/Input/InputText";
 import InputTextarea from "@/app/components/Input/InputTextarea";
-import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
-import BulletPoints from '../Profile/BulletPoints';
+import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
+import BulletPoints from "../Profile/BulletPoints";
 
-const CampaignForm2 = ({ formData, formErrors, toggleExpiredByNumber, inputValue, inspirationVisible, setInspirationVisible, }) => {
+const CampaignForm2 = ({
+  formData,
+  formErrors,
+  toggleExpiredByNumber,
+  inputValue,
+  inspirationVisible,
+  setInspirationVisible,
+}) => {
   return (
     <>
       <Grid container spacing={2}>
@@ -20,7 +27,7 @@ const CampaignForm2 = ({ formData, formErrors, toggleExpiredByNumber, inputValue
             }}
           >
             <InputCheckbox
-              label="This campaign expire after a specific number of customers use it"
+              label="This campaign expires after a specific number of customers use it"
               onChecked={toggleExpiredByNumber}
               checked={formData.expiredByNumber}
             />
@@ -46,19 +53,20 @@ const CampaignForm2 = ({ formData, formErrors, toggleExpiredByNumber, inputValue
               flexDirection: "row",
               width: "100%",
               marginTop: "10px",
-            }}>
-              <Typography
-                sx={{
-                  fontSize: "20px",
-                  fontFamily: "Mukta",
-                  fontSize: "20px",
-                  fontStyle: "normal",
-                  fontWeight: "600",
-                }}
-              >
-                How much spending by referred customers converts to 1 earning
-                point for your super customer to receive $1.00 discount?
-              </Typography>
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: "20px",
+                fontFamily: "Mukta",
+                fontSize: "20px",
+                fontStyle: "normal",
+                fontWeight: "600",
+              }}
+            >
+              How much spending by referred customers converts to 1 earning
+              point for your super customer to receive $1.00 discount?
+            </Typography>
           </Box>
         </Grid>
         <Grid item xs={12} md={4}>
@@ -70,7 +78,7 @@ const CampaignForm2 = ({ formData, formErrors, toggleExpiredByNumber, inputValue
             name="superCustomerPoints"
             id="superCustomerPoints"
             placeholder="Customers’ spending($)"
-            marginTop = "0"
+            marginTop="0"
           />
         </Grid>
       </Grid>
@@ -129,6 +137,6 @@ const CampaignForm2 = ({ formData, formErrors, toggleExpiredByNumber, inputValue
       )}
     </>
   );
-}
+};
 
 export default CampaignForm2;

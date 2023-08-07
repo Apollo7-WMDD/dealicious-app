@@ -7,7 +7,7 @@ const ViewCampaignImage = ({
   imagePreview,
   handleUploadMenu,
   handleRemoveImage,
-  error
+  error,
 }) => {
   return (
     <>
@@ -17,7 +17,7 @@ const ViewCampaignImage = ({
             key={index}
             src={image}
             alt="preview"
-            width="280px"
+            width="380px"
             height="320px"
             onRemove={() => handleRemoveImage(index)}
           />
@@ -26,7 +26,7 @@ const ViewCampaignImage = ({
         <ImagePreview
           src={imagePreview}
           alt="preview"
-          width="280px"
+          width="380px"
           height="320px"
           onRemove={handleRemoveImage}
         />
