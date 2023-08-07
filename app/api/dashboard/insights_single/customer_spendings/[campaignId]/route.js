@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import connect from "@/utils/database";
 import mongoose from "mongoose";
 import Spending from "@/models/spending";
-import Restaurant from "@/models/restaurant";
 
 export const GET = async (request) => {
   const url = new URL(request.url);
@@ -10,9 +9,10 @@ export const GET = async (request) => {
 
   try {
     await connect();
-    // get the total revenue of super customers and non super customers from the spending collection using the billamount field and query with the campaignId
-    const [superCustomersRevenue, nonSuperCustomersRevenue] = await Promise.all(
-      [
+
+    // Aggregate the total revenue for super customers and non-super customers
+    const [superCustomersRevenueResult, nonSuperCustomersRevenueResult] =
+      await Promise.all([
         Spending.aggregate([
           {
             $match: {
@@ -31,34 +31,26 @@ export const GET = async (request) => {
           },
           { $group: { _id: null, total: { $sum: "$billamount" } } },
         ]),
-      ]
-    );
+      ]);
 
-    // Check if there is only one type of user (either all super customers or all non-super customers)
-    if (
-      superCustomersRevenue.length === 0 &&
-      nonSuperCustomersRevenue.length === 0
-    ) {
-      throw new Error("No spending data found for the given campaign.");
-    }
+    // Calculate total revenue from both groups
+    const superCustomersRevenue = superCustomersRevenueResult?.[0]?.total || 0;
+    const nonSuperCustomersRevenue =
+      nonSuperCustomersRevenueResult?.[0]?.total || 0;
+    const totalRevenue = superCustomersRevenue + nonSuperCustomersRevenue;
 
-    // Ensure superCustomersRevenue and nonSuperCustomersRevenue are not empty arrays
-    const totalRevenue =
-      (superCustomersRevenue[0]?.total || 0) +
-      (nonSuperCustomersRevenue[0]?.total || 0);
-
-    // return the response
+    // Create the response object
     const response = {
       totalRevenue,
-      superCustomersRevenue: superCustomersRevenue[0]?.total || 0,
-      nonSuperCustomersRevenue: nonSuperCustomersRevenue[0]?.total || 0,
+      superCustomersRevenue,
+      nonSuperCustomersRevenue,
     };
 
     return new NextResponse(JSON.stringify(response, null, 2), {
       status: 200,
     });
-  } catch (err) {
-    console.log(err.message);
+  } catch (error) {
+    console.log(error.message);
     return new NextResponse("Database Error", { status: 500 });
   }
 };

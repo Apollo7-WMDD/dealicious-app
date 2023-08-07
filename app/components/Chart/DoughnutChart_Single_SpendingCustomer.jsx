@@ -68,17 +68,6 @@ function DoughnutChart_NumCustomer({ campaignId }) {
       ctx.save();
       const x = chart.getDatasetMeta(0).data[0].x;
       const y = chart.getDatasetMeta(0).data[0].y;
-      
-      // let x = 0;
-      // let y = 0;
-      // if (chart.getDatasetMeta(0).data[0] == undefined) {
-      //   x = 0;
-      //   y = 0;
-      // } else {
-      //   x = chart.getDatasetMeta(0).data[0].x;
-      //   y = chart.getDatasetMeta(0).data[0].y;
-      // }
-
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.font = "bold 20px Ubuntu";
@@ -149,7 +138,6 @@ function DoughnutChart_NumCustomer({ campaignId }) {
               gridRow: "1/-1",
               // marginTop: "2rem",
             }}
-            
             options={option}
           />
         </>
