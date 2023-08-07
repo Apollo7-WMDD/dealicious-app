@@ -27,6 +27,13 @@ import HeaderGrid from "@/app/components/HeaderGrid";
 const Page = async () => {
   const theme = useTheme();
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  function formatNumber(num) {
+    if(num >= 1000) {
+      return (num/1000).toFixed(1) + 'k'; // 
+    } else {
+      return num;
+    }
+  }
   return (
     <>
       {isNonMobile ? (
@@ -75,7 +82,7 @@ const Page = async () => {
           ></ChartCardTitle>
           <SingleLineChart
             fetchDataSource={fetchTotalRevenue}
-            showTextSource={(data) => `$ ${Math.round(data.totalRevenue)}`}
+            showTextSource={(data) => `$ ${formatNumber(Math.round(data.totalRevenue))}`}
           />
         </ChartCard>
 
