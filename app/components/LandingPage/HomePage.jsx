@@ -17,9 +17,6 @@ import { Modal, Box, Typography, Button, useTheme } from "@mui/material";
 import emailjs from '@emailjs/browser';
 import CloseIcon from '@mui/icons-material/Close';
 
-// Contact us email
-import emailjs from '@emailjs/browser';
-
 const HomePage = () => {
   const { data: session, status } = useSession();
   const { setRestaurantOwner, restaurantOwnerId } = useStore();
