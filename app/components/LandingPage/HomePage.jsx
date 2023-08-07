@@ -642,8 +642,8 @@ const HomePage = () => {
               I have helped businesses in their digital transformation journey
               through adept utilization of Microsoft Dynamics technologies. 
               Concurrently, I am enhancing my proficiency as a web and 
-              mobile developer. | Microsoft Dynamics 365F&O | Power Platform |
-              React | Next JS | Material UI | Express JS | Node JS | Mongo DB
+              mobile developer. | D365F&O | Power Platform | React | Next JS | 
+              Material UI | Express JS | Node JS | Mongo DB
             </p>
           </div>
 
