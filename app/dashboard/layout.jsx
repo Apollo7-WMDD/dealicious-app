@@ -1,5 +1,5 @@
 import Footer from "../components/Footer";
-import SCfootter from '@/app/components/Footer/SCFooter'
+import SCfootter from "@/app/components/Footer/SCFooter";
 import SideBar from "../components/sidebar/SideBar";
 
 const DashboardLayout = ({ children }) => {
@@ -7,11 +7,19 @@ const DashboardLayout = ({ children }) => {
     <div>
       <div style={{ display: "flex" }}>
         <SideBar />
-        <div style={{width: "100%" }}>
-          <div style={{ margin: "2rem auto 0 auto", maxWidth: "1164px", padding:"0 2%"}}>
+
+        <div style={{ width: "100%" }}>
+          <div
+            style={{
+              margin: "2rem auto 0 auto",
+              maxWidth: "1164px",
+              // padding: "0 2%",
+            }}
+          >
+
             {children}
           </div>
-          <SCfootter/>
+          <SCfootter />
           {/* <Footer /> */}
         </div>
       </div>

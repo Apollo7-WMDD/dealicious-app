@@ -32,7 +32,7 @@ const Page = async () => {
       {isNonMobile ? (
         <HeaderGrid>
           <Header props={"Insights"} />
-          {/* <CreateNewCampaign /> */}
+          <CreateNewCampaign />
         </HeaderGrid>
       ) : (
         <Box>
