@@ -37,26 +37,26 @@ const AverageBill = ({ campaignId }) => {
       {isLoading ? (
         <Loader />
       ) : (
-//     ********************** MARIO'S CHANGE - TODO: CHECK WITH TONY
-//         <Box>
-//           <Typography
-//             lineHeight="77px"
-//             variant="h2"
-//             align="center"
-//             sx={{ marginBottom: "2rem" }}
-//           >
-//             $ {Math.round(data.avgBillAmount)}
-//           </Typography>
-//           <Typography marginBottom="10px" variant="h6">
-//             Range
-//           </Typography>
-//           <Typography variant="body1">
-//             Your bills usually go from $ {Math.round(data.minBillAmount)} to ${" "}
-//             {Math.round(data.maxBillAmount)}. Monitoring the average bill size
-//             reveals popular menu items and guides strategies to maximize
-//             profitability and customer satisfaction.
-//           </Typography>
-//     *****
+        //     ********************** MARIO'S CHANGE - TODO: CHECK WITH TONY
+        //         <Box>
+        //           <Typography
+        //             lineHeight="77px"
+        //             variant="h2"
+        //             align="center"
+        //             sx={{ marginBottom: "2rem" }}
+        //           >
+        //             $ {Math.round(data.avgBillAmount)}
+        //           </Typography>
+        //           <Typography marginBottom="10px" variant="h6">
+        //             Range
+        //           </Typography>
+        //           <Typography variant="body1">
+        //             Your bills usually go from $ {Math.round(data.minBillAmount)} to ${" "}
+        //             {Math.round(data.maxBillAmount)}. Monitoring the average bill size
+        //             reveals popular menu items and guides strategies to maximize
+        //             profitability and customer satisfaction.
+        //           </Typography>
+        //     *****
         <Box
           style={{
             display: "grid",
@@ -71,8 +71,12 @@ const AverageBill = ({ campaignId }) => {
             position: "relative",
           }}
         >
-//      *****
-          <Typography lineHeight="77px" variant="h2" align="center"  sx={{ fontSize: "48px" }}>
+          <Typography
+            lineHeight="77px"
+            variant="h2"
+            align="center"
+            sx={{ fontSize: "48px" }}
+          >
             $ {Math.round(data.avgBillAmount)}
           </Typography>
           <Box>

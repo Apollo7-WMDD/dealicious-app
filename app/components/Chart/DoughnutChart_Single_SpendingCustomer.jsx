@@ -63,7 +63,7 @@ function DoughnutChart_NumCustomer({ campaignId }) {
     id: "centerText",
     afterDatasetsDraw(chart, args, pluginOption) {
       const { ctx } = chart;
-      const text = `$${formatNumber(Object.values(data).shift(1))}`
+      const text = `$${formatNumber(Object.values(data).shift(1))}`;
       ctx.save();
       const x = chart.getDatasetMeta(0).data[0].x;
       const y = chart.getDatasetMeta(0).data[0].y;
@@ -73,6 +73,7 @@ function DoughnutChart_NumCustomer({ campaignId }) {
       ctx.fillText(text, x, y);
     },
   };
+
   const plugins = [centerText];
   const option = {
     responsive: true,
@@ -105,7 +106,6 @@ function DoughnutChart_NumCustomer({ campaignId }) {
     }
   }
 
-  
   return (
     <div
       style={{
@@ -115,15 +115,15 @@ function DoughnutChart_NumCustomer({ campaignId }) {
         alignItems: "center",
         width: "100%",
         height: "100%",
-//  ********************** MARIO'S CHANGE TODO: CHECK WITH TONY
-//         minHeight: "350px",
+        //  ********************** MARIO'S CHANGE TODO: CHECK WITH TONY
+        //         minHeight: "350px",
       }}
     >
       {isLoading ? (
         <div
           style={{
-//  ********************** MARIO'S CHANGE TODO: CHECK WITH TONY
-//             width: "100%",
+            //  ********************** MARIO'S CHANGE TODO: CHECK WITH TONY
+            //             width: "100%",
             maxHeight: "250px",
           }}
         >
@@ -131,17 +131,17 @@ function DoughnutChart_NumCustomer({ campaignId }) {
         </div>
       ) : (
         <>
-//  ********************** MARIO'S CHANGE TODO: CHECK WITH TONY
-//           <Typography
-//             variant="h4"
-//             lineHeight="35px"
-//             style={{
-//               position: "absolute",
-//               top: 0,
-//             }}
-//           >
-//             Total = $ {formatNumber(Object.values(data).shift(1))}
-//           </Typography>
+          {/* ********************** MARIO'S CHANGE TODO: CHECK WITH TONY */}
+          {/* <Typography
+            variant="h4"
+            lineHeight="35px"
+            style={{
+              position: "absolute",
+              top: 0,
+            }}
+          >
+            Total = $ {formatNumber(Object.values(data).shift(1))}
+          </Typography> */}
           <Doughnut
             data={doughnutFakeData}
             style={{

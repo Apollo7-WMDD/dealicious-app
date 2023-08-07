@@ -128,9 +128,9 @@ function DoughnutChart_Single_Point({ restaurantOwnerId }) {
       {isLoading ? (
         <div
 // *************
-          style={{
-            width: "100%",
-          }}
+          // style={{
+          //   width: "100%",
+          // }}
 // *************
         style={{
           maxHeight: "250px",
@@ -140,7 +140,7 @@ function DoughnutChart_Single_Point({ restaurantOwnerId }) {
         </div>
       ) : (
         <>
-//  ********************** MARIO'S CHANGE TODO: CHECK WITH TONY
+{/* //  ********************** MARIO'S CHANGE TODO: CHECK WITH TONY
 //           <Typography
 //             variant="h4"
 //             lineHeight="35px"
@@ -148,7 +148,7 @@ function DoughnutChart_Single_Point({ restaurantOwnerId }) {
 //           >
 //             Total = {formatNumber(Object.values(data).shift(1))}
 //           </Typography>
-// ******
+// ****** */}
           <Doughnut
             data={doughnutFakeData}
             plugins={plugins}
