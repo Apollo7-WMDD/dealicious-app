@@ -22,7 +22,11 @@ const AverageBill = ({ campaignId }) => {
         } else {
           res = await fetchAverageBill(restaurantOwnerId);
         }
-        setData(res);
+        setData({
+          avgBillAmount: res.avgBillAmount || 0,
+          minBillAmount: res.minBillAmount || 0,
+          maxBillAmount: res.maxBillAmount || 0,
+        });
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
