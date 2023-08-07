@@ -35,7 +35,9 @@ function ChartCardTitle({
         width: "100%",
       }}
     >
-      <Typography variant="h3">{text}</Typography>
+
+      {/*  sx={{ fontSize: "48px" }} */}
+      <Typography variant="h3"  sx={{ fontSize: "28px" }}>{text}</Typography>
 
       <Pin
         style={{

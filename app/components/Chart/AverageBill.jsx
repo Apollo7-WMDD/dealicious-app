@@ -51,7 +51,7 @@ const AverageBill = ({ campaignId }) => {
             position: "relative",
           }}
         >
-          <Typography lineHeight="77px" variant="h2" align="center">
+          <Typography lineHeight="77px" variant="h2" align="center"  sx={{ fontSize: "48px" }}>
             $ {Math.round(data.avgBillAmount)}
           </Typography>
           <Box>

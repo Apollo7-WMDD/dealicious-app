@@ -75,7 +75,7 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
 
   console.log("single line chart", data);
 
-  const showText = data && showTextSource ? showTextSource(data) : "";
+  const showText = data && showTextSource ? showTextSource( formatNumber(data) ) : "";
 
   const theme = useTheme();
   defaults.font.family = theme.typography.fontFamily;
@@ -94,23 +94,23 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
       },
     ],
   };
-  const centerText = {
-    id: "centerText",
-    afterDatasetsDraw(chart, args, pluginOption) {
-      console.log("chart.chartArea", chart.chartArea);
-      const { ctx } = chart;
-      // const text = `$${formatNumber(Object.values(data).shift(1))}`;
-      // ctx.save();
-      // ctx.chartArea = {bottom: "0"};
-      // const x = chart.getDatasetMeta(0).data[0].x
-      // const y = chart.getDatasetMeta(0).data[0].y
-      // ctx.textAlign = 'center';
-      // ctx.textBaseline = 'middle';
-      // ctx.font = 'bold 20px Ubuntu';
-      // ctx.fillText (text, x, y);
-    },
-  };
-  const plugins = [centerText];
+  // const centerText = {
+  //   id: "centerText",
+  //   afterDatasetsDraw(chart, args, pluginOption) {
+  //     console.log("chart.chartArea", chart.chartArea);
+  //     const { ctx } = chart;
+  //     // const text = `$${formatNumber(Object.values(data).shift(1))}`;
+  //     // ctx.save();
+  //     // ctx.chartArea = {bottom: "0"};
+  //     // const x = chart.getDatasetMeta(0).data[0].x
+  //     // const y = chart.getDatasetMeta(0).data[0].y
+  //     // ctx.textAlign = 'center';
+  //     // ctx.textBaseline = 'middle';
+  //     // ctx.font = 'bold 20px Ubuntu';
+  //     // ctx.fillText (text, x, y);
+  //   },
+  // };
+  // const plugins = [centerText];
   let delayed;
   const options = {
     animation: {
@@ -209,6 +209,14 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
     },
   };
 
+  function formatNumber(num) {
+    if(num >= 1000) {
+      return (num/1000).toFixed(1) + 'k'; // 
+    } else {
+      return num;
+    }
+  }
+  
   return (
     <>
       {isLoading ? (
@@ -228,7 +236,11 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
             position: "relative",
           }}
         >
-          <Typography variant="h2" align="center" lineHeight="77px">
+
+
+
+              
+          <Typography variant="h2" align="center" lineHeight="77px" sx={{ fontSize: "48px" }} >
             {showText}
           </Typography>
           <Box
@@ -242,7 +254,7 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
             {/* line chart */}
             <Box sx={{ maxHeight: "250px", height: "auto" }}>
               <Line
-                plugins={plugins}
+                // plugins={plugins}
                 data={chartData}
                 options={options}
                 style={{
