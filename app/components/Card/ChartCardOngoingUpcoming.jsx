@@ -14,11 +14,11 @@ function ChartCard({ children, gridColumn }) {
         display: "flex",
         padding: "1rem 1.5rem",
         flexDirection: "column",
-        justifyContent: "space-between",
+        justifyContent: "start",
         // justifyContent: "start",
         alignItems: "center",
         flexShrink: 0,
-        gap: "1rem",
+        gap: ".5rem",
         minHeight: "310px",
         [theme.breakpoints.down("md")]: {
           gridColumn: "1/-1",

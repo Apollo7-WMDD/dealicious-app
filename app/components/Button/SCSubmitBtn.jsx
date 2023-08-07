@@ -34,7 +34,11 @@ const SCSubmitBtn = ({ text, width , onClick}) => {
         }
       }}
     >
-    <Typography variant="p">{text}</Typography>
+    <Typography 
+      sx={{
+        fontSize: "1.5rem",
+      }}
+      variant="h5">{text}</Typography>
     </Button>
   );
 };

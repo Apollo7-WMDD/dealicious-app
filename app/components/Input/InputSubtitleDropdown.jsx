@@ -66,6 +66,7 @@ function InputSubtitleDropdown({
             typography: "h3",
             color: theme.palette.background.alt,
             marginBottom: "1rem",
+            textAlign: "left",
           }}
         >
           {displayText == null

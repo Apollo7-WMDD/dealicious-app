@@ -1,14 +1,17 @@
 import React from "react";
-import { Button, Box, useTheme, Typography } from "@mui/material";
-import CampaignSCIcon from "../Button/ButtonCampaignSC";
+import { Button, Box, useTheme } from "@mui/material";
+import ButtonCampaignSC from "../Button/ButtonCampaignSC";
 
-const SCActive = ({ text, width, onClick }) => {
+const SingleButton = ({ text, onClick, width }) => {
+  
   const theme = useTheme();
+  
+  
   return (
     <Button
       variant="contained"
       size="medium"
-      startIcon={<CampaignSCIcon />}
+      startIcon={<ButtonCampaignSC />}
       onClick={onClick}
       sx={{
         width: width,
@@ -17,36 +20,33 @@ const SCActive = ({ text, width, onClick }) => {
         justifySelf: "end",
         alignSelf: "center",
         borderRadius: "12px",
-        backgroundColor:'white',
-        border: '3px solid #ff5938',
-        color: '#ff5938',
-        '& svg': {
-          fill: '#ff5938',
-        },
+        backgroundColor: theme.palette.primary[80],
         ":hover": {
-          backgroundColor: "#ff5938",
-          color: 'white',
+          backgroundColor: "#FF2D2D",
           boxShadow: "none",
-          '& svg': {
-            fill: 'white',
-          },
         },
         [theme.breakpoints.down("lg")]: {
           width: "265px",
-          // fontSize: "16px",
+        //   fontSize: "16px",
         },
         [theme.breakpoints.down("md")]: {
           width: "180px",
-          // fontSize: "14px",
+        //   fontSize: "14px",
           lineHeight: "16px",
           margin: "1rem 0",
+          // alignSelf: "start",
           justifySelf: "start",
+        },
+        [theme.breakpoints.down("sm")]: {
+          width: "90px",
         },
       }}
     >
-      {text}
+      
+      
+      {text} 
     </Button>
   );
 };
 
-export default SCActive;
+export default SingleButton;

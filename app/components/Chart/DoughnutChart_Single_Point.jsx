@@ -32,13 +32,12 @@ function DoughnutChart_Single_Point({ restaurantOwnerId }) {
     };
     fetchData();
   }, [restaurantOwnerId]);
-
   const theme = useTheme();
   defaults.font.family = theme.typography.fontFamily;
   defaults.font.size = theme.typography.fontSize;
 
   const doughnutFakeData = {
-    labels: ["Total", "Redeemed".padEnd(15, " ")],
+    labels: ["Not Redeemed", "Redeemed".padEnd(15, " ")],
     datasets: [
       {
         data: [data.totalPoints, data.totalRedeemedPoints],
@@ -57,6 +56,21 @@ function DoughnutChart_Single_Point({ restaurantOwnerId }) {
     ],
   };
 
+  const centerText = {
+    id: "centerText",
+    afterDatasetsDraw(chart, args, pluginOption) {
+      const { ctx } = chart;
+      const text = Object.values(data)[1] + Object.values(data)[0];
+      ctx.save();
+      const x = chart.getDatasetMeta(0).data[0].x;
+      const y = chart.getDatasetMeta(0).data[0].y;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.font = "bold 20px Ubuntu";
+      ctx.fillText(text, x, y);
+    },
+  };
+  const plugins = [centerText];
   const option = {
     responsive: true,
     maintainAspectRatio: false,
@@ -88,39 +102,56 @@ function DoughnutChart_Single_Point({ restaurantOwnerId }) {
     }
   }
 
-  // ! RESOLVE PLUGINS ISSUE FROM 'npm install --save chartjs-plugin-doughnutlabel'
+  console.log("Object.values(data)" + Object.values(data));
+  console.log("Object.values(data).shift(0)" + Object.values(data)[0]);
+  console.log("Object.values(data)[1]" + Object.values(data)[1]);
   return (
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "1fr",
+//  ********************** MARIO'S CHANGE TODO: CHECK WITH TONY
+//         gridTemplateColumns: "1fr",
+//         position: "relative",
+//         alignItems: "center",
+//         justifyContent: "center",
+//         width: "100%",
+//         height: "100%",
+//         minHeight: "350px",
+//     **************************
+        gridTemplateColumns: "repeat(1,1fr)",
         position: "relative",
         alignItems: "center",
-        justifyContent: "center",
         width: "100%",
         height: "100%",
-        minHeight: "350px",
       }}
     >
       {isLoading ? (
         <div
+// *************
           style={{
             width: "100%",
           }}
+// *************
+        style={{
+          maxHeight: "250px",
+        }}
         >
           <Loader />
         </div>
       ) : (
         <>
-          <Typography
-            variant="h4"
-            lineHeight="35px"
-            style={{ position: "absolute", top: 0 }}
-          >
-            Total = {formatNumber(Object.values(data).shift(1))}
-          </Typography>
+//  ********************** MARIO'S CHANGE TODO: CHECK WITH TONY
+//           <Typography
+//             variant="h4"
+//             lineHeight="35px"
+//             style={{ position: "absolute", top: 0 }}
+//           >
+//             Total = {formatNumber(Object.values(data).shift(1))}
+//           </Typography>
+// ******
           <Doughnut
             data={doughnutFakeData}
+            plugins={plugins}
             style={{
               width: "100%",
               height: "100%",
