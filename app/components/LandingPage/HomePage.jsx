@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./LandingPage.module.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Link from "next/link";
@@ -11,10 +11,11 @@ import { useSession, signOut } from "next-auth/react";
 import { useStore } from "@/lib/context/user_context/store";
 
 // import material ui
-import { Button, useTheme } from "@mui/material";
+import { Modal, Box, Typography, Button, useTheme } from "@mui/material";
 
 // Contact us email
 import emailjs from '@emailjs/browser';
+import CloseIcon from '@mui/icons-material/Close';
 
 const HomePage = () => {
   const { data: session, status } = useSession();
@@ -227,18 +228,45 @@ const HomePage = () => {
     );
   }, [logoRef.current, status, restaurantOwnerId]);
 
-  // Contact us 
-  const form = useRef();
+  // Contact us   
+  const shadowColor = `${theme.palette.neutral[20]}1f`;
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 500,
+    bgcolor: "background.paper",
+    border: "2px solid #ff5938",
+    borderRadius: "10px",
+    boxShadow: `0px 4px 20px 0px ${shadowColor}`,
+    p: 4,
+    "@media screen and (min-width:800px)": {
+      width: 800,
+    },
+  };
 
+  const form = useRef();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const sendEmail = (e) => {
     e.preventDefault();
 
     emailjs.sendForm('service_8f7cjg9', 'template_qxlajrp', form.current, 'A_nAp4McCec75xTIh')
       .then((result) => {
+          resetForm();
+          setIsModalOpen(true);
           console.log(result.text);
       }, (error) => {
           console.log(error.text);
-      });
+      });    
+  };
+
+  const resetForm = () => {
+    form.current.reset(); // Reset the form fields
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false); // Close the modal
   };
 
   return (
@@ -697,6 +725,22 @@ const HomePage = () => {
               value="Send"
             />
           </form>
+          <Modal open={isModalOpen} onClose={closeModal}>
+            <Box sx={style}>
+              <CloseIcon
+                style={{
+                  position: 'absolute',
+                  top: '10px',
+                  right: '10px',
+                  cursor: 'pointer',
+                }}
+                onClick={closeModal}
+              />
+              <Typography id="modal-modal-title" variant="h3" sx={{ color:"#ff5938"}}>
+                Email sent successfully!
+              </Typography>
+            </Box>
+          </Modal>
         </div>
       </section>
       <footer className={styles.landing_footer}>

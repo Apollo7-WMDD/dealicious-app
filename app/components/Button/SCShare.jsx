@@ -10,6 +10,7 @@ import Clock from "@/app/components/svg/clock.svg";
 import Phone from "@/app/components/svg/phone.svg";
 import URL from "@/app/components/svg/url.svg";
 import { useSession } from "next-auth/react";
+import CloseIcon from '@mui/icons-material/Close';
 
 const SCShare = ({
   text,
@@ -95,6 +96,15 @@ const SCShare = ({
       </Button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
+          <CloseIcon
+            style={{
+              position: 'absolute',
+              top: '10px',
+              right: '10px',
+              cursor: 'pointer',
+            }}
+            onClick={handleClose}
+          />
           <Typography variant="p">
             Experience culinary bliss with a special invitation from{" "}
           </Typography>

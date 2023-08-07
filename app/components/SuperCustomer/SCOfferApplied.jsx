@@ -161,7 +161,10 @@ const Share = ({ props, status }) => {
     {
         return (
             <Box>
-                <Typography>Code Wrong!</Typography>
+                <Typography id="modal-modal-title" variant="h3" sx={{ color:"#ff5938"}}>
+                    Code Wrong!
+                </Typography>
+                {/* <Typography>Code Wrong!</Typography> */}
             </Box>
         );
     }

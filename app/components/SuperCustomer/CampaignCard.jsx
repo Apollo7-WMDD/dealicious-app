@@ -6,6 +6,7 @@ import SCActive from "../../components/Button/SCActive";
 import SingleButtonSC from "../Button/SingleButtonSC";
 import SCSubmitBtn from "../Button/SCSubmitBtn";
 import SCOfferApplied from "@/app/components/SuperCustomer/SCOfferApplied";
+import CloseIcon from '@mui/icons-material/Close';
 
 const CampaignCard = ({ props }) => {
 
@@ -75,6 +76,9 @@ const CampaignCard = ({ props }) => {
     setOpenSecond(true);
     setOpenThird(false);
   };
+  const forceClose = () => {
+    setOpen(false);
+  }
 
   // 2nd Modal
   const handleOpenSecond = () => {
@@ -88,6 +92,9 @@ const CampaignCard = ({ props }) => {
     setOpenSecond(false);
     setOpenThird(true);
   };
+  const forceCloseSecond = () => {
+    setOpenSecond(false);
+  }
 
   // 3th Modal
   const handleCloseThird = () => {
@@ -95,6 +102,9 @@ const CampaignCard = ({ props }) => {
     setOpenSecond(false);
     setOpenThird(false);
   };
+  const forceCloseThird = () => {
+    setOpenThird(false);
+  }
 
   const style = {
 
@@ -182,6 +192,15 @@ const CampaignCard = ({ props }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <CloseIcon
+            style={{
+              position: 'absolute',
+              top: '10px',
+              right: '10px',
+              cursor: 'pointer',
+            }}
+            onClick={forceClose}
+          />
           <Typography id="modal-modal-title" variant="h3">
             {props.name}
           </Typography>
@@ -254,6 +273,15 @@ const CampaignCard = ({ props }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <CloseIcon
+            style={{
+              position: 'absolute',
+              top: '10px',
+              right: '10px',
+              cursor: 'pointer',
+            }}
+            onClick={forceCloseSecond}
+          />
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Thanks for visiting us!
           </Typography>
@@ -318,10 +346,19 @@ const CampaignCard = ({ props }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <CloseIcon
+            style={{
+              position: 'absolute',
+              top: '10px',
+              right: '10px',
+              cursor: 'pointer',
+            }}
+            onClick={forceCloseThird}
+          />
           <SCOfferApplied props={props} status={validate}></SCOfferApplied>
-          <Typography id="modal-modal-title" variant="h3" sx={{ color:"#ff5938"}}>
+          {/* <Typography id="modal-modal-title" variant="h3" sx={{ color:"#ff5938"}}>
             Click here to close!
-          </Typography>
+          </Typography> */}
         </Box>
       </Modal>
     </Box>
