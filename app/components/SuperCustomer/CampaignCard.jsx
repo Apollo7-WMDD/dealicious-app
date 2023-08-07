@@ -204,7 +204,10 @@ const CampaignCard = ({ props }) => {
                 alt="new"
                 width="auto"
                 height="auto"
-                style={{ borderRadius: "10px" }}
+                style={{ 
+                  borderRadius: "10px",
+                  objectFit: "cover",
+                }}
               />
             </Box>
             <Box

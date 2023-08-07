@@ -52,8 +52,8 @@ return (
               src={props?.logo}
               style={{
                 borderRadius: "50%",
-                width: "90px", // adjust the size as needed
-                height: "90px", // adjust the size as needed
+                width: "90px", 
+                height: "90px",
                 objectFit: "cover",
               }}
               alt="Logo"
@@ -133,7 +133,8 @@ return (
           alt="new"
           style={{ 
             borderRadius: "10px",
-            maxWidth:'346px'
+            maxWidth:'346px',
+            objectFit: 'cover',
           }}
         />
       </Box>
