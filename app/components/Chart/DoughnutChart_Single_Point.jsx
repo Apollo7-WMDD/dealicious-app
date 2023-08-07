@@ -14,7 +14,7 @@ import Loader from "../Loader";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-function DoughnutChart_Single_Point({restaurantOwnerId}) {
+function DoughnutChart_Single_Point({ restaurantOwnerId }) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -34,14 +34,14 @@ function DoughnutChart_Single_Point({restaurantOwnerId}) {
   }, [restaurantOwnerId]);
 
   const formatData = Object.values(data).slice(1);
-  console.log('Points Data', data);
+  console.log("Points Data", data);
 
   const theme = useTheme();
   defaults.font.family = theme.typography.fontFamily;
   defaults.font.size = theme.typography.fontSize;
 
   const doughnutFakeData = {
-    labels: ["Total", "Redeemed"],
+    labels: ["Not Redeemed", "Redeemed"],
     datasets: [
       {
         data: [data.totalPoints, data.totalRedeemedPoints],
@@ -60,6 +60,21 @@ function DoughnutChart_Single_Point({restaurantOwnerId}) {
     ],
   };
 
+  const centerText = {
+    id: "centerText",
+    afterDatasetsDraw(chart, args, pluginOption) {
+      const { ctx } = chart;
+      const text = Object.values(data)[1] + Object.values(data)[0];
+      ctx.save();
+      const x = chart.getDatasetMeta(0).data[0].x;
+      const y = chart.getDatasetMeta(0).data[0].y;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.font = "bold 20px Ubuntu";
+      ctx.fillText(text, x, y);
+    },
+  };
+  const plugins = [centerText];
   const option = {
     responsive: true,
     maintainAspectRatio: false,
@@ -83,36 +98,48 @@ function DoughnutChart_Single_Point({restaurantOwnerId}) {
   };
 
   function formatNumber(num) {
-    if(num >= 1000) {
-      return (num/1000).toFixed(1) + 'k'; // 
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1) + "k"; //
     } else {
       return num;
     }
   }
 
-  // ! RESOLVE PLUGINS ISSUE FROM 'npm install --save chartjs-plugin-doughnutlabel'
+  console.log("Object.values(data)" + Object.values(data));
+  console.log("Object.values(data).shift(0)" + Object.values(data)[0]);
+  console.log("Object.values(data)[1]" + Object.values(data)[1]);
   return (
     <div
       style={{
-        maxHeight: "250px"
+        display: "grid",
+        gridTemplateColumns: "repeat(1,1fr)",
+        position: "relative",
+        alignItems: "center",
+        width: "100%",
+        height: "100%",
       }}
     >
       {isLoading ? (
         <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gridColumn: "1/-1",
-          }}
+        style={{
+          maxHeight: "250px",
+        }}
         >
           <Loader />
         </div>
       ) : (
         <>
-          <Typography variant="h4" lineHeight="35px">Total = {formatNumber(Object.values(data).shift(1))}</Typography>
+          {/* <Typography variant="h4" lineHeight="35px">
+            Total ={" "}
+            {
+              // formatNumber(
+              Object.values(data)[1] + Object.values(data)[0]
+              // )
+            }
+          </Typography> */}
           <Doughnut
             data={doughnutFakeData}
+            plugins={plugins}
             style={{
               width: "100%",
               height: "100%",
