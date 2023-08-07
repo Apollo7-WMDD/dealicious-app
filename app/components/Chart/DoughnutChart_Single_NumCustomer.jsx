@@ -48,9 +48,6 @@ function DoughnutChart_NumCustomer({ campaignId }) {
           theme.palette.primary[100],
           theme.palette.primary[60],
         ],
-        // hoverBackgroundColor: [ theme.palette.primary[80],
-        // theme.palette.primary[100],
-        // theme.palette.primary[60],],
         borderColor: ["transparent", "transparent", "transparent"],
         color: [
           theme.palette.background.alt,
@@ -81,6 +78,7 @@ function DoughnutChart_NumCustomer({ campaignId }) {
         position: "right",
       },
     },
+    cutout: "60%",
   };
 
   // ! RESOLVE PLUGINS ISSUE FROM 'npm install --save chartjs-plugin-doughnutlabel'
@@ -88,20 +86,19 @@ function DoughnutChart_NumCustomer({ campaignId }) {
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(1,1fr)",
+        gridTemplateColumns: "1fr",
         position: "relative",
         alignItems: "center",
+        justifyContent: "center",
         width: "100%",
         height: "100%",
+        minHeight: "350px",
       }}
     >
       {isLoading ? (
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gridColumn: "1/-1",
+            width: "100%",
           }}
         >
           <Loader />
@@ -109,16 +106,11 @@ function DoughnutChart_NumCustomer({ campaignId }) {
       ) : (
         <>
           <Typography
-            variant="h3"
-            sx={{
-              gridColumn: "1/-1",
-              gridRow: "1/-1",
-              position: "absolute",
-              left: "22.5%",
-              zIndex: "1",
-            }}
+            variant="h4"
+            lineHeight="35px"
+            style={{ position: "absolute", top: 0 }}
           >
-            {Object.values(data).shift(1)}
+            Total = {Object.values(data).shift(1)}
           </Typography>
           <Doughnut
             data={doughnutFakeData}
@@ -127,6 +119,7 @@ function DoughnutChart_NumCustomer({ campaignId }) {
               height: "100%",
               gridColumn: "1/-1",
               gridRow: "1/-1",
+              marginTop: "2rem",
             }}
             options={option}
           />

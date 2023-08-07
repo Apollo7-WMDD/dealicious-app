@@ -59,6 +59,22 @@ function DoughnutChart_NumCustomer({ campaignId }) {
     ],
   };
 
+  const centerText = {
+    id: "centerText",
+    afterDatasetsDraw(chart, args, pluginOption) {
+      const { ctx } = chart;
+      const text = `$${formatNumber(Object.values(data).shift(1))}`;
+      ctx.save();
+      const x = chart.getDatasetMeta(0).data[0].x;
+      const y = chart.getDatasetMeta(0).data[0].y;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.font = "bold 20px Ubuntu";
+      ctx.fillText(text, x, y);
+    },
+  };
+
+  const plugins = [centerText];
   const option = {
     responsive: true,
     maintainAspectRatio: false,
@@ -79,37 +95,53 @@ function DoughnutChart_NumCustomer({ campaignId }) {
         position: "right",
       },
     },
+    cutout: "60%",
   };
 
   function formatNumber(num) {
-    if(num >= 1000) {
-      return (num/1000).toFixed(1) + 'k'; // 
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1) + "k"; //
     } else {
       return num;
     }
   }
 
-  // ! RESOLVE PLUGINS ISSUE FROM 'npm install --save chartjs-plugin-doughnutlabel'
   return (
     <div
       style={{
-        maxHeight: "250px"
+        display: "grid",
+        gridTemplateColumns: "1fr",
+        position: "relative",
+        alignItems: "center",
+        width: "100%",
+        height: "100%",
+        //  ********************** MARIO'S CHANGE TODO: CHECK WITH TONY
+        //         minHeight: "350px",
       }}
     >
       {isLoading ? (
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gridColumn: "1/-1",
+            //  ********************** MARIO'S CHANGE TODO: CHECK WITH TONY
+            //             width: "100%",
+            maxHeight: "250px",
           }}
         >
           <Loader />
         </div>
       ) : (
         <>
-          <Typography variant="h4" lineHeight="35px">Total = $ {formatNumber(Object.values(data).shift(1))}</Typography>
+          {/* ********************** MARIO'S CHANGE TODO: CHECK WITH TONY */}
+          {/* <Typography
+            variant="h4"
+            lineHeight="35px"
+            style={{
+              position: "absolute",
+              top: 0,
+            }}
+          >
+            Total = $ {formatNumber(Object.values(data).shift(1))}
+          </Typography> */}
           <Doughnut
             data={doughnutFakeData}
             style={{
@@ -117,7 +149,9 @@ function DoughnutChart_NumCustomer({ campaignId }) {
               height: "100%",
               gridColumn: "1/-1",
               gridRow: "1/-1",
+              marginTop: "2rem",
             }}
+            plugins={plugins}
             options={option}
           />
         </>

@@ -15,7 +15,8 @@ function InputSubtitleDropdown({
   text,
   setIsComparing,
   setCampaignCompare,
-  isComparing,
+  campaignName,
+  setCampaignName,
 }) {
   const router = useRouter();
   const { restaurantOwnerId, restaurantId } = useStore();
@@ -53,11 +54,7 @@ function InputSubtitleDropdown({
   };
 
   return (
-    <Stack
-      direction="row"
-      justifyContent="space-between"
-      alignItems="start"
-    >
+    <Stack direction="row" justifyContent="space-between" alignItems="start">
       <div>
         <Button
           id="fade-button"
@@ -69,7 +66,8 @@ function InputSubtitleDropdown({
             padding: 0,
             typography: "h3",
             color: theme.palette.background.alt,
-            
+            marginBottom: "1rem",
+            textAlign: "left",
           }}
         >
           {displayText == null
@@ -117,6 +115,8 @@ function InputSubtitleDropdown({
           setIsComparing={setIsComparing}
           displayText={displayText}
           setCampaignCompare={setCampaignCompare}
+          campaignName={campaignName}
+          setCampaignName={setCampaignName}
         />
       )}
     </Stack>

@@ -21,7 +21,10 @@ import { fetchCampaignsPreview } from "@/lib/fetching/insights/data";
 // loader
 import Loader from "../Loader";
 
+import { useMediaQuery } from "@mui/material";
+
 function CampaignGrid({ children }) {
+  const isOneColumn = useMediaQuery("(min-width:900px)");
   const router = useRouter();
   const { restaurantOwnerId, restaurantId } = useStore();
   const [dataArray, setDataArray] = useState([]);
@@ -53,12 +56,18 @@ function CampaignGrid({ children }) {
     fetchData();
   }, [restaurantOwnerId]);
 
-  console.log(dataArray);
   const theme = useTheme();
   useEffect(() => {
     setDataArray([...dataArray].sort((a, b) => (b.pinned ? 1 : -1)));
   }, [sortByPin]);
-
+  
+  function formatNumber(num) {
+    if(num >= 1000) {
+      return (num/1000).toFixed(1) + 'k'; // 
+    } else {
+      return num;
+    }
+  }
   return (
     <Box
       sx={{
@@ -109,11 +118,14 @@ function CampaignGrid({ children }) {
           >
             <ChartCard_Insight
               key={e._id}
-              style={{
-                ":hover": {
-                  color: "hotpink",
-                },
-              }}
+              style={
+                {
+                  // height: "100%",
+                  // ":hover": {
+                  //   color: "hotpink",
+                  // },
+                }
+              }
             >
               <ChartCardTitleInsights
                 data={e}
@@ -121,11 +133,11 @@ function CampaignGrid({ children }) {
                 pinStatus={e.favorite}
                 showPin={true}
                 setClickPin={setSortByPin}
-                style={{
-                  ":hover": {
-                    color: "hotpink",
-                  },
-                }}
+                // style={{
+                //   ":hover": {
+                //     color: "hotpink",
+                //   },
+                // }}
               ></ChartCardTitleInsights>
 
               <CampaignCardBody>
@@ -135,56 +147,83 @@ function CampaignGrid({ children }) {
                     flexDirection: "column",
                     gap: ".5rem",
                     alignContent: "space-between",
+                    [theme.breakpoints.down("md")]: {
+                      marginRight: "1rem",
+                    },
                   }}
                 >
-                  <Box sx={{}}>
+                
                     <Typography
                       variant="h3"
                       sx={{
+                        fontSize: "24px",
                         color: theme.palette.primary[80],
                         textAlign: "center",
+                        [theme.breakpoints.down("md")]: {
+                          textAlign: "left",
+                        },
                       }}
                     >
                       Revenue:
                     </Typography>
-                    <Typography variant="h3" sx={{ textAlign: "center" }}>
-                      {e.spending}
+                    <Typography
+                      variant="h1"
+                      sx={{
+                        fontSize: "64px",
+                        textAlign: "center",
+                        [theme.breakpoints.down("md")]: {
+                          textAlign: "left",
+                        },
+                      }}
+                    >
+                      {`$${formatNumber(e.spending)}`}
                     </Typography>
-                  </Box>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      gap: ".2rem",
-                      // , gridTemplateColumns: "repeat(2,1fr)"
-                    }}
-                  >
-                    <p
-                      style={{
-                        margin: "0",
-                        fontWeight: "lighter",
-                        flexBasis: "55%",
-                      }}
-                    >
-                      Start date:{" "}
-                      {new Date(e.startDate).toISOString().substring(0, 10)}
-                      {/* {new Date(e.endDate).toISOString().substring(0, 10)} */}
-                    </p>
-                    <p
-                      style={{
-                        margin: "0",
-                        fontWeight: "lighter",
-                        textAlign: "right",
-                        flexBasis: "55%",
-                      }}
-                    >
-                      End date:{" "}
-                      {/* {new Date(e.startDate).toISOString().substring(0, 10)} to{" "} */}
-                      {new Date(e.endDate).toISOString().substring(0, 10)}
-                    </p>
-                  </Box>
-                </Box>
+                                  </Box>
               </CampaignCardBody>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  gap: ".2rem",
+                  width: "100%",
+
+                  [theme.breakpoints.down("md")]: {
+                    flexDirection: "column",
+                    flexShrink: 0,
+                    flexBasis: "45%",
+                    flexGrow: 1,
+                  },
+                  // , gridTemplateColumns: "repeat(2,1fr)"
+                }}
+              >
+                <p
+                  style={{
+                    margin: "0",
+                    fontWeight: "lighter",
+                    flexBasis: "55%",
+                  }}
+                >
+                  Start date:{" "}
+                  {new Date(e.startDate).toISOString().substring(0, 10)}
+                  {/* {new Date(e.endDate).toISOString().substring(0, 10)} */}
+                </p>
+                <Typography
+                  variant="p"
+                  sx={{
+                    textAlign: "right",
+                    margin: "0",
+                    fontWeight: "lighter",
+                    flexBasis: "55%",
+                    [theme.breakpoints.down("md")]: {
+                      textAlign: "left",
+                    },
+                  }}
+                >
+                  End date:{" "}
+                  {/* {new Date(e.startDate).toISOString().substring(0, 10)} to{" "} */}
+                  {new Date(e.endDate).toISOString().substring(0, 10)}
+                </Typography>
+              </Box>
             </ChartCard_Insight>
           </Link>
         ))

@@ -31,11 +31,14 @@ function ChartCardTitle({
         display: "grid",
         gridTemplateColumns: "2fr 0.17fr",
         justifyContent: "space-between",
-        alignItems: "center",
+        alignItems: "start",
         width: "100%",
+        // minHeight: "90px",
       }}
     >
-      <Typography variant="h3">{text}</Typography>
+
+      {/*  sx={{ fontSize: "48px" }} */}
+      <Typography variant="h3"  sx={{ fontSize: "28px" }}>{text}</Typography>
 
       <Pin
         style={{

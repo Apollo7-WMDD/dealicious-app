@@ -27,12 +27,19 @@ import HeaderGrid from "@/app/components/HeaderGrid";
 const Page = async () => {
   const theme = useTheme();
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  function formatNumber(num) {
+    if(num >= 1000) {
+      return (num/1000).toFixed(1) + 'k'; // 
+    } else {
+      return num;
+    }
+  }
   return (
     <>
       {isNonMobile ? (
         <HeaderGrid>
           <Header props={"Insights"} />
-          {/* <CreateNewCampaign /> */}
+          <CreateNewCampaign />
         </HeaderGrid>
       ) : (
         <Box>
@@ -59,9 +66,9 @@ const Page = async () => {
         <Grid item xs={12} md={8}>
           <InputSubtitleDropdown />
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Hidden smDown>
-            <SubHeader>Customer Data</SubHeader>
+        <Grid item xs={12} md={4} sx={{marginLeft:"0"}} >
+          <Hidden lgDown >
+            <SubHeader >Customer Data</SubHeader>
           </Hidden>
         </Grid>
       </Grid>
@@ -75,7 +82,7 @@ const Page = async () => {
           ></ChartCardTitle>
           <SingleLineChart
             fetchDataSource={fetchTotalRevenue}
-            showTextSource={(data) => `$ ${Math.round(data.totalRevenue)}`}
+            showTextSource={(data) => `$ ${formatNumber(Math.round(data.totalRevenue))}`}
           />
         </ChartCard>
 

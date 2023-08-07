@@ -109,7 +109,7 @@ function StackDougnNutSpan1() {
       sx={{
         display: "grid",
         width: "100%",
-        height: isLoading ? "100%" : "auto",
+        height: "100%",
         gap: "0.5rem",
         justifyContent: "center",
         gridTemplateColumns: "repeat(1, 1fr)",

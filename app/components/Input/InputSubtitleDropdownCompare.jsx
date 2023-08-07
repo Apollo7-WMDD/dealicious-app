@@ -1,5 +1,12 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Button, Menu, MenuItem, Fade, useTheme, useMediaQuery } from "@mui/material";
+import {
+  Button,
+  Menu,
+  MenuItem,
+  Fade,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 
 import Arrowdown from "@/app/components/svg/arrowdown.svg";
 
@@ -8,10 +15,13 @@ function InputSubtitleDropdownCompare({
   setIsComparing,
   displayText,
   setCampaignCompare,
+  campaignCompare,
+  campaignName,
+  setCampaignName,
 }) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm")); 
-  const [compareWith, setCompareWith] = useState(null);
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [compareWith, setCompareWith] = useState(campaignCompare);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -20,10 +30,11 @@ function InputSubtitleDropdownCompare({
   };
 
   const handleDelayedIsComparingUpdate = useCallback(
-    (value, campaignCompare) => {
+    (value, campaignCompare, campaignCompareName) => {
       setTimeout(() => {
         setIsComparing(value);
         setCampaignCompare(campaignCompare);
+        setCampaignName(campaignCompareName);
       }, 1000);
     },
     [setIsComparing]
@@ -32,15 +43,23 @@ function InputSubtitleDropdownCompare({
   const handleClose = useCallback(
     (event) => {
       event.stopPropagation();
-      setCompareWith(event.currentTarget.innerText || (isMobile ? "VS" : "Compare with:"));
+      console.log(
+        "event.currentTarget.innerText ✅✅",
+        event.currentTarget.innerText
+      );
       if (
-        event.currentTarget.innerText === (isMobile ? "VS" : "Compare with:") ||
+        event.currentTarget.innerText === "Compare with:" ||
         !event.currentTarget.innerText
       ) {
         handleDelayedIsComparingUpdate(false, null);
       } else {
         const campaignCompare = event.currentTarget.getAttribute("data-index");
-        handleDelayedIsComparingUpdate(true, campaignCompare);
+        const campaignCompareName = event.currentTarget.innerText;
+        handleDelayedIsComparingUpdate(
+          true,
+          campaignCompare,
+          campaignCompareName
+        );
       }
       setAnchorEl(null);
     },
@@ -61,8 +80,8 @@ function InputSubtitleDropdownCompare({
           color: theme.palette.background.alt,
         }}
       >
-        {compareWith == null ? (isMobile ? "VS" : "Compare with:") : `${compareWith}`}
-        
+        {isMobile ? "VS" : campaignName}
+
         {!isMobile && (
           <Arrowdown
             style={{
@@ -83,7 +102,9 @@ function InputSubtitleDropdownCompare({
         TransitionComponent={Fade}
         sx={{ width: "100%" }}
       >
-        <MenuItem onClick={handleClose}>{isMobile ? "VS" : "Compare with:"}</MenuItem>
+        <MenuItem onClick={handleClose}>
+          {isMobile ? "VS" : "Compare with:"}
+        </MenuItem>
         {dataArray.map(
           (item) =>
             displayText !== item.name && (
