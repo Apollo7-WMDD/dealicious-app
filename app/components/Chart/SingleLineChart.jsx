@@ -94,23 +94,7 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
       },
     ],
   };
-  // const centerText = {
-  //   id: "centerText",
-  //   afterDatasetsDraw(chart, args, pluginOption) {
-  //     console.log("chart.chartArea", chart.chartArea);
-  //     const { ctx } = chart;
-  //     // const text = `$${formatNumber(Object.values(data).shift(1))}`;
-  //     // ctx.save();
-  //     // ctx.chartArea = {bottom: "0"};
-  //     // const x = chart.getDatasetMeta(0).data[0].x
-  //     // const y = chart.getDatasetMeta(0).data[0].y
-  //     // ctx.textAlign = 'center';
-  //     // ctx.textBaseline = 'middle';
-  //     // ctx.font = 'bold 20px Ubuntu';
-  //     // ctx.fillText (text, x, y);
-  //   },
-  // };
-  // const plugins = [centerText];
+
   let delayed;
   const options = {
     animation: {
@@ -252,7 +236,9 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
             }}
           >
             {/* line chart */}
-            <Box sx={{ maxHeight: "250px", height: "auto" }}>
+            <Box sx={{ maxHeight: "250px", 
+            height: "100%" 
+            }}>
               <Line
                 // plugins={plugins}
                 data={chartData}

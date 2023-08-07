@@ -58,6 +58,21 @@ function DoughnutChart_NumCustomer({ campaignId }) {
     ],
   };
 
+  const centerText = {
+    id: "centerText",
+    afterDatasetsDraw(chart, args, pluginOption) {
+      const { ctx } = chart;
+      const text = Object.values(data)[1] + Object.values(data)[0];
+      ctx.save();
+      const x = chart.getDatasetMeta(0).data[0].x;
+      const y = chart.getDatasetMeta(0).data[0].y;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.font = "bold 20px Ubuntu";
+      ctx.fillText(text, x, y);
+    },
+  };
+  const plugins = [centerText];
   const option = {
     responsive: true,
     maintainAspectRatio: false,
@@ -78,48 +93,39 @@ function DoughnutChart_NumCustomer({ campaignId }) {
         position: "right",
       },
     },
-    cutout: "60%",
+    // cutout: "60%",
   };
 
-  // ! RESOLVE PLUGINS ISSUE FROM 'npm install --save chartjs-plugin-doughnutlabel'
   return (
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "1fr",
+        gridTemplateColumns: "repeat(1,1fr)",
         position: "relative",
         alignItems: "center",
-        justifyContent: "center",
         width: "100%",
         height: "100%",
-        minHeight: "350px",
       }}
     >
       {isLoading ? (
         <div
           style={{
-            width: "100%",
+            maxHeight: "250px",
           }}
         >
           <Loader />
         </div>
       ) : (
         <>
-          <Typography
-            variant="h4"
-            lineHeight="35px"
-            style={{ position: "absolute", top: 0 }}
-          >
-            Total = {Object.values(data).shift(1)}
-          </Typography>
           <Doughnut
             data={doughnutFakeData}
+            plugins={plugins}
             style={{
               width: "100%",
               height: "100%",
               gridColumn: "1/-1",
               gridRow: "1/-1",
-              marginTop: "2rem",
+              // marginTop: "2rem",
             }}
             options={option}
           />

@@ -63,10 +63,22 @@ function DoughnutChart_NumCustomer({ campaignId }) {
     id: "centerText",
     afterDatasetsDraw(chart, args, pluginOption) {
       const { ctx } = chart;
+      console.log("chart", chart);
       const text = `$${formatNumber(Object.values(data).shift(1))}`;
       ctx.save();
       const x = chart.getDatasetMeta(0).data[0].x;
       const y = chart.getDatasetMeta(0).data[0].y;
+      
+      // let x = 0;
+      // let y = 0;
+      // if (chart.getDatasetMeta(0).data[0] == undefined) {
+      //   x = 0;
+      //   y = 0;
+      // } else {
+      //   x = chart.getDatasetMeta(0).data[0].x;
+      //   y = chart.getDatasetMeta(0).data[0].y;
+      // }
+
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       ctx.font = "bold 20px Ubuntu";
@@ -95,7 +107,7 @@ function DoughnutChart_NumCustomer({ campaignId }) {
         position: "right",
       },
     },
-    cutout: "60%",
+    // cutout: "60%",
   };
 
   function formatNumber(num) {
@@ -115,15 +127,11 @@ function DoughnutChart_NumCustomer({ campaignId }) {
         alignItems: "center",
         width: "100%",
         height: "100%",
-        //  ********************** MARIO'S CHANGE TODO: CHECK WITH TONY
-        //         minHeight: "350px",
       }}
     >
       {isLoading ? (
         <div
           style={{
-            //  ********************** MARIO'S CHANGE TODO: CHECK WITH TONY
-            //             width: "100%",
             maxHeight: "250px",
           }}
         >
@@ -131,27 +139,17 @@ function DoughnutChart_NumCustomer({ campaignId }) {
         </div>
       ) : (
         <>
-          {/* ********************** MARIO'S CHANGE TODO: CHECK WITH TONY */}
-          {/* <Typography
-            variant="h4"
-            lineHeight="35px"
-            style={{
-              position: "absolute",
-              top: 0,
-            }}
-          >
-            Total = $ {formatNumber(Object.values(data).shift(1))}
-          </Typography> */}
           <Doughnut
             data={doughnutFakeData}
+            plugins={plugins}
             style={{
               width: "100%",
               height: "100%",
               gridColumn: "1/-1",
               gridRow: "1/-1",
-              marginTop: "2rem",
+              // marginTop: "2rem",
             }}
-            plugins={plugins}
+            
             options={option}
           />
         </>

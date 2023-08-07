@@ -7,11 +7,12 @@ import SubHeader from "@/app/components/Header/SubHeader";
 import MainGrid from "@/app/components/MainGrid";
 import ChartCard from "@/app/components/Card/ChartCard";
 import CampaignGrid_All from "@/app/components/Dashboard/CampaignGrid_All";
-import { useMediaQuery } from "@mui/material";
+import { useMediaQuery,useTheme } from "@mui/material";
 import { Box } from "@mui/material";
 import Image from "next/image";
 
 const Page = async () => {
+  const theme = useTheme();
   const isNonMobile = useMediaQuery("(min-width:600px)");
   return (
     <>
