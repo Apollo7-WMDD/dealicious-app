@@ -75,7 +75,16 @@ const Page = () => {
   return (
     <>
       {isLoading ? (
-        <Loader />
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            minHeight: "90vh",
+          }}
+        >
+          <Loader />
+        </div>
       ) : (
         <>
           {isNonMobile ? (
@@ -223,35 +232,37 @@ const Page = () => {
             </MainGrid>
             {isComparing && (
               <>
-                <div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="2"
-                    height="2386"
-                    viewBox="0 0 2 2386"
-                    fill="none"
-                  >
-                    <path
-                      opacity="0.1"
-                      d="M1 0L0.999899 2386"
-                      stroke="url(#paint0_linear_1280_27880)"
-                      stroke-width="2"
-                    />
-                    <defs>
-                      <linearGradient
-                        id="paint0_linear_1280_27880"
-                        x1="1.5"
-                        y1="2.11961e-08"
-                        x2="1.4999"
-                        y2="2386"
-                        gradientUnits="userSpaceOnUse"
-                      >
-                        <stop />
-                        <stop offset="0.609375" stop-opacity="0" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                </div>
+                {isNonMobile && (
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="2"
+                      height="2386"
+                      viewBox="0 0 2 2386"
+                      fill="none"
+                    >
+                      <path
+                        opacity="0.1"
+                        d="M1 0L0.999899 2386"
+                        stroke="url(#paint0_linear_1280_27880)"
+                        stroke-width="2"
+                      />
+                      <defs>
+                        <linearGradient
+                          id="paint0_linear_1280_27880"
+                          x1="1.5"
+                          y1="2.11961e-08"
+                          x2="1.4999"
+                          y2="2386"
+                          gradientUnits="userSpaceOnUse"
+                        >
+                          <stop />
+                          <stop offset="0.609375" stop-opacity="0" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                  </div>
+                )}
                 <MainGrid isComparing={isComparing}>
                   <ChartCard gridColumn={isComparing ? "span 1" : "span 2"}>
                     <ChartCardTitle text={"Total Revenue"}></ChartCardTitle>
@@ -275,6 +286,7 @@ const Page = () => {
                       />
                     </div>
                   </ChartCard>
+
                   <ChartCard gridColumn={"span 1"}>
                     <ChartCardTitle
                       text={"Number of:"}

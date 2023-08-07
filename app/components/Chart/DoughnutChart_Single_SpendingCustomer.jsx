@@ -94,11 +94,12 @@ function DoughnutChart_NumCustomer({ campaignId }) {
         position: "right",
       },
     },
+    cutout: "60%",
   };
 
   function formatNumber(num) {
-    if(num >= 1000) {
-      return (num/1000).toFixed(1) + 'k'; // 
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1) + "k"; //
     } else {
       return num;
     }
@@ -109,16 +110,20 @@ function DoughnutChart_NumCustomer({ campaignId }) {
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(1,1fr)",
+        gridTemplateColumns: "1fr",
         position: "relative",
         alignItems: "center",
         width: "100%",
         height: "100%",
+//  ********************** MARIO'S CHANGE TODO: CHECK WITH TONY
+//         minHeight: "350px",
       }}
     >
       {isLoading ? (
         <div
           style={{
+//  ********************** MARIO'S CHANGE TODO: CHECK WITH TONY
+//             width: "100%",
             maxHeight: "250px",
           }}
         >
@@ -126,7 +131,17 @@ function DoughnutChart_NumCustomer({ campaignId }) {
         </div>
       ) : (
         <>
-          {/* <Typography variant="h4" lineHeight="35px">Total = $ {formatNumber(Object.values(data).shift(1))}</Typography> */}
+//  ********************** MARIO'S CHANGE TODO: CHECK WITH TONY
+//           <Typography
+//             variant="h4"
+//             lineHeight="35px"
+//             style={{
+//               position: "absolute",
+//               top: 0,
+//             }}
+//           >
+//             Total = $ {formatNumber(Object.values(data).shift(1))}
+//           </Typography>
           <Doughnut
             data={doughnutFakeData}
             style={{
@@ -134,6 +149,7 @@ function DoughnutChart_NumCustomer({ campaignId }) {
               height: "100%",
               gridColumn: "1/-1",
               gridRow: "1/-1",
+              marginTop: "2rem",
             }}
             plugins={plugins}
             options={option}

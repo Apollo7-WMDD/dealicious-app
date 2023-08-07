@@ -32,23 +32,19 @@ function DoughnutChart_Single_Point({ restaurantOwnerId }) {
     };
     fetchData();
   }, [restaurantOwnerId]);
-
-  const formatData = Object.values(data).slice(1);
-  console.log("Points Data", data);
-
   const theme = useTheme();
   defaults.font.family = theme.typography.fontFamily;
   defaults.font.size = theme.typography.fontSize;
 
   const doughnutFakeData = {
-    labels: ["Not Redeemed", "Redeemed"],
+    labels: ["Not Redeemed", "Redeemed".padEnd(15, " ")],
     datasets: [
       {
         data: [data.totalPoints, data.totalRedeemedPoints],
         backgroundColor: [
           theme.palette.primary[80],
           theme.palette.primary[100],
-          // theme.palette.primary[60],
+          theme.palette.primary[60],
         ],
         borderColor: ["transparent", "transparent", "transparent"],
         color: [
@@ -95,6 +91,7 @@ function DoughnutChart_Single_Point({ restaurantOwnerId }) {
         position: "right",
       },
     },
+    cutout: "60%",
   };
 
   function formatNumber(num) {
@@ -112,6 +109,15 @@ function DoughnutChart_Single_Point({ restaurantOwnerId }) {
     <div
       style={{
         display: "grid",
+//  ********************** MARIO'S CHANGE TODO: CHECK WITH TONY
+//         gridTemplateColumns: "1fr",
+//         position: "relative",
+//         alignItems: "center",
+//         justifyContent: "center",
+//         width: "100%",
+//         height: "100%",
+//         minHeight: "350px",
+//     **************************
         gridTemplateColumns: "repeat(1,1fr)",
         position: "relative",
         alignItems: "center",
@@ -121,6 +127,11 @@ function DoughnutChart_Single_Point({ restaurantOwnerId }) {
     >
       {isLoading ? (
         <div
+// *************
+          style={{
+            width: "100%",
+          }}
+// *************
         style={{
           maxHeight: "250px",
         }}
@@ -129,14 +140,15 @@ function DoughnutChart_Single_Point({ restaurantOwnerId }) {
         </div>
       ) : (
         <>
-          {/* <Typography variant="h4" lineHeight="35px">
-            Total ={" "}
-            {
-              // formatNumber(
-              Object.values(data)[1] + Object.values(data)[0]
-              // )
-            }
-          </Typography> */}
+//  ********************** MARIO'S CHANGE TODO: CHECK WITH TONY
+//           <Typography
+//             variant="h4"
+//             lineHeight="35px"
+//             style={{ position: "absolute", top: 0 }}
+//           >
+//             Total = {formatNumber(Object.values(data).shift(1))}
+//           </Typography>
+// ******
           <Doughnut
             data={doughnutFakeData}
             plugins={plugins}
@@ -145,6 +157,7 @@ function DoughnutChart_Single_Point({ restaurantOwnerId }) {
               height: "100%",
               gridColumn: "1/-1",
               gridRow: "1/-1",
+              marginTop: "2rem",
             }}
             options={option}
           />
