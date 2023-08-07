@@ -43,8 +43,8 @@ const Share = ({ props }) => {
               src={props?.logo}
               style={{
                 borderRadius: "50%",
-                width: "90px", // adjust the size as needed
-                height: "90px", // adjust the size as needed
+                width: "90px",
+                height: "90px",
               }}
               alt="Logo"
             />
@@ -73,12 +73,6 @@ const Share = ({ props }) => {
             </Typography>
           </CardContent>
         </Box>
-        {/* <SCShare
-          text="Share with friends"
-          width="244px"
-          superCustomerId={superCustomerId}
-          restaurantId={restaurantId}
-        /> */}
       </Box>
   );
 };

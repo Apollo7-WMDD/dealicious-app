@@ -67,6 +67,7 @@ const SCShare = ({
         startIcon={<Share />}
         onClick={handleOpen}
         sx={{
+          color: 'white',
           width: width,
           height: "44px",
           justifySelf: "end",
@@ -77,12 +78,12 @@ const SCShare = ({
             backgroundColor: theme.palette.primary[60],
           },
           [theme.breakpoints.down("lg")]: {
-            width: "265px",
-            fontSize: "16px",
+            // width: "265px",
+            // fontSize: "16px",
           },
           [theme.breakpoints.down("md")]: {
-            width: "180px",
-            fontSize: "14px",
+            // width: "180px",
+            // fontSize: "14px",
             lineHeight: "16px",
             margin: "1rem 0",
             // alignSelf: "start",
@@ -90,7 +91,7 @@ const SCShare = ({
           },
         }}
       >
-        <Typography variant="p">{text}</Typography>
+        <Typography variant="h5">{text}</Typography>
       </Button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>

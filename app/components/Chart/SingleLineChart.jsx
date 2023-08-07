@@ -75,7 +75,7 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
 
   console.log("single line chart", data);
 
-  const showText = data && showTextSource ? showTextSource(data) : "";
+  const showText = data && showTextSource ? showTextSource( formatNumber(data) ) : "";
 
   const theme = useTheme();
   defaults.font.family = theme.typography.fontFamily;
@@ -94,6 +94,23 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
       },
     ],
   };
+  // const centerText = {
+  //   id: "centerText",
+  //   afterDatasetsDraw(chart, args, pluginOption) {
+  //     console.log("chart.chartArea", chart.chartArea);
+  //     const { ctx } = chart;
+  //     // const text = `$${formatNumber(Object.values(data).shift(1))}`;
+  //     // ctx.save();
+  //     // ctx.chartArea = {bottom: "0"};
+  //     // const x = chart.getDatasetMeta(0).data[0].x
+  //     // const y = chart.getDatasetMeta(0).data[0].y
+  //     // ctx.textAlign = 'center';
+  //     // ctx.textBaseline = 'middle';
+  //     // ctx.font = 'bold 20px Ubuntu';
+  //     // ctx.fillText (text, x, y);
+  //   },
+  // };
+  // const plugins = [centerText];
   let delayed;
   const options = {
     animation: {
@@ -102,15 +119,13 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
       },
       delay: (context) => {
         let delay = 0;
-     
+
         if (context.type == "data" && context.mode == "default" && !delayed) {
           delay = context.dataIndex * 50;
         }
         return delay;
       },
     },
-
-   
 
     responsive: true,
     maintainAspectRatio: false,
@@ -171,6 +186,11 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
         },
       },
     },
+    layout: {
+      padding: {
+        bottom: -30,
+      },
+    },
     plugins: {
       legend: {
         display: false,
@@ -189,6 +209,14 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
     },
   };
 
+  function formatNumber(num) {
+    if(num >= 1000) {
+      return (num/1000).toFixed(1) + 'k'; // 
+    } else {
+      return num;
+    }
+  }
+  
   return (
     <>
       {isLoading ? (
@@ -197,15 +225,24 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
         <Box
           style={{
             display: "grid",
+            alignContent: "center",
+            gap: "1rem",
             gridTemplateColumns: "repeat(1,1fr)",
             gridTemplateRows: "repeat(2,auto)",
             alignItems: "end",
-            justifyItems: "flex-end",
+            justifyItems: "center",
             width: "100%",
-            height: "60%",
+            height: "100%",
             position: "relative",
           }}
         >
+
+
+
+              
+          <Typography variant="h2" align="center" lineHeight="77px" sx={{ fontSize: "48px" }} >
+            {showText}
+          </Typography>
           <Box
             style={{
               position: "relative",
@@ -214,57 +251,64 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
               gridColumn: "1/-1",
             }}
           >
-            <Typography variant="h2" align="center" lineHeight="77px">
-              {showText}
-            </Typography>
-            <Line
-              data={chartData}
-              options={options}
-              style={{ maxHeight: "250px" }}
-            />
-          </Box>
-          <Box>
-            <Button
-              onClick={() => setPeriod("daily")}
-              variant="text"
-              sx={{
-                marginRight: "10px",
-                color:
-                  period === "daily"
-                    ? theme.palette.background.alt
-                    : theme.palette.neutral[60],
-                typography: "body1",
-              }}
-            >
-              Daily
-            </Button>
-            <Button
-              onClick={() => setPeriod("weekly")}
-              variant="text"
-              sx={{
-                marginRight: "10px",
-                color:
-                  period === "weekly"
-                    ? theme.palette.background.alt
-                    : theme.palette.neutral[60],
-                typography: "body1",
-              }}
-            >
-              Weekly
-            </Button>
-            <Button
-              onClick={() => setPeriod("monthly")}
-              variant="text"
-              sx={{
-                color:
-                  period === "monthly"
-                    ? theme.palette.background.alt
-                    : theme.palette.neutral[60],
-                typography: "body1",
-              }}
-            >
-              Monthly
-            </Button>
+            {/* line chart */}
+            <Box sx={{ maxHeight: "250px", height: "auto" }}>
+              <Line
+                // plugins={plugins}
+                data={chartData}
+                options={options}
+                style={{
+                  maxHeight: "250px",
+                  minHeight: "180px",
+                  width: "100%",
+                  maxWidth: "100%",
+                }}
+              />
+            </Box>
+            {/* daily,weekly button */}
+            <Box sx={{ textAlign:"end"}}>
+              <Button
+                onClick={() => setPeriod("daily")}
+                variant="text"
+                sx={{
+                  marginRight: "10px",
+                  color:
+                    period === "daily"
+                      ? theme.palette.background.alt
+                      : theme.palette.neutral[60],
+                  typography: "body1",
+                }}
+              >
+                Daily
+              </Button>
+              <Button
+                onClick={() => setPeriod("weekly")}
+                variant="text"
+                sx={{
+                  marginRight: "10px",
+                  color:
+                    period === "weekly"
+                      ? theme.palette.background.alt
+                      : theme.palette.neutral[60],
+                  typography: "body1",
+                }}
+              >
+                Weekly
+              </Button>
+              <Button
+                onClick={() => setPeriod("monthly")}
+                variant="text"
+                sx={{
+                  color:
+                    period === "monthly"
+                      ? theme.palette.background.alt
+                      : theme.palette.neutral[60],
+                  typography: "body1",
+                }}
+              >
+                Monthly
+              </Button>
+            </Box>
           </Box>
         </Box>
       )}

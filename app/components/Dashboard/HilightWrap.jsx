@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import { fetchTotalRevenueSingle } from "@/lib/fetching/insights/data";
 import SingleLineChart from "@/app/components/Chart/SingleLineChart";
+import Loader from "../Loader";
 
 function HilightWrap() {
   const { restaurantOwnerId } = useStore();
@@ -11,27 +12,60 @@ function HilightWrap() {
   const [campaignId, setCampaignId] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await fetchAllCampaigns(restaurantOwnerId);
-        if (result && result.campaigns && result.campaigns.length > 0) {
-          const filteredResult = result.campaigns.filter(
-            (e) =>
-              Date.parse(e.startDate) < Date.now() &&
-              Date.parse(e.endDate) > Date.now()
-          );
-          
-          setData(filteredResult[0]);
-          setCampaignId(filteredResult[0]._id);
-        } else {
-          setData(null);
+    if (restaurantOwnerId) {
+      const fetchData = async () => {
+        try {
+          const result = await fetchAllCampaigns(restaurantOwnerId);
+          if (result && result.campaigns && result.campaigns.length > 0) {
+            const filteredResult = result.campaigns.filter(
+              (e) =>
+                Date.parse(e.startDate) < Date.now() &&
+                Date.parse(e.endDate) > Date.now()
+            );
+
+            setData(filteredResult[0]);
+            setCampaignId(filteredResult[0]._id);
+          } else {
+            setData({
+              allowNewCustomer: true,
+              allowSuperCustomer: true,
+              count: 6,
+              description: "Coffee Shop Summer Offer",
+              endDate: "2023-08-15T00:00:00.000Z",
+              favorite: false,
+              name: "TEST TEST TEST",
+              offer:
+                "Only for 2pm - 5pm: Get your drink at 20% off! Sip on the savings from 2023-08-05 to 2023-08-04. Hurry!",
+              spending: 49999899899998,
+              startDate: "2023-08-01T00:00:00.000Z",
+              type: ["Seasonal Menu"],
+              _id: "649cb83fed10c4f9baedfed6",
+            });
+          }
+        } catch (error) {
+          console.error("Error fetching data:", error);
+          setData({
+            allowNewCustomer: true,
+            allowSuperCustomer: true,
+            count: 6,
+            description: "Coffee Shop Summer Offer",
+            endDate: "2023-08-15T00:00:00.000Z",
+            favorite: false,
+            name: "TEST2 TEST2 TEST2",
+            offer:
+              "Only for 2pm - 5pm: Get your drink at 20% off! Sip on the savings from 2023-08-05 to 2023-08-04. Hurry!",
+            spending: 88888888,
+            startDate: "2023-08-01T00:00:00.000Z",
+            type: ["Seasonal Menu"],
+            _id: "649cb83fed10c4f9baedfed6",
+          });
         }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setData(null);
-      }
-    };
-    fetchData();
+      };
+      fetchData();
+    } else {
+      console.log("restaurantOwnerId is null");
+      <Loader />;
+    }
   }, [restaurantOwnerId]);
 
   console.log("hilightWrap - data", data);
@@ -107,7 +141,9 @@ function HilightWrap() {
             {data?.description}
           </p>
         </p>
-        <Typography variant="h5" sx={{ mt: "1rem", textAlign:"center" }}>Campaign revenue</Typography>
+        <Typography variant="h5" sx={{ mt: "1rem", textAlign: "center" }}>
+          Campaign revenue
+        </Typography>
         <SingleLineChart
           fetchDataSource={fetchTotalRevenueSingle}
           showTextSource={(s) => `$ ${data?.spending}`}

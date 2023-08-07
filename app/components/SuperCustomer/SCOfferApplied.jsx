@@ -17,25 +17,10 @@ const Share = ({ props, status }) => {
     const pathname = usePathname();
     const restaurantId = pathname.split("/")[4];
     const [showCard, setShowCard] = useState(true);
-    // const [open, setOpen] = useState(false);
-
-    // const campaignTypes = [
-    //     { value: "Happy hour", label: "Happy hour" },
-    //     { value: "Lunch only", label: "Lunch only" },
-    //     { value: "Buy one, get one", label: "Buy one, get one" },
-    //     { value: "Group dining", label: "Group dining" },
-    //     { value: "Birthday Party", label: "Birthday Party" },
-    //     { value: "Weekdays only", label: "Weekdays only" },
-    //     { value: "Special events", label: "Special events" },
-    //     { value: "Seasonal Menu", label: "Seasonal Menu" },
-    //     { value: "Demographic targeted", label: "Demographic targeted" },
-    //     { value: "Other", label: "Other" },
-    //   ];
-
-      const [age, setAge] = useState('');
-      const handleChange = (event) => {
-        setAge(event.target.value);
-      };
+    const [age, setAge] = useState('');
+    const handleChange = (event) => {
+    setAge(event.target.value);
+    };
 
     const handleOpenConfirm = async () => {
     const burnCodeInfo = {
@@ -61,7 +46,7 @@ const Share = ({ props, status }) => {
             throw new Error(data);
         }
         const data = await res.json();
-        console.log("Success! ", data);
+        // console.log("Success! ", data);
         // handleClose();
         setShowCard(false);
         } catch (error) {
@@ -98,25 +83,13 @@ const Share = ({ props, status }) => {
       return stars;
     };
 
-    // const handleOpen = () => {
-    //     setOpen(true);
-    // }
-    // const handleClose = () => {
-    //     setOpen(false);
-    // };
-
     if (!showCard) {
         return null; // Return null to hide the component when showCard is false
     }
 
     if(status)
     {
-        // handleOpen();
         return (
-        // <Modal
-        // open={open}
-        // onClose={handleClose}
-        // >
             <Box
                 sx={{
                     borderRadius: "10px",
@@ -138,7 +111,6 @@ const Share = ({ props, status }) => {
                         gap:"1rem",
                         flexDirection: "column",
                         borderRadius: "10px",
-                        // border: "1px solid #ff5938",
                         boxShadow: `0px 4px 20px 0px ${shadowColor}`,
                         p:"1rem",
                         alignItems:"center",
@@ -183,7 +155,6 @@ const Share = ({ props, status }) => {
                     </SingleButton>                 
                 </Box>
             </Box>
-        // </Modal>
         );
     }
     else

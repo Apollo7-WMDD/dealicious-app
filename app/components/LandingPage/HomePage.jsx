@@ -13,6 +13,9 @@ import { useStore } from "@/lib/context/user_context/store";
 // import material ui
 import { Button, useTheme } from "@mui/material";
 
+// Contact us email
+import emailjs from '@emailjs/browser';
+
 const HomePage = () => {
   const { data: session, status } = useSession();
   const { setRestaurantOwner, restaurantOwnerId } = useStore();
@@ -223,6 +226,20 @@ const HomePage = () => {
       "<"
     );
   }, [logoRef.current, status, restaurantOwnerId]);
+
+  // Contact us 
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs.sendForm('service_8f7cjg9', 'template_qxlajrp', form.current, 'A_nAp4McCec75xTIh')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+  };
 
   return (
     <div className={styles.body_wrp}>
@@ -609,14 +626,14 @@ const HomePage = () => {
         </div>
 
         <div className={styles.form_container}>
-          <form className={styles.landing_form} action="">
+          <form className={styles.landing_form} action="" ref={form} onSubmit={sendEmail}>
             <div className={styles.input_container}>
               <div className={styles.label_input}>
                 <label htmlFor="fname">Name</label>
                 <input
                   type="text"
                   id="fname"
-                  name="firstname"
+                  name="user_name"
                   placeholder="Your name..."
                   required
                 />
@@ -627,7 +644,7 @@ const HomePage = () => {
                 <input
                   type="email"
                   id="email"
-                  name="lastname"
+                  name="user_email"
                   placeholder="Your email..."
                   required
                 />
@@ -640,7 +657,7 @@ const HomePage = () => {
                 <input
                   type="text"
                   id="bname"
-                  name="lastname"
+                  name="user_business"
                   placeholder="Your business' name..."
                 />
               </div>
@@ -650,7 +667,7 @@ const HomePage = () => {
                 <input
                   type="number"
                   id="pnumber"
-                  name="lastname"
+                  name="user_phone"
                   placeholder="Your phone number..."
                 />
               </div>
@@ -660,7 +677,7 @@ const HomePage = () => {
               <label htmlFor="subject">Subject</label>
               <textarea
                 id="subject"
-                name="subject"
+                name="user_message"
                 placeholder="Write something.."
                 style={{
                   height: "200px",
@@ -676,7 +693,8 @@ const HomePage = () => {
             <input
               className={styles.landing_button}
               type="submit"
-              value="Submit"
+              //value="Submit"
+              value="Send"
             />
           </form>
         </div>

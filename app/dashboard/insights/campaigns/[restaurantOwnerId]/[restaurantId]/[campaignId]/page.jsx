@@ -33,6 +33,7 @@ import LineChart from "@/app/components/Chart/LineChart";
 import { useMediaQuery } from "@mui/material";
 import DoughnutChart_NumCustomer from "@/app/components/Chart/DoughnutChart_NumCustomer";
 
+
 const Page = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const isMobile = !isNonMobile;
