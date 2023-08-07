@@ -31,8 +31,9 @@ function ChartCardTitle({
         display: "grid",
         gridTemplateColumns: "2fr 0.17fr",
         justifyContent: "space-between",
-        alignItems: "center",
+        alignItems: "start",
         width: "100%",
+        // minHeight: "90px",
       }}
     >
 
