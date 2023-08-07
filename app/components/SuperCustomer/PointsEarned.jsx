@@ -39,11 +39,6 @@ const PointsEarned = ({ props }) => {
         <StarPerson
           width={60}
           height={60}
-          style={
-            {
-              // margin: "1rem auto 1rem 1rem",
-            }
-          }
         />
         <Typography variant="h1">{props}</Typography>
       </Box>
