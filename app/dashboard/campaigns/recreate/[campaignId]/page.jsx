@@ -16,8 +16,8 @@ import CampaignImage from "@/app/components/Campaign/CampaignImage";
 import CampaignForm1 from "@/app/components/Campaign/CampaignForm1";
 import CampaignForm2 from "@/app/components/Campaign/CampaignForm2";
 import { fetchSingleCampaign } from "@/lib/fetching/campaigns/data";
-
 import { aiGenerate } from "@/app/api/dashboard/campaigns/openAI/route";
+
 const fetchOpenAIAPI = async (formData) => {
   const url = `/api/dashboard/campaigns/openAI`;
 
@@ -38,10 +38,10 @@ const Page = ({ params }) => {
   const { restaurantId, restaurantOwnerId } = useStore();
   const router = useRouter();
   const { campaignId } = params;
-  console.log(campaignId);
   const theme = useTheme();
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+  const [isUploadMenuTriggered, setIsUploadMenuTriggered] = useState(false);
 
   const [formData, setFormData] = useState({
     restaurantId: restaurantId,
@@ -129,6 +129,9 @@ const Page = ({ params }) => {
     if (!formData.name) {
       errors.name = "Campaign name is required.";
     }
+    if (!formData.startDate || !formData.endDate) {
+      errors.date = "Campaign start and end dates are required.";
+    }
     if (!formData.description) {
       errors.description = "Campaign advertisement is required.";
     }
@@ -152,13 +155,32 @@ const Page = ({ params }) => {
   };
 
   const handleEdit = () => {
-    const uploadedImageURL = localStorage.getItem("uploadedImageURL");
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      media: uploadedImageURL,
-    }));
+    if (isUploadMenuTriggered) {
+        const uploadedImageURL = localStorage.getItem("uploadedImageURL");
+        
+        if (uploadedImageURL && uploadedImageURL !== 'null' && uploadedImageURL !== 'undefined') {
+            if (uploadedImageURL !== formData.media[0]) {
+                setFormData((prevFormData) => ({
+                    ...prevFormData,
+                    media: [uploadedImageURL, ...prevFormData.media.filter(m => m !== uploadedImageURL)]
+                }));
+            }
+        }
+    } else {
+        if (formData.media.length > 0) {
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                media: [prevFormData.media[0], ...prevFormData.media.slice(1)]
+            }));
+        }
+    }
+
     setIsSubmitted(false);
-  };
+    setIsUploadMenuTriggered(false); 
+};
+
+
+  
 
   ////////////////////// Final Submit button for campaign preview /////////////////////
   const handleFinalSubmit = async (e) => {
@@ -249,6 +271,7 @@ const Page = ({ params }) => {
 
   const [showNotification, setShowNotification] = useState(false);
   const onClick = () => {
+    console.log(restaurantOwnerId);
     router.push(`/dashboard/campaigns/active/${restaurantOwnerId}`);
     setShowNotification(false);
   };
@@ -277,12 +300,14 @@ const Page = ({ params }) => {
   };
 
   const dateValue = (dates) => {
-    const [startDate, endDate] = dates;
-    setFormData((prevState) => ({
-      ...prevState,
-      startDate: startDate ? startDate : null,
-      endDate: endDate ? endDate : null,
+    const [formattedStartDate, formattedEndDate] = dates;
+    setFormData(prevState => ({
+        ...prevState,
+        startDate: formattedStartDate,
+        endDate: formattedEndDate
     }));
+    console.log('Start Date:', formattedStartDate);
+    console.log('End Date:', formattedEndDate);
   };
 
   //SC AND NC allowed
@@ -329,6 +354,7 @@ const Page = ({ params }) => {
       ...prevFormData,
       media: fileURL,
     }));
+    setIsUploadMenuTriggered(true);
   };
 
   const removeImage = () => {

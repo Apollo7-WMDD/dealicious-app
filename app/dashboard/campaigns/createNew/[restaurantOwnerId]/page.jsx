@@ -102,6 +102,9 @@ const Page = () => {
     if (!formData.name) {
       errors.name = "Campaign name is required.";
     }
+    if (!formData.startDate || !formData.endDate) {
+      errors.date = "Campaign start and end dates are required.";
+    }
     if (!formData.description) {
       errors.description = "Campaign advertisement is required.";
     }
@@ -239,12 +242,14 @@ const Page = () => {
   };
 
   const dateValue = (dates) => {
-    const [startDate, endDate] = dates;
-    setFormData((prevState) => ({
-      ...prevState,
-      startDate: startDate ? startDate : null,
-      endDate: endDate ? endDate : null,
+    const [formattedStartDate, formattedEndDate] = dates;
+    setFormData(prevState => ({
+        ...prevState,
+        startDate: formattedStartDate,
+        endDate: formattedEndDate
     }));
+    console.log('Start Date:', formattedStartDate);
+    console.log('End Date:', formattedEndDate);
   };
 
   //SC AND NC allowed
@@ -354,7 +359,7 @@ const Page = () => {
                   <Grid
                     container
                     spacing={2}
-                    sx={{ marginBottom: { md: "40px" } }}
+                    sx={{ marginBottom: { md: "10px" } }}
                   >
                     <Grid item xs={12} md={8}>
                       <CampaignForm1

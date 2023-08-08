@@ -101,10 +101,11 @@ const CampaignForm2 = ({
       <Box
         sx={{
           display: "flex",
-          justifyContent: "space-between",
+          justifyContent: "start",
           alignContent: "center",
           flexDirection: "row",
           width: "100%",
+          gap:"10px",
         }}
       >
         <Typography
