@@ -34,12 +34,12 @@ const ViewNewCampaign = ({
 
   let imageSrc;
   if (formData.media) {
-    //   if (Array.isArray(formData.media)) {
-    //     imageSrc = formData.media[0];
-    //   } else {
-    //     imageSrc = formData.media;
-    //   }
-    // } else {
+      if (Array.isArray(formData.media)) {
+        imageSrc = formData.media[0];
+      } else {
+        imageSrc = formData.media;
+      }
+    } else {
     imageSrc = localStorage.getItem("media");
   }
 
