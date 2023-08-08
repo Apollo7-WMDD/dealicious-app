@@ -400,7 +400,7 @@ const Page = () => {
                     placeholder="campaign advertisement"
                     buttonText={
                       aiResult == null
-                        ? "or simply click here to have it auto-generated!"
+                        ? "...or simply click here to have a compelling ad ready!"
                         : "generate again"
                     }
                     error={formErrors.description}
