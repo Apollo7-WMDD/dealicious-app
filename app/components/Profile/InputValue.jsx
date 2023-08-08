@@ -10,7 +10,7 @@ const InputValue = ({ text }) => (
       fontSize: '20px',
       fontStyle: 'normal',
       fontWeight: 600,
-      lineHeight: '28px',
+      lineHeight: '32px',
       textAlign:'left',
     }}
   >

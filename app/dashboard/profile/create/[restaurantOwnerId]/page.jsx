@@ -6,9 +6,11 @@ import BusinessInfoForm from "@/app/components/OwnerProfile/BusinessInfoForm";
 import BusinessHourForm from "@/app/components/OwnerProfile/BusinessHourForm";
 import ReferralSystemForm from "@/app/components/OwnerProfile/ReferralSystemForm";
 import MenuForm from "@/app/components/OwnerProfile/MenuForm";
+import { useRouter } from "next/navigation";
 
 const Page = ({ params }) => {
   const { restaurantOwnerId } = params;
+  const router = useRouter();
   const [restaurants, setRestaurants] = useState([]);
   const [formData, setFormData] = useState({
     userId: "",
@@ -186,7 +188,9 @@ const Page = ({ params }) => {
       <InputButton
         onFirstButtonClick={(e) => {
           e.preventDefault();
-          console.log("Cancel");
+          router.push(
+            `/dashboard/campaigns/active/${restaurantOwnerId}`
+          );
         }}
         onSecondButtonClick={handleSubmit}
         firstButtonText="Cancel"

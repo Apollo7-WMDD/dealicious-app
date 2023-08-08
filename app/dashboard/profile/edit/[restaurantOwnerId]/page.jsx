@@ -293,7 +293,9 @@ const Page = () => {
       <InputButton
         onFirstButtonClick={(e) => {
           e.preventDefault();
-          console.log("Cancel");
+          router.push(
+            `/dashboard/campaigns/active/${restaurantOwnerId}`
+          );
         }}
         onSecondButtonClick={handleSubmit}
         firstButtonText="Cancel"
