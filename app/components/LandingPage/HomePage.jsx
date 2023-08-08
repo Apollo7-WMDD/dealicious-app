@@ -14,8 +14,8 @@ import { useStore } from "@/lib/context/user_context/store";
 import { Modal, Box, Typography, Button, useTheme } from "@mui/material";
 
 // Contact us email
-import emailjs from '@emailjs/browser';
-import CloseIcon from '@mui/icons-material/Close';
+import emailjs from "@emailjs/browser";
+import CloseIcon from "@mui/icons-material/Close";
 
 const HomePage = () => {
   const { data: session, status } = useSession();
@@ -37,6 +37,11 @@ const HomePage = () => {
   const floor = useRef(null);
   const scrolCta = useRef(null);
   const landingHeaderMobile = useRef(null);
+
+  // mobile nav refs
+  const menu = useRef(null);
+  const cross = useRef(null);
+  const mobileNav = useRef(null);
 
   useEffect(() => {
     if (!logoRef.current) return;
@@ -188,7 +193,12 @@ const HomePage = () => {
     });
 
     scene2.to(scrolCta.current, { opacity: 0, x: 0 });
-    scene2.fromTo(landingMainCta.current, { opacity: 0 }, { opacity: 1 }, "<");
+    scene2.fromTo(
+      landingMainCta.current,
+      { opacity: 0, x: -1000 },
+      { opacity: 1, x: 0 },
+      "<"
+    );
 
     //=====================   NAV BAR
     let navbar = gsap.timeline();
@@ -215,7 +225,7 @@ const HomePage = () => {
     );
   }, [logoRef.current, status, restaurantOwnerId]);
 
-  // Contact us   
+  // Contact us
   const shadowColor = `${theme.palette.neutral[20]}1f`;
   const style = {
     position: "absolute",
@@ -238,14 +248,23 @@ const HomePage = () => {
   const sendEmail = (e) => {
     e.preventDefault();
 
-    emailjs.sendForm('service_8f7cjg9', 'template_qxlajrp', form.current, 'A_nAp4McCec75xTIh')
-      .then((result) => {
+    emailjs
+      .sendForm(
+        "service_8f7cjg9",
+        "template_qxlajrp",
+        form.current,
+        "A_nAp4McCec75xTIh"
+      )
+      .then(
+        (result) => {
           resetForm();
           setIsModalOpen(true);
           console.log(result.text);
-      }, (error) => {
+        },
+        (error) => {
           console.log(error.text);
-      });    
+        }
+      );
   };
 
   const resetForm = () => {
@@ -254,6 +273,17 @@ const HomePage = () => {
 
   const closeModal = () => {
     setIsModalOpen(false); // Close the modal
+  };
+
+  const handleMenuOpen = () => {
+    cross.current.classList.toggle(styles.show);
+    menu.current.classList.toggle(styles.show);
+    mobileNav.current.classList.toggle(styles.show);
+  };
+  const handleMenuClose = () => {
+    cross.current.classList.toggle(styles.show);
+    menu.current.classList.toggle(styles.show);
+    mobileNav.current.classList.toggle(styles.show);
   };
 
   return (
@@ -278,15 +308,23 @@ const HomePage = () => {
           className={styles.landing_logo}
         />
         <div className={styles.icons_container}>
-          <div className={`${styles.menu_container} ${styles.show}`}>
+          <div
+            className={`${styles.menu_container} ${styles.show}`}
+            onClick={handleMenuOpen}
+            ref={menu}
+          >
             <i className="fa-solid fa-bars"></i>
           </div>
-          <div className={styles.cross_container}>
+          <div
+            className={styles.cross_container}
+            onClick={handleMenuClose}
+            ref={cross}
+          >
             <i className="fa-solid fa-xmark"></i>
           </div>
         </div>
 
-        <div className={styles.mobile_nav_container}>
+        <div className={styles.mobile_nav_container} ref={mobileNav}>
           <nav className={styles.landing_nav}>
             <ul>
               <li className={styles.the_team}>
@@ -640,10 +678,10 @@ const HomePage = () => {
             </div>
             <p className={styles.description}>
               I have helped businesses in their digital transformation journey
-              through adept utilization of Microsoft Dynamics technologies. 
-              Concurrently, I am enhancing my proficiency as a web and 
-              mobile developer. | D365F&O | Power Platform | React | Next JS | 
-              Material UI | Express JS | Node JS | Mongo DB
+              through adept utilization of Microsoft Dynamics technologies.
+              Concurrently, I am enhancing my proficiency as a web and mobile
+              developer. | D365F&O | Power Platform | React | Next JS | Material
+              UI | Express JS | Node JS | Mongo DB
             </p>
           </div>
 
@@ -855,7 +893,12 @@ const HomePage = () => {
         </div>
 
         <div className={styles.form_container}>
-          <form className={styles.landing_form} action="" ref={form} onSubmit={sendEmail}>
+          <form
+            className={styles.landing_form}
+            action=""
+            ref={form}
+            onSubmit={sendEmail}
+          >
             <div className={styles.input_container}>
               <div className={styles.label_input}>
                 <label htmlFor="fname">Name</label>
@@ -930,14 +973,18 @@ const HomePage = () => {
             <Box sx={style}>
               <CloseIcon
                 style={{
-                  position: 'absolute',
-                  top: '10px',
-                  right: '10px',
-                  cursor: 'pointer',
+                  position: "absolute",
+                  top: "10px",
+                  right: "10px",
+                  cursor: "pointer",
                 }}
                 onClick={closeModal}
               />
-              <Typography id="modal-modal-title" variant="h3" sx={{ color:"#ff5938"}}>
+              <Typography
+                id="modal-modal-title"
+                variant="h3"
+                sx={{ color: "#ff5938" }}
+              >
                 Email sent successfully!
               </Typography>
             </Box>
