@@ -20,7 +20,8 @@ function InputSubtitleDropdownCompare({
   setCampaignName,
 }) {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const isMobile = useMediaQuery("(max-width:600px)");
   const [compareWith, setCompareWith] = useState(campaignCompare);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -80,8 +81,7 @@ function InputSubtitleDropdownCompare({
           color: theme.palette.background.alt,
         }}
       >
-        {isMobile ? "VS" : campaignName}
-
+        {isMobile ? (campaignName === "Compare with:" ? "VS" : campaignName) : campaignName}
         {!isMobile && (
           <Arrowdown
             style={{
