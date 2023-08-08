@@ -29,14 +29,17 @@ import HilightWrap from "@/app/components/Dashboard/HilightWrap";
 import { useMediaQuery } from "@mui/material";
 import { fetchTotalRevenueSingle } from "@/lib/fetching/insights/data";
 import SingleLineChart from '@/app/components/Chart/SingleLineChart';
+import { useRouter } from "next/navigation";
 
 const Page = () => {
+  const router = useRouter();
   const theme = useTheme();
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
   const [hilighted, setHilighted] = useState({});
 
   const onPinClickA = (hilighted) => {
+    router.push("#hilighted");
     setHilighted(hilighted);
   };
 
@@ -80,14 +83,16 @@ const Page = () => {
           </ChartCard>
 
           <ChartCard gridColumn={"2/-1"}>
+            <div  id={"hilighted"}></div>
             <ChartCardTitle
               text={"Highlighted Campaigns"}
               pinStatus={true}
               showPin={true}
+             
             ></ChartCardTitle>
 
             {hilighted._id != undefined ? (
-              <div style={{ width: "100%" }}>
+              <div style={{ width: "100%" }}  >
                 <div>
                   <Typography variant="h5" sx={{ mt: "1rem" }}>
                     {hilighted.name}
