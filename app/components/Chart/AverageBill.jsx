@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, useTheme } from "@mui/material";
 import {
   fetchAverageBill,
   fetchAverageBillSingle,
@@ -8,6 +8,7 @@ import { useStore } from "@/lib/context/user_context/store";
 import Loader from "../Loader";
 
 const AverageBill = ({ campaignId }) => {
+  const theme = useTheme();
   const { restaurantOwnerId } = useStore();
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -83,8 +84,58 @@ const AverageBill = ({ campaignId }) => {
           >
             $ {Math.round(data.avgBillAmount)}
           </Typography>
-          <Box>
-            <Typography marginBottom="10px" variant="h6">
+
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2,1fr)",
+              width: "100%",
+            }}
+          >
+            {" "}
+            <Typography
+              marginBottom="10px"
+              variant="h6"
+              sx={{ gridColumn: "span 2", justifySelf: "center" }}
+            >
+              Range
+            </Typography>
+            <Box
+              sx={{
+                textAlign: "center",
+                minHeight: "180px",
+                [theme.breakpoints.down("md")]: {
+                  minHeight: "0",
+                },
+              }}
+            >
+              <Typography variant="h5">Min</Typography>
+              <Typography
+                variant="h2"
+                sx={{color:theme.palette.primary[100]}}
+              >
+                ${Math.round(data.minBillAmount)}
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                textAlign: "center",
+                minHeight: "180px",
+                [theme.breakpoints.down("md")]: {
+                  minHeight: "0",
+                },
+              }}
+            >
+              <Typography variant="h5">Max</Typography>{" "}
+              <Typography
+                variant="h2"
+                sx={{ color: theme.palette.primary[80] }}
+              >
+                ${Math.round(data.maxBillAmount)}
+              </Typography>
+            </Box>
+            {/* OLD VERSION */}
+            {/* <Typography marginBottom="10px" variant="h6">
               Range
             </Typography>
             <Typography variant="body1">
@@ -92,7 +143,7 @@ const AverageBill = ({ campaignId }) => {
               {Math.round(data.maxBillAmount)}. Monitoring the average bill size
               reveals popular menu items and guides strategies to maximize
               profitability and customer satisfaction.
-            </Typography>
+            </Typography> */}
           </Box>
         </Box>
       )}

@@ -48,9 +48,14 @@ function InputSubtitleDropdown({
   const handleClose = (event) => {
     event.stopPropagation();
     const link = event.currentTarget.getAttribute("data-index");
-    router.push(link);
-    setDisplayText(event.currentTarget.innerText);
-    setAnchorEl(null);
+    if (link == null){
+      setAnchorEl(null);
+    }else {
+      router.push(link);
+      // setDisplayText(event.currentTarget.innerText);
+      setAnchorEl(null);
+    }
+    
   };
 
   return (
