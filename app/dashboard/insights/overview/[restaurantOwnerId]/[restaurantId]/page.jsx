@@ -24,7 +24,7 @@ import CreateNewCampaign from "@/app/components/Dashboard/CreateNewCampaign";
 import HeaderGrid from "@/app/components/HeaderGrid";
 
 
-const Page = async () => {
+const Page = () => {
   const theme = useTheme();
   const isNonMobile = useMediaQuery("(min-width:600px)");
   function formatNumber(num) {
