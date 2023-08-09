@@ -187,6 +187,7 @@ const Page = () => {
                       `$ ${hilighted.spending}`
                     }
                     campaignId={hilighted?._id}
+                    sourceType="fetchTotalRevenueSingle"
                   />
                 </div>
               </div>

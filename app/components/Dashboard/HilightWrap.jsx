@@ -131,6 +131,7 @@ function HilightWrap() {
           fetchDataSource={fetchTotalRevenueSingle}
           showTextSource={(s) => `$ ${data?.spending}`}
           campaignId={data?._id}
+          sourceType="fetchTotalRevenueSingle"
         />
         {/* <LineChart></LineChart> */}
       </div>
