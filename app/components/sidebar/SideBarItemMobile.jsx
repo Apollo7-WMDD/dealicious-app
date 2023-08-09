@@ -108,7 +108,7 @@ function SideBarItem() {
     {
       text: "Burn a Code",
       icon: <BurnCodeIcon />,
-      link: `/dashboard/burnCode/${restaurantOwnerId}`,
+      link: `/dashboard/burnCode/codes/${restaurantOwnerId}`,
     },
     {
       text: "Other",
@@ -260,7 +260,7 @@ function SideBarItem() {
                                 router.push(`${link}`);
                                 setOpenSubMenuInsights(false);
                                 setSideBarItemActive(activeLink);
-                                setHash("")
+                                setHash("");
                               }}
                             >
                               <ListItemText>
