@@ -653,19 +653,19 @@ img#sky {
 }
 
 .illustration_container.surbhi {
-  background-image: url(/assets_landingPage/team/illustrations/surbhi.svg);
+  background-image: url(/assets_landingPage/team/illustrations/Surbhi.svg);
 }
 
 .illustration_container.surbhi:hover {
-  background-image: url(/assets_landingPage/team/Surbhi.png);
+  background-image: url(/assets_landingPage/team/surbhi.png);
 }
 
 .illustration_container.pablo {
-  background-image: url(/assets_landingPage/team/illustrations/pablo.svg);
+  background-image: url(/assets_landingPage/team/illustrations/Pablo.svg);
 }
 
 .illustration_container.pablo:hover {
-  background-image: url(/assets_landingPage/team/Pablo.png);
+  background-image: url(/assets_landingPage/team/pablo.png);
 }
 
 .name {
