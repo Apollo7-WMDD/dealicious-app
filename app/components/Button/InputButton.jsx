@@ -39,11 +39,13 @@ const InputButton = ({ onFirstButtonClick, onSecondButtonClick, firstButtonText,
           fontWeight: 700,
           lineHeight: '24px',
           letterSpacing: '-0.12px',
+          boxShadow: "none",
           backgroundColor: '#FEFEFE !important',
           '&:hover': {
             backgroundColor: '#454545 !important',
             borderColor: '#454545 !important',
             color: '#FEFEFE !important',
+            boxShadow: "none",
           },
           '@media (max-width: 500px)': {
             width: '100%'
@@ -71,6 +73,7 @@ const InputButton = ({ onFirstButtonClick, onSecondButtonClick, firstButtonText,
           fontWeight: 700,
           lineHeight: '24px',
           letterSpacing: '-0.12px',
+          boxShadow: "none",
           backgroundColor: theme.palette.primary[80],
           ":hover": {
             backgroundColor: "#FF2D2D",

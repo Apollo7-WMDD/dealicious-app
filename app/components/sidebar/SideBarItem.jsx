@@ -65,7 +65,7 @@ function SideBarItem() {
     {
       text: "Burn a Code",
       icon: <BurnCodeIcon />,
-      link: `/dashboard/burnCode/${restaurantOwnerId}`,
+      link: `/dashboard/burnCode/codes/${restaurantOwnerId}`,
     },
     {
       text: "Profile",
@@ -173,7 +173,7 @@ function SideBarItem() {
                 currentURL[2] == `campaigns` && (
                   <SubItem list={campaignSubItems}></SubItem>
                 )}
-             
+
               {currentURL[2] === activeLinkSplit[1] &&
                 currentURL[2] == `insights` && (
                   <SubItemInsight list={insightSubItems}></SubItemInsight>

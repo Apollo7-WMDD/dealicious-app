@@ -50,12 +50,13 @@ const Page = ({ params }) => {
           display: "flex",
           flexDirection: "column",
           gap: "1rem",
-          m: "2rem",
-          p: 0,
+          m: "1rem auto",
+          p: "1rem 2rem",
 
           "@media screen and (min-width:800px)": {
             display: "flex",
             flexDirection: "row",
+            maxWidth:'1400px',
           },
         }}
       >
@@ -74,33 +75,30 @@ const Page = ({ params }) => {
           ):(
             <SCRestaurantCard {...restaurantData.restaurant} />
           ) }
-        {/* <SCRestaurantCard {...restaurantData.restaurant} /> */}
         <PointsEarned props={restaurantData.points}></PointsEarned>
       </Box>
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
-          m: "2rem",
-          p: 0,
+          m: "2rem auto 1rem auto",
+          p: "0 2rem",
           gap: "1rem",
 
           "@media screen and (min-width:800px)": {
             display: "grid",
             gridTemplateColumns: "1fr 2fr",
             height: "551px",
+            maxWidth:'1400px',
+            
           },
         }}
       >
         <Share
           sx={{
-            // maxWidth:'324px',
             maxHeight: "551px",
             p: "64px 26px",
-
-            "@media screen and (min-width:800px)": {
-              // height:'551px',
-            },
+            // marginButtom: "1rem",
           }}
           superCustomerId={superCustomerId}
           restaurantId={restaurantId}
@@ -108,14 +106,10 @@ const Page = ({ params }) => {
         />
         <Box
           sx={{
-            p: "1rem",
-            borderRadius: "10px",
-            boxShadow: `0px 4px 20px 0px ${shadowColor}`,
             maxWidth: "auto",
             display: "flex",
             flexDirection: "column",
             gap: "1rem",
-            // maxWidth:'324px',
             maxHeight: "551px",
             alignItems: isLoading ? "center" : undefined,
             justifyContent: isLoading ? "center" : undefined,
@@ -123,7 +117,7 @@ const Page = ({ params }) => {
         >
           <Typography
             sx={{
-              p: "0 2rem",
+              m:'0 2rem',
             }}
             variant="h3"
           >

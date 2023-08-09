@@ -23,6 +23,7 @@ const BurnCodeCard = ({ props, setOpenModal, setCampaignCode }) => {
           display: "flex",
           flexDirection: "column",
           gap: "1rem",
+          justifyContent: "flex-start",
         }}
       >
         <Typography variant="h2">{props?.username}</Typography>
@@ -43,7 +44,7 @@ const BurnCodeCard = ({ props, setOpenModal, setCampaignCode }) => {
             textAlign: "end",
             marginLeft: "auto",
             gap: "1rem",
-            justifyContent: "end",
+            marginTop: "auto",
           }}
         >
           <BurnBtn

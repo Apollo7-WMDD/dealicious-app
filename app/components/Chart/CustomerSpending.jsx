@@ -64,7 +64,21 @@ function CustomerSpending() {
       },
     ],
   };
-
+  const centerText = {
+    id: 'centerText',
+    afterDatasetsDraw(chart, args, pluginOption){
+      const { ctx } = chart;
+      const text = `$${formatNumber(Object.values(data).shift(1))}`;
+      ctx.save();
+      const x = chart.getDatasetMeta(0).data[0].x
+      const y = chart.getDatasetMeta(0).data[0].y
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = 'bold 20px Ubuntu';
+      ctx.fillText (text, x, y);
+    }
+  }
+  const plugins = [centerText]
   const option = {
     responsive: true,
     maintainAspectRatio: false,
@@ -96,29 +110,34 @@ function CustomerSpending() {
     }
   }
 
-  // ! RESOLVE PLUGINS ISSUE FROM 'npm install --save chartjs-plugin-doughnutlabel'
+  
   return (
     <div
-      style={{
-        maxHeight: "250px"
-      }}
-    >
-      {isLoading ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gridColumn: "1/-1",
-          }}
-        >
-          <Loader />
-        </div>
-      ) : (
-        <>
-          <Typography variant="h4" lineHeight="35px">Total = $ {formatNumber(Object.values(data).shift(1))}</Typography>
-          <Doughnut
+    style={{
+      display: "grid",
+      gridTemplateColumns: "repeat(1,1fr)",
+      position: "relative",
+      alignItems: "center",
+      width: "100%",
+      height: "100%",
+    }}
+  >
+    {isLoading ? (
+      <div
+        style={{
+          maxHeight: "250px",
+        }}
+      >
+        <Loader />
+      </div>
+    ) : (
+      <>
+        {/* <Typography variant="h4" lineHeight="35px" style={{ position: 'absolute', top: 0 }}>
+          Total = {Object.values(data).shift(1)}
+        </Typography> */}
+       <Doughnut
             data={doughnutFakeData}
+            plugins={plugins}
             style={{
               width: "100%",
               height: "100%",
@@ -127,9 +146,10 @@ function CustomerSpending() {
             }}
             options={option}
           />
-        </>
-      )}
-    </div>
+      </>
+    )}
+  </div>
+    
   );
 }
 

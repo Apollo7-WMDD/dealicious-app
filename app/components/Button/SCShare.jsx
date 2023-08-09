@@ -10,6 +10,7 @@ import Clock from "@/app/components/svg/clock.svg";
 import Phone from "@/app/components/svg/phone.svg";
 import URL from "@/app/components/svg/url.svg";
 import { useSession } from "next-auth/react";
+import CloseIcon from '@mui/icons-material/Close';
 
 const SCShare = ({
   text,
@@ -67,6 +68,7 @@ const SCShare = ({
         startIcon={<Share />}
         onClick={handleOpen}
         sx={{
+          color: 'white',
           width: width,
           height: "44px",
           justifySelf: "end",
@@ -77,12 +79,12 @@ const SCShare = ({
             backgroundColor: theme.palette.primary[60],
           },
           [theme.breakpoints.down("lg")]: {
-            width: "265px",
-            fontSize: "16px",
+            // width: "265px",
+            // fontSize: "16px",
           },
           [theme.breakpoints.down("md")]: {
-            width: "180px",
-            fontSize: "14px",
+            // width: "180px",
+            // fontSize: "14px",
             lineHeight: "16px",
             margin: "1rem 0",
             // alignSelf: "start",
@@ -90,10 +92,19 @@ const SCShare = ({
           },
         }}
       >
-        <Typography variant="p">{text}</Typography>
+        <Typography variant="h5">{text}</Typography>
       </Button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
+          <CloseIcon
+            style={{
+              position: 'absolute',
+              top: '10px',
+              right: '10px',
+              cursor: 'pointer',
+            }}
+            onClick={handleClose}
+          />
           <Typography variant="p">
             Experience culinary bliss with a special invitation from{" "}
           </Typography>

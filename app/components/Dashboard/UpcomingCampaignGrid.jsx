@@ -1,8 +1,7 @@
 import { Box, useTheme, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-
+import ChartCardOngoingUpcoming from "@/app/components/Card/ChartCardOngoingUpcoming";
 import { useStore } from "@/lib/context/user_context/store";
-import ChartCard from "@/app/components/Card/ChartCard";
 import ChartCardTitle from "@/app/components/Chart/ChartCardTitle";
 import CampaignCardBody from "../Chart/CampaignCardBody";
 
@@ -23,8 +22,14 @@ function CampaignCard({ campaign }) {
     description,
   } = campaign;
   return (
-    <ChartCard key={_id}>
-      <ChartCardTitle data={campaign} text={name}></ChartCardTitle>
+    <ChartCardOngoingUpcoming key={_id}>
+      <div style={{ minHeight: "70px",minWidth:"100%" }}>
+        <ChartCardTitle
+          data={campaign}
+          text={name}
+          // sx={{fontSize:"24px", fontWeight:"bold", textAlign:"center", color:"gold"}}
+        ></ChartCardTitle>
+      </div>
       <CampaignCardBody>
         <p style={{ margin: "0", fontWeight: "lighter" }}>Item: {offer}</p>
         {startDate && endDate && (
@@ -42,7 +47,7 @@ function CampaignCard({ campaign }) {
           Condition: {description}
         </p>
       </CampaignCardBody>
-    </ChartCard>
+    </ChartCardOngoingUpcoming>
   );
 }
 
@@ -117,7 +122,9 @@ function CampaignGrid() {
             gridColumn: "span 3",
           }}
         >
-          <Typography variant="h4" sx={{textAlign:"left"}}>No Upcoming campaigns...</Typography>
+          <Typography variant="h4" sx={{ textAlign: "left" }}>
+            No Upcoming campaigns...
+          </Typography>
         </div>
       ) : (
         dataArray.map((campaign) => (

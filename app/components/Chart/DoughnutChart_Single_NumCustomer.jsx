@@ -48,9 +48,6 @@ function DoughnutChart_NumCustomer({ campaignId }) {
           theme.palette.primary[100],
           theme.palette.primary[60],
         ],
-        // hoverBackgroundColor: [ theme.palette.primary[80],
-        // theme.palette.primary[100],
-        // theme.palette.primary[60],],
         borderColor: ["transparent", "transparent", "transparent"],
         color: [
           theme.palette.background.alt,
@@ -61,6 +58,21 @@ function DoughnutChart_NumCustomer({ campaignId }) {
     ],
   };
 
+  const centerText = {
+    id: "centerText",
+    afterDatasetsDraw(chart, args, pluginOption) {
+      const { ctx } = chart;
+      const text = Object.values(data)[1] + Object.values(data)[0];
+      ctx.save();
+      const x = chart.getDatasetMeta(0).data[0].x;
+      const y = chart.getDatasetMeta(0).data[0].y;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.font = "bold 20px Ubuntu";
+      ctx.fillText(text, x, y);
+    },
+  };
+  const plugins = [centerText];
   const option = {
     responsive: true,
     maintainAspectRatio: false,
@@ -81,9 +93,9 @@ function DoughnutChart_NumCustomer({ campaignId }) {
         position: "right",
       },
     },
+    // cutout: "60%",
   };
 
-  // ! RESOLVE PLUGINS ISSUE FROM 'npm install --save chartjs-plugin-doughnutlabel'
   return (
     <div
       style={{
@@ -98,35 +110,22 @@ function DoughnutChart_NumCustomer({ campaignId }) {
       {isLoading ? (
         <div
           style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gridColumn: "1/-1",
+            maxHeight: "250px",
           }}
         >
           <Loader />
         </div>
       ) : (
         <>
-          <Typography
-            variant="h3"
-            sx={{
-              gridColumn: "1/-1",
-              gridRow: "1/-1",
-              position: "absolute",
-              left: "22.5%",
-              zIndex: "1",
-            }}
-          >
-            {Object.values(data).shift(1)}
-          </Typography>
           <Doughnut
             data={doughnutFakeData}
+            plugins={plugins}
             style={{
               width: "100%",
               height: "100%",
               gridColumn: "1/-1",
               gridRow: "1/-1",
+              // marginTop: "2rem",
             }}
             options={option}
           />

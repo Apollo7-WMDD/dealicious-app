@@ -41,7 +41,7 @@ function SCHeader() {
           m:"1rem 2rem",
         }}
       >
-        <Box
+        {/* <Box
           sx={{
             display:'flex',
             flexDirection:'row',
@@ -61,7 +61,7 @@ function SCHeader() {
             }}
           />
           <Typography variant="p">Scan the Code</Typography>
-        </Box>
+        </Box> */}
         <Box
           sx={{
             display:'flex',
@@ -85,6 +85,9 @@ function SCHeader() {
             href={`/superCustomer/restaurants/${superCustomerId}`}>
             <Typography 
               variant="p"
+              sx={{
+                color:'#000000',
+              }}
             >My Restaurants</Typography>
           </Link>
         </Box>
@@ -133,7 +136,11 @@ function SCHeader() {
                   }}
                   href={`/superCustomer/restaurants/${superCustomerId}`}
                 >
-                  <Typography variant="p">My Restaurants</Typography>
+                  <Typography 
+                    sx={{
+                      color:'#000000',
+                    }}
+                    variant="p">My Restaurants</Typography>
                 </Link>
               </Box>
               <Box

@@ -6,6 +6,7 @@ const SubHeader = ({ children, props, sx, id }) => {
   return (
     <Typography
       variant="h3"  id={id}
+      
     >{props}
       {children}
     </Typography>

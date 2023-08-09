@@ -27,21 +27,15 @@ ChartJS.register(
 );
 
 const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
-  console.log(
-    "file: SingleLineChart.jsx:30 ~ SingleLineChart ~ campaignId:",
-    campaignId
-  );
+ 
   const getcampaignId = campaignId;
-  console.log(
-    "🚀 ~ file: SingleLineChart.jsx:32 ~ SingleLineChart ~ getcampaignId:",
-    getcampaignId
-  );
+ 
   const { restaurantOwnerId } = useStore();
   const [data, setData] = useState(null);
+  console.log("🚀 ~ file: SingleLineChart.jsx:35 ~ SingleLineChart ~ data:", data)
   const [period, setPeriod] = useState("daily");
   const [isLoading, setIsLoading] = useState(true);
-  console.log("fetchDataSource.name");
-  console.log(fetchDataSource.name);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,7 +69,7 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
 
   console.log("single line chart", data);
 
-  const showText = data && showTextSource ? showTextSource(data) : "";
+  const showText = data && showTextSource ? showTextSource( formatNumber(data) ) : "";
 
   const theme = useTheme();
   defaults.font.family = theme.typography.fontFamily;
@@ -94,6 +88,8 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
       },
     ],
   };
+  console.log("chartData", chartData);
+
   let delayed;
   const options = {
     animation: {
@@ -102,15 +98,13 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
       },
       delay: (context) => {
         let delay = 0;
-     
+
         if (context.type == "data" && context.mode == "default" && !delayed) {
           delay = context.dataIndex * 50;
         }
         return delay;
       },
     },
-
-   
 
     responsive: true,
     maintainAspectRatio: false,
@@ -171,6 +165,11 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
         },
       },
     },
+    layout: {
+      padding: {
+        bottom: -30,
+      },
+    },
     plugins: {
       legend: {
         display: false,
@@ -189,6 +188,14 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
     },
   };
 
+  function formatNumber(num) {
+    if(num >= 1000) {
+      return (num/1000).toFixed(1) + 'k'; // 
+    } else {
+      return num;
+    }
+  }
+  
   return (
     <>
       {isLoading ? (
@@ -197,15 +204,20 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
         <Box
           style={{
             display: "grid",
+            alignContent: "center",
+            gap: "1rem",
             gridTemplateColumns: "repeat(1,1fr)",
             gridTemplateRows: "repeat(2,auto)",
             alignItems: "end",
-            justifyItems: "flex-end",
+            justifyItems: "center",
             width: "100%",
-            height: "60%",
+            height: "100%",
             position: "relative",
           }}
         >
+          <Typography variant="h2" align="center" lineHeight="77px" sx={{ fontSize: "48px" }} >
+            {showText}
+          </Typography>
           <Box
             style={{
               position: "relative",
@@ -214,57 +226,66 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
               gridColumn: "1/-1",
             }}
           >
-            <Typography variant="h2" align="center" lineHeight="77px">
-              {showText}
-            </Typography>
-            <Line
-              data={chartData}
-              options={options}
-              style={{ maxHeight: "250px" }}
-            />
-          </Box>
-          <Box>
-            <Button
-              onClick={() => setPeriod("daily")}
-              variant="text"
-              sx={{
-                marginRight: "10px",
-                color:
-                  period === "daily"
-                    ? theme.palette.background.alt
-                    : theme.palette.neutral[60],
-                typography: "body1",
-              }}
-            >
-              Daily
-            </Button>
-            <Button
-              onClick={() => setPeriod("weekly")}
-              variant="text"
-              sx={{
-                marginRight: "10px",
-                color:
-                  period === "weekly"
-                    ? theme.palette.background.alt
-                    : theme.palette.neutral[60],
-                typography: "body1",
-              }}
-            >
-              Weekly
-            </Button>
-            <Button
-              onClick={() => setPeriod("monthly")}
-              variant="text"
-              sx={{
-                color:
-                  period === "monthly"
-                    ? theme.palette.background.alt
-                    : theme.palette.neutral[60],
-                typography: "body1",
-              }}
-            >
-              Monthly
-            </Button>
+            {/* line chart */}
+            <Box sx={{ maxHeight: "200px", 
+            height: "100%" 
+            }}>
+              <Line
+                // plugins={plugins}
+                data={chartData}
+                options={options}
+                style={{
+                  maxHeight: "200px",
+                  minHeight: "180px",
+                  width: "100%",
+                  maxWidth: "100%",
+                }}
+              />
+            </Box>
+            {/* daily,weekly button */}
+            <Box sx={{ textAlign:"end"}}>
+              <Button
+                onClick={() => setPeriod("daily")}
+                variant="text"
+                sx={{
+                  marginRight: "10px",
+                  color:
+                    period === "daily"
+                      ? theme.palette.background.alt
+                      : theme.palette.neutral[60],
+                  typography: "body1",
+                }}
+              >
+                Daily
+              </Button>
+              <Button
+                onClick={() => setPeriod("weekly")}
+                variant="text"
+                sx={{
+                  marginRight: "10px",
+                  color:
+                    period === "weekly"
+                      ? theme.palette.background.alt
+                      : theme.palette.neutral[60],
+                  typography: "body1",
+                }}
+              >
+                Weekly
+              </Button>
+              <Button
+                onClick={() => setPeriod("monthly")}
+                variant="text"
+                sx={{
+                  color:
+                    period === "monthly"
+                      ? theme.palette.background.alt
+                      : theme.palette.neutral[60],
+                  typography: "body1",
+                }}
+              >
+                Monthly
+              </Button>
+            </Box>
           </Box>
         </Box>
       )}

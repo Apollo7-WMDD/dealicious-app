@@ -2,7 +2,7 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import { useStore } from "@/lib/context/user_context/store";
-import ChartCard from "@/app/components/Card/ChartCard";
+import ChartCardOngoingUpcoming from "@/app/components/Card/ChartCardOngoingUpcoming";
 import ChartCardTitle from "@/app/components/Chart/ChartCardTitle";
 import CampaignCardBody from "../Chart/CampaignCardBody";
 
@@ -13,8 +13,10 @@ import { fetchAllCampaigns } from "@/lib/fetching/campaigns/data";
 import Loader from "../Loader";
 
 function CampaignGrid({ onPinClickB }) {
+  const theme = useTheme();
   const { restaurantOwnerId } = useStore();
   const [dataArray, setDataArray] = useState([]);
+  console.log("🚀 ~ file: CampaignGrid.jsx:19 ~ CampaignGrid ~ dataArray:", dataArray)
   const [hilighted, setHilighted] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
@@ -38,7 +40,6 @@ function CampaignGrid({ onPinClickB }) {
     fetchData();
   }, [restaurantOwnerId, hilighted]);
 
-  const theme = useTheme();
   const getPinIdSelected = (id) => {
     setHilighted(id);
   };
@@ -61,6 +62,7 @@ function CampaignGrid({ onPinClickB }) {
           gridColumn: "span 1",
           gridTemplateColumns: "repeat(1, 1fr)",
         },
+        
       }}
     >
       {isLoading ? (
@@ -83,19 +85,23 @@ function CampaignGrid({ onPinClickB }) {
             gridColumn: "span 3",
           }}
         >
-          <Typography variant="h4" sx={{textAlign:"left"}}>No Ongoing campaigns...</Typography>
+          <Typography variant="h4" sx={{ textAlign: "left" }}>
+            No Ongoing campaigns...
+          </Typography>
         </div>
       ) : (
         dataArray.map((e) => (
-          <ChartCard key={e._id}>
-            <ChartCardTitle
-              data={e}
-              text={e.name}
-              pinStatus={hilighted === e._id ? true : false}
-              pinIdSelected={getPinIdSelected}
-              showPin={true}
-              onPinClick={onPinClickB}
-            ></ChartCardTitle>
+          <ChartCardOngoingUpcoming key={e._id}>
+            <div style={{ minHeight: "70px", minWidth:"100%" }}>
+              <ChartCardTitle
+                data={e}
+                text={e.name}
+                pinStatus={hilighted === e._id ? true : false}
+                pinIdSelected={getPinIdSelected}
+                showPin={true}
+                onPinClick={onPinClickB}
+              ></ChartCardTitle>
+            </div>
             <CampaignCardBody>
               <p
                 style={{
@@ -133,7 +139,7 @@ function CampaignGrid({ onPinClickB }) {
                 Condition: {e.description}
               </p>
             </CampaignCardBody>
-          </ChartCard>
+          </ChartCardOngoingUpcoming>
         ))
       )}
     </Box>

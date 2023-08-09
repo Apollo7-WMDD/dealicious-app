@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import HeaderGrid from "@/app/components/HeaderGrid";
 import Header from "@/app/components/Header/Header";
 import CreateNewCampaign from "@/app/components/Dashboard/CreateNewCampaign";
@@ -7,25 +7,18 @@ import SubHeader from "@/app/components/Header/SubHeader";
 import MainGrid from "@/app/components/MainGrid";
 import ChartCard from "@/app/components/Card/ChartCard";
 import CampaignGrid_All from "@/app/components/Dashboard/CampaignGrid_All";
-import { useMediaQuery } from "@mui/material";
 import { Box } from "@mui/material";
 import Image from "next/image";
 
-
-
-const Page = async () => {
+const Page = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
-  // const [hilighted, setHilighted] = useState({});
 
-  // const onPinClickA = (hilighted) => {
-  //   setHilighted(hilighted);
-  // };
   return (
     <>
       {isNonMobile ? (
         <HeaderGrid>
           <Header props={"Insights"} />
-          {/* <CreateNewCampaign /> */}
+          <CreateNewCampaign />
         </HeaderGrid>
       ) : (
         <Box>
@@ -40,7 +33,7 @@ const Page = async () => {
             <Box>
               <Image src="/logo.png" alt="logo" width={100} height={100} />
             </Box>
-            {/* <CreateNewCampaign /> */}
+            <CreateNewCampaign />
           </Box>
           <Header props={"Insights"} />
         </Box>

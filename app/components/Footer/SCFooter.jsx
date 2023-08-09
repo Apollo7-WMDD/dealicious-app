@@ -12,9 +12,9 @@ function SCFooter() {
             sx={{
                 bgcolor: theme.palette.neutral[40],
                 color: 'white',
-                height: "78px",
+                height: "8rem",
                 display: 'flex',
-                justifyContent: 'space-between',
+                justifyContent: 'space-evenly',
                 alignItems:'center',
                 m:0,
                 p:'0 1rem',
@@ -24,6 +24,7 @@ function SCFooter() {
                     display: 'flex',
                     flexDirection: 'row',
                     justifyContent: 'space-between',
+                    height: "78px",
                 },
             }}
         >
@@ -39,7 +40,7 @@ function SCFooter() {
                     }}
                 >
                     
-                    <DealiciousLogo  style={{height:"50", width:"100"}}/>
+                    <DealiciousLogo  style={{height:"50", width:"100", color:theme.palette.neutral[80]}}/>
                     
                     
                     {/* <DealIcon /> */}
@@ -47,7 +48,7 @@ function SCFooter() {
                 </Box>  
                 <Typography variant="p">&copy; 2023{" "} Team Apollo7. All Rights Reserved.</Typography>
             </Box>      
-            <Box
+            {/* <Box
                 sx={{
                     display: 'flex',
                     alignItems: 'center',
@@ -56,10 +57,10 @@ function SCFooter() {
                     order:0,
                 }}>            
                 <Typography>CONTACT US</Typography>
-                <Typography>FAQ</Typography>
+                 <Typography>FAQ</Typography>
                 <Typography>PRIVACY POLICY</Typography>
-                <Typography>TERMS OF USE</Typography>
-            </Box>
+                <Typography>TERMS OF USE</Typography> 
+            </Box> */}
         </Box>
 
   );

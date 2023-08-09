@@ -11,6 +11,8 @@ const CampaignRecreateIcon = () => {
         position: "relative",
         display: "flex",
         marginRight: "0.25rem",
+        marginTop: "0.25rem",
+        marginBottom: "0.25rem",
       }}
     >
       <PriceTag style={{ height: "37px", width: "37px" }} />

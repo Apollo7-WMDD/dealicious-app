@@ -33,7 +33,6 @@ const Share = ({ superCustomerId, restaurantId, restaurantData }) => {
           >Introducing our special campaign referral program, 
         where you can share exclusive campaigns with your friends through any social network. 
         Get 500 points when someone successful uses the any campaign using your referral link.</Typography>
-        {/* <ShareLink></ShareLink> */}
         <SCShare
           text="Share with friends"
           width="244px"

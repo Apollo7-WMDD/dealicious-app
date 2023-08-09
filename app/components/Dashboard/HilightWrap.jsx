@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import { fetchTotalRevenueSingle } from "@/lib/fetching/insights/data";
 import SingleLineChart from "@/app/components/Chart/SingleLineChart";
+import Loader from "../Loader";
 
 function HilightWrap() {
   const { restaurantOwnerId } = useStore();
@@ -11,33 +12,49 @@ function HilightWrap() {
   const [campaignId, setCampaignId] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await fetchAllCampaigns(restaurantOwnerId);
-        if (result && result.campaigns && result.campaigns.length > 0) {
-          const filteredResult = result.campaigns.filter(
-            (e) =>
-              Date.parse(e.startDate) < Date.now() &&
-              Date.parse(e.endDate) > Date.now()
-          );
-          
-          setData(filteredResult[0]);
-          setCampaignId(filteredResult[0]._id);
-        } else {
+    if (restaurantOwnerId) {
+      const fetchData = async () => {
+        try {
+          const result = await fetchAllCampaigns(restaurantOwnerId);
+          if (result && result.campaigns && result.campaigns.length > 0) {
+            const filteredResult = result.campaigns.filter(
+              (e) =>
+                Date.parse(e.startDate) < Date.now() &&
+                Date.parse(e.endDate) > Date.now()
+            );
+
+            setData(filteredResult[0]);
+            setCampaignId(filteredResult[0]._id);
+          } else {
+            setData({
+              allowNewCustomer: true,
+              allowSuperCustomer: true,
+              count: 0,
+              description: "Error",
+              endDate: "Error",
+              favorite: false,
+              name: "Error",
+              offer:
+                "Error",
+              spending: 0,
+              startDate: "Error",
+              type: ["Seasonal Menu"],
+              _id: "Error",
+            });
+          }
+        } catch (error) {
+          console.error("Error fetching data:", error);
           setData(null);
         }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setData(null);
-      }
-    };
-    fetchData();
+      };
+      fetchData();
+    } else {
+      console.log("restaurantOwnerId is null");
+      <Loader />;
+    }
   }, [restaurantOwnerId]);
 
-  console.log("hilightWrap - data", data);
-  console.log("hilightWrap - data._id", data?._id);
-  console.log("hilightWrap - data.description", data?.description);
-  console.log("hilightWrap - data.spending", data?.spending);
+
   const prgphStyle = {
     margin: "0",
     fontWeight: "bold",
@@ -107,7 +124,9 @@ function HilightWrap() {
             {data?.description}
           </p>
         </p>
-        <Typography variant="h5" sx={{ mt: "1rem", textAlign:"center" }}>Campaign revenue</Typography>
+        <Typography variant="h5" sx={{ mt: "1rem", textAlign: "center" }}>
+          Campaign revenue
+        </Typography>
         <SingleLineChart
           fetchDataSource={fetchTotalRevenueSingle}
           showTextSource={(s) => `$ ${data?.spending}`}

@@ -1,24 +1,43 @@
 import ChartCard from "../Card/ChartCard";
 import SubHeader from "../Header/SubHeader";
-import { Box } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 
 import { useState, useEffect } from "react";
 import { fetchImagesMenus } from "@/lib/fetching/profile/data";
 
-function ImagesMenus({ restaurantOwnerId }) {
-  const [restaurantData, setRestaurantData] = useState(null);
+function ImagesMenus({ restaurantOwnerId,data}) {
+  // const [restaurantData, setRestaurantData] = useState(null);
 
-  useEffect(() => {
-    const getRestaurantData = async () => {
-      const data = await fetchImagesMenus(restaurantOwnerId);
-      const { restaurantInfo } = data;
-      setRestaurantData(restaurantInfo);
-    };
-    getRestaurantData();
-  }, [restaurantOwnerId]);
+  // useEffect(() => {
+  //   const getRestaurantData = async () => {
+  //     const data = await fetchImagesMenus(restaurantOwnerId);
+  //     const { restaurantInfo } = data;
+  //     setRestaurantData(restaurantInfo);
+  //   };
+  //   getRestaurantData();
+  // }, [restaurantOwnerId]);
+
+  const restaurantData = data;
+  const theme = useTheme();
+  const shadowColor = `${theme.palette.neutral[20]}1f`;
 
   return (
-    <ChartCard content="Images & Menus" gridColumn="1 / 3">
+    <Box sx={{
+      gridColumn: "1/3",
+      boxShadow: `0px 4px 20px 0px ${shadowColor}`,
+      borderRadius: "8px",
+      display: "flex",
+      padding: "16px 24px",
+      flexDirection: "column",
+      justifyContent: "space-between",
+      alignItems: "start",
+      flexShrink: 0,
+      gap: "1rem",
+      height: "100%",
+      [theme.breakpoints.down("md")]: {
+        gridColumn: "1/-1",
+      },
+    }}>
       <Box
         sx={{
           display: "flex",
@@ -32,15 +51,15 @@ function ImagesMenus({ restaurantOwnerId }) {
           <>
             <Box
               sx={{
+                marginTop:"33px",
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "flex-start",
                 gap: "19px",
               }}
             >
-              {/* <Typography variant="body1">Logo Image:</Typography> */}
               <img
-                src={restaurantData?.logo}
+                src={restaurantData?.restaurantInfo?.logo}
                 alt="Logo"
                 style={{
                   width: "200px",
@@ -50,7 +69,7 @@ function ImagesMenus({ restaurantOwnerId }) {
                 }}
               />
               <img
-                src={restaurantData?.menu}
+                src={restaurantData?.restaurantInfo?.menu}
                 alt="Menu"
                 style={{
                   width: "200px",
@@ -63,7 +82,7 @@ function ImagesMenus({ restaurantOwnerId }) {
           </>
         )}
       </Box>
-    </ChartCard>
+    </Box>
   );
 }
 

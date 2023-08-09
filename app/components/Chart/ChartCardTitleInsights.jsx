@@ -50,9 +50,15 @@ function ChartCardTitleInsights({
         justifyContent: "space-between",
         alignItems: "center",
         width: "100%",
+        [theme.breakpoints.down("md")]: {
+          flexShrink: 0,
+          flexBasis: "100%",
+          flexGrow: 1,  
+        },
+        
       }}
     >
-      <Typography variant="h3">{text}</Typography>
+      <Typography variant="h3" sx={{fontSize:"24px"}}>{text}</Typography>
 
       <Pin
         className="pin-icon"

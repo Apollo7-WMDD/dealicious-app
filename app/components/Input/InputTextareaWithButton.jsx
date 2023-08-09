@@ -61,17 +61,23 @@ const InputTextarea = ({
             <Button variant="contained" 
             sx={{
               flexGrow: 0.5,
-              fontSize: '16px',
+              fontSize: '20px',
               fontFamily: "Mukta",
+              textAlign: 'right',
               boxShadow: 'none',
-              color: theme.palette.background.alt,
+              fontWeight: 600,
+              textDecoration: 'underline',
+              color: theme.palette.primary[80],
+              justifyContent: 'flex-end',
               // backgroundColor: theme.palette.neutral,
               backgroundColor: theme.palette.neutral[100],
-              borderRadius: '8px',
-              border: `3px solid ${theme.palette.primary[80]}`,
+              // borderRadius: '8px',
+              // border: `3px solid ${theme.palette.primary[80]}`,
               '&:hover': {
-                backgroundColor: theme.palette.neutral[80],
-                borderColor: '#FF2D2D',
+                color: '#FF2D2D',
+                boxShadow: 'none',
+                backgroundColor: 'transparent',
+                // borderColor: '#FF2D2D',
               },
               '@media (max-width: 500px)': {
                 width: '100%'

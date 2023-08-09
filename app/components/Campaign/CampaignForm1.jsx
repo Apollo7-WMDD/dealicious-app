@@ -37,8 +37,6 @@ const CampaignForm1 = ({ formData, formErrors, handleInputChange, handleDateChan
       setSelectedType(formData.type || "");
   }, [formData.type]);
 
-  console.log(typeof formData.startDate);  
-
   return (
       <Grid container spacing={2}>
       <Grid item xs={12} md={6}>
@@ -70,6 +68,7 @@ const CampaignForm1 = ({ formData, formErrors, handleInputChange, handleDateChan
           onChange={handleDateChange}
           name="dateRange"
           id="dateRange"
+          error={formErrors.date}
         />
       </Grid>
       <Grid item xs={12} md={6}>

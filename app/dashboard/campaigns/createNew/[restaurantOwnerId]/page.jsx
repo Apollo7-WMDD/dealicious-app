@@ -21,9 +21,10 @@ import Link from "next/link";
 const fetchOpenAIAPI = async (formData) => {
   const url = `/api/dashboard/campaigns/openAI`;
 
-  const response = await fetch(url
-    +`?name=${formData.name}&offer=${formData.offer}&condition=${formData.condition}&startDate=${formData.startDate}&endDate=${formData.endDate}`
-    );
+  const response = await fetch(
+    url +
+      `?name=${formData.name}&offer=${formData.offer}&condition=${formData.condition}&startDate=${formData.startDate}&endDate=${formData.endDate}`
+  );
 
   if (!response.ok) {
     throw new Error(response.statusText);
@@ -33,7 +34,6 @@ const fetchOpenAIAPI = async (formData) => {
 };
 
 const Page = () => {
-  
   const { restaurantId, restaurantOwnerId } = useStore();
   const router = useRouter();
   const [campaigns, setCampaigns] = useState([]);
@@ -55,7 +55,7 @@ const Page = () => {
     state: true,
     startDate: "",
     endDate: "",
-    media: [],
+    media: "",
     description: "",
     condition: "",
     favorite: false,
@@ -70,10 +70,9 @@ const Page = () => {
     const fetchAI = async () => {
       setFormData({
         ...formData,
-        description:"loading...",
+        description: "loading...",
       });
       try {
-
         const result = await fetchOpenAIAPI(formData);
         setAiResult(await result);
 
@@ -99,9 +98,15 @@ const Page = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const errors = {};
-  
+
     if (!formData.name) {
       errors.name = "Campaign name is required.";
+    }
+    if (!formData.startDate || !formData.endDate) {
+      errors.date = "Campaign start and end dates are required.";
+    }
+    if (!formData.condition) {
+      errors.condition = "Campaign condition is required.";
     }
     if (!formData.description) {
       errors.description = "Campaign advertisement is required.";
@@ -115,25 +120,25 @@ const Page = () => {
     if (!formData.media) {
       errors.media = "Image is required.";
     }
-      
+
     if (!imagePreview) {
       errors.media = "Campaign image is required.";
     }
-  
+
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
       return;
     }
     setFormErrors({});
-  
+
     localStorage.setItem("uploadedImageURL", localStorage.getItem("media"));
     localStorage.setItem("formData", JSON.stringify(formData));
     setIsSubmitted(true);
     console.log("formData1: first submit", formData);
-  };  
+  };
 
   const handleEdit = () => {
-    const uploadedImageURL = localStorage.getItem("uploadedImageURL");
+    const uploadedImageURL = localStorage.getItem("media");
     setFormData((prevFormData) => ({
       ...prevFormData,
       media: uploadedImageURL,
@@ -184,6 +189,8 @@ const Page = () => {
                   body: JSON.stringify(newFormData),
                 }
               );
+
+              console.log("THIS IS THE RESPONSE ✅", response);
 
               if (response.ok) {
                 console.log("Campaign created successfully!");
@@ -238,12 +245,14 @@ const Page = () => {
   };
 
   const dateValue = (dates) => {
-    const [startDate, endDate] = dates;
-    setFormData((prevState) => ({
-      ...prevState,
-      startDate: startDate ? startDate : null,
-      endDate: endDate ? endDate : null,
+    const [formattedStartDate, formattedEndDate] = dates;
+    setFormData(prevState => ({
+        ...prevState,
+        startDate: formattedStartDate,
+        endDate: formattedEndDate
     }));
+    console.log('Start Date:', formattedStartDate);
+    console.log('End Date:', formattedEndDate);
   };
 
   //SC AND NC allowed
@@ -273,7 +282,7 @@ const Page = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const uploadMenu = (fileList) => {
+  const uploadMenu = async (fileList) => {
     if (fileList.length === 0) {
       console.error("No files found in fileList.");
       return;
@@ -281,23 +290,23 @@ const Page = () => {
 
     const file = fileList[0];
     const fileURL = URL.createObjectURL(file);
-    localStorage.setItem("media", fileURL);
+    await localStorage.setItem("media", fileURL);
     setImagePreview(fileURL);
-
     setSelectedFile(file);
+    setFormData({
+      ...formData,
+      media: fileURL,
+    });
   };
 
-  const removeImage = () => {
+  const removeImage = async () => {
     setImagePreview(null);
-    localStorage.removeItem("media");
+    await localStorage.removeItem("media");
     setFormData({
       ...formData,
       media: "",
     });
   };
-
-
-  
 
   const [inspirationVisible, setInspirationVisible] = useState(true);
 
@@ -344,6 +353,7 @@ const Page = () => {
                 handleFinalSubmit={handleFinalSubmit}
                 handleEditProp={handleEdit}
                 setFormData={setFormData}
+                imagePreview={imagePreview}
               />
             ) : (
               <>
@@ -352,7 +362,7 @@ const Page = () => {
                   <Grid
                     container
                     spacing={2}
-                    sx={{ marginBottom: { md: "40px" } }}
+                    sx={{ marginBottom: { md: "10px" } }}
                   >
                     <Grid item xs={12} md={8}>
                       <CampaignForm1
@@ -398,7 +408,7 @@ const Page = () => {
                     placeholder="campaign advertisement"
                     buttonText={
                       aiResult == null
-                        ? "or click here to have it auto-generated!"
+                        ? "...or simply click here to have a compelling ad ready!"
                         : "generate again"
                     }
                     error={formErrors.description}

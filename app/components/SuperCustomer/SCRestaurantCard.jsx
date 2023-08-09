@@ -18,7 +18,6 @@ const shadowColor = `${theme.palette.neutral[20]}1f`;
 return (
     <Box 
       sx={{
-        // maxWidth: "auto",
         display: "flex",
         flexDirection: "row",
         gap: "1rem",
@@ -26,14 +25,15 @@ return (
         p: "1rem",
         boxShadow: `0px 4px 20px 0px ${shadowColor}`,
         flexWrap: 'wrap',
-        // justifyContent: 'space-between',
         flex:'1 0 50%',
         justifyContent: 'center',
 
         "@media screen and (min-width:800px)": {
+          justifyContent:'center',
+        },        
+
+        "@media screen and (min-width:1300px)": {
           justifyContent: 'space-between',
-        //   display: "flex",
-        //   flexDirection: "row",
         },
       }}
     >
@@ -52,8 +52,8 @@ return (
               src={props?.logo}
               style={{
                 borderRadius: "50%",
-                width: "90px", // adjust the size as needed
-                height: "90px", // adjust the size as needed
+                width: "90px", 
+                height: "90px",
                 objectFit: "cover",
               }}
               alt="Logo"
@@ -133,7 +133,9 @@ return (
           alt="new"
           style={{ 
             borderRadius: "10px",
-            maxWidth:'346px'
+            maxWidth:'100%',
+            height: '220px',
+            objectFit: 'cover',
           }}
         />
       </Box>
