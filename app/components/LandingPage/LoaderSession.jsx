@@ -10,6 +10,7 @@ const LoaderSession = () => {
       }}
     >
       <LoaderIcon style={{ height: "60px", width: "60px" }} />
+      {/*  */}
     </div>
   );
 };
