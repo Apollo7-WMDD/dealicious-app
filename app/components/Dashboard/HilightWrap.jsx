@@ -29,36 +29,22 @@ function HilightWrap() {
             setData({
               allowNewCustomer: true,
               allowSuperCustomer: true,
-              count: 6,
-              description: "Coffee Shop Summer Offer",
-              endDate: "2023-08-15T00:00:00.000Z",
+              count: 0,
+              description: "Error",
+              endDate: "Error",
               favorite: false,
-              name: "TEST TEST TEST",
+              name: "Error",
               offer:
-                "Only for 2pm - 5pm: Get your drink at 20% off! Sip on the savings from 2023-08-05 to 2023-08-04. Hurry!",
-              spending: 49999899899998,
-              startDate: "2023-08-01T00:00:00.000Z",
+                "Error",
+              spending: 0,
+              startDate: "Error",
               type: ["Seasonal Menu"],
-              _id: "649cb83fed10c4f9baedfed6",
+              _id: "Error",
             });
           }
         } catch (error) {
           console.error("Error fetching data:", error);
-          setData({
-            allowNewCustomer: true,
-            allowSuperCustomer: true,
-            count: 6,
-            description: "Coffee Shop Summer Offer",
-            endDate: "2023-08-15T00:00:00.000Z",
-            favorite: false,
-            name: "TEST2 TEST2 TEST2",
-            offer:
-              "Only for 2pm - 5pm: Get your drink at 20% off! Sip on the savings from 2023-08-05 to 2023-08-04. Hurry!",
-            spending: 88888888,
-            startDate: "2023-08-01T00:00:00.000Z",
-            type: ["Seasonal Menu"],
-            _id: "649cb83fed10c4f9baedfed6",
-          });
+          setData(null);
         }
       };
       fetchData();
@@ -68,10 +54,7 @@ function HilightWrap() {
     }
   }, [restaurantOwnerId]);
 
-  console.log("hilightWrap - data", data);
-  console.log("hilightWrap - data._id", data?._id);
-  console.log("hilightWrap - data.description", data?.description);
-  console.log("hilightWrap - data.spending", data?.spending);
+
   const prgphStyle = {
     margin: "0",
     fontWeight: "bold",

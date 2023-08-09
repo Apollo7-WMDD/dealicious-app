@@ -27,21 +27,15 @@ ChartJS.register(
 );
 
 const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
-  console.log(
-    "file: SingleLineChart.jsx:30 ~ SingleLineChart ~ campaignId:",
-    campaignId
-  );
+ 
   const getcampaignId = campaignId;
-  console.log(
-    "🚀 ~ file: SingleLineChart.jsx:32 ~ SingleLineChart ~ getcampaignId:",
-    getcampaignId
-  );
+ 
   const { restaurantOwnerId } = useStore();
   const [data, setData] = useState(null);
+  console.log("🚀 ~ file: SingleLineChart.jsx:35 ~ SingleLineChart ~ data:", data)
   const [period, setPeriod] = useState("daily");
   const [isLoading, setIsLoading] = useState(true);
-  console.log("fetchDataSource.name");
-  console.log(fetchDataSource.name);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,6 +56,9 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
         } else if (fetchDataSource.name == "fetchCustomerCampaignTimeSingle") {
           console.log("fetchCustomerCampaignTimeSingle");
           const res = await fetchDataSource(restaurantOwnerId);
+          // const res = await fetchDataSource(restaurantOwnerId
+          //   // ,`${(showTextSource)=>`${showTextSource}`}`
+          //   );
           setData(res);
         }
       } catch (error) {
@@ -94,6 +91,7 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
       },
     ],
   };
+  console.log("chartData", chartData);
 
   let delayed;
   const options = {
@@ -236,7 +234,7 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
             }}
           >
             {/* line chart */}
-            <Box sx={{ maxHeight: "250px", 
+            <Box sx={{ maxHeight: "200px", 
             height: "100%" 
             }}>
               <Line
@@ -244,7 +242,7 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
                 data={chartData}
                 options={options}
                 style={{
-                  maxHeight: "250px",
+                  maxHeight: "200px",
                   minHeight: "180px",
                   width: "100%",
                   maxWidth: "100%",
