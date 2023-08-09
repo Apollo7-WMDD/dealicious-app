@@ -17,7 +17,9 @@ export const GET = async (request) => {
     }).lean();
 
     if (!restaurant) {
-      return new NextResponse(JSON.stringify({ data: null }), { status: 200 });
+      return new NextResponse(JSON.stringify({ burncodes: {} }), {
+        status: 200,
+      });
     }
 
     const burncodes = await Burncode.find({
@@ -41,7 +43,9 @@ export const GET = async (request) => {
     return new NextResponse(JSON.stringify(response, null, 2), { status: 200 });
   } catch (err) {
     console.log(err.message);
-    return new NextResponse("Database Error", { status: 500 });
+    return new NextResponse(JSON.stringify({ error: "An error occurred" }), {
+      status: 500,
+    });
   }
 };
 

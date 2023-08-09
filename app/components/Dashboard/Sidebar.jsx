@@ -48,7 +48,9 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="py-2 px-4 hover:bg-gray-700 cursor-pointer">
-            <a href={`/dashboard/burnCode/${session?.user.id}`}>Burn a Code</a>
+            <a href={`/dashboard/burnCode/codes/${session?.user.id}`}>
+              Burn a Code
+            </a>
           </li>
           <li className="py-2 px-4 hover:bg-gray-700 cursor-pointer">
             <Link href={`/dashboard/profile/${session?.user.id}`}>Profile</Link>

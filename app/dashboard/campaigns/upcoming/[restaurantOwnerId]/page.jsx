@@ -4,11 +4,9 @@ import { Button, Box } from "@mui/material";
 import CreateNewCampaign from "../../../../components/Dashboard/CreateNewCampaign";
 import Header from "../../../../components/Header/Header";
 import SubHeader from "../../../../components/Header/SubHeader";
-import { useStore as useStoreOwner} from "@/lib/context/user_context/store";
+import { useStore as useStoreOwner } from "@/lib/context/user_context/store";
 
-
-
-const Page =  () => {
+const Page = () => {
   const { restaurantOwnerId, restaurantId, setRestaurantId } = useStoreOwner();
 
   return (
@@ -44,7 +42,7 @@ const Page =  () => {
             </button>
           </Link>
 
-          <Link href={`/dashboard/burnCode/${restaurantOwnerId}`}>
+          <Link href={`/dashboard/burnCode/codes/${restaurantOwnerId}`}>
             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded block m-4">
               Burn Code
             </button>

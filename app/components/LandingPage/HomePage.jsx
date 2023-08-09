@@ -372,13 +372,13 @@ const HomePage = () => {
             </li>
             <div className={styles.landing_button_container}>
               <Link
-                href="#whyUs"
+                href={`/login/owner`}
                 className={`${styles.landing_button} ${styles.landing_main_button}`}
               >
                 Sign Up as Restaurant Owner
               </Link>
               <Link
-                href="#whyUs"
+                href={`/login/superCustomer`}
                 className={`${styles.landing_button} ${styles.landing_main_button}`}
               >
                 Sign Up as Super Costumer

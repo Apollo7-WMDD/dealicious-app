@@ -19,12 +19,14 @@ function BurnCodeWrap({ render, setRender }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetchUserCodes(restaurantId);
-      setData(result);
-      // console.log("data.burncodes", data.burncodes.length);
+      if (restaurantId) {
+        // Check if restaurantId is defined
+        const result = await fetchUserCodes(restaurantId);
+        setData(result);
+      }
     };
     fetchData();
-  }, [render]);
+  }, [render, restaurantId]);
 
   return (
     <>
