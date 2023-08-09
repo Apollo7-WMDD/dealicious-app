@@ -151,13 +151,17 @@ function StackDougnNutSpan1() {
             }}
           >
             <Box>
-              <Typography variant="h5">Total Revenue</Typography>
-
-              <Typography variant="h3">{data.totalRevenue}</Typography>
+              <Typography variant="h3" sx={{ fontSize: "48px" }}>
+                {data.totalRevenue}
+              </Typography>
+              <Typography variant="h5" sx={{ fontSize: "20px" }}>
+                Total Revenue
+              </Typography>
             </Box>
             <Box>
-              <Typography variant="h5">Customers </Typography>
-              <Typography variant="h3">{data.totalCustomers}</Typography>
+            <Typography variant="h3" sx={{ fontSize: "48px" }}>{data.totalCustomers}</Typography>
+              <Typography variant="h5" sx={{ fontSize: "20px" }}>Customers </Typography>
+              
             </Box>
           </Box>
           <Box
