@@ -98,7 +98,6 @@ const Page = ({ params }) => {
           sx={{
             maxHeight: "551px",
             p: "64px 26px",
-            // marginButtom: "1rem",
           }}
           superCustomerId={superCustomerId}
           restaurantId={restaurantId}
