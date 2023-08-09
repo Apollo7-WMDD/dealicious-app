@@ -27,6 +27,7 @@ const SingleButtonNoIcon = ({ text, onClick, width, variant = "contained" }) => 
         '&.MuiButton-outlined': {
           color: theme.palette.primary[80],
           backgroundColor: 'transparent',
+          borderWidth: '3px',
           ':hover': {
             backgroundColor: theme.palette.primary[10],
           }

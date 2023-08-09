@@ -90,11 +90,13 @@ const AverageBill = ({ campaignId }) => {
               display: "grid",
               gridTemplateColumns: "repeat(2,1fr)",
               width: "100%",
+
               // alignItems: "center",
               height: "200px",
               [theme.breakpoints.down("md")]: {
                 minHeight: "0",
               },
+
             }}
           >
             {" "}
@@ -108,10 +110,12 @@ const AverageBill = ({ campaignId }) => {
             <Box
               sx={{
                 textAlign: "center",
+
                 // minHeight: "100px",
                 // [theme.breakpoints.down("md")]: {
                 //   minHeight: "0",
                 // },
+
               }}
             >
               <Typography variant="h5">Min</Typography>
@@ -125,7 +129,9 @@ const AverageBill = ({ campaignId }) => {
             <Box
               sx={{
                 textAlign: "center",
+
                 // minHeight: "200px",
+
                 [theme.breakpoints.down("md")]: {
                   minHeight: "0",
                 },

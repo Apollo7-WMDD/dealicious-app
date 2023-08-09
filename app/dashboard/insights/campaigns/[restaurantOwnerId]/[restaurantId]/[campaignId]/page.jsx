@@ -123,15 +123,29 @@ const Page = () => {
             </Box>
           )}
 
-          <InputSubtitleDropdown
-            text={subTitle}
-            setIsComparing={setIsComparing}
-            setCampaignCompare={setCampaignCompare}
-            isComparing={isComparing}
-            campaignName={campaignName}
-            setCampaignName={setCampaignName}
-          />
-          <Box
+          
+            <InputSubtitleDropdown 
+              text={subTitle}
+              setIsComparing={setIsComparing}
+              setCampaignCompare={setCampaignCompare}
+              isComparing={isComparing}
+              campaignName={campaignName}
+              setCampaignName={setCampaignName}
+            />
+          
+
+          {/* {isComparing && isMobile && (
+            <InputSubtitleDropdown 
+              text={subTitle}
+              setIsComparing={setIsComparing}
+              setCampaignCompare={setCampaignCompare}
+              campaignName={campaignName}
+              setCampaignName={setCampaignName}
+              displayType="subTitle"
+            />
+          )} */}
+          
+         <Box
             sx={{
               display: "grid",
               gridTemplateColumns: isComparing
@@ -139,7 +153,7 @@ const Page = () => {
                 : "repeat(1, 1fr)",
               gap: "1rem",
               gridAutoFlow: "row dense",
-              margin: "1.5rem 0",
+              margin: "0",
               [theme.breakpoints.down("lg")]: {
                 gridTemplateColumns: "repeat(2, 1fr)",
               },
@@ -332,6 +346,16 @@ const Page = () => {
                 </>
               )}
             </MainGrid>
+            {/* {isComparing && isMobile && <div>
+              <InputSubtitleDropdown 
+                text={subTitle}
+                setIsComparing={setIsComparing}
+                setCampaignCompare={setCampaignCompare}
+                campaignName={campaignName}
+                setCampaignName={setCampaignName}
+                displayType="campaignName"
+              />
+            </div>} */}
             {isComparing && (
               <>
                 {isNonMobile && (
