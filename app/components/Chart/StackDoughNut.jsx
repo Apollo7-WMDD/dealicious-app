@@ -158,8 +158,8 @@ function StackDoughNut() {
               },
             }}
           >
-            <Box>
-              <Typography variant="h3" sx={{ fontSize: "64px" }}>
+            <Box >
+              <Typography variant="h3" sx={{ fontSize: "48px" }}>
                 {data.totalRevenue}
               </Typography>
               <Typography variant="h5" sx={{ fontSize: "20px" }}>
@@ -167,7 +167,7 @@ function StackDoughNut() {
               </Typography>
             </Box>
             <Box>
-              <Typography variant="h3" sx={{ fontSize: "64px" }}>
+              <Typography variant="h3" sx={{ fontSize: "48px" }}>
                 {data.totalCustomers}
               </Typography>
               <Typography variant="h5" sx={{ fontSize: "20px" }}>
