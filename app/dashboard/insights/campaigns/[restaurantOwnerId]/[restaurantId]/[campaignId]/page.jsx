@@ -153,7 +153,7 @@ const Page = () => {
                 : "repeat(1, 1fr)",
               gap: "1rem",
               gridAutoFlow: "row dense",
-              margin: "0",
+              // margin: "1.5rem 0",
               [theme.breakpoints.down("lg")]: {
                 gridTemplateColumns: "repeat(2, 1fr)",
               },

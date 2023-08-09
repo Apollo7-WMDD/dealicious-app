@@ -4,6 +4,13 @@ import { Configuration, OpenAIApi } from "openai";
 // import { useNavigation } from "next/navigation";
 
 export const GET = async (req, res) => {
+  // const params = new URLSearchParams(req.url.split("?")[1]);
+  // const formName = decodeURIComponent(params.get("formName"));
+  // const formOffer = decodeURIComponent(params.get("formOffer"));
+  // const formCondition = decodeURIComponent(params.get("formCondition"));
+  // const formStartDate = decodeURIComponent(params.get("formStartDate"));
+  // const formEndDate = decodeURIComponent(params.get("formEndDate"));
+
   const formName = decodeURIComponent(
     req.url.split("?")[1].split("=")[1].split("&")[0]
   );
