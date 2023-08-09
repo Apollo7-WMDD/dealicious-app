@@ -94,6 +94,7 @@ const CampaignForm2 = ({
         label="Specify the conditions of campaign"
         value={formData.condition}
         onChange={inputValue}
+        error={formErrors.condition}
         name="condition"
         id="condition"
         placeholder="Discount on all the menu items except alcoholic drinks "

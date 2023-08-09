@@ -132,6 +132,9 @@ const Page = ({ params }) => {
     if (!formData.startDate || !formData.endDate) {
       errors.date = "Campaign start and end dates are required.";
     }
+    if (!formData.condition) {
+      errors.condition = "Campaign condition is required.";
+    }
     if (!formData.description) {
       errors.description = "Campaign advertisement is required.";
     }
