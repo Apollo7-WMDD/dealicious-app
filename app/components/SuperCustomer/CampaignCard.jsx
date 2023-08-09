@@ -6,10 +6,9 @@ import SCActive from "../../components/Button/SCActive";
 import SingleButtonSC from "../Button/SingleButtonSC";
 import SCSubmitBtn from "../Button/SCSubmitBtn";
 import SCOfferApplied from "@/app/components/SuperCustomer/SCOfferApplied";
-import CloseIcon from '@mui/icons-material/Close';
+import CloseIcon from "@mui/icons-material/Close";
 
 const CampaignCard = ({ props }) => {
-
   const theme = useTheme();
   const shadowColor = `${theme.palette.neutral[20]}1f`;
   const [code, setCode] = useState("");
@@ -78,7 +77,7 @@ const CampaignCard = ({ props }) => {
   };
   const forceClose = () => {
     setOpen(false);
-  }
+  };
 
   // 2nd Modal
   const handleOpenSecond = () => {
@@ -94,7 +93,7 @@ const CampaignCard = ({ props }) => {
   };
   const forceCloseSecond = () => {
     setOpenSecond(false);
-  }
+  };
 
   // 3th Modal
   const handleCloseThird = () => {
@@ -104,10 +103,9 @@ const CampaignCard = ({ props }) => {
   };
   const forceCloseThird = () => {
     setOpenThird(false);
-  }
+  };
 
   const style = {
-
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -168,22 +166,32 @@ const CampaignCard = ({ props }) => {
           marginTop: "auto",
         }}
       >
-        <a 
+        <a
           underline="none"
-          style={{ 
+          style={{
             textDecoration: "none",
-            '&:visited': {
-            textDecoration: 'none',
+            "&:visited": {
+              textDecoration: "none",
             },
-          }} 
-          href="#" onClick={handleOpen}>
-          <Typography variant="p"
+          }}
+          href="#"
+          onClick={handleOpen}
+        >
+          <Typography
+            variant="p"
             sx={{
-              color:'#000000',
-            }} 
-          >More information</Typography>
+              color: "#000000",
+            }}
+          >
+            More information
+          </Typography>
         </a>
-        <SCActive text="Activate" height="3rem" width="10rem" onClick={handleOpen}></SCActive>
+        <SCActive
+          text="Activate"
+          height="3rem"
+          width="10rem"
+          onClick={handleOpen}
+        ></SCActive>
       </Box>
       <Modal
         open={open}
@@ -194,10 +202,10 @@ const CampaignCard = ({ props }) => {
         <Box sx={style}>
           <CloseIcon
             style={{
-              position: 'absolute',
-              top: '10px',
-              right: '10px',
-              cursor: 'pointer',
+              position: "absolute",
+              top: "10px",
+              right: "10px",
+              cursor: "pointer",
             }}
             onClick={forceClose}
           />
@@ -223,7 +231,7 @@ const CampaignCard = ({ props }) => {
                 alt="new"
                 width="auto"
                 height="auto"
-                style={{ 
+                style={{
                   borderRadius: "10px",
                   objectFit: "cover",
                 }}
@@ -253,7 +261,7 @@ const CampaignCard = ({ props }) => {
               <Box
                 sx={{
                   m: "1rem 0 0 0",
-                  textAlign:'center',
+                  textAlign: "center",
                 }}
               >
                 <SingleButtonSC
@@ -275,10 +283,10 @@ const CampaignCard = ({ props }) => {
         <Box sx={style}>
           <CloseIcon
             style={{
-              position: 'absolute',
-              top: '10px',
-              right: '10px',
-              cursor: 'pointer',
+              position: "absolute",
+              top: "10px",
+              right: "10px",
+              cursor: "pointer",
             }}
             onClick={forceCloseSecond}
           />
@@ -316,27 +324,27 @@ const CampaignCard = ({ props }) => {
                 id="standard-basic"
                 variant="standard"
                 sx={{
-                  fontSize: "2rem", 
+                  fontSize: "2rem",
                 }}
               />
             </Box>
             <Box>
-            
-            <SCSubmitBtn
-              text="Submit"
-              width="144px"
-              onClick={getCode}
-            ></SCSubmitBtn>
+              <SCSubmitBtn
+                text="Submit"
+                width="144px"
+                onClick={getCode}
+              ></SCSubmitBtn>
             </Box>
-            <Typography 
+            <Typography
               sx={{
-                m:'1rem',
+                m: "1rem",
                 // p:'5rem',
               }}
-              variant="p">
+              variant="p"
+            >
               For demo purpose, phone number is predefined
             </Typography>
-          </Box>          
+          </Box>
         </Box>
       </Modal>
       <Modal
@@ -348,14 +356,18 @@ const CampaignCard = ({ props }) => {
         <Box sx={style}>
           <CloseIcon
             style={{
-              position: 'absolute',
-              top: '10px',
-              right: '10px',
-              cursor: 'pointer',
+              position: "absolute",
+              top: "10px",
+              right: "10px",
+              cursor: "pointer",
             }}
             onClick={forceCloseThird}
           />
-          <SCOfferApplied props={props} status={validate}></SCOfferApplied>
+          <SCOfferApplied
+            props={props}
+            status={validate}
+            setOpenThird={setOpenThird}
+          ></SCOfferApplied>
           {/* <Typography id="modal-modal-title" variant="h3" sx={{ color:"#ff5938"}}>
             Click here to close!
           </Typography> */}
