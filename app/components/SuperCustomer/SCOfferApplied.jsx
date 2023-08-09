@@ -15,7 +15,7 @@ const Share = ({ props, status }) => {
     const shadowColor = `${theme.palette.neutral[20]}1f`;
     const { data: session } = useSession();
     const pathname = usePathname();
-    const restaurantId = pathname.split("/")[3];
+    const restaurantId = pathname.split("/")[2];
     const [showCard, setShowCard] = useState(true);
     const [age, setAge] = useState('');
     const handleChange = (event) => {
