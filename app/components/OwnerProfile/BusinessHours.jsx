@@ -41,8 +41,10 @@ function BusinessHours({ restaurantOwnerId, data }) {
       // alignItems: "start",
       flexShrink: 0,
       gap: "1rem",
-      height: "100%",
+      // height: "100%",
+      height: "auto",
       width: "100%",
+      
       [theme.breakpoints.down("md")]: {
         gridColumn: "1/-1",
       },
@@ -65,6 +67,7 @@ function BusinessHours({ restaurantOwnerId, data }) {
                     marginTop: "20px",
                     display: "flex",
                     flexDirection: "row",
+                    flexWrap: "wrap",
                     justifyContent: "space-between",
                   }}
                 >
