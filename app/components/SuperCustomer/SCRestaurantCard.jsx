@@ -133,7 +133,7 @@ return (
           alt="new"
           style={{ 
             borderRadius: "10px",
-            maxWidth:'346px',
+            maxWidth:'100%',
             objectFit: 'cover',
           }}
         />

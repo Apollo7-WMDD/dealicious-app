@@ -106,18 +106,25 @@ const CampaignCard = ({ props }) => {
   };
 
   const style = {
+
+    maxHeight: "90vh",
+
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 500,
+    // width: 450,
+    width: "90%",
+    maxWidth: 600,
     bgcolor: "background.paper",
     border: "2px solid #ff5938",
     borderRadius: "10px",
     boxShadow: `0px 4px 20px 0px ${shadowColor}`,
     p: 4,
+    // overflow: "auto",
     "@media screen and (min-width:800px)": {
       width: 800,
+      maxWidth: 800,
     },
   };
 
@@ -147,7 +154,8 @@ const CampaignCard = ({ props }) => {
         p: "1rem",
         borderRadius: "10px",
         boxShadow: `0px 4px 20px 0px ${shadowColor}`,
-        maxWidth: "auto",
+        maxWidth: "100%",
+        // maxWidth: "auto",
         display: "flex",
         flexDirection: "column",
         gap: "1rem",
@@ -189,7 +197,9 @@ const CampaignCard = ({ props }) => {
         <SCActive
           text="Activate"
           height="3rem"
-          width="10rem"
+
+          width="70%"
+
           onClick={handleOpen}
         ></SCActive>
       </Box>
@@ -229,11 +239,17 @@ const CampaignCard = ({ props }) => {
               <img
                 src={props.media[0]}
                 alt="new"
-                width="auto"
-                height="auto"
+
+                width="100%"
+                // maxWidth="100%"
+                height="200px"
+                
+                // maxHeight="200px"
+
                 style={{
                   borderRadius: "10px",
                   objectFit: "cover",
+                  overflow:"hidden"
                 }}
               />
             </Box>
@@ -241,35 +257,43 @@ const CampaignCard = ({ props }) => {
               sx={{
                 display: "flex",
                 flexDirection: "column",
+                height: "25vh",
+                
               }}
             >
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Offer: <Typography variant="p">{props.offer}</Typography>
-              </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Date:{" "}
-                <Typography variant="p">
-                  {formattedStartDate} to {formattedEndDate}
+              <Box sx={{
+                overflow: "auto",
+              }}>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  Offer: <Typography variant="p">{props.offer}</Typography>
                 </Typography>
-              </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Time: <Typography variant="p">11:00AM to 8:00PM</Typography>
-              </Typography>
-              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                <Typography variant="p">{props.description}</Typography>
-              </Typography>
-              <Box
-                sx={{
-                  m: "1rem 0 0 0",
-                  textAlign: "center",
-                }}
-              >
-                <SingleButtonSC
-                  text="Activate"
-                  width="20rem"
-                  onClick={handleOpenSecond}
-                ></SingleButtonSC>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  Date:{" "}
+                  <Typography variant="p">
+                    {formattedStartDate} to {formattedEndDate}
+                  </Typography>
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  Time: <Typography variant="p">11:00AM to 8:00PM</Typography>
+                </Typography>
+                <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                  <Typography variant="p">{props.description}</Typography>
+                </Typography>
+
+
               </Box>
+            </Box>
+            <Box
+              sx={{
+                m: "1rem 0 0 0",
+                textAlign: "center",
+              }}
+            >
+              <SingleButtonSC
+                text="Activate"
+                width="20rem"
+                onClick={handleOpenSecond}
+              ></SingleButtonSC>
             </Box>
           </Box>
         </Box>
