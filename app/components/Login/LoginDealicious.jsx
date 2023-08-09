@@ -92,7 +92,6 @@ function LoginDealicious() {
           />
           Google
         </Button>
-
         {/* DEMO USER */}
 
         <Box
