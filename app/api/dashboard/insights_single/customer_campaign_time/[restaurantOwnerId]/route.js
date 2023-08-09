@@ -42,6 +42,7 @@ export const GET = async (request) => {
         totalRevenue: prevRevenue,
       };
     }).reverse();
+    
 
     prevRevenue = 100;
     const weekly = Array.from({ length: 12 }, (_, i) => {
@@ -54,6 +55,7 @@ export const GET = async (request) => {
         totalRevenue: prevRevenue,
       };
     }).reverse();
+    const totalUsageAmount = weekly[5].totalRevenue;
 
     prevRevenue = 1000;
     const monthly = Array.from({ length: 12 }, (_, i) => {
@@ -67,8 +69,9 @@ export const GET = async (request) => {
         totalRevenue: prevRevenue,
       };
     }).reverse();
+    
 
-    return new NextResponse(JSON.stringify({ daily, weekly, monthly }), {
+    return new NextResponse(JSON.stringify({ totalUsageAmount, daily, weekly, monthly }), {
       status: 200,
     });
   } catch (err) {

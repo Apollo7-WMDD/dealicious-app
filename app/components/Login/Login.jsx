@@ -62,7 +62,6 @@ function LoginComponent() {
         sx={{
           display: "flex",
           height: "44px",
-          width: "326px",
           padding: "12px 24px",
           marginBottom: "20px",
           justifyContent: "center",
@@ -71,6 +70,8 @@ function LoginComponent() {
           borderRadius: "8px",
           color: "black",
           borderColor: "#A9A9A9",
+          width:"80%",
+          minWidth: "64px",
         }}
         variant="outlined"
       >

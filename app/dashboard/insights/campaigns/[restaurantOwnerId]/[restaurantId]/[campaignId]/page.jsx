@@ -61,6 +61,7 @@ const Page = () => {
         );
         setDataArray(filteredResult[0] || []);
         setSubTitle(filteredResult[0].name);
+        console.log('filteredResult:', filteredResult);
       } catch (error) {
         console.log(error);
       } finally {
@@ -73,6 +74,8 @@ const Page = () => {
   const onClick = () => {
     router.push(`/dashboard/campaigns/recreate/${campaignId}`);
   };
+
+
 
   return (
     <>
@@ -133,18 +136,6 @@ const Page = () => {
               setCampaignName={setCampaignName}
             />
           
-
-          {/* {isComparing && isMobile && (
-            <InputSubtitleDropdown 
-              text={subTitle}
-              setIsComparing={setIsComparing}
-              setCampaignCompare={setCampaignCompare}
-              campaignName={campaignName}
-              setCampaignName={setCampaignName}
-              displayType="subTitle"
-            />
-          )} */}
-          
          <Box
             sx={{
               display: "grid",
@@ -174,7 +165,6 @@ const Page = () => {
                   <SingleLineChart
                     fetchDataSource={fetchTotalRevenueSingle}
                     showTextSource={
-                    // dataArray.spending
                       (data) => `$ ${dataArray.spending}`
                     }
                     campaignId={campaignId}
@@ -189,9 +179,7 @@ const Page = () => {
                   <SingleLineChart
                     fetchDataSource={fetchCustomerCampaignTimeSingle}
                     showTextSource={
-                      // dataArray.count
-                      (data) => `${dataArray.count}`
-                      // `680`
+                      (data) => `${Math.round(data.totalUsageAmount)}`
                     }
                     campaignId={campaignId}
                   />
@@ -226,8 +214,7 @@ const Page = () => {
                   <SingleLineChart
                     fetchDataSource={fetchNCbecameSC}
                     showTextSource={
-                    // `89`
-                      (data) => `89`
+                      (data) => `${Math.round(data.totalUserAmount)}`
                     }
                     campaignId={campaignId}
                   />
@@ -278,9 +265,7 @@ const Page = () => {
                   <SingleLineChart
                     fetchDataSource={fetchCustomerCampaignTimeSingle}
                     showTextSource={
-                      // dataArray.count
-                      (data) => `${dataArray.count}`
-                      // `680`
+                      (data) => `${Math.round(data.totalUsageAmount)}`
                     }
                     campaignId={campaignId}
                   />
@@ -315,8 +300,7 @@ const Page = () => {
                   <SingleLineChart
                     fetchDataSource={fetchNCbecameSC}
                     showTextSource={
-                    // `89`
-                      (data) => `89`
+                      (data) => `${Math.round(data.totalUserAmount)}`
                     }
                     campaignId={campaignId}
                   />
@@ -346,16 +330,6 @@ const Page = () => {
                 </>
               )}
             </MainGrid>
-            {/* {isComparing && isMobile && <div>
-              <InputSubtitleDropdown 
-                text={subTitle}
-                setIsComparing={setIsComparing}
-                setCampaignCompare={setCampaignCompare}
-                campaignName={campaignName}
-                setCampaignName={setCampaignName}
-                displayType="campaignName"
-              />
-            </div>} */}
             {isComparing && (
               <>
                 {isNonMobile && (
@@ -413,8 +387,7 @@ const Page = () => {
                       <SingleLineChart
                         fetchDataSource={fetchCustomerCampaignTimeSingle}
                         showTextSource={
-                        //  `540`
-                          (data) => `540`
+                          (data) => `55`
                         }
                         campaignId={campaignId}
                       />
@@ -453,8 +426,7 @@ const Page = () => {
                       <SingleLineChart
                         fetchDataSource={fetchNCbecameSC}
                         showTextSource={
-                        //  `56`
-                          (data) => `56`
+                          (data) => `32`
                         }
                         campaignId={campaignId}
                       />
@@ -506,8 +478,7 @@ const Page = () => {
                       <SingleLineChart
                         fetchDataSource={fetchCustomerCampaignTimeSingle}
                         showTextSource={
-                        //  `540`
-                          (data) => `540`
+                          (data) => `55`
                         }
                         campaignId={campaignId}
                       />
@@ -546,8 +517,7 @@ const Page = () => {
                       <SingleLineChart
                         fetchDataSource={fetchNCbecameSC}
                         showTextSource={
-                        //  `56`
-                          (data) => `56`
+                          (data) => `32`
                         }
                         campaignId={campaignId}
                       />

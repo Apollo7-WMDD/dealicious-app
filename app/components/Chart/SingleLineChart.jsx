@@ -56,9 +56,6 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
         } else if (fetchDataSource.name == "fetchCustomerCampaignTimeSingle") {
           console.log("fetchCustomerCampaignTimeSingle");
           const res = await fetchDataSource(restaurantOwnerId);
-          // const res = await fetchDataSource(restaurantOwnerId
-          //   // ,`${(showTextSource)=>`${showTextSource}`}`
-          //   );
           setData(res);
         }
       } catch (error) {
@@ -218,10 +215,6 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
             position: "relative",
           }}
         >
-
-
-
-              
           <Typography variant="h2" align="center" lineHeight="77px" sx={{ fontSize: "48px" }} >
             {showText}
           </Typography>

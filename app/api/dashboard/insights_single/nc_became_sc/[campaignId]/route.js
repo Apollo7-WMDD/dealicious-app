@@ -38,6 +38,7 @@ export const GET = async (request) => {
         totalRevenue: prevRevenue,
       };
     }).reverse();
+    
 
   
     prevRevenue = 100;  
@@ -51,6 +52,7 @@ export const GET = async (request) => {
         totalRevenue: prevRevenue,
       };
     }).reverse();  
+    const totalUserAmount = weekly[7].totalRevenue;
 
     prevRevenue = 500;  
     const monthly = Array.from({ length: 12 }, (_, i) => {
@@ -64,7 +66,7 @@ export const GET = async (request) => {
     }).reverse();
 
     const response = {
-      totalRevenue: result ? result.totalRevenue : 0,
+      totalUserAmount,
       daily,
       weekly,
       monthly,
