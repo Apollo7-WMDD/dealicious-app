@@ -629,7 +629,7 @@ img#sky {
 }
 
 .illustration_container.mario {
-  background-image: url(/assets_landingPage/team/illustrations/mario.svg);
+  background-image: url(/assets_landingPage/team/illustrations/Mario.svg);
 }
 
 .illustration_container.mario:hover {
@@ -645,7 +645,7 @@ img#sky {
 }
 
 .illustration_container.nahla {
-  background-image: url(/assets_landingPage/team/illustrations/nahla.svg);
+  background-image: url(/assets_landingPage/team/illustrations/Nahla.svg);
 }
 
 .illustration_container.nahla:hover {
@@ -657,7 +657,7 @@ img#sky {
 }
 
 .illustration_container.surbhi:hover {
-  background-image: url(/assets_landingPage/team/surbhi.png);
+  background-image: url(/assets_landingPage/team/Surbhi.png);
 }
 
 .illustration_container.pablo {
@@ -665,7 +665,7 @@ img#sky {
 }
 
 .illustration_container.pablo:hover {
-  background-image: url(/assets_landingPage/team/pablo.png);
+  background-image: url(/assets_landingPage/team/Pablo.png);
 }
 
 .name {
