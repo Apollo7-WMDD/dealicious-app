@@ -15,7 +15,13 @@ const Share = ({ props, status, setOpenThird }) => {
   const shadowColor = `${theme.palette.neutral[20]}1f`;
   const { data: session } = useSession();
   const pathname = usePathname();
-  const restaurantId = pathname.split("/")[2];
+  //const restaurantId = pathname.split("/")[2];
+  const scpath = pathname.split("/")[1];
+  let restaurantId;
+  if(scpath=="newCustomer")
+      restaurantId = pathname.split("/")[2];
+  else
+      restaurantId = pathname.split("/")[4];
   const [showCard, setShowCard] = useState(true);
   const [age, setAge] = useState("");
   const handleChange = (event) => {
