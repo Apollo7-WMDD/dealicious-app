@@ -9,16 +9,12 @@ import Header from "@/app/components/Header/Header";
 import InputButton from "@/app/components/Button/InputButton";
 import ViewNewCampaign from "@/app/components/Campaign/ViewNewCampaign";
 import { Box, Modal, Grid } from "@mui/material";
-import InputTextarea from "@/app/components/Input/InputTextarea";
 import InputTextareaWithButton from "@/app/components/Input/InputTextareaWithButton";
 import Notification from "@/app/components/Card/Notification";
 import CampaignImage from "@/app/components/Campaign/CampaignImage";
 import CampaignForm1 from "@/app/components/Campaign/CampaignForm1";
 import CampaignForm2 from "@/app/components/Campaign/CampaignForm2";
 import { fetchSingleCampaign } from "@/lib/fetching/campaigns/data";
-import { aiGenerate } from "@/app/api/dashboard/campaigns/openAI/route";
-const fetchOpenAIAPI = async (formData) => {
-  const url = `/api/dashboard/campaigns/openAI`;
 
 const fetchOpenAIAPI = async (formData) => {
   const url = `/api/dashboard/campaigns/openAI`;
@@ -67,7 +63,6 @@ const Page = ({ params }) => {
     autoDescription: "No auto description",
   });
 
-  
   //   fetch the campaign data and load the data
   const [campaignData, setCampaignData] = useState(null);
   useEffect(() => {
@@ -97,7 +92,7 @@ const Page = ({ params }) => {
     const fetchAI = async () => {
       setFormData({
         ...formData,
-        description:"loading...",
+        description: "loading...",
       });
       try {
         const result = await fetchOpenAIAPI(formData);
@@ -161,31 +156,35 @@ const Page = ({ params }) => {
 
   const handleEdit = () => {
     if (isUploadMenuTriggered) {
-        const uploadedImageURL = localStorage.getItem("uploadedImageURL");
-        
-        if (uploadedImageURL && uploadedImageURL !== 'null' && uploadedImageURL !== 'undefined') {
-            if (uploadedImageURL !== formData.media[0]) {
-                setFormData((prevFormData) => ({
-                    ...prevFormData,
-                    media: [uploadedImageURL, ...prevFormData.media.filter(m => m !== uploadedImageURL)]
-                }));
-            }
+      const uploadedImageURL = localStorage.getItem("uploadedImageURL");
+
+      if (
+        uploadedImageURL &&
+        uploadedImageURL !== "null" &&
+        uploadedImageURL !== "undefined"
+      ) {
+        if (uploadedImageURL !== formData.media[0]) {
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            media: [
+              uploadedImageURL,
+              ...prevFormData.media.filter((m) => m !== uploadedImageURL),
+            ],
+          }));
         }
+      }
     } else {
-        if (formData.media.length > 0) {
-            setFormData((prevFormData) => ({
-                ...prevFormData,
-                media: [prevFormData.media[0], ...prevFormData.media.slice(1)]
-            }));
-        }
+      if (formData.media.length > 0) {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          media: [prevFormData.media[0], ...prevFormData.media.slice(1)],
+        }));
+      }
     }
 
     setIsSubmitted(false);
-    setIsUploadMenuTriggered(false); 
-};
-
-
-  
+    setIsUploadMenuTriggered(false);
+  };
 
   ////////////////////// Final Submit button for campaign preview /////////////////////
   const handleFinalSubmit = async (e) => {
@@ -306,13 +305,13 @@ const Page = ({ params }) => {
 
   const dateValue = (dates) => {
     const [formattedStartDate, formattedEndDate] = dates;
-    setFormData(prevState => ({
-        ...prevState,
-        startDate: formattedStartDate,
-        endDate: formattedEndDate
+    setFormData((prevState) => ({
+      ...prevState,
+      startDate: formattedStartDate,
+      endDate: formattedEndDate,
     }));
-    console.log('Start Date:', formattedStartDate);
-    console.log('End Date:', formattedEndDate);
+    console.log("Start Date:", formattedStartDate);
+    console.log("End Date:", formattedEndDate);
   };
 
   //SC AND NC allowed
