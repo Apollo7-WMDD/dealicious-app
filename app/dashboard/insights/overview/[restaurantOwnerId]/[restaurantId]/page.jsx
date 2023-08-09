@@ -82,7 +82,10 @@ const Page = () => {
           ></ChartCardTitle>
           <SingleLineChart
             fetchDataSource={fetchTotalRevenue}
-            showTextSource={(data) => `$ ${formatNumber(Math.round(data.totalRevenue))}`}
+            showTextSource={
+              // formatNumber(Math.round(data.totalRevenue))
+              (data) => `$ ${formatNumber(Math.round(data.totalRevenue))}`
+            }
           />
         </ChartCard>
 

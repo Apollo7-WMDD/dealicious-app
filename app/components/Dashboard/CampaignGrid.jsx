@@ -16,6 +16,7 @@ function CampaignGrid({ onPinClickB }) {
   const theme = useTheme();
   const { restaurantOwnerId } = useStore();
   const [dataArray, setDataArray] = useState([]);
+  console.log("🚀 ~ file: CampaignGrid.jsx:19 ~ CampaignGrid ~ dataArray:", dataArray)
   const [hilighted, setHilighted] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 

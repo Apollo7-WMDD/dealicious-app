@@ -159,7 +159,10 @@ const Page = () => {
                 <div style={{ minHeight: "250px", width: "100%" }}>
                   <SingleLineChart
                     fetchDataSource={fetchTotalRevenueSingle}
-                    showTextSource={(data) => `$ ${dataArray.spending}`}
+                    showTextSource={
+                    // dataArray.spending
+                      (data) => `$ ${dataArray.spending}`
+                    }
                     campaignId={campaignId}
                   />
                 </div>
@@ -172,6 +175,7 @@ const Page = () => {
                   <SingleLineChart
                     fetchDataSource={fetchCustomerCampaignTimeSingle}
                     showTextSource={
+                      // dataArray.count
                       (data) => `${dataArray.count}`
                       // `680`
                     }
@@ -207,7 +211,10 @@ const Page = () => {
                 <div style={{ minHeight: "350px", width: "100%" }}>
                   <SingleLineChart
                     fetchDataSource={fetchNCbecameSC}
-                    showTextSource={(data) => `89`}
+                    showTextSource={
+                    // `89`
+                      (data) => `89`
+                    }
                     campaignId={campaignId}
                   />
                 </div>
@@ -241,7 +248,10 @@ const Page = () => {
                 <div style={{ minHeight: "250px", width: "100%" }}>
                   <SingleLineChart
                     fetchDataSource={fetchTotalRevenueSingle}
-                    showTextSource={(data) => `$ ${dataArray.spending}`}
+                    showTextSource={
+                      // dataArray.spending
+                      (data) => `$ ${dataArray.spending}`
+                    }
                     campaignId={campaignId}
                   />
                 </div>
@@ -254,6 +264,7 @@ const Page = () => {
                   <SingleLineChart
                     fetchDataSource={fetchCustomerCampaignTimeSingle}
                     showTextSource={
+                      // dataArray.count
                       (data) => `${dataArray.count}`
                       // `680`
                     }
@@ -289,7 +300,10 @@ const Page = () => {
                 <div style={{ minHeight: "350px", width: "100%" }}>
                   <SingleLineChart
                     fetchDataSource={fetchNCbecameSC}
-                    showTextSource={(data) => `89`}
+                    showTextSource={
+                    // `89`
+                      (data) => `89`
+                    }
                     campaignId={campaignId}
                   />
                 </div>
@@ -359,7 +373,10 @@ const Page = () => {
                     <div style={{ minHeight: "250px", width: "100%" }}>
                       <SingleLineChart
                         fetchDataSource={fetchTotalRevenueSingle}
-                        showTextSource={(data) => `$ 0.9k`}
+                        showTextSource={
+                        //  `$ 0.9k`
+                          (data) => `$ 0.9k`
+                        }
                         campaignId={campaignId}
                       />
                     </div>
@@ -371,7 +388,10 @@ const Page = () => {
                     <div style={{ minHeight: "250px", width: "100%" }}>
                       <SingleLineChart
                         fetchDataSource={fetchCustomerCampaignTimeSingle}
-                        showTextSource={(data) => `540`}
+                        showTextSource={
+                        //  `540`
+                          (data) => `540`
+                        }
                         campaignId={campaignId}
                       />
                     </div>
@@ -408,7 +428,10 @@ const Page = () => {
                     <div style={{ minHeight: "350px", width: "100%" }}>
                       <SingleLineChart
                         fetchDataSource={fetchNCbecameSC}
-                        showTextSource={(data) => `56`}
+                        showTextSource={
+                        //  `56`
+                          (data) => `56`
+                        }
                         campaignId={campaignId}
                       />
                     </div>
@@ -443,7 +466,10 @@ const Page = () => {
                     <div style={{ minHeight: "250px", width: "100%" }}>
                       <SingleLineChart
                         fetchDataSource={fetchTotalRevenueSingle}
-                        showTextSource={(data) => `$ 0.9k`}
+                        showTextSource={
+                        //  `$ 0.9k`
+                          (data) => `$ 0.9k`
+                        }
                         campaignId={campaignId}
                       />
                     </div>
@@ -455,7 +481,10 @@ const Page = () => {
                     <div style={{ minHeight: "250px", width: "100%" }}>
                       <SingleLineChart
                         fetchDataSource={fetchCustomerCampaignTimeSingle}
-                        showTextSource={(data) => `540`}
+                        showTextSource={
+                        //  `540`
+                          (data) => `540`
+                        }
                         campaignId={campaignId}
                       />
                     </div>
@@ -492,7 +521,10 @@ const Page = () => {
                     <div style={{ minHeight: "350px", width: "100%" }}>
                       <SingleLineChart
                         fetchDataSource={fetchNCbecameSC}
-                        showTextSource={(data) => `56`}
+                        showTextSource={
+                        //  `56`
+                          (data) => `56`
+                        }
                         campaignId={campaignId}
                       />
                     </div>

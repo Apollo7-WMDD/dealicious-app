@@ -63,7 +63,6 @@ function DoughnutChart_NumCustomer({ campaignId }) {
     id: "centerText",
     afterDatasetsDraw(chart, args, pluginOption) {
       const { ctx } = chart;
-      console.log("chart", chart);
       const text = `$${formatNumber(Object.values(data).shift(1))}`;
       ctx.save();
       const x = chart.getDatasetMeta(0).data[0].x;
