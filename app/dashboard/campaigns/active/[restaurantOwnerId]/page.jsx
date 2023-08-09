@@ -28,7 +28,7 @@ import UpcomingCampaignGrid from "@/app/components/Dashboard/UpcomingCampaignGri
 import HilightWrap from "@/app/components/Dashboard/HilightWrap";
 import { useMediaQuery } from "@mui/material";
 import { fetchTotalRevenueSingle } from "@/lib/fetching/insights/data";
-import SingleLineChart from '@/app/components/Chart/SingleLineChart';
+import SingleLineChart from "@/app/components/Chart/SingleLineChart";
 import { useRouter } from "next/navigation";
 
 const Page = () => {
@@ -83,16 +83,15 @@ const Page = () => {
           </ChartCard>
 
           <ChartCard gridColumn={"2/-1"}>
-            <div  id={"hilighted"}></div>
+            <div id={"hilighted"}></div>
             <ChartCardTitle
               text={"Highlighted Campaigns"}
               pinStatus={true}
               showPin={true}
-             
             ></ChartCardTitle>
 
             {hilighted._id != undefined ? (
-              <div style={{ width: "100%" }}  >
+              <div style={{ width: "100%" }}>
                 <div>
                   <Typography variant="h5" sx={{ mt: "1rem" }}>
                     {hilighted.name}
@@ -180,12 +179,15 @@ const Page = () => {
                       {hilighted.description}
                     </p>
                   </p>
-                  <Typography variant="h5" sx={{ mt: "1rem", textAlign:"center" }}>Campaign revenue</Typography>
+                  <Typography
+                    variant="h5"
+                    sx={{ mt: "1rem", textAlign: "center" }}
+                  >
+                    Campaign revenue
+                  </Typography>
                   <SingleLineChart
                     fetchDataSource={fetchTotalRevenueSingle}
-                    showTextSource={(data) =>
-                      `$ ${hilighted.spending}`
-                    }
+                    showTextSource={(data) => `$ ${hilighted.spending}`}
                     campaignId={hilighted?._id}
                   />
                 </div>

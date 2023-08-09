@@ -27,15 +27,15 @@ ChartJS.register(
 );
 
 const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
- 
-  const getcampaignId = campaignId;
- 
   const { restaurantOwnerId } = useStore();
   const [data, setData] = useState(null);
-  console.log("🚀 ~ file: SingleLineChart.jsx:35 ~ SingleLineChart ~ data:", data)
   const [period, setPeriod] = useState("daily");
   const [isLoading, setIsLoading] = useState(true);
 
+  console.log(
+    "🚀 ~ file: SingleLineChart.jsx:35 ~ SingleLineChart ~ data:",
+    data
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,7 +43,7 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
       try {
         if (fetchDataSource.name == "fetchTotalRevenueSingle") {
           console.log("fetchTotalRevenueSingle");
-          const res = await fetchDataSource(getcampaignId);
+          const res = await fetchDataSource(campaignId);
           setData(res);
         } else if (fetchDataSource.name == "fetchTotalRevenue") {
           console.log("fetchTotalRevenue");
@@ -51,7 +51,7 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
           setData(res);
         } else if (fetchDataSource.name == "fetchNCbecameSC") {
           console.log("fetchNCbecameSC");
-          const res = await fetchDataSource(getcampaignId);
+          const res = await fetchDataSource(campaignId);
           setData(res);
         } else if (fetchDataSource.name == "fetchCustomerCampaignTimeSingle") {
           console.log("fetchCustomerCampaignTimeSingle");
@@ -69,7 +69,8 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
 
   console.log("single line chart", data);
 
-  const showText = data && showTextSource ? showTextSource( formatNumber(data) ) : "";
+  const showText =
+    data && showTextSource ? showTextSource(formatNumber(data)) : "";
 
   const theme = useTheme();
   defaults.font.family = theme.typography.fontFamily;
@@ -189,13 +190,13 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
   };
 
   function formatNumber(num) {
-    if(num >= 1000) {
-      return (num/1000).toFixed(1) + 'k'; // 
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1) + "k"; //
     } else {
       return num;
     }
   }
-  
+
   return (
     <>
       {isLoading ? (
@@ -215,7 +216,12 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
             position: "relative",
           }}
         >
-          <Typography variant="h2" align="center" lineHeight="77px" sx={{ fontSize: "48px" }} >
+          <Typography
+            variant="h2"
+            align="center"
+            lineHeight="77px"
+            sx={{ fontSize: "48px" }}
+          >
             {showText}
           </Typography>
           <Box
@@ -227,9 +233,7 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
             }}
           >
             {/* line chart */}
-            <Box sx={{ maxHeight: "200px", 
-            height: "100%" 
-            }}>
+            <Box sx={{ maxHeight: "200px", height: "100%" }}>
               <Line
                 // plugins={plugins}
                 data={chartData}
@@ -243,7 +247,7 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
               />
             </Box>
             {/* daily,weekly button */}
-            <Box sx={{ textAlign:"end"}}>
+            <Box sx={{ textAlign: "end" }}>
               <Button
                 onClick={() => setPeriod("daily")}
                 variant="text"
