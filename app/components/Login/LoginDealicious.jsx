@@ -72,14 +72,14 @@ function LoginDealicious() {
             display: "flex",
             height: "44px",
             padding: "12px 24px",
-            marginBottom: "20px",
+            // marginBottom: "20px",
             justifyContent: "center",
             alignItems: "center",
             gap: "8px",
             borderRadius: "8px",
             color: "black",
             borderColor: "#A9A9A9",
-            width:"80% !important",
+            width: "80% !important",
             minWidth: "64px",
           }}
           variant="outlined"
@@ -92,6 +92,30 @@ function LoginDealicious() {
           />
           Google
         </Button>
+
+        {/* DEMO USER */}
+
+        <Box
+          sx={{
+            width: "80%",
+            borderRadius: "8px",
+            border: "1px solid #A9A9A9",
+            padding: "1rem",
+            marginTop: "1rem",
+          }}
+        >
+          <Typography variant="p" sx={{ textAlign: "left" }}>
+            📌 For demo purpose, please login as: <br />
+            <strong>Owner - </strong><br />
+            email: pablosmith@hotmail.com <br />
+            password: 123456 <br />
+            <strong>Customer -</strong><br />
+            email: ziyunhunt@hotmail.com <br />
+            password: 123456
+          </Typography>
+        </Box>
+
+        {/* LOGO */}
         <Box
           sx={{
             width: "80%",

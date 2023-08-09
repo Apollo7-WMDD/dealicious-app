@@ -9,7 +9,6 @@ import { Box, useTheme, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 const Page = ({ params }) => {
-
   const theme = useTheme();
   const shadowColor = `${theme.palette.neutral[20]}1f`;
 
@@ -51,18 +50,15 @@ const Page = ({ params }) => {
           gap: "1rem",
           m: "1rem auto",
           p: "1rem 2rem",
-
           "@media screen and (min-width:800px)": {
             display: "grid",
-            gridTemplateColumns:'1fr 2fr',
-            maxWidth:'1400px',
-          }
+            gridTemplateColumns: "1fr 2fr",
+            maxWidth: "1400px",
+          },
         }}
       >
-        <NewCustomer 
-          props={restaurantData?.user}></NewCustomer>
-        <SCRestaurantCard 
-        {...restaurantData?.restaurant} />        
+        <NewCustomer props={restaurantData?.user}></NewCustomer>
+        <SCRestaurantCard {...restaurantData?.restaurant} />
       </Box>
       <Box
         sx={{
@@ -76,12 +72,12 @@ const Page = ({ params }) => {
           maxHeight: "551px",
           alignItems: isLoading ? "center" : undefined,
           justifyContent: isLoading ? "center" : undefined,
-          maxWidth:'1400px',
+          maxWidth: "1400px",
         }}
       >
         <Typography
           sx={{
-            m:'0 1rem',
+            m: "0 1rem",
           }}
           variant="h3"
         >
@@ -112,10 +108,7 @@ const Page = ({ params }) => {
             </div>
           ) : (
             restaurantData.campaigns.map((item, index) => (
-              <CampaignCard
-                key={index}
-                props={item}
-              />
+              <CampaignCard key={index} props={item} />
             ))
           )}
         </Box>
