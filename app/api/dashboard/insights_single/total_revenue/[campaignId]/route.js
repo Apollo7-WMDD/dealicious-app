@@ -9,6 +9,10 @@ export const GET = async (request) => {
   const campaignId = url.pathname.split("/")[5];
 
   try {
+    if (!campaignId || !mongoose.Types.ObjectId.isValid(campaignId)) {
+      return new NextResponse(JSON.stringify({}), { status: 200 });
+    }
+
     await connect();
 
     const pipeline = [
@@ -26,9 +30,9 @@ export const GET = async (request) => {
     ];
 
     const [result] = await Spending.aggregate(pipeline).allowDiskUse(true);
-    
-    let prevRevenue = result?.totalRevenue/30;
-    
+
+    let prevRevenue = result?.totalRevenue / 30;
+
     const daily = Array.from({ length: 30 }, (_, i) => {
       const date = new Date();
       date.setDate(date.getDate() - i);
@@ -40,7 +44,7 @@ export const GET = async (request) => {
       };
     }).reverse();
 
-    prevRevenue = result?.totalRevenue/12;
+    prevRevenue = result?.totalRevenue / 12;
     const weekly = Array.from({ length: 12 }, (_, i) => {
       const startOfWeek = new Date();
       startOfWeek.setDate(startOfWeek.getDate() - i * 7);
@@ -52,7 +56,7 @@ export const GET = async (request) => {
       };
     }).reverse();
 
-    prevRevenue = result?.totalRevenue/5;
+    prevRevenue = result?.totalRevenue / 5;
     const monthly = Array.from({ length: 12 }, (_, i) => {
       const date = new Date();
       date.setMonth(date.getMonth() - i);
