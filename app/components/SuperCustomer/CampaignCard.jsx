@@ -106,7 +106,9 @@ const CampaignCard = ({ props }) => {
   };
 
   const style = {
+
     maxHeight: "90vh",
+
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -195,7 +197,9 @@ const CampaignCard = ({ props }) => {
         <SCActive
           text="Activate"
           height="3rem"
+
           width="70%"
+
           onClick={handleOpen}
         ></SCActive>
       </Box>
@@ -235,11 +239,13 @@ const CampaignCard = ({ props }) => {
               <img
                 src={props.media[0]}
                 alt="new"
+
                 width="100%"
                 // maxWidth="100%"
                 height="200px"
                 
                 // maxHeight="200px"
+
                 style={{
                   borderRadius: "10px",
                   objectFit: "cover",
@@ -273,6 +279,8 @@ const CampaignCard = ({ props }) => {
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                   <Typography variant="p">{props.description}</Typography>
                 </Typography>
+
+
               </Box>
             </Box>
             <Box
@@ -379,7 +387,11 @@ const CampaignCard = ({ props }) => {
             }}
             onClick={forceCloseThird}
           />
-          <SCOfferApplied props={props} status={validate}></SCOfferApplied>
+          <SCOfferApplied
+            props={props}
+            status={validate}
+            setOpenThird={setOpenThird}
+          ></SCOfferApplied>
           {/* <Typography id="modal-modal-title" variant="h3" sx={{ color:"#ff5938"}}>
             Click here to close!
           </Typography> */}

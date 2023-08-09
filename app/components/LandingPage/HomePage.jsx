@@ -17,6 +17,9 @@ import { Modal, Box, Typography, Button, useTheme } from "@mui/material";
 import emailjs from "@emailjs/browser";
 import CloseIcon from "@mui/icons-material/Close";
 
+// loader
+import LoaderSession from "./LoaderSession";
+
 const HomePage = () => {
   const { data: session, status } = useSession();
   const { setRestaurantOwner, restaurantOwnerId } = useStore();
@@ -486,7 +489,7 @@ const HomePage = () => {
             <h2 className={styles.landing_main_title}>Taste of Growth!</h2>
           </div>
           {status === "loading" ? (
-            <></>
+            <LoaderSession />
           ) : session?.user?.id === undefined && !session ? (
             <div className={styles.landing_button_container}>
               <Link href={`/login/owner`}>
