@@ -41,7 +41,7 @@ function SCHeader() {
           m:"1rem 2rem",
         }}
       >
-        <Box
+        {/* <Box
           sx={{
             display:'flex',
             flexDirection:'row',
@@ -61,7 +61,7 @@ function SCHeader() {
             }}
           />
           <Typography variant="p">Scan the Code</Typography>
-        </Box>
+        </Box> */}
         <Box
           sx={{
             display:'flex',

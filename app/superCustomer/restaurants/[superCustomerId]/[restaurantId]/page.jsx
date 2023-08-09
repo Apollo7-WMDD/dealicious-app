@@ -81,7 +81,7 @@ const Page = ({ params }) => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          m: "2rem auto 0 auto",
+          m: "2rem auto 1rem auto",
           p: "0 2rem",
           gap: "1rem",
 
@@ -98,6 +98,7 @@ const Page = ({ params }) => {
           sx={{
             maxHeight: "551px",
             p: "64px 26px",
+            // marginButtom: "1rem",
           }}
           superCustomerId={superCustomerId}
           restaurantId={restaurantId}

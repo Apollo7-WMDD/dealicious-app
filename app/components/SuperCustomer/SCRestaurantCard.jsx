@@ -134,6 +134,7 @@ return (
           style={{ 
             borderRadius: "10px",
             maxWidth:'100%',
+            height: '220px',
             objectFit: 'cover',
           }}
         />

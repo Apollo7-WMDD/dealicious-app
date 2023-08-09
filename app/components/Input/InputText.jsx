@@ -76,6 +76,7 @@ const InputText = ({
             inputProps: {
               style: {
                 color: "#454545",
+                // backgroundcolor: "gold !important",
                 fontSize: "20px",
                 fontFamily: "Mukta",
                 fontStyle: "normal",

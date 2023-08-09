@@ -106,7 +106,6 @@ const CampaignCard = ({ props }) => {
   };
 
   const style = {
-
     maxHeight: "90vh",
 
     position: "absolute",
@@ -197,9 +196,7 @@ const CampaignCard = ({ props }) => {
         <SCActive
           text="Activate"
           height="3rem"
-
-          width="70%"
-
+          width="100%"
           onClick={handleOpen}
         ></SCActive>
       </Box>
@@ -231,39 +228,43 @@ const CampaignCard = ({ props }) => {
               m: "1rem 0",
               "@media screen and (min-width:800px)": {
                 display: "flex",
-                flexDirection: "row",
+                flexDirection: "column",
               },
             }}
           >
+            {/* IMG */}
             <Box>
               <img
                 src={props.media[0]}
                 alt="new"
-
-                width="100%"
+                // width="100%"
                 // maxWidth="100%"
-                height="200px"
-                
+                // height="200px"
+
                 // maxHeight="200px"
 
                 style={{
+                  width: "100%",
+                  height: "200px",
                   borderRadius: "10px",
                   objectFit: "cover",
-                  overflow:"hidden"
+                  overflow: "hidden",
                 }}
               />
             </Box>
+            {/* INFO */}
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
                 height: "25vh",
-                
               }}
             >
-              <Box sx={{
-                overflow: "auto",
-              }}>
+              <Box
+                sx={{
+                  overflow: "auto",
+                }}
+              >
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                   Offer: <Typography variant="p">{props.offer}</Typography>
                 </Typography>
@@ -279,10 +280,9 @@ const CampaignCard = ({ props }) => {
                 <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                   <Typography variant="p">{props.description}</Typography>
                 </Typography>
-
-
               </Box>
             </Box>
+            {/* CTA button */}
             <Box
               sx={{
                 m: "1rem 0 0 0",
