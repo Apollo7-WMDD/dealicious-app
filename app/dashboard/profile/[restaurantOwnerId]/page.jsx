@@ -104,11 +104,13 @@ const Page = () => {
         <>
           {isMobile && (
             <>
+
               <NavbarMobile
                 value={tab}
                 setValue={setTab}
                 // style={{ overflow: "auto" }}
               />
+
               <Box sx={{ margin: "10px 16px 36px 16px" }}>
                 {tab === 0 && (
                   <BusinessInfo
@@ -117,11 +119,13 @@ const Page = () => {
                   />
                 )}
                 {tab === 1 && (
+
                   <Box sx={{ display: "flex", flexDirection: "column" }}>
                     <BusinessHours
                       restaurantOwnerId={restaurantOwnerId}
                       data={allData.businessHours}
                     />
+
                     <Box sx={{ marginTop: "17px" }}>
                       <Images
                         restaurantOwnerId={restaurantOwnerId}
@@ -129,12 +133,14 @@ const Page = () => {
                       />
                     </Box>
                   </Box>
+
                 )}
                 {tab === 2 && (
                   <Referral
                     restaurantOwnerId={restaurantOwnerId}
                     data={allData.referralSystem}
                   />
+
                 )}
               </Box>
             </>
@@ -143,6 +149,7 @@ const Page = () => {
           {!isMobile && (
             <Box sx={{ margin: { md: "35px auto 24px auto" } }}>
               <Grid container spacing={"24px"}>
+
                 <Grid
                   item
                   xs={12}
@@ -230,6 +237,7 @@ const Page = () => {
                         restaurantOwnerId={restaurantOwnerId}
                         data={allData.imagesMenus}
                       />
+
                     </Grid>
                   </Grid>
                 </Grid>

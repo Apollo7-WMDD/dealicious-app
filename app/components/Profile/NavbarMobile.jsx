@@ -16,24 +16,30 @@ const NavbarMobile = ({ value, setValue }) => {
         // bgcolor: "gold",
         bgcolor: theme.palette.background,
         display: { xs: "block", sm: "none" },
+
         marginBottom: "16px",
         marginLeft: "16px",
+
       }}
     >
       <Tabs
         value={value}
         onChange={handleChange}
         textColor="primary"
+
         // overflow="scroll"
         allowScrollButtonsMobile={true}
         // centered
         sx={{
           // overflow: "scroll",
+
           // backgroundColor: "navy",
           "& .MuiTabs-indicator": {
             // backgroundColor: "hotpink",
             backgroundColor: theme.palette.primary[80],
+
             // overflow: "auto",
+
           },
           '& .MuiTabs-scroller': {
             overflow: "auto !important",
