@@ -9,6 +9,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import SingleButtonSC from "../Button/SingleButtonSC";
 
 const Share = ({ props, status, setOpenThird }) => {
   const theme = useTheme();
@@ -18,8 +19,16 @@ const Share = ({ props, status, setOpenThird }) => {
   //const restaurantId = pathname.split("/")[2];
   const scpath = pathname.split("/")[1];
   let restaurantId;
-  if (scpath == "newCustomer") restaurantId = pathname.split("/")[2];
-  else restaurantId = pathname.split("/")[4];
+  let burnUserName;
+  if (scpath == "newCustomer"){
+     restaurantId = pathname.split("/")[2];
+     burnUserName = "New Customer";
+  }
+  else {
+    restaurantId = pathname.split("/")[4];
+    burnUserName = session.user.name ||
+    `${session.user?.firstname} ${session.user?.lastname}`;
+  }
   const [showCard, setShowCard] = useState(true);
   const [age, setAge] = useState("");
   const handleChange = (event) => {
@@ -28,9 +37,9 @@ const Share = ({ props, status, setOpenThird }) => {
 
   const handleOpenConfirm = async () => {
     const burnCodeInfo = {
-      username:
-        session.user.name ||
-        `${session.user?.firstname} ${session.user?.lastname}`,
+      username: burnUserName,
+        //session.user.name ||
+        //`${session.user?.firstname} ${session.user?.lastname}`,
       campaignname: props.name,
       offer: props.offer,
       burned: false,
@@ -179,11 +188,16 @@ const Share = ({ props, status, setOpenThird }) => {
               <MenuItem value={10}>Sustainability</MenuItem>
             </Select>
           </FormControl>
-          <SingleButton
+          {/* <SingleButton
             text="Submit"
             width="90%"
             onClick={handleOpenConfirm}
-          ></SingleButton>
+          ></SingleButton> */}
+          <SingleButtonSC
+            text="Submit"
+            width="90%"
+            onClick={handleOpenConfirm}
+          ></SingleButtonSC>
         </Box>
       </Box>
     );
