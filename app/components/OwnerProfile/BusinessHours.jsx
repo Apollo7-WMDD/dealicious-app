@@ -25,27 +25,27 @@ function BusinessHours({ restaurantOwnerId, data }) {
   }
 
   return (
-    <Box
-      sx={{
-        gridColumn: "1/3",
-        boxShadow: `0px 4px 20px 0px ${shadowColor}`,
-        borderRadius: "8px",
-        display: "flex",
-        padding: "16px 24px",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        // alignItems: "start",
-        flexShrink: 0,
-        gap: "1rem",
-        // height: "100%",
-        height: "auto",
-        width: "100%",
+    <Box sx={{
+      gridColumn: "1/3",
+      boxShadow: `0px 4px 20px 0px ${shadowColor}`,
+      borderRadius: "8px",
+      display: "flex",
+      padding: "16px 24px",
+      flexDirection: "column",
+      justifyContent: "space-between",
+      // alignItems: "start",
+      flexShrink: 0,
+      gap: "1rem",
 
-        [theme.breakpoints.down("md")]: {
-          gridColumn: "1/-1",
-        },
-      }}
-    >
+      height: "100%",
+      // height: "auto",
+
+      width: "100%",
+      
+      [theme.breakpoints.down("md")]: {
+        gridColumn: "1/-1",
+      },
+    }}>
       <Box
         sx={{
           display: "flex",

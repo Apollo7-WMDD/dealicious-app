@@ -65,7 +65,7 @@ const Page = () => {
       }
     };
     fetchData();
-  }, [restaurantOwnerId, reload]);
+  }, [restaurantOwnerId]);
 
   // useEffect(() => {
   //   const fetchData = async () => {
@@ -107,8 +107,9 @@ const Page = () => {
               <NavbarMobile
                 value={tab}
                 setValue={setTab}
-                style={{ overflow: "auto" }}
+                // style={{ overflow: "auto" }}
               />
+
               <Box sx={{ margin: "10px 16px 36px 16px" }}>
                 {tab === 0 && (
                   <BusinessInfo
@@ -117,11 +118,13 @@ const Page = () => {
                   />
                 )}
                 {tab === 1 && (
+
                   <Box sx={{ display: "flex", flexDirection: "column" }}>
                     <BusinessHours
                       restaurantOwnerId={restaurantOwnerId}
                       data={allData.businessHours}
                     />
+
                     <Box sx={{ marginTop: "17px" }}>
                       <Images
                         restaurantOwnerId={restaurantOwnerId}
@@ -129,12 +132,14 @@ const Page = () => {
                       />
                     </Box>
                   </Box>
+
                 )}
                 {tab === 2 && (
                   <Referral
                     restaurantOwnerId={restaurantOwnerId}
                     data={allData.referralSystem}
                   />
+
                 )}
               </Box>
             </>
@@ -163,34 +168,58 @@ const Page = () => {
                     <Grid
                       item
                       xs={12}
-                      md={6}
+                      container
+                      spacing={"24px"}
                       sx={{
-                        width: "100%",
-                        // width: "380px",
-                        // height: "433px"
-                        height: "auto",
+                        [theme.breakpoints.down("lg")]: {
+                          flexDirection: "column",
+                          flexWrap: "nowrap",
+                        },
                       }}
                     >
-                      <BusinessHours
-                        restaurantOwnerId={restaurantOwnerId}
-                        data={allData.businessHours}
-                      />
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      md={6}
-                      sx={{
-                        width: "100%",
-                        // width: "380px",
-                        //  height: "433px"
-                        height: "auto",
-                      }}
-                    >
-                      <Referral
-                        restaurantOwnerId={restaurantOwnerId}
-                        data={allData.referralSystem}
-                      />
+                      <Grid
+                        item
+                        xs={12}
+                        md={6}
+                        sx={{
+                          width: "100%",
+                          // width: "380px",
+                          // height: "433px"
+                          height: "auto",
+                          // height: "100%",
+                          // maxWidth: "100%",
+                          flexGrow: 1,
+                          [theme.breakpoints.down("lg")]: {
+                            maxWidth: "100%",
+                          },
+                          
+                        }}
+                      >
+                        <BusinessHours
+                          restaurantOwnerId={restaurantOwnerId}
+                          data={allData.businessHours}
+                        />
+                      </Grid>
+                      <Grid
+                        item
+                        xs={12}
+                        md={6}
+                        sx={{
+                          width: "100%",
+                          // width: "380px",
+                          //  height: "433px"
+                          height: "auto",
+                          flexGrow: 1,
+                          [theme.breakpoints.down("lg")]: {
+                            maxWidth: "100%",
+                          },
+                        }}
+                      >
+                        <Referral
+                          restaurantOwnerId={restaurantOwnerId}
+                          data={allData.referralSystem}
+                        />
+                      </Grid>
                     </Grid>
                     <Grid
                       item

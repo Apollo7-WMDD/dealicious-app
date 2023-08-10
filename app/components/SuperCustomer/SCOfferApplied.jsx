@@ -18,10 +18,8 @@ const Share = ({ props, status, setOpenThird }) => {
   //const restaurantId = pathname.split("/")[2];
   const scpath = pathname.split("/")[1];
   let restaurantId;
-  if(scpath=="newCustomer")
-      restaurantId = pathname.split("/")[2];
-  else
-      restaurantId = pathname.split("/")[4];
+  if (scpath == "newCustomer") restaurantId = pathname.split("/")[2];
+  else restaurantId = pathname.split("/")[4];
   const [showCard, setShowCard] = useState(true);
   const [age, setAge] = useState("");
   const handleChange = (event) => {
@@ -74,11 +72,26 @@ const Share = ({ props, status, setOpenThird }) => {
     const maxRating = 5;
 
     for (let i = 1; i <= maxRating; i++) {
-      const starClass = i <= rating ? "star-filled" : "star-empty";
+      const starClass = i <= rating ? "starFilled" : "starEmpty";
       stars.push(
         <span
           key={i}
-          className={`star ${starClass}`}
+          // className={`star ${starClass}`}
+          style={
+            i <= rating
+              ? {
+                  // color: 'gold', 
+                  color: "#ff5938",
+                  // color: theme.palette.background ,
+                  // borderColor: '#ff5938',
+                  // border: "1px solid",
+                }
+              : { 
+                // color: 'hotpink'
+                color: "#454545",
+                // color: theme.palette.primary[80] 
+              }
+          }
           onClick={() => handleRatingChange(i)}
         >
           &#9733;
@@ -88,6 +101,7 @@ const Share = ({ props, status, setOpenThird }) => {
 
     return stars;
   };
+  
 
   if (!showCard) {
     return null; // Return null to hide the component when showCard is false
@@ -98,6 +112,8 @@ const Share = ({ props, status, setOpenThird }) => {
       <Box
         sx={{
           borderRadius: "10px",
+          overflow: "auto",
+          // backgroundColor: "gold",
           // width:"400px"
         }}
       >
@@ -129,7 +145,10 @@ const Share = ({ props, status, setOpenThird }) => {
           <Box
             className="rating"
             sx={{
-              color: "#ff5938",
+              
+              // color: theme.palette.background,
+              // borderColor: theme.palette.background.alt,
+              // border: "1px solid",
               fontSize: "40px",
             }}
           >
@@ -162,7 +181,7 @@ const Share = ({ props, status, setOpenThird }) => {
           </FormControl>
           <SingleButton
             text="Submit"
-            width="144px"
+            width="90%"
             onClick={handleOpenConfirm}
           ></SingleButton>
         </Box>
