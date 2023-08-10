@@ -43,6 +43,8 @@ const Page = () => {
     setHilighted(hilighted);
   };
 
+  console.log("hilighted campaign 💖", hilighted);
+
   return (
     <>
       <Box
