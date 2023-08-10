@@ -514,6 +514,8 @@ const HomePage = () => {
                     fontSize: "1rem",
                     borderRadius: "12px",
                     width: "100%",
+                    dropShadow: "unset",
+                    boxShadow: "unset",
                     backgroundColor: theme.palette.primary[80],
                     marginTop: "20px",
                     marginRight: "20px",
@@ -533,6 +535,8 @@ const HomePage = () => {
                     fontSize: "1rem",
                     width: "100%",
                     borderRadius: "12px",
+                    dropShadow: "unset",
+                    boxShadow: "unset",
                     backgroundColor: theme.palette.primary[80],
                     marginRight: "20px",
                     ":hover": {
