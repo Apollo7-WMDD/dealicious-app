@@ -26,25 +26,24 @@ ChartJS.register(
   TimeScale
 );
 
-const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId, sourceType }) => {
- 
+const SingleLineChart = ({
+  fetchDataSource,
+  showTextSource,
+  campaignId,
+  sourceType,
+}) => {
   const getcampaignId = campaignId;
- 
+
   const { restaurantOwnerId } = useStore();
   const [data, setData] = useState(null);
   const [period, setPeriod] = useState("daily");
   const [isLoading, setIsLoading] = useState(true);
 
-  console.log(
-    "🚀 ~ file: SingleLineChart.jsx:35 ~ SingleLineChart ~ data:",
-    data
-  );
-
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        switch(sourceType) {
+        switch (sourceType) {
           case "fetchTotalRevenueSingle":
             console.log("fetchTotalRevenueSingle");
             const res1 = await fetchDataSource(getcampaignId);
@@ -76,7 +75,6 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId, sourceTy
     };
     fetchData();
   }, [restaurantOwnerId, campaignId, fetchDataSource, sourceType]);
-  
 
   console.log("single line chart", data);
 
