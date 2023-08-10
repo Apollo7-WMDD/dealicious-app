@@ -6,6 +6,8 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import Link from "next/link";
 
+import Image from "next/image";
+
 // // import next-auth hooks
 import { useSession, signOut } from "next-auth/react";
 import { useStore } from "@/lib/context/user_context/store";
@@ -565,6 +567,14 @@ const HomePage = () => {
 
       <section id="why-us" className={styles.landing_why_us}>
         <div className={styles.why_us_container}>
+          <div className={styles.why_us_image}>
+            <Image
+              src="/assets_landingPage/why_us_animation.gif"
+              width={240}
+              height={240}
+              alt="why us animation"
+            />
+          </div>
           <div className={styles.why_us_text}>
             <h2
               style={{
@@ -688,6 +698,7 @@ const HomePage = () => {
                 <div className={styles.linkedin}>
                   <i className="fa-brands fa-linkedin"></i>
                   <Link
+                    target="_blank"
                     href="https://www.linkedin.com/in/edgarvelandia"
                     className={styles.linkedin_link}
                   >
@@ -717,6 +728,7 @@ const HomePage = () => {
                 <div className={styles.linkedin}>
                   <i className="fa-brands fa-linkedin"></i>
                   <Link
+                    target="_blank"
                     href="https://www.linkedin.com/in/ziyunyue"
                     className={styles.linkedin_link}
                   >
@@ -743,6 +755,7 @@ const HomePage = () => {
                 <div className={styles.linkedin}>
                   <i className="fa-brands fa-linkedin"></i>
                   <Link
+                    target="_blank"
                     href="https://www.linkedin.com/in/mariocesena"
                     className={styles.linkedin_link}
                   >
@@ -770,6 +783,7 @@ const HomePage = () => {
                 <div className={styles.linkedin}>
                   <i className="fa-brands fa-linkedin"></i>
                   <Link
+                    target="_blank"
                     href="https://www.linkedin.com/in/tony-sa"
                     className={styles.linkedin_link}
                   >
@@ -799,6 +813,7 @@ const HomePage = () => {
                 <div className={styles.linkedin}>
                   <i className="fa-brands fa-linkedin"></i>
                   <Link
+                    target="_blank"
                     href="https://www.linkedin.com/in/nahlania"
                     className={styles.linkedin_link}
                   >
@@ -826,6 +841,7 @@ const HomePage = () => {
                 <div className={styles.linkedin}>
                   <i className="fa-brands fa-linkedin"></i>
                   <Link
+                    target="_blank"
                     href="https://www.linkedin.com/in/surbhikataria"
                     className={styles.linkedin_link}
                   >
@@ -854,6 +870,7 @@ const HomePage = () => {
                 <div className={styles.linkedin}>
                   <i className="fa-brands fa-linkedin"></i>
                   <Link
+                    target="_blank"
                     href="https://www.linkedin.com/in/palimv"
                     className={styles.linkedin_link}
                   >

@@ -445,11 +445,20 @@ img#sky {
   margin: auto;
 }
 
+.why_us_image {
+  flex: 1 0 30%;
+  width: fit-content;
+}
+
+.why_us_image img {
+  margin: 0;
+}
+
 .why_us_container {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: row;
   align-items: center;
-  margin: 4rem;
+  margin: 4rem 0;
   gap: 2rem;
   width: 100%;
 }
@@ -458,6 +467,7 @@ img#sky {
   display: flex;
   flex-flow: column;
   gap: 2rem;
+  flex: 1 0 70%;
 }
 
 .why_us_text p {
@@ -970,4 +980,16 @@ img#sky {
 .landing_contact,
 .landing_section {
   max-width: 872px;
+}
+
+@media screen and (max-width: 670px) {
+  .why_us_container {
+    flex-direction: column-reverse;
+  }
+}
+
+@media screen and (max-width: 890px) {
+  .why_us_container {
+    margin: 4rem;
+  }
 }
