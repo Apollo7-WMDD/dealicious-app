@@ -29,11 +29,11 @@ const SingleButton = ({ text, onClick, width }) => {
           boxShadow: "none",
         },
         [theme.breakpoints.down("lg")]: {
-          // width: "265px",
+          width: "265px",
           fontSize: "16px",
         },
         [theme.breakpoints.down("md")]: {
-          // width: "180px",
+          width: "180px",
           fontSize: "14px",
           lineHeight: "16px",
           margin: "1rem 0",
