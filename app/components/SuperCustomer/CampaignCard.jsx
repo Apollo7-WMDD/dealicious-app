@@ -107,7 +107,7 @@ const CampaignCard = ({ props }) => {
 
   const style = {
     maxHeight: "90vh",
-
+    overflow: "auto",
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -245,7 +245,8 @@ const CampaignCard = ({ props }) => {
 
                 style={{
                   width: "100%",
-                  height: "200px",
+                  height: "20vh",
+                  // height: "200px",
                   borderRadius: "10px",
                   objectFit: "cover",
                   overflow: "hidden",
@@ -285,7 +286,8 @@ const CampaignCard = ({ props }) => {
             {/* CTA button */}
             <Box
               sx={{
-                m: "1rem 0 0 0",
+                m: "0",
+                // m: "1rem 0 0 0",
                 textAlign: "center",
               }}
             >
