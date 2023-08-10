@@ -11,6 +11,8 @@ function HilightWrap() {
   const [data, setData] = useState(null);
   const [campaignId, setCampaignId] = useState(null);
 
+  console.log("✅✅ This is the Highlighted Wrap!");
+
   useEffect(() => {
     if (restaurantOwnerId) {
       const fetchData = async () => {
@@ -34,8 +36,7 @@ function HilightWrap() {
               endDate: "Error",
               favorite: false,
               name: "Error",
-              offer:
-                "Error",
+              offer: "Error",
               spending: 0,
               startDate: "Error",
               type: ["Seasonal Menu"],
@@ -53,7 +54,6 @@ function HilightWrap() {
       <Loader />;
     }
   }, [restaurantOwnerId]);
-
 
   const prgphStyle = {
     margin: "0",
@@ -129,7 +129,7 @@ function HilightWrap() {
         </Typography>
         <SingleLineChart
           fetchDataSource={fetchTotalRevenueSingle}
-          showTextSource={(s) => `$ ${data?.spending}`}
+          showTextSource={(s) => `$ ${data?.spending ?? 0}`}
           campaignId={data?._id}
           sourceType="fetchTotalRevenueSingle"
         />
