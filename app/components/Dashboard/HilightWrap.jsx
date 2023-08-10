@@ -11,6 +11,8 @@ function HilightWrap() {
   const [data, setData] = useState(null);
   const [campaignId, setCampaignId] = useState(null);
 
+  console.log("✅✅ This is the Highlighted Wrap!");
+
   useEffect(() => {
     if (restaurantOwnerId) {
       const fetchData = async () => {
