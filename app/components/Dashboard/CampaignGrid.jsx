@@ -16,7 +16,10 @@ function CampaignGrid({ onPinClickB }) {
   const theme = useTheme();
   const { restaurantOwnerId } = useStore();
   const [dataArray, setDataArray] = useState([]);
-  console.log("🚀 ~ file: CampaignGrid.jsx:19 ~ CampaignGrid ~ dataArray:", dataArray)
+  console.log(
+    "🚀 ~ file: CampaignGrid.jsx:19 ~ CampaignGrid ~ dataArray:",
+    dataArray
+  );
   const [hilighted, setHilighted] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
@@ -31,6 +34,7 @@ function CampaignGrid({ onPinClickB }) {
             Date.parse(e.endDate) > Date.now()
         );
         setDataArray(filteredResult || []);
+        onPinClickB(filteredResult[0]?._id);
       } catch (error) {
         console.error("fetching data:", error);
       } finally {
@@ -62,7 +66,6 @@ function CampaignGrid({ onPinClickB }) {
           gridColumn: "span 1",
           gridTemplateColumns: "repeat(1, 1fr)",
         },
-        
       }}
     >
       {isLoading ? (
@@ -92,7 +95,7 @@ function CampaignGrid({ onPinClickB }) {
       ) : (
         dataArray.map((e) => (
           <ChartCardOngoingUpcoming key={e._id}>
-            <div style={{ minHeight: "70px", minWidth:"100%" }}>
+            <div style={{ minHeight: "70px", minWidth: "100%" }}>
               <ChartCardTitle
                 data={e}
                 text={e.name}

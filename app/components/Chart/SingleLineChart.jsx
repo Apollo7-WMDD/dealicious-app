@@ -32,10 +32,13 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId, sourceTy
  
   const { restaurantOwnerId } = useStore();
   const [data, setData] = useState(null);
-  console.log("🚀 ~ file: SingleLineChart.jsx:35 ~ SingleLineChart ~ data:", data)
   const [period, setPeriod] = useState("daily");
   const [isLoading, setIsLoading] = useState(true);
 
+  console.log(
+    "🚀 ~ file: SingleLineChart.jsx:35 ~ SingleLineChart ~ data:",
+    data
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,7 +80,8 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId, sourceTy
 
   console.log("single line chart", data);
 
-  const showText = data && showTextSource ? showTextSource( formatNumber(data) ) : "";
+  const showText =
+    data && showTextSource ? showTextSource(formatNumber(data)) : "";
 
   const theme = useTheme();
   defaults.font.family = theme.typography.fontFamily;
@@ -197,13 +201,13 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId, sourceTy
   };
 
   function formatNumber(num) {
-    if(num >= 1000) {
-      return (num/1000).toFixed(1) + 'k'; // 
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1) + "k"; //
     } else {
       return num;
     }
   }
-  
+
   return (
     <>
       {isLoading ? (
@@ -223,7 +227,12 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId, sourceTy
             position: "relative",
           }}
         >
-          <Typography variant="h2" align="center" lineHeight="77px" sx={{ fontSize: "48px" }} >
+          <Typography
+            variant="h2"
+            align="center"
+            lineHeight="77px"
+            sx={{ fontSize: "48px" }}
+          >
             {showText}
           </Typography>
           <Box
@@ -235,9 +244,7 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId, sourceTy
             }}
           >
             {/* line chart */}
-            <Box sx={{ maxHeight: "200px", 
-            height: "100%" 
-            }}>
+            <Box sx={{ maxHeight: "200px", height: "100%" }}>
               <Line
                 // plugins={plugins}
                 data={chartData}
@@ -251,7 +258,7 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId, sourceTy
               />
             </Box>
             {/* daily,weekly button */}
-            <Box sx={{ textAlign:"end"}}>
+            <Box sx={{ textAlign: "end" }}>
               <Button
                 onClick={() => setPeriod("daily")}
                 variant="text"
