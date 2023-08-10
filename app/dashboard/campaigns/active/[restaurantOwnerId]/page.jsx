@@ -43,6 +43,8 @@ const Page = () => {
     setHilighted(hilighted);
   };
 
+  console.log("hilighted campaign 💖", hilighted);
+
   return (
     <>
       <Box
@@ -90,7 +92,7 @@ const Page = () => {
               showPin={true}
             ></ChartCardTitle>
 
-            {hilighted._id != undefined ? (
+            {hilighted._id ? (
               <div style={{ width: "100%" }}>
                 <div>
                   <Typography variant="h5" sx={{ mt: "1rem" }}>

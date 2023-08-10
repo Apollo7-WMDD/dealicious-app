@@ -34,7 +34,6 @@ function CampaignGrid({ onPinClickB }) {
             Date.parse(e.endDate) > Date.now()
         );
         setDataArray(filteredResult || []);
-        onPinClickB(filteredResult[0]?._id);
       } catch (error) {
         console.error("fetching data:", error);
       } finally {
