@@ -378,8 +378,7 @@ const Page = () => {
                       <SingleLineChart
                         fetchDataSource={fetchTotalRevenueSingle}
                         showTextSource={
-                        //  `$ 0.9k`
-                          (data) => `$ 0.9k`
+                          (data) => `$ 6699`
                         }
                         campaignId={campaignId}
                         sourceType="fetchTotalRevenueSingle"
@@ -473,7 +472,7 @@ const Page = () => {
                         fetchDataSource={fetchTotalRevenueSingle}
                         showTextSource={
                         //  `$ 0.9k`
-                          (data) => `$ 0.9k`
+                          (data) => `$ 6699`
                         }
                         campaignId={campaignId}
                         sourceType="fetchTotalRevenueSingle"
