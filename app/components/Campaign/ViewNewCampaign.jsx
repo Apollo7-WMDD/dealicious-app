@@ -57,6 +57,7 @@ const ViewNewCampaign = ({
           justifyContent: "center",
         }}
       >
+        {/*  */}
         <Header>Review the campaign</Header>
         <Box
           sx={{
