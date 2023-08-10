@@ -104,7 +104,6 @@ const Page = () => {
         <>
           {isMobile && (
             <>
-
               <NavbarMobile
                 value={tab}
                 setValue={setTab}
@@ -149,7 +148,6 @@ const Page = () => {
           {!isMobile && (
             <Box sx={{ margin: { md: "35px auto 24px auto" } }}>
               <Grid container spacing={"24px"}>
-
                 <Grid
                   item
                   xs={12}
@@ -237,7 +235,6 @@ const Page = () => {
                         restaurantOwnerId={restaurantOwnerId}
                         data={allData.imagesMenus}
                       />
-
                     </Grid>
                   </Grid>
                 </Grid>

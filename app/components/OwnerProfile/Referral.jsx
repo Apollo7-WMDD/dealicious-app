@@ -13,17 +13,15 @@ function Referral({ restaurantOwnerId, data }) {
   const [qrCodeURL, setQrCodeURL] = useState(null);
   const theme = useTheme();
   const shadowColor = `${theme.palette.neutral[20]}1f`;
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
     const getRestaurantData = async () => {
-      const restaurantData = data;
-      // const data = await fetchReferralSystem(restaurantOwnerId);
       const { restaurantInfo } = data;
       setRestaurantData(restaurantInfo);
 
-      if (restaurantInfo.qrCode) {
-        const url = await QRCode.toDataURL(restaurantInfo.qrCode);
+      if (restaurantInfo && restaurantInfo.qrCode) {
+        const url = await QRCode.toDataURL(restaurantInfo?.qrCode);
         setQrCodeURL(url);
       }
     };
@@ -65,109 +63,109 @@ function Referral({ restaurantOwnerId, data }) {
       >
         <SubHeader>Referral System</SubHeader>
         {isMobile && (
-                <>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            marginBottom: '1rem'
-                        }}
-                    >
-                        <img
-                            src={qrCodeURL}
-                            alt="QR Code"
-                            sx={{
-                                width: '320px',
-                                height: '320px',
-                                marginBottom: '1rem'
-                            }}
-                        />
-                        <SingleButtonNoIcon
-                            variant="outlined"
-                            text="Print Code"
-                            onClick={printCode}
-                        />
-                    </Box>
-                    
-                    <Typography
-                        sx={{
-                            marginTop: "18px",
-                            fontSize: "18px",
-                            fontWeight: "300",
-                            textAlign: 'left',
-                        }}
-                    >
-                        The Super Customers can earn
-                        {restaurantData
-                            ? ` ${restaurantData.superCustomerPoints}`
-                            : null}{" "}
-                        points for each hundred dollars they spend at your business. They can
-                        redeem their points to get $1.00 discount per point.
-                    </Typography>
-                </>
-            )}
+          <>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                marginBottom: "1rem",
+              }}
+            >
+              <img
+                src={qrCodeURL}
+                alt="QR Code"
+                sx={{
+                  width: "320px",
+                  height: "320px",
+                  marginBottom: "1rem",
+                }}
+              />
+              <SingleButtonNoIcon
+                variant="outlined"
+                text="Print Code"
+                onClick={printCode}
+              />
+            </Box>
 
-            {!isMobile && (
-                <>
-                    <Typography
-                        sx={{
-                            marginTop: "18px",
-                            fontSize: "18px",
-                            fontWeight: "300"
-                        }}
-                    >
-                        The Super Customers can earn
-                        {restaurantData
-                            ? ` ${restaurantData.superCustomerPoints}`
-                            : null}{" "}
-                        points for each hundred dollars they spend at your business. They can
-                        redeem their points to get $1.00 discount per point.
-                    </Typography>
-                    
-                    <Box
-                        sx={{
-                            display: "flex",
-                            flexDirection: 'row',
-                            justifyContent: "space-between",
-                            marginTop: "40px",
-                            "& img": {
-                                maxWidth: "100px"
-                            },
-                        }}
-                    >
-                        <img src={qrCodeURL} alt="QR Code" />
-                        <SingleButtonNoIcon
-                            variant="outlined"
-                            text="Print Code"
-                            onClick={printCode}
-                        />
-                    </Box>
-                </>
-            )}
+            <Typography
+              sx={{
+                marginTop: "18px",
+                fontSize: "18px",
+                fontWeight: "300",
+                textAlign: "left",
+              }}
+            >
+              The Super Customers can earn
+              {restaurantData
+                ? ` ${restaurantData?.superCustomerPoints}`
+                : null}
+              points for each hundred dollars they spend at your business. They
+              can redeem their points to get $1.00 discount per point.
+            </Typography>
+          </>
+        )}
+
+        {!isMobile && (
+          <>
+            <Typography
+              sx={{
+                marginTop: "18px",
+                fontSize: "18px",
+                fontWeight: "300",
+              }}
+            >
+              The Super Customers can earn
+              {restaurantData
+                ? ` ${restaurantData.superCustomerPoints}`
+                : null}{" "}
+              points for each hundred dollars they spend at your business. They
+              can redeem their points to get $1.00 discount per point.
+            </Typography>
 
             <Box
-                sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "end",
-                    alignItems: "center",
-                    marginTop: "25px",
-                    gap: "8px",
-                }}
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginTop: "40px",
+                "& img": {
+                  maxWidth: "100px",
+                },
+              }}
             >
-                <Declarationmark />
-                <Typography
-                    sx={{
-                        color: "#FF5938",
-                        fontSize: "16px",
-                        fontWeight: "600",
-                    }}
-                >
-                    Learn about pointing & referral
-                </Typography>
+              <img src={qrCodeURL} alt="QR Code" />
+              <SingleButtonNoIcon
+                variant="outlined"
+                text="Print Code"
+                onClick={printCode}
+              />
             </Box>
+          </>
+        )}
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "end",
+            alignItems: "center",
+            marginTop: "25px",
+            gap: "8px",
+          }}
+        >
+          <Declarationmark />
+          <Typography
+            sx={{
+              color: "#FF5938",
+              fontSize: "16px",
+              fontWeight: "600",
+            }}
+          >
+            Learn about pointing & referral
+          </Typography>
         </Box>
+      </Box>
     </Box>
   );
 }

@@ -7,7 +7,7 @@ export const GET = async (request) => {
   const restaurantOwner = url.pathname.split("/")[3];
 
   try {
-    if (!restaurantOwner) {
+    if (restaurantOwner === "undefined" || !restaurantOwner) {
       return new NextResponse(JSON.stringify({ data: null }), { status: 200 });
     }
 
