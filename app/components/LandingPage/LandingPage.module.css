@@ -65,7 +65,7 @@
   padding: 1rem;
 }
 
-.mobile-nav_container > .landing_nav > ul {
+.mobile_nav_container > .landing_nav > ul {
   display: flex;
   flex-flow: column;
 }
