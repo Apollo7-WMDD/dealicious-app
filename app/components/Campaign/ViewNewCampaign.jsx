@@ -52,6 +52,9 @@ const ViewNewCampaign = ({
             md: "44px 74px",
           },
           minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
         }}
       >
         <Header>Review the campaign</Header>
