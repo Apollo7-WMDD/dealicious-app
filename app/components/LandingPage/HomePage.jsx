@@ -268,11 +268,8 @@ const HomePage = () => {
         (result) => {
           resetForm();
           setIsModalOpen(true);
-          console.log(result.text);
         },
-        (error) => {
-          console.log(error.text);
-        }
+        (error) => {}
       );
   };
 
