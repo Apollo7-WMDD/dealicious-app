@@ -34,12 +34,12 @@ const ViewNewCampaign = ({
 
   let imageSrc;
   if (formData.media) {
-      if (Array.isArray(formData.media)) {
-        imageSrc = formData.media[0];
-      } else {
-        imageSrc = formData.media;
-      }
+    if (Array.isArray(formData.media)) {
+      imageSrc = formData.media[0];
     } else {
+      imageSrc = formData.media;
+    }
+  } else {
     imageSrc = localStorage.getItem("media");
   }
 
@@ -51,6 +51,7 @@ const ViewNewCampaign = ({
             xs: "32px 16px",
             md: "44px 74px",
           },
+          minHeight: "100vh",
         }}
       >
         <Header>Review the campaign</Header>
