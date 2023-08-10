@@ -108,6 +108,10 @@
   white-space: nowrap;
   height: max-content;
 }
+
+.landing_button_container {
+  gap: 0.5rem;
+}
 /* END OF HEADER */
 
 /* INTRO */
@@ -383,7 +387,7 @@ img#sky {
   gap: 2rem;
 
   left: 50%;
-  top: 50%;
+  top: 63%;
 
   transform: translate(-50%, -50%);
 }

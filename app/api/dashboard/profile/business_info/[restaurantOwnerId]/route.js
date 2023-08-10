@@ -8,6 +8,12 @@ export const GET = async (request) => {
   const restaurantOwnerId = url.pathname.split("/")[5];
 
   try {
+    if (
+      !restaurantOwnerId ||
+      !mongoose.Types.ObjectId.isValid(restaurantOwnerId)
+    ) {
+      return new NextResponse(JSON.stringify({}), { status: 200 });
+    }
     await connect();
 
     const restaurantInfo = await Restaurant.findOne({
