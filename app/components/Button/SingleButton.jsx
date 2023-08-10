@@ -41,7 +41,7 @@ const SingleButton = ({ text, onClick, width }) => {
           justifySelf: "start",
         },
         [theme.breakpoints.down("sm")]: {
-          width: "90px",
+           width: "90px",
         },
       }}
     >

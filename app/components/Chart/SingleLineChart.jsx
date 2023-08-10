@@ -26,7 +26,10 @@ ChartJS.register(
   TimeScale
 );
 
-const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
+const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId, sourceType }) => {
+ 
+  const getcampaignId = campaignId;
+ 
   const { restaurantOwnerId } = useStore();
   const [data, setData] = useState(null);
   const [period, setPeriod] = useState("daily");
@@ -41,22 +44,29 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        if (fetchDataSource.name == "fetchTotalRevenueSingle") {
-          console.log("fetchTotalRevenueSingle");
-          const res = await fetchDataSource(campaignId);
-          setData(res);
-        } else if (fetchDataSource.name == "fetchTotalRevenue") {
-          console.log("fetchTotalRevenue");
-          const res = await fetchDataSource(restaurantOwnerId);
-          setData(res);
-        } else if (fetchDataSource.name == "fetchNCbecameSC") {
-          console.log("fetchNCbecameSC");
-          const res = await fetchDataSource(campaignId);
-          setData(res);
-        } else if (fetchDataSource.name == "fetchCustomerCampaignTimeSingle") {
-          console.log("fetchCustomerCampaignTimeSingle");
-          const res = await fetchDataSource(restaurantOwnerId);
-          setData(res);
+        switch(sourceType) {
+          case "fetchTotalRevenueSingle":
+            console.log("fetchTotalRevenueSingle");
+            const res1 = await fetchDataSource(getcampaignId);
+            setData(res1);
+            break;
+          case "fetchTotalRevenue":
+            console.log("fetchTotalRevenue");
+            const res2 = await fetchDataSource(restaurantOwnerId);
+            setData(res2);
+            break;
+          case "fetchNCbecameSC":
+            console.log("fetchNCbecameSC");
+            const res3 = await fetchDataSource(getcampaignId);
+            setData(res3);
+            break;
+          case "fetchCustomerCampaignTimeSingle":
+            console.log("fetchCustomerCampaignTimeSingle");
+            const res4 = await fetchDataSource(restaurantOwnerId);
+            setData(res4);
+            break;
+          default:
+            console.error("Unknown sourceType:", sourceType);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -65,7 +75,8 @@ const SingleLineChart = ({ fetchDataSource, showTextSource, campaignId }) => {
       }
     };
     fetchData();
-  }, [restaurantOwnerId, campaignId, fetchDataSource]);
+  }, [restaurantOwnerId, campaignId, fetchDataSource, sourceType]);
+  
 
   console.log("single line chart", data);
 

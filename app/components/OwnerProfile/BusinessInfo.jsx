@@ -9,16 +9,6 @@ import InputValue from "../Profile/InputValue";
 import { fetchBusinessInfo } from "@/lib/fetching/profile/data";
 
 function BusinessInfo({ restaurantOwnerId, data }) {
-  // const [restaurantData, setRestaurantData] = useState(null);
-
-  // useEffect(() => {
-  //   const getRestaurantData = async () => {
-  //     const data = await fetchBusinessInfo(restaurantOwnerId);
-  //     const { restaurantInfo } = data;
-  //     setRestaurantData(restaurantInfo);
-  //   };
-  //   getRestaurantData();
-  // }, [restaurantOwnerId]);
   const restaurantData = data;
   const theme = useTheme();
   const shadowColor = `${theme.palette.neutral[20]}1f`;
@@ -72,7 +62,9 @@ function BusinessInfo({ restaurantOwnerId, data }) {
         </Box>
         <Box sx={{ marginTop: "24px" }}>
           <Label text="Postal Code" />
-          <InputValue text={restaurantData?.restaurantInfo?.address?.postalCode} />
+          <InputValue
+            text={restaurantData?.restaurantInfo?.address?.postalCode}
+          />
         </Box>
         <Box sx={{ marginTop: "24px" }}>
           <Label text="Street Address" />

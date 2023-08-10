@@ -189,6 +189,7 @@ const Page = () => {
                     fetchDataSource={fetchTotalRevenueSingle}
                     showTextSource={(data) => `$ ${hilighted.spending}`}
                     campaignId={hilighted?._id}
+                    sourceType="fetchTotalRevenueSingle"
                   />
                 </div>
               </div>

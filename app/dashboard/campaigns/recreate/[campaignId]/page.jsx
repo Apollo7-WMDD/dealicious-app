@@ -15,6 +15,7 @@ import CampaignImage from "@/app/components/Campaign/CampaignImage";
 import CampaignForm1 from "@/app/components/Campaign/CampaignForm1";
 import CampaignForm2 from "@/app/components/Campaign/CampaignForm2";
 import { fetchSingleCampaign } from "@/lib/fetching/campaigns/data";
+import { aiGenerate } from "@/app/api/dashboard/campaigns/openAI/route";
 
 const fetchOpenAIAPI = async (formData) => {
   const url = `/api/dashboard/campaigns/openAI`;

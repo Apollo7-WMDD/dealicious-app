@@ -13,7 +13,6 @@ import { useStore } from "@/lib/context/user_context/store";
 // import material ui
 import { Modal, Box, Typography, Button, useTheme } from "@mui/material";
 
-
 // Contact us email
 import emailjs from "@emailjs/browser";
 import CloseIcon from "@mui/icons-material/Close";
@@ -90,13 +89,17 @@ const HomePage = () => {
       "<"
     );
 
-    gsap.to(landingIntro.current, {
-      opacity: 0,
-      delay: 3.5,
-      y: 0,
-      duration: 4,
-      ease: "back.out(3)",
-    });
+    gsap.to(
+      landingIntro.current,
+      {
+        opacity: 0,
+        delay: 3.5,
+        y: 0,
+        duration: 4,
+        ease: "back.out(3)",
+      },
+      "<"
+    );
 
     gsap.to(skyline1.current, {
       delay: 2.5,
@@ -146,7 +149,7 @@ const HomePage = () => {
       { y: -2 * speed, x: -2 * speed, scale: 1.15 },
       0.03
     );
-    scene1.to(floor.current, { y: -2 * speed, x: 0 * speed }, 0.03);
+    // scene1.to(floor.current, { y: -2 * speed, x: 0 * speed }, 0.03);
 
     //=====================   SCENE 2
     let scene2 = gsap.timeline();
@@ -167,8 +170,8 @@ const HomePage = () => {
     );
     scene2.fromTo(
       landingBench.current,
-      { x: 750, scale: 0.4 },
-      { x: -1 * speed, scale: 0.4 },
+      { x: 750, scale: 0.3 },
+      { x: -1 * speed, scale: 0.3 },
       "<"
     );
 
@@ -393,7 +396,9 @@ const HomePage = () => {
       <main className={styles.landing_hero}>
         <div ref={scrolCta} className={styles.scroll_cta}>
           <p className={styles.fade_in_out}>Scroll down to explore...</p>
-          <i className="fa-solid fa-angles-down arrow bounce"></i>
+          <i
+            className={`fa-solid fa-angles-down ${styles.arrow} ${styles.bounce}`}
+          ></i>
         </div>
 
         <div
@@ -487,16 +492,26 @@ const HomePage = () => {
               src="/assets_landingPage/loginLogo.svg"
               className={styles.landing_main_logo}
             />
-            <h2 className={styles.landing_main_title}>Taste of Growth!</h2>
+            <h2
+              className={styles.landing_main_title}
+              style={{
+                color: "#ff5938",
+              }}
+            >
+              Taste of Growth!
+            </h2>
           </div>
           {status === "loading" ? (
             <LoaderSession />
           ) : session?.user?.id === undefined && !session ? (
             <div className={styles.landing_button_container}>
-              <Link href={`/login/owner`}>
+              <Link href={`/login/owner`} style={{ width: "100%" }}>
                 <Button
                   variant="contained"
                   sx={{
+                    fontSize: "1rem",
+                    borderRadius: "12px",
+                    width: "100%",
                     backgroundColor: theme.palette.primary[80],
                     marginTop: "20px",
                     marginRight: "20px",
@@ -509,12 +524,14 @@ const HomePage = () => {
                   Sign Up as Restaurant Owner
                 </Button>
               </Link>
-              <Link href={`/login/superCustomer`}>
+              <Link href={`/login/superCustomer`} style={{ width: "100%" }}>
                 <Button
                   variant="contained"
                   sx={{
+                    fontSize: "1rem",
+                    width: "100%",
+                    borderRadius: "12px",
                     backgroundColor: theme.palette.primary[80],
-                    marginTop: "20px",
                     marginRight: "20px",
                     ":hover": {
                       backgroundColor: "white",
@@ -646,6 +663,7 @@ const HomePage = () => {
       {/* <!-- the team section --> */}
 
       <section
+        id="theTeam"
         className={`${styles.landing_section} ${styles.landing_the_team}`}
       >
         <h2
@@ -668,9 +686,7 @@ const HomePage = () => {
                 <p className={styles.name}>Edgar Velandia</p>
                 <p className={styles.title}>Full Stack Developer</p>
                 <div className={styles.linkedin}>
-                  <i
-                    className={`${styles.fa_brands} ${styles.fa_linkedin}`}
-                  ></i>
+                  <i className="fa-brands fa-linkedin"></i>
                   <Link
                     href="https://www.linkedin.com/in/edgarvelandia"
                     className={styles.linkedin_link}
@@ -699,9 +715,7 @@ const HomePage = () => {
                 <p className={styles.name}>Ziyun Yue</p>
                 <p className={styles.title}>Full Stack Developer</p>
                 <div className={styles.linkedin}>
-                  <i
-                    className={`${styles.fa_brands} ${styles.fa_linkedin}`}
-                  ></i>
+                  <i className="fa-brands fa-linkedin"></i>
                   <Link
                     href="https://www.linkedin.com/in/ziyunyue"
                     className={styles.linkedin_link}
@@ -727,9 +741,7 @@ const HomePage = () => {
                 <p className={styles.name}>Mario Cesena</p>
                 <p className={styles.title}>Full Stack Developer</p>
                 <div className={styles.linkedin}>
-                  <i
-                    className={`${styles.fa_brands} ${styles.fa_linkedin}`}
-                  ></i>
+                  <i className="fa-brands fa-linkedin"></i>
                   <Link
                     href="https://www.linkedin.com/in/mariocesena"
                     className={styles.linkedin_link}
@@ -756,9 +768,7 @@ const HomePage = () => {
                 <p className={styles.name}>Tony Saengthamchai</p>
                 <p className={styles.title}>Full Stack Developer</p>
                 <div className={styles.linkedin}>
-                  <i
-                    className={`${styles.fa_brands} ${styles.fa_linkedin}`}
-                  ></i>
+                  <i className="fa-brands fa-linkedin"></i>
                   <Link
                     href="https://www.linkedin.com/in/tony-sa"
                     className={styles.linkedin_link}
@@ -787,9 +797,7 @@ const HomePage = () => {
                 <p className={styles.name}>Nahla Niavarani</p>
                 <p className={styles.title}>UI/UX Designer</p>
                 <div className={styles.linkedin}>
-                  <i
-                    className={`${styles.fa_brands} ${styles.fa_linkedin}`}
-                  ></i>
+                  <i className="fa-brands fa-linkedin"></i>
                   <Link
                     href="https://www.linkedin.com/in/nahlania"
                     className={styles.linkedin_link}
@@ -816,9 +824,7 @@ const HomePage = () => {
                 <p className={styles.name}>Surbhi Kataria</p>
                 <p className={styles.title}>UI/UX Designer</p>
                 <div className={styles.linkedin}>
-                  <i
-                    className={`${styles.fa_brands} ${styles.fa_linkedin}`}
-                  ></i>
+                  <i className="fa-brands fa-linkedin"></i>
                   <Link
                     href="https://www.linkedin.com/in/surbhikataria"
                     className={styles.linkedin_link}
@@ -846,9 +852,7 @@ const HomePage = () => {
                 <p className={styles.name}>Pablo Montoya Varela</p>
                 <p className={styles.title}>UI/UX Designer</p>
                 <div className={styles.linkedin}>
-                  <i
-                    className={`${styles.fa_brands} ${styles.fa_linkedin}`}
-                  ></i>
+                  <i className="fa-brands fa-linkedin"></i>
                   <Link
                     href="https://www.linkedin.com/in/palimv"
                     className={styles.linkedin_link}
@@ -865,6 +869,9 @@ const HomePage = () => {
               Ai | Ae | Ps | Figma | HTML | CSS | SASS | JS
             </p>
           </div>
+        </div>
+        <div className={styles.team_illustration}>
+          <img src="/assets_landingPage/skyline/restaurant2.svg" alt="" />
         </div>
       </section>
 

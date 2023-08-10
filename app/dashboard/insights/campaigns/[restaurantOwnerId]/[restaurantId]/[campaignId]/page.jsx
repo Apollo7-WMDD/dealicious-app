@@ -168,6 +168,7 @@ const Page = () => {
                       (data) => `$ ${dataArray.spending}`
                     }
                     campaignId={campaignId}
+                    sourceType="fetchTotalRevenueSingle"
                   />
                 </div>
               </ChartCard>
@@ -182,6 +183,7 @@ const Page = () => {
                       (data) => `${Math.round(data.totalUsageAmount)}`
                     }
                     campaignId={campaignId}
+                    sourceType="fetchCustomerCampaignTimeSingle"
                   />
                 </div>
               </ChartCard>
@@ -217,6 +219,7 @@ const Page = () => {
                       (data) => `${Math.round(data.totalUserAmount)}`
                     }
                     campaignId={campaignId}
+                    sourceType="fetchNCbecameSC"
                   />
                 </div>
               </ChartCard>
@@ -254,6 +257,7 @@ const Page = () => {
                       (data) => `$ ${dataArray.spending}`
                     }
                     campaignId={campaignId}
+                    sourceType="fetchTotalRevenueSingle"
                   />
                 </div>
               </ChartCard>
@@ -268,6 +272,7 @@ const Page = () => {
                       (data) => `${Math.round(data.totalUsageAmount)}`
                     }
                     campaignId={campaignId}
+                    sourceType="fetchCustomerCampaignTimeSingle"
                   />
                 </div>
               </ChartCard>
@@ -303,6 +308,7 @@ const Page = () => {
                       (data) => `${Math.round(data.totalUserAmount)}`
                     }
                     campaignId={campaignId}
+                    sourceType="fetchNCbecameSC"
                   />
                 </div>
               </ChartCard>
@@ -376,6 +382,7 @@ const Page = () => {
                           (data) => `$ 0.9k`
                         }
                         campaignId={campaignId}
+                        sourceType="fetchTotalRevenueSingle"
                       />
                     </div>
                   </ChartCard>
@@ -390,6 +397,7 @@ const Page = () => {
                           (data) => `55`
                         }
                         campaignId={campaignId}
+                        sourceType="fetchCustomerCampaignTimeSingle"
                       />
                     </div>
                   </ChartCard>
@@ -429,6 +437,7 @@ const Page = () => {
                           (data) => `32`
                         }
                         campaignId={campaignId}
+                        sourceType="fetchNCbecameSC"
                       />
                     </div>
                   </ChartCard>
@@ -467,6 +476,7 @@ const Page = () => {
                           (data) => `$ 0.9k`
                         }
                         campaignId={campaignId}
+                        sourceType="fetchTotalRevenueSingle"
                       />
                     </div>
                   </ChartCard>
@@ -481,6 +491,7 @@ const Page = () => {
                           (data) => `55`
                         }
                         campaignId={campaignId}
+                        sourceType="fetchCustomerCampaignTimeSingle"
                       />
                     </div>
                   </ChartCard>
@@ -520,6 +531,7 @@ const Page = () => {
                           (data) => `32`
                         }
                         campaignId={campaignId}
+                        sourceType="fetchNCbecameSC"
                       />
                     </div>
                   </ChartCard>

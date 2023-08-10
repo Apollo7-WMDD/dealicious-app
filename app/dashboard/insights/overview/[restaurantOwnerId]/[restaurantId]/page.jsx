@@ -86,6 +86,7 @@ const Page = () => {
               // formatNumber(Math.round(data.totalRevenue))
               (data) => `$ ${formatNumber(Math.round(data.totalRevenue))}`
             }
+            sourceType="fetchTotalRevenue"
           />
         </ChartCard>
 

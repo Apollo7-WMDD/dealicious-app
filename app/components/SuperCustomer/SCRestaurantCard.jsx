@@ -52,8 +52,9 @@ return (
               src={props?.logo}
               style={{
                 borderRadius: "50%",
-                width: "90px", 
-                height: "90px",
+                width: "auto", 
+                height: "auto",
+                maxHeight:"90px",
                 objectFit: "cover",
               }}
               alt="Logo"

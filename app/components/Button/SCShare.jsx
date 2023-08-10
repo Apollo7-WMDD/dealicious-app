@@ -44,7 +44,8 @@ const SCShare = ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: "90vw",
+    maxHeight: "90vh",
     bgcolor: "background.paper",
     border: "2px solid #ff5938",
     borderRadius: "10px",
@@ -135,8 +136,9 @@ const SCShare = ({
                 src={restaurantData?.logo}
                 style={{
                   borderRadius: "50%",
-                  width: "90px", // adjust the size as needed
-                  height: "90px", // adjust the size as needed
+                  width: "auto", 
+                  height: "auto",
+                  maxHeight:"90px",
                   objectFit: "cover",
                 }}
                 alt="Logo"
@@ -193,7 +195,7 @@ const SCShare = ({
           </Box>
           <RWebShare
             data={{
-              text: `I invite you to experience ${restaurantData?.name}. Activate your favourite campaign at the place and enjoy a DEALicious adventure!`,
+              text: `I invite you to experience ${restaurantData?.name}. Activate your favourite campaign at the place and enjoy a Dealicious adventure!`,
               url: url,
               title: "DEALicious share",
             }}
